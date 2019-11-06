@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>isa-psw.tim43</groupId>
-	<artifactId>ISCC</artifactId>
+	<artifactId>iscc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ISCC</name>
+	<name>iscc</name>
 	<description>Main Spring application for the project on the course Internet software architecture and Software design 2019/2020</description>
 
 	<properties>
