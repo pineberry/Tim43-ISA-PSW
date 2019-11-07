@@ -1,4 +1,4 @@
-package isapsw.tim43.iscc;
+package isapsw.tim43.ISCC;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

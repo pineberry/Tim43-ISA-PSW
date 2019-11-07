@@ -1,4 +1,4 @@
-package isapsw.tim43.iscc;
+package isapsw.tim43.ISCC;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
