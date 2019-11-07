@@ -17,6 +17,7 @@ public class MedicalProcedure {
 	 * - true: pacijent zakazao unapred definisan pregled
 	 * - true: admin potvrdio zakazivanje pregleda */
 	private boolean booked;
+	private Report report;
 	
 	public long getId() {
 		return id;
@@ -90,8 +91,16 @@ public class MedicalProcedure {
 		this.booked = booked;
 	}
 
+	public Report getReport() {
+		return report;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
+	}
+
 	public MedicalProcedure(long id, String name, String type, Date dateOfProcedure, MedicalRoom medicalRoom,
-			Doctor doctor, float price, float discount, boolean booked) {
+			Doctor doctor, float price, float discount, boolean booked, Report report) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -102,6 +111,7 @@ public class MedicalProcedure {
 		this.price = price;
 		this.discount = discount;
 		this.booked = booked;
+		this.report = report;
 	}
 
 	public MedicalProcedure() {
