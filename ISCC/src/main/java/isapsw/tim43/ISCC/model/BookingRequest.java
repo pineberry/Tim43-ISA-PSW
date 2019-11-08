@@ -5,13 +5,13 @@ import java.util.Date;
 public class BookingRequest {
 	
 	private long id;
-	private String type;
+	private ProcedureType procedureType;
 	private Date date;
-	
-	public BookingRequest(long id, String type, Date date) {
+
+	public BookingRequest(long id, ProcedureType procedureType, Date date) {
 		super();
 		this.id = id;
-		this.type = type;
+		this.procedureType = procedureType;
 		this.date = date;
 	}
 
@@ -22,13 +22,13 @@ public class BookingRequest {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getType() {
-		return type;
+	
+	public ProcedureType getProcedureType() {
+		return procedureType;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setProcedureType(ProcedureType procedureType) {
+		this.procedureType = procedureType;
 	}
 
 	public Date getDate() {

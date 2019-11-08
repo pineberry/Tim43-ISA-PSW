@@ -6,7 +6,7 @@ public class MedicalProcedure {
 
 	private long id;
 	private String name;
-	private String type;
+	private ProcedureType type;
 	private Date dateOfProcedure;
 	private MedicalRoom medicalRoom;
 	private Doctor doctor;
@@ -35,14 +35,14 @@ public class MedicalProcedure {
 		this.name = name;
 	}
 	
-	public String getType() {
+	public ProcedureType getType() {
 		return type;
 	}
-	
-	public void setType(String type) {
+
+	public void setType(ProcedureType type) {
 		this.type = type;
 	}
-	
+
 	public Date getDateOfProcedure() {
 		return dateOfProcedure;
 	}
@@ -99,7 +99,7 @@ public class MedicalProcedure {
 		this.report = report;
 	}
 
-	public MedicalProcedure(long id, String name, String type, Date dateOfProcedure, MedicalRoom medicalRoom,
+	public MedicalProcedure(long id, String name, ProcedureType type, Date dateOfProcedure, MedicalRoom medicalRoom,
 			Doctor doctor, float price, float discount, boolean booked, Report report) {
 		super();
 		this.id = id;
