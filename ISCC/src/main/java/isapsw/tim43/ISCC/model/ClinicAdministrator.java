@@ -13,12 +13,13 @@ public class ClinicAdministrator {
 	private String address;
 	private String city;
 	private String state;
+	private Clinic clinic;
 	
 	private List<VacationRequest> vacationRequests;
 	private List<BookingRequest> bookingRequests;
 	
 	public ClinicAdministrator(long id, String email, String password, String firstName, String lastName,
-			String phoneNumber, String address, String city, String state, List<VacationRequest> vacationRequests,
+			String phoneNumber, String address, String city, String state, Clinic clinic, List<VacationRequest> vacationRequests,
 			List<BookingRequest> bookingRequests) {
 		super();
 		this.id = id;
@@ -30,6 +31,7 @@ public class ClinicAdministrator {
 		this.address = address;
 		this.city = city;
 		this.state = state;
+		this.clinic = clinic;
 		this.vacationRequests = vacationRequests;
 		this.bookingRequests = bookingRequests;
 	}
@@ -104,6 +106,14 @@ public class ClinicAdministrator {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
 	}
 
 	public List<VacationRequest> getVacationRequests() {
