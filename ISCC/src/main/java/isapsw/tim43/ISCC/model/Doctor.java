@@ -1,29 +1,68 @@
 package isapsw.tim43.ISCC.model;
 
-import java.util.Date;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Doctor {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	@Column(name = "email", unique = true, nullable = false)
 	private String email;
+	
+	@JsonIgnore
+	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "firstName", nullable = false)
 	private String firstName;
+	
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
+	
+	@Column(name = "adress", nullable = false)
 	private String address;
+	
+	@Column(name = "city", nullable = false)
 	private String city;
+	
+	@Column(name = "state", nullable = false)
 	private String state;
+	
+	@Column(name = "phoneNumber", nullable = false)
 	private String phoneNumber;
+	
+	@Column(name = "averageRating", nullable = false)
 	private double averageRating;
-	private Date workingtimeStart;
-	private Date workingtimeEnd;
-	private List<Report> reports;
+	
+	@Column(name = "workingtimeStart", nullable = false)
+	private int workingtimeStart;
+	
+	@Column(name = "workingtimeEnd", nullable = false)
+	private int workingtimeEnd;
+	
+//	private List<Report> reports;
+	
+	@Column(name = "onVacation", nullable = false)
 	private Boolean onVacation;
-	private ProcedureType specialized;
+	
+//	private ProcedureType specialized;
+	
+	public Doctor() {
+		super();
+	}
 	
 	public Doctor(long id, String email, String password, String firstName, String lastName, String address,
-			String city, String state, String phoneNumber, double averageRating, Date workingtimeStart,
-			Date workingtimeEnd, List<Report> reports, Boolean onVacation, ProcedureType specialized) {
+			String city, String state, String phoneNumber, double averageRating, int workingtimeStart,
+			int workingtimeEnd, boolean onVacation) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -37,9 +76,9 @@ public class Doctor {
 		this.averageRating = averageRating;
 		this.workingtimeStart = workingtimeStart;
 		this.workingtimeEnd = workingtimeEnd;
-		this.reports = reports;
+	//	this.reports = reports;
 		this.onVacation = onVacation;
-		this.specialized = specialized;
+	//	this.specialized = specialized;
 	}
 	public long getId() {
 		return id;
@@ -101,37 +140,37 @@ public class Doctor {
 	public void setAverageRating(double averageRating) {
 		this.averageRating = averageRating;
 	}
-	public Date getWorkingtimeStart() {
+	public int getWorkingtimeStart() {
 		return workingtimeStart;
 	}
-	public void setWorkingtimeStart(Date workingtimeStart) {
+	public void setWorkingtimeStart(int workingtimeStart) {
 		this.workingtimeStart = workingtimeStart;
 	}
-	public Date getWorkingtimeEnd() {
+	public int getWorkingtimeEnd() {
 		return workingtimeEnd;
 	}
-	public void setWorkingtimeEnd(Date workingtimeEnd) {
+	public void setWorkingtimeEnd(int workingtimeEnd) {
 		this.workingtimeEnd = workingtimeEnd;
 	}
-	public List<Report> getReports() {
+/*	public List<Report> getReports() {
 		return reports;
 	}
 	public void setReports(List<Report> reports) {
 		this.reports = reports;
 	}
-	public Boolean getOnVacation() {
+*/	public Boolean getOnVacation() {
 		return onVacation;
 	}
 	public void setOnVacation(Boolean onVacation) {
 		this.onVacation = onVacation;
 	}
-	public ProcedureType getSpecialized() {
+/*	public ProcedureType getSpecialized() {
 		return specialized;
 	}
 	public void setSpecialized(ProcedureType specialized) {
 		this.specialized = specialized;
 	}
-	
+*/	
 	
 	
 	
