@@ -1,13 +1,13 @@
 package isapsw.tim43.ISCC.dto;
 
-public class RequsetDeniedDTO {
+public class RequestDeniedDTO {
     String email;
     String explanation;
 
-    public RequsetDeniedDTO() {
+    public RequestDeniedDTO() {
     }
 
-    public RequsetDeniedDTO(String email, String explanation) {
+    public RequestDeniedDTO(String email, String explanation) {
         this.email = email;
         this.explanation = explanation;
     }
