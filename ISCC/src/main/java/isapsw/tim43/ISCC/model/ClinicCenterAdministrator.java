@@ -1,37 +1,47 @@
 package isapsw.tim43.ISCC.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class ClinicCenterAdministrator {
-	
-	private long id;
-	private String email;
-	private String password;
-	private String firstName;
-	private String lastName;
-	private String phoneNumber;
-	private String address;
-	private String city;
-	private String state;
-	private ClinicCenter clinicCenter;
-	
-	private List<Patient> registrationRequests;
 
-	public ClinicCenterAdministrator(long id, String email, String password, String firstName, String lastName,
-			String phoneNumber, String address, String city, String state, ClinicCenter clinicCenter,
-			List<Patient> registrationRequests) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.clinicCenter = clinicCenter;
-		this.registrationRequests = registrationRequests;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	@Column(name = "email", nullable = false, unique = true)
+	private String email;
+
+	@JsonIgnore
+	@Column(name = "password")
+	private String password;
+
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
+
+	@Column(name = "last_name", nullable = false)
+	private String lastName;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "city")
+	private String city;
+
+	@Column(name = "state")
+	private String state;
+	//private ClinicCenter clinicCenter;
+	
+	//private List<Patient> registrationRequests;
+
+
+	public ClinicCenterAdministrator() {
 	}
 
 	public long getId() {
@@ -106,21 +116,6 @@ public class ClinicCenterAdministrator {
 		this.state = state;
 	}
 
-	public ClinicCenter getClinicCenter() {
-		return clinicCenter;
-	}
-
-	public void setClinicCenter(ClinicCenter clinicCenter) {
-		this.clinicCenter = clinicCenter;
-	}
-
-	public List<Patient> getRegistrationRequests() {
-		return registrationRequests;
-	}
-
-	public void setRegistrationRequests(List<Patient> registrationRequests) {
-		this.registrationRequests = registrationRequests;
-	}
 	
 	
 }
