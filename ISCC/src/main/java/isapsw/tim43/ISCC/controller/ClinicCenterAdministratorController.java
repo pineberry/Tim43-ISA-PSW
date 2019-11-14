@@ -1,15 +1,14 @@
 package isapsw.tim43.ISCC.controller;
 
+import isapsw.tim43.ISCC.dto.ClinicAdministratorDTO;
 import isapsw.tim43.ISCC.dto.ClinicDTO;
 import isapsw.tim43.ISCC.dto.PatientDTO;
 import isapsw.tim43.ISCC.dto.RequestDeniedDTO;
 import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.ClinicAdministrator;
 import isapsw.tim43.ISCC.model.ClinicCenterAdministrator;
 import isapsw.tim43.ISCC.model.Patient;
-import isapsw.tim43.ISCC.service.ClinicCenterAdministratorService;
-import isapsw.tim43.ISCC.service.ClinicService;
-import isapsw.tim43.ISCC.service.EmailService;
-import isapsw.tim43.ISCC.service.PatientService;
+import isapsw.tim43.ISCC.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +31,9 @@ public class ClinicCenterAdministratorController {
 
     @Autowired
     ClinicService clinicService;
+
+    @Autowired
+    ClinicAdministratorService clinicAdministratorService;
 
 
 
@@ -89,5 +91,27 @@ public class ClinicCenterAdministratorController {
 
         clinicService.save(clinic);
         return new ResponseEntity<>(new ClinicDTO(clinic), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/register/clinic/administrator", consumes = "application/json")
+    public ResponseEntity<ClinicAdministratorDTO> registerClinicAdministrator(@RequestBody ClinicAdministratorDTO clinicAdministratorDTO) {
+
+        if(clinicAdministratorDTO.getEmail() == null || clinicAdministratorDTO.getEmail().isEmpty() || clinicAdministratorDTO.getPassword() == null
+        || clinicAdministratorDTO.getPassword().isEmpty() || clinicAdministratorDTO.getFirstName() == null || clinicAdministratorDTO.getFirstName().isEmpty()
+        || clinicAdministratorDTO.getLastName() == null || clinicAdministratorDTO.getLastName().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        Clinic clinic = clinicService.findByName(clinicAdministratorDTO.getClinicName());
+
+        ClinicAdministrator clinicAdministrator = new ClinicAdministrator();
+        clinicAdministrator.setEmail(clinicAdministratorDTO.getEmail());
+        clinicAdministrator.setPassword(clinicAdministratorDTO.getPassword());
+        clinicAdministrator.setFirstName(clinicAdministratorDTO.getFirstName());
+        clinicAdministrator.setLastName(clinicAdministratorDTO.getLastName());
+        clinicAdministrator.setClinic(clinic);
+
+        clinicAdministratorService.save(clinicAdministrator);
+        return new ResponseEntity<>(new ClinicAdministratorDTO(clinicAdministrator), HttpStatus.CREATED);
     }
 }

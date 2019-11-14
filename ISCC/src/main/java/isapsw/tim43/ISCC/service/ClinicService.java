@@ -15,6 +15,10 @@ public class ClinicService {
         return clinicRepository.save(clinic);
     }
 
+    public Clinic findByName(String name) {
+        return clinicRepository.findByName(name);
+    }
+
     public void remove(Long id) {
         clinicRepository.deleteById(id);
     }

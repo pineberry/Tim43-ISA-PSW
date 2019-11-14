@@ -13,7 +13,7 @@ public class Clinic {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 
 	@Column(name = "address")
@@ -25,12 +25,14 @@ public class Clinic {
 	@Column(name = "average_rating")
 	private double averageRating;
 
+	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ClinicAdministrator> administrators;
 	/*
 	private List<Date> appointmentDates;
 	private List<Doctor> doctors;
 	private List<MedicalRoom> medicalRooms;
 	private Map<Double, MedicalProcedure> pricelist;
-	private List<ClinicAdministrator> administrators;*/
+	*/
 
 	public Clinic() {
 	}

@@ -1,26 +1,55 @@
 package isapsw.tim43.ISCC.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class ClinicAdministrator {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
+
+	@JsonIgnore
+	@Column(name = "password")
 	private String password;
+
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
+
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
+
+	@Column(name = "phone_number")
 	private String phoneNumber;
+
+	@Column(name = "address")
 	private String address;
+
+	@Column(name = "city")
 	private String city;
+
+	@Column(name = "state")
 	private String state;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Clinic clinic;
-	
+	/*
 	private List<VacationRequest> vacationRequests;
-	private List<BookingRequest> bookingRequests;
-	
+	private List<BookingRequest> bookingRequests;*/
+
+	public ClinicAdministrator() {
+	}
+
 	public ClinicAdministrator(long id, String email, String password, String firstName, String lastName,
-			String phoneNumber, String address, String city, String state, Clinic clinic, List<VacationRequest> vacationRequests,
-			List<BookingRequest> bookingRequests) {
+							   String phoneNumber, String address, String city, String state, Clinic clinic, List<VacationRequest> vacationRequests,
+							   List<BookingRequest> bookingRequests) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -32,8 +61,8 @@ public class ClinicAdministrator {
 		this.city = city;
 		this.state = state;
 		this.clinic = clinic;
-		this.vacationRequests = vacationRequests;
-		this.bookingRequests = bookingRequests;
+		/*this.vacationRequests = vacationRequests;
+		this.bookingRequests = bookingRequests;*/
 	}
 
 	public long getId() {
@@ -116,7 +145,7 @@ public class ClinicAdministrator {
 		this.clinic = clinic;
 	}
 
-	public List<VacationRequest> getVacationRequests() {
+	/*public List<VacationRequest> getVacationRequests() {
 		return vacationRequests;
 	}
 
@@ -130,7 +159,7 @@ public class ClinicAdministrator {
 
 	public void setBookingRequests(List<BookingRequest> bookingRequests) {
 		this.bookingRequests = bookingRequests;
-	}
+	}*/
 	
 	
 }
