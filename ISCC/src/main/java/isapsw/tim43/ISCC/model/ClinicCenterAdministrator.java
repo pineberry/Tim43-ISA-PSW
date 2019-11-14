@@ -36,10 +36,6 @@ public class ClinicCenterAdministrator {
 
 	@Column(name = "state")
 	private String state;
-	//private ClinicCenter clinicCenter;
-	
-	//private List<Patient> registrationRequests;
-
 
 	public ClinicCenterAdministrator() {
 	}
