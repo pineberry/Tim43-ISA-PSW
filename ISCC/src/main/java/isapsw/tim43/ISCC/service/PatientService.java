@@ -11,6 +11,11 @@ public class PatientService {
     @Autowired
     PatientRepository patientRepository;
 
+    public Patient findById(Long id) {
+        Patient p = patientRepository.findById(id).orElse(null);
+        return p;
+    }
+
     public Patient save(Patient patient) {
         return patientRepository.save(patient);
     }

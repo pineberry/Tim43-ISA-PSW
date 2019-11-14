@@ -39,6 +39,9 @@ public class Patient {
 	@Column(name = "health_care_number", unique = true, nullable = false)
 	private String healthCareNumber;
 
+	@Column(name = "activated")
+	private boolean activated;
+
 	//private MedicalRecord medicalRecord;
 	
 	public long getId() {
@@ -119,6 +122,14 @@ public class Patient {
 	
 	public void setHealthCareNumber(String healthCareNumber) {
 		this.healthCareNumber = healthCareNumber;
+	}
+
+	public boolean isActivated() {
+		return activated;
+	}
+
+	public void setActivated(boolean activated) {
+		this.activated = activated;
 	}
 
 	/*public MedicalRecord getMedicalRecord() {
