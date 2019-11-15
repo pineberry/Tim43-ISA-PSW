@@ -3,12 +3,26 @@ package isapsw.tim43.ISCC.model;
 import java.util.Date;
 import java.util.Map;
 
-public class MedicalRoom {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class MedicalRoom {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	@Column(name = "roomName", nullable = false)
 	private String roomName;
+	
+	@Column(name = "roomNumber", nullable = false)
 	private long roomNumber;
-	private Map<Date, Boolean> availability;
+	
+//	private Map<Date, Boolean> availability;
 	
 	public long getId() {
 		return id;
@@ -34,20 +48,19 @@ public class MedicalRoom {
 		this.roomNumber = roomNumber;
 	}
 	
-	public Map<Date, Boolean> getAvailability() {
+/*	public Map<Date, Boolean> getAvailability() {
 		return availability;
 	}
 	
 	public void setAvailability(Map<Date, Boolean> availability) {
 		this.availability = availability;
 	}
-	
-	public MedicalRoom(long id, String roomName, long roomNumber, Map<Date, Boolean> availability) {
+*/	
+	public MedicalRoom(long id, String roomName, long roomNumber) {
 		super();
 		this.id = id;
 		this.roomName = roomName;
 		this.roomNumber = roomNumber;
-		this.availability = availability;
 	}
 	
 	public MedicalRoom() {
