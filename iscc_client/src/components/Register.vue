@@ -39,8 +39,8 @@
                     <input type="text" class="form-control" id="phoneNumber" v-model="phoneNumber">
                 </div>
                 <div class="form-group">
-                    <label for="insuranceNumber">Insurance number</label>
-                    <input type="text" class="form-control" id="insuranceNumber" v-model="insuranceNumber">
+                    <label for="healthCareNumber">Insurance number</label>
+                    <input type="text" class="form-control" id="healthCareNumber" v-model="healthCareNumber">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Register</button>
             </form>
@@ -48,6 +48,8 @@
     </div>
 </template>
 <script>
+
+    import axios from "axios";
 
 	export default{
         name: "Register",
@@ -57,11 +59,12 @@
                 lastName : undefined,
                 email : undefined,
                 password : undefined,
+                passwordF : undefined,
                 address : undefined,
                 city : undefined,
                 state : undefined,
                 phoneNumber : undefined,
-                insuranceNumber : undefined
+                healthCareNumber : undefined
             }
         },
         methods : {
@@ -71,14 +74,15 @@
 	                "lastName" : this.lastName,
 	                "email" : this.email,
 	                "password" : this.password,
+                    "passwordF" : this.passwordF,
 	                "address" : this.address,
 	                "city" : this.city,
 	                "state" : this.state,
 	                "phoneNumber" : this.phoneNumber,
-	                "insuranceNumber" : this.insuranceNumber
+	                "healthCareNumber" : this.healthCareNumber
                 }
                console.log(user)
-               // axios.post('http://localhost:8080/center/admin/register/clinic', clinic)
+               axios.post('http://localhost:8080/register', user)
             }
         }
     }

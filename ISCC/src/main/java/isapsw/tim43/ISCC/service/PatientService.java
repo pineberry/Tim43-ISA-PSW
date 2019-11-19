@@ -15,6 +15,20 @@ public class PatientService {
         Patient p = patientRepository.findById(id).orElse(null);
         return p;
     }
+    
+    public Patient findByHealthCareNumber(String healthCareNumber) {
+    	Patient patient = null;
+    	
+    	for (Patient p : patientRepository.findAll()) {
+			if(p.getHealthCareNumber().equals(healthCareNumber))
+			{
+				patient = p;
+				break;
+			}
+		}
+ 
+    	return patient;
+    }
 
     public Patient save(Patient patient) {
         return patientRepository.save(patient);
