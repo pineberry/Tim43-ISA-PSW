@@ -10,22 +10,34 @@ public class ClinicAdministratorDTO {
     private String firstName;
     private String lastName;
     private String clinicName;
+    private String phoneNumber;
+    private String address;
+    private String city;
+    private String state;
 
     public ClinicAdministratorDTO() {
     }
 
-    public ClinicAdministratorDTO(Long id, String email, String password, String firstName, String lastName) {
+    public ClinicAdministratorDTO(Long id, String email, String password, String firstName, String lastName,
+                                  String phoneNumber, String address, String city, String state) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.state = state;
     }
 
 
 
     public ClinicAdministratorDTO(ClinicAdministrator clinicAdministrator) {
-        this(clinicAdministrator.getId(), clinicAdministrator.getEmail(), clinicAdministrator.getPassword(), clinicAdministrator.getFirstName(), clinicAdministrator.getLastName());
+        this(clinicAdministrator.getId(), clinicAdministrator.getEmail(), clinicAdministrator.getPassword(),
+                clinicAdministrator.getFirstName(), clinicAdministrator.getLastName(),
+                clinicAdministrator.getPhoneNumber(), clinicAdministrator.getAddress(), clinicAdministrator.getCity(),
+                clinicAdministrator.getState());
     }
 
     public Long getId() {
@@ -74,5 +86,37 @@ public class ClinicAdministratorDTO {
 
     public void setClinicName(String clinicName) {
         this.clinicName = clinicName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping(value = "/center/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClinicCenterAdministratorController {
 
@@ -41,7 +42,7 @@ public class ClinicCenterAdministratorController {
     public ResponseEntity<PatientDTO> activateAccount(@PathVariable Long id) {
 
         Patient patient = patientService.findById(id);
-        patient.setActivated(true);
+
 
         patientService.save(patient);
         return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
@@ -51,22 +52,23 @@ public class ClinicCenterAdministratorController {
     public ResponseEntity<PatientDTO> acceptRequest(@RequestBody PatientDTO patientDTO) throws InterruptedException {
         Patient patient = new Patient();
 
-        if(patientDTO.getEmail() == null || patientDTO.getEmail().isEmpty() || patientDTO.getFirstName() == null  || patientDTO.getFirstName().isEmpty()
-                 || patientDTO.getLastName() == null  || patientDTO.getLastName().isEmpty() || patientDTO.getPassword() == null
-                 || patientDTO.getPassword().isEmpty() || patientDTO.getHealthCareNumber() == null || patientDTO.getHealthCareNumber().isEmpty()) {
+        if (patientDTO.getEmail() == null || patientDTO.getEmail().isEmpty() || patientDTO.getFirstName() == null  ||
+                patientDTO.getFirstName().isEmpty() || patientDTO.getLastName() == null  ||
+                patientDTO.getLastName().isEmpty() || patientDTO.getPassword() == null ||
+                patientDTO.getPassword().isEmpty() || patientDTO.getHealthCareNumber() == null ||
+                patientDTO.getHealthCareNumber().isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
 
-        patient.setEmail(patientDTO.getEmail());
-        patient.setFirstName(patientDTO.getFirstName());
-        patient.setLastName(patientDTO.getLastName());
-        patient.setPassword(patientDTO.getPassword());
-        patient.setHealthCareNumber(patientDTO.getHealthCareNumber());
-        patient.setActivated(false);
+
+
+
+        try {
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
 
         patientService.save(patient);
-        //String text = "Your account is successfully registered please click on link below to activate: \n http://localhost:8080/clinic/admin/activate/" + patient.getId();
-        //emailService.sendNotificationAsync(patient.getEmail(), text);
         return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.NOT_FOUND);
     }
 
@@ -78,8 +80,9 @@ public class ClinicCenterAdministratorController {
     @PostMapping(value = "/register/clinic", consumes = "application/json")
     public ResponseEntity<ClinicDTO> registerClinic(@RequestBody ClinicDTO clinicDTO){
 
-        if(clinicDTO.getName() == null || clinicDTO.getName().isEmpty() || clinicDTO.getAddress() == null || clinicDTO.getAddress().isEmpty()
-        || clinicDTO.getDescription() == null || clinicDTO.getDescription().isEmpty()) {
+        if (clinicDTO.getName() == null || clinicDTO.getName().isEmpty() || clinicDTO.getAddress() == null ||
+                clinicDTO.getAddress().isEmpty() || clinicDTO.getDescription() == null ||
+                clinicDTO.getDescription().isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
 
@@ -94,11 +97,13 @@ public class ClinicCenterAdministratorController {
     }
 
     @PostMapping(value = "/register/clinic/administrator", consumes = "application/json")
-    public ResponseEntity<ClinicAdministratorDTO> registerClinicAdministrator(@RequestBody ClinicAdministratorDTO clinicAdministratorDTO) {
+    public ResponseEntity<ClinicAdministratorDTO> registerClinicAdministrator(@RequestBody ClinicAdministratorDTO
+                                                                                          clinicAdministratorDTO) {
 
-        if(clinicAdministratorDTO.getEmail() == null || clinicAdministratorDTO.getEmail().isEmpty() || clinicAdministratorDTO.getPassword() == null
-        || clinicAdministratorDTO.getPassword().isEmpty() || clinicAdministratorDTO.getFirstName() == null || clinicAdministratorDTO.getFirstName().isEmpty()
-        || clinicAdministratorDTO.getLastName() == null || clinicAdministratorDTO.getLastName().isEmpty()) {
+        if (clinicAdministratorDTO.getEmail() == null || clinicAdministratorDTO.getEmail().isEmpty() ||
+                clinicAdministratorDTO.getPassword() == null || clinicAdministratorDTO.getPassword().isEmpty() ||
+                clinicAdministratorDTO.getFirstName() == null || clinicAdministratorDTO.getFirstName().isEmpty() ||
+                clinicAdministratorDTO.getLastName() == null || clinicAdministratorDTO.getLastName().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
@@ -111,7 +116,7 @@ public class ClinicCenterAdministratorController {
         clinicAdministrator.setLastName(clinicAdministratorDTO.getLastName());
         clinicAdministrator.setClinic(clinic);
 
-        clinicAdministratorService.save(clinicAdministrator);
-        return new ResponseEntity<>(new ClinicAdministratorDTO(clinicAdministrator), HttpStatus.CREATED);
+        clinicAdministratorService.save( clinicAdministrator );
+        return new ResponseEntity<>( new ClinicAdministratorDTO( clinicAdministrator ), HttpStatus.CREATED );
     }
 }

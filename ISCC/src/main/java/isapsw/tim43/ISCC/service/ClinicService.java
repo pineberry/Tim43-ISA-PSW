@@ -5,6 +5,8 @@ import isapsw.tim43.ISCC.repository.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClinicService {
 
@@ -21,5 +23,9 @@ public class ClinicService {
 
     public void remove(Long id) {
         clinicRepository.deleteById(id);
+    }
+
+    public List<Clinic> findAll() {
+        return clinicRepository.findAll();
     }
 }

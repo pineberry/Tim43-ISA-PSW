@@ -21,11 +21,6 @@
 </template>
 
 <script>
-
-
-
-    import axios from "axios";
-
     export default {
         name: "AddClinic",
         data : function () {
@@ -45,7 +40,10 @@
                     "averageRating" : this.averageRating
                 }
 
-               axios.post('http://localhost:8080/center/admin/register/clinic', clinic)
+               this.axios.post('http://localhost:8080/center/admin/register/clinic', clinic)
+                    .then(function (response) {
+                        alert(response.data)
+                    })
             }
         }
     }

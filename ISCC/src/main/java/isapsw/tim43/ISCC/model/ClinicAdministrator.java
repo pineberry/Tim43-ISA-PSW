@@ -48,8 +48,8 @@ public class ClinicAdministrator {
 	}
 
 	public ClinicAdministrator(long id, String email, String password, String firstName, String lastName,
-							   String phoneNumber, String address, String city, String state, Clinic clinic, List<VacationRequest> vacationRequests,
-							   List<BookingRequest> bookingRequests) {
+							   String phoneNumber, String address, String city, String state, Clinic clinic,
+							   List<VacationRequest> vacationRequests, List<BookingRequest> bookingRequests) {
 		super();
 		this.id = id;
 		this.email = email;

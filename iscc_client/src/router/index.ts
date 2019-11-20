@@ -2,8 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import AddClinic from "../views/AddClinic.vue";
-import Register from "../components/Register.vue"
-import Login from "../components/Login.vue"
+import Register from "../components/Register.vue";
+import Login from "../components/Login.vue";
+import AddClinicAdmin from "../views/AddClinicAdmin.vue";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login
+  },
+  {
+    path: "/addClinicAdmin",
+    name: "addClinicAdmin",
+    component: AddClinicAdmin
   }
 ];
 

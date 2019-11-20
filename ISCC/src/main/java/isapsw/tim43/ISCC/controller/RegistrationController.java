@@ -33,7 +33,6 @@ public class RegistrationController {
 				Patient patient = new Patient(user.getEmail(), user.getPassword(), user.getFirstName(),
 						user.getLastName(), user.getAddress(), user.getCity(), user.getState(),
 						user.getPhoneNumber(), user.getHealthCareNumber(), "pending");
-				
 				return new ResponseEntity<>(patientService.save(patient), HttpStatus.CREATED); //201
 			}
 			else

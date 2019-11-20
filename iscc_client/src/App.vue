@@ -1,8 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/addClinic">AddClinic</router-link>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Add
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <router-link class="nav-item nav-link" to="/addClinic">Clinic</router-link>
+              <router-link class="nav-link nav-item" to="/addClinicAdmin">Clinic Admin</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
     <router-view />
   </div>
 </template>
