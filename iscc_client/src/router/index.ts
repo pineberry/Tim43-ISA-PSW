@@ -6,6 +6,7 @@ import Register from "../components/Register.vue";
 import Login from "../components/Login.vue";
 import AddClinicAdmin from "../views/AddClinicAdmin.vue";
 import RegistrationRequest from "../views/RegistrationRequest.vue";
+import Codebook from "../views/Codebook.vue";
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,11 @@ const routes = [
     path: "/registrationRequest/:id",
     name: "registrationRequest",
     component: RegistrationRequest
+  },
+  {
+    path: "/codebook",
+    name: "codebook",
+    component: Codebook
   }
 ];
 
