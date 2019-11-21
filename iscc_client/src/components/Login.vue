@@ -43,6 +43,7 @@
 	        		{
         				this.$router.push('/addClinic')
         				this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt
+        				localStorage.setItem('auth', 'Bearer ' + this.jwt)
 	        		}
 	        		else 
 	        		{
