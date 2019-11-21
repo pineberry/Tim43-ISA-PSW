@@ -18,7 +18,13 @@
 
 <script>
 	export default{
-        name: "Register"
+        name: "Register",
+        data : function () {
+            return{
+                email : undefined,
+                password : undefined
+            }
+        }
     }
 </script>
 

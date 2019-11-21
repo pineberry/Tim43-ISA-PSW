@@ -43,25 +43,17 @@ public class ClinicCenterAdministratorController {
 
         Patient patient = patientService.findById(id);
 
-
+        patient.setStatus("activated");
         patientService.save(patient);
         return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/accept", consumes = "application/json")
-    public ResponseEntity<PatientDTO> acceptRequest(@RequestBody PatientDTO patientDTO) throws InterruptedException {
-        Patient patient = new Patient();
+    @PutMapping(value = "/accept/{id}")
+    public ResponseEntity<PatientDTO> acceptRequest(@PathVariable Long id) throws InterruptedException {
 
-        if (patientDTO.getEmail() == null || patientDTO.getEmail().isEmpty() || patientDTO.getFirstName() == null  ||
-                patientDTO.getFirstName().isEmpty() || patientDTO.getLastName() == null  ||
-                patientDTO.getLastName().isEmpty() || patientDTO.getPassword() == null ||
-                patientDTO.getPassword().isEmpty() || patientDTO.getHealthCareNumber() == null ||
-                patientDTO.getHealthCareNumber().isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
-        }
+        Patient patient = patientService.findById(id);
 
-
-
+        patient.setStatus("accepted");
 
         try {
         } catch ( Exception e ) {
@@ -72,8 +64,11 @@ public class ClinicCenterAdministratorController {
         return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value = "/deny", consumes = "application/json")
-    public void denyRequest(@RequestBody RequestDeniedDTO requestDeniedDTO) throws InterruptedException {
+    @DeleteMapping(value = "/deny/{id}", consumes = "application/json")
+    public void denyRequest(@RequestBody RequestDeniedDTO requestDeniedDTO, @PathVariable Long id) throws InterruptedException {
+
+        patientService.remove(id);
+
         //emailService.sendNotificationAsync(requestDeniedDTO.getEmail(), requestDeniedDTO.getExplanation());
     }
 
@@ -114,6 +109,10 @@ public class ClinicCenterAdministratorController {
         clinicAdministrator.setPassword(clinicAdministratorDTO.getPassword());
         clinicAdministrator.setFirstName(clinicAdministratorDTO.getFirstName());
         clinicAdministrator.setLastName(clinicAdministratorDTO.getLastName());
+        clinicAdministrator.setPhoneNumber(clinicAdministratorDTO.getPhoneNumber());
+        clinicAdministrator.setAddress(clinicAdministratorDTO.getAddress());
+        clinicAdministrator.setCity(clinicAdministratorDTO.getCity());
+        clinicAdministrator.setState(clinicAdministratorDTO.getState());
         clinicAdministrator.setClinic(clinic);
 
         clinicAdministratorService.save( clinicAdministrator );

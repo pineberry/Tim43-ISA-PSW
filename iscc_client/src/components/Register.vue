@@ -47,9 +47,8 @@
         </div>
     </div>
 </template>
-<script>
 
-    import axios from "axios";
+<script>
 
 	export default{
         name: "Register",
@@ -82,7 +81,7 @@
 	                "healthCareNumber" : this.healthCareNumber
                 }
                console.log(user)
-               axios.post('http://localhost:8080/register', user)
+              this.axios.post('http://localhost:8080/register', user)
             }
         }
     }
