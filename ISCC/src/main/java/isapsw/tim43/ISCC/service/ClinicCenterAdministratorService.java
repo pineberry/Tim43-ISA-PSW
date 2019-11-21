@@ -19,6 +19,7 @@ public class ClinicCenterAdministratorService {
         clinicCenterAdminRepo.deleteById(id);
     }
 
+<<<<<<< HEAD
 	public ClinicCenterAdministrator findUserByEmailAddress(String emailAddress) {
 		ClinicCenterAdministrator clinicCenterAdmin = null;
 
@@ -31,4 +32,9 @@ public class ClinicCenterAdministratorService {
 		}
 		return clinicCenterAdmin;
 	}
+=======
+    public ClinicCenterAdministrator findByEmail(String email) {
+        return clinicCenterAdminRepo.findByEmail(email);
+    }
+>>>>>>> e457d6d388b8fb253c9443c134ff2ee314be8b93
 }

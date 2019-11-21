@@ -1,11 +1,9 @@
 package isapsw.tim43.ISCC.controller;
 
-import isapsw.tim43.ISCC.dto.ClinicAdministratorDTO;
-import isapsw.tim43.ISCC.dto.ClinicDTO;
-import isapsw.tim43.ISCC.dto.PatientDTO;
-import isapsw.tim43.ISCC.dto.RequestDeniedDTO;
+import isapsw.tim43.ISCC.dto.*;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.ClinicAdministrator;
+import isapsw.tim43.ISCC.model.ClinicCenterAdministrator;
 import isapsw.tim43.ISCC.model.Patient;
 import isapsw.tim43.ISCC.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,9 @@ public class ClinicCenterAdministratorController {
 
     @Autowired
     ClinicAdministratorService clinicAdministratorService;
+
+    @Autowired
+    CenterAdminValidationService centerAdminValidationService;
 
 
 
@@ -123,5 +124,28 @@ public class ClinicCenterAdministratorController {
 
         clinicAdministratorService.save( clinicAdministrator );
         return new ResponseEntity<>( new ClinicAdministratorDTO( clinicAdministrator ), HttpStatus.CREATED );
+    }
+
+    @PostMapping(value = "/center/administrator", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicCenterAdministratorDTO> addCenterAdministrator(@RequestBody ClinicCenterAdministratorDTO
+                                                                               clinicCenterAdministratorDTO) {
+
+        ClinicCenterAdministrator admin = new ClinicCenterAdministrator();
+
+        admin.setEmail(clinicCenterAdministratorDTO.getEmail());
+        admin.setPassword(clinicCenterAdministratorDTO.getPassword());
+        admin.setFirstName(clinicCenterAdministratorDTO.getFirstName());
+        admin.setLastName(clinicCenterAdministratorDTO.getLastName());
+        admin.setPhoneNumber(clinicCenterAdministratorDTO.getPhoneNumber());
+        admin.setAddress(clinicCenterAdministratorDTO.getAddress());
+        admin.setCity(clinicCenterAdministratorDTO.getCity());
+        admin.setState(clinicCenterAdministratorDTO.getState());
+
+        if (!centerAdminValidationService.validateAdministrator(admin)) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        clinicCenterAdminService.save(admin);
+        return new ResponseEntity<>(new ClinicCenterAdministratorDTO(admin), HttpStatus.CREATED);
     }
 }

@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClinicCenterAdministratorRepository extends JpaRepository<ClinicCenterAdministrator, Long> {
 
+    public ClinicCenterAdministrator findByEmail(String email);
 }
