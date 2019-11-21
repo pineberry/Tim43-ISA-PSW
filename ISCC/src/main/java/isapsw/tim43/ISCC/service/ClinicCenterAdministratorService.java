@@ -19,5 +19,16 @@ public class ClinicCenterAdministratorService {
         clinicCenterAdminRepo.deleteById(id);
     }
 
+	public ClinicCenterAdministrator findUserByEmailAddress(String emailAddress) {
+		ClinicCenterAdministrator clinicCenterAdmin = null;
 
+		for (ClinicCenterAdministrator c : clinicCenterAdminRepo.findAll()) {
+			if(c.getEmail().equals(emailAddress))
+			{
+				clinicCenterAdmin = c;
+				break;
+			}
+		}
+		return clinicCenterAdmin;
+	}
 }

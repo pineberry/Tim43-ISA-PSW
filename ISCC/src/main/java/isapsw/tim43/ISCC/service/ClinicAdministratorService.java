@@ -18,5 +18,18 @@ public class ClinicAdministratorService {
     public void remove(Long id) {
         clinicAdministratorRepository.deleteById(id);
     }
+
+	public ClinicAdministrator findUserByEmailAddress(String emailAddress) {
+		ClinicAdministrator clinicAdmin = null;
+
+		for (ClinicAdministrator c : clinicAdministratorRepository.findAll()) {
+			if(c.getEmail().equals(emailAddress))
+			{
+				clinicAdmin = c;
+				break;
+			}
+		}
+		return clinicAdmin;
+	}
 }
 

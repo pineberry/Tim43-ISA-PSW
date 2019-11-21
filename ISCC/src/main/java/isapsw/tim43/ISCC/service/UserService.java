@@ -3,33 +3,41 @@ package isapsw.tim43.ISCC.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import isapsw.tim43.ISCC.model.Patient;
 
 @Service
 public class UserService {
 
-//	@Autowired
-//	private DoctorService doctorService;
-//	
-//	@Autowired
-//	private ClinicAdministratorService clinicAdministratorService;
-//	
-//	@Autowired
-//	private ClinicCenterAdministratorService clinicCenterAdministratorService;
+	@Autowired
+	private DoctorService doctorService;
+	
+	@Autowired
+	private ClinicAdministratorService clinicAdministratorService;
+	
+	@Autowired
+	private ClinicCenterAdministratorService clinicCenterAdministratorService;
 	
 	@Autowired
 	private PatientService patientService;
 	
-	public Patient findUserByEmailAddress(String emailAddress)
+	public Object findUserByEmailAddress(String emailAddress)
 	{
-		try {
-			Patient patient = patientService.findUserByEmailAddress(emailAddress);
-			return patient;
-		} catch (Exception e) {
-			System.out.println("Patient does with email address: " + emailAddress + " not exist in database");
-			e.printStackTrace();
+		if (patientService.findUserByEmailAddress(emailAddress) != null)
+		{
+			return patientService.findUserByEmailAddress(emailAddress);
+		} 
+		else if (clinicCenterAdministratorService.findUserByEmailAddress(emailAddress) != null )
+		{
+			return clinicCenterAdministratorService.findUserByEmailAddress(emailAddress);
 		}
-		return null;
+		else if (clinicAdministratorService.findUserByEmailAddress(emailAddress) != null )
+		{
+			return clinicAdministratorService.findUserByEmailAddress(emailAddress);
+		}
+		else if (doctorService.findUserByEmailAddress(emailAddress) != null )
+		{
+			return doctorService.findUserByEmailAddress(emailAddress);
+		}
+		else return null;
 
 	}
 }
