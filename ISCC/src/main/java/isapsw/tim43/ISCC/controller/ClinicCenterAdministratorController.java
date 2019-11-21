@@ -71,7 +71,11 @@ public class ClinicCenterAdministratorController {
 
         patientService.remove(id);
 
-        //emailService.sendNotificationAsync(requestDeniedDTO.getEmail(), requestDeniedDTO.getExplanation());
+        try {
+            emailService.sendNotificationAsync(requestDeniedDTO.getEmail(), requestDeniedDTO.getExplanation());
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
     }
 
     @PostMapping(value = "/register/clinic", consumes = "application/json")

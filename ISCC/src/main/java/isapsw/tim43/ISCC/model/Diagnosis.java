@@ -1,43 +1,25 @@
 package isapsw.tim43.ISCC.model;
 
+import lombok.Data;
+
+import javax.persistence.*;
+
+@Data
+@Table
 public class Diagnosis {
 
-	private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "latinName")
 	private String latinName;
+
+	@Column(name = "code")
 	private String code;
-	
-	public long getId() {
-		return id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getLatinName() {
-		return latinName;
-	}
-	
-	public void setLatinName(String latinName) {
-		this.latinName = latinName;
-	}
-	
-	public String getCode() {
-		return code;
-	}
-	
-	public void setCode(String code) {
-		this.code = code;
-	}
 
 	public Diagnosis(long id, String name, String latinName, String code) {
 		super();
