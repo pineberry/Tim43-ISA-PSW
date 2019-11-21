@@ -47,15 +47,15 @@ public class MedicalRoom {
 	public void setRoomNumber(long roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-	
+
 /*	public Map<Date, Boolean> getAvailability() {
 		return availability;
 	}
-	
+
 	public void setAvailability(Map<Date, Boolean> availability) {
 		this.availability = availability;
 	}
-*/	
+*/
 	public MedicalRoom(long id, String roomName, long roomNumber) {
 		super();
 		this.id = id;
