@@ -6,7 +6,6 @@ import isapsw.tim43.ISCC.dto.PatientDTO;
 import isapsw.tim43.ISCC.dto.RequestDeniedDTO;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.ClinicAdministrator;
-import isapsw.tim43.ISCC.model.ClinicCenterAdministrator;
 import isapsw.tim43.ISCC.model.Patient;
 import isapsw.tim43.ISCC.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
