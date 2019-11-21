@@ -13,6 +13,9 @@
               <router-link class="nav-link nav-item" to="/addClinicAdmin">Clinic Admin</router-link>
               <router-link class="nav-link nav-item" to="/codebook">Codebook</router-link>
               <router-link class="nav-link nav-item" to="/addCenterAdmin">Center Admin</router-link>
+              <router-link class="nav-link nav-item" to="/addDoctor">Doctor</router-link>
+              <router-link class="nav-link nav-item" to="/addProcedureType">Procedure type</router-link>
+              <router-link class="nav-link nav-item" to="/addMedicalRoom">Medical room</router-link>
             </div>
           </div>
         </div>

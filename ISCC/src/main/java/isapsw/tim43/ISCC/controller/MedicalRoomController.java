@@ -13,13 +13,13 @@ import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.service.MedicalRoomService;
 
 @RestController
-@RequestMapping(value = "/medicalroom")
+@RequestMapping(value = "/medical/room")
 public class MedicalRoomController {
 	
 	@Autowired
 	private MedicalRoomService medicalRoomService;
 	
-	@PostMapping(consumes = "application/jason")
+	@PostMapping(value = "/add", consumes = "application/jason")
 	public ResponseEntity<MedicalRoomDTO> saveRoom(@RequestBody MedicalRoomDTO medicalRoomDTO){
 		
 		if(medicalRoomDTO.getRoomName() == null || medicalRoomDTO.getRoomName().isEmpty()) {

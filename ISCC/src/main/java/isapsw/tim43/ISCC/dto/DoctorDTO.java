@@ -14,8 +14,8 @@ public class DoctorDTO {
 	private String state;
 	private String phoneNumber;
 	private double averageRating;
-	private int workingtimeStart;
-	private int workingtimeEnd;
+	private String workingtimeStart;
+	private String workingtimeEnd;
 	
 	public DoctorDTO() {}
 	
@@ -26,8 +26,8 @@ public class DoctorDTO {
 	}
 	
 	public DoctorDTO(long id, String email, String password, String firstName, String lastName, String address,
-			String city, String state, String phoneNumber, double averageRating, int workingtimeStart,
-			int workingtimeEnd) {
+			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,
+			String workingtimeEnd) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -72,10 +72,10 @@ public class DoctorDTO {
 	public double getAverageRating() {
 		return averageRating;
 	}
-	public int getWorkingtimeStart() {
+	public String getWorkingtimeStart() {
 		return workingtimeStart;
 	}
-	public int getWorkingtimeEnd() {
+	public String getWorkingtimeEnd() {
 		return workingtimeEnd;
 	}
 	

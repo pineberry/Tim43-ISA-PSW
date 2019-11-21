@@ -1,23 +1,42 @@
 package isapsw.tim43.ISCC.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class MedicalProcedure {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String name;
-	private ProcedureType type;
+
+//	private String name;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private ProcedureType procedureType;
+
+	@Column(name = "dateOfProcedure", unique = true, nullable = false)
 	private Date dateOfProcedure;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private MedicalRoom medicalRoom;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Doctor doctor;
+
+	@Column(name = "price")
 	private float price;
+
+	@Column(name = "discount")
 	private float discount;
 	/*booked 
 	 * - false: za unapred definisane preglede koji nisu zakazani od strane pacijenta
 	 * - true: pacijent zakazao unapred definisan pregled
 	 * - true: admin potvrdio zakazivanje pregleda */
+
+	@Column(name = "booked")
 	private boolean booked;
-	private Report report;
+//	private Report report;
 	
 	public long getId() {
 		return id;
@@ -26,7 +45,7 @@ public class MedicalProcedure {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+/*
 	public String getName() {
 		return name;
 	}
@@ -34,13 +53,13 @@ public class MedicalProcedure {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+*/
 	public ProcedureType getType() {
-		return type;
+		return procedureType;
 	}
 
 	public void setType(ProcedureType type) {
-		this.type = type;
+		this.procedureType = type;
 	}
 
 	public Date getDateOfProcedure() {
@@ -91,27 +110,33 @@ public class MedicalProcedure {
 		this.booked = booked;
 	}
 
-	public Report getReport() {
-		return report;
+	public ProcedureType getProcedureType() {
+		return procedureType;
 	}
 
-	public void setReport(Report report) {
-		this.report = report;
+	public void setProcedureType(ProcedureType procedureType) {
+		this.procedureType = procedureType;
 	}
+	/*
+    public Report getReport() {
+    	return report;
+    }
 
-	public MedicalProcedure(long id, String name, ProcedureType type, Date dateOfProcedure, MedicalRoom medicalRoom,
-			Doctor doctor, float price, float discount, boolean booked, Report report) {
+    public void setReport(Report report) {
+        this.report = report;
+    }
+    */
+	public MedicalProcedure(long id, ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
+			Doctor doctor, float price, float discount, boolean booked) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.type = type;
+		this.procedureType = procedureType;
 		this.dateOfProcedure = dateOfProcedure;
 		this.medicalRoom = medicalRoom;
 		this.doctor = doctor;
 		this.price = price;
 		this.discount = discount;
 		this.booked = booked;
-		this.report = report;
 	}
 
 	public MedicalProcedure() {

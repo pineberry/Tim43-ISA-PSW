@@ -9,6 +9,9 @@ import RegistrationRequest from "../views/RegistrationRequest.vue";
 import Codebook from "../views/Codebook.vue";
 import AddCenterAdmin from "../views/AddCenterAdmin.vue";
 import ActivateAccount from "../components/ActivateAccount.vue";
+import AddDoctor from "../views/AddDoctor.vue"
+import AddProcedureType from "../views/AddProcedureType.vue"
+import AddMedicalRoom from "../views/AddMedicalRoom.vue"
 
 Vue.use(VueRouter);
 
@@ -66,7 +69,22 @@ const routes = [
     path: "/activateAccount/:id",
     name: "activateAccount",
     component: ActivateAccount
-  }
+  },
+  {
+    path: "/addDoctor",
+    name: "addDoctor",
+    component: AddDoctor
+  },
+  {
+    path: "/addProcedureType",
+    name: "addProcedureType",
+    component: AddProcedureType
+  },
+  {
+    path: "/addMedicalRoom",
+    name: "addMedicalRoom",
+    component: AddMedicalRoom
+  },
 ];
 
 const router = new VueRouter({

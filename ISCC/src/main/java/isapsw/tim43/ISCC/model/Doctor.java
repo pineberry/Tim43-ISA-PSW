@@ -1,12 +1,11 @@
 package isapsw.tim43.ISCC.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Doctor {
@@ -44,25 +43,29 @@ public class Doctor {
 	private double averageRating;
 	
 	@Column(name = "workingtimeStart", nullable = false)
-	private int workingtimeStart;
+	private String workingtimeStart;
 	
 	@Column(name = "workingtimeEnd", nullable = false)
-	private int workingtimeEnd;
+	private String workingtimeEnd;
 	
 //	private List<Report> reports;
 	
 	@Column(name = "onVacation", nullable = false)
 	private Boolean onVacation;
-	
-//	private ProcedureType specialized;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private ProcedureType specialized;
+
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<MedicalProcedure> medicalProcedures = new HashSet<MedicalProcedure>();
 	
 	public Doctor() {
 		super();
 	}
 	
 	public Doctor(long id, String email, String password, String firstName, String lastName, String address,
-			String city, String state, String phoneNumber, double averageRating, int workingtimeStart,
-			int workingtimeEnd, boolean onVacation) {
+			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,
+			String workingtimeEnd, boolean onVacation) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -76,9 +79,7 @@ public class Doctor {
 		this.averageRating = averageRating;
 		this.workingtimeStart = workingtimeStart;
 		this.workingtimeEnd = workingtimeEnd;
-	//	this.reports = reports;
 		this.onVacation = onVacation;
-	//	this.specialized = specialized;
 	}
 	public long getId() {
 		return id;
@@ -140,16 +141,16 @@ public class Doctor {
 	public void setAverageRating(double averageRating) {
 		this.averageRating = averageRating;
 	}
-	public int getWorkingtimeStart() {
+	public String getWorkingtimeStart() {
 		return workingtimeStart;
 	}
-	public void setWorkingtimeStart(int workingtimeStart) {
+	public void setWorkingtimeStart(String workingtimeStart) {
 		this.workingtimeStart = workingtimeStart;
 	}
-	public int getWorkingtimeEnd() {
+	public String getWorkingtimeEnd() {
 		return workingtimeEnd;
 	}
-	public void setWorkingtimeEnd(int workingtimeEnd) {
+	public void setWorkingtimeEnd(String workingtimeEnd) {
 		this.workingtimeEnd = workingtimeEnd;
 	}
 /*	public List<Report> getReports() {
@@ -164,15 +165,18 @@ public class Doctor {
 	public void setOnVacation(Boolean onVacation) {
 		this.onVacation = onVacation;
 	}
-/*	public ProcedureType getSpecialized() {
+	public ProcedureType getSpecialized() {
 		return specialized;
 	}
 	public void setSpecialized(ProcedureType specialized) {
 		this.specialized = specialized;
 	}
-*/	
-	
-	
-	
 
+	public Set<MedicalProcedure> getMedicalProcedures() {
+		return medicalProcedures;
+	}
+
+	public void setMedicalProcedures(Set<MedicalProcedure> medicalProcedures) {
+		this.medicalProcedures = medicalProcedures;
+	}
 }

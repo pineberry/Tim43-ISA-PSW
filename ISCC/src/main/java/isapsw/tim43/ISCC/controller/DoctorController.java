@@ -19,7 +19,7 @@ public class DoctorController {
 	@Autowired
 	private DoctorService doctorService;
 	
-	@PostMapping(consumes = "application/json")
+	@PostMapping(value = "/add", consumes = "application/json")
 	public ResponseEntity<DoctorDTO> saveDoctor(@RequestBody DoctorDTO doctorDTO){
 		
 		 if(doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null  || doctorDTO.getFirstName().isEmpty()
