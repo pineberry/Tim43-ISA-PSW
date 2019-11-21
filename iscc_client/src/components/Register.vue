@@ -47,9 +47,8 @@
         </div>
     </div>
 </template>
-<script>
 
-    import axios from "axios";
+<script>
 
 	export default{
         name: "Register",
@@ -64,7 +63,8 @@
                 city : undefined,
                 state : undefined,
                 phoneNumber : undefined,
-                healthCareNumber : undefined
+                healthCareNumber : undefined,
+                response : undefined
             }
         },
         methods : {
@@ -82,7 +82,12 @@
 	                "healthCareNumber" : this.healthCareNumber
                 }
                console.log(user)
-               axios.post('http://localhost:8080/register', user)
+              this.axios.post('http://localhost:8080/register', user)
+              .then(response =>
+              {
+                    this.response = response
+                    console.log(this.response)  
+              })
             }
         }
     }

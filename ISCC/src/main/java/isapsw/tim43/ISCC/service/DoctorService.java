@@ -19,4 +19,17 @@ public class DoctorService {
 	public void remove(Long id) {
 		doctorRepository.deleteById(id);
 	}
+
+	public Doctor findUserByEmailAddress(String emailAddress) {
+		Doctor doctor = null;
+
+		for (Doctor d : doctorRepository.findAll()) {
+			if(d.getEmail().equals(emailAddress))
+			{
+				doctor = d;
+				break;
+			}
+		}
+		return doctor;
+	}
 }

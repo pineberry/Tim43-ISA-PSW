@@ -5,6 +5,7 @@ import AddClinic from "../views/AddClinic.vue";
 import Register from "../components/Register.vue";
 import Login from "../components/Login.vue";
 import AddClinicAdmin from "../views/AddClinicAdmin.vue";
+import RegistrationRequest from "../views/RegistrationRequest.vue";
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,11 @@ const routes = [
     path: "/addClinicAdmin",
     name: "addClinicAdmin",
     component: AddClinicAdmin
+  },
+  {
+    path: "/registrationRequest/:id",
+    name: "registrationRequest",
+    component: RegistrationRequest
   }
 ];
 

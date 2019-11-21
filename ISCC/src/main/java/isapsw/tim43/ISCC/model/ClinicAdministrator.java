@@ -1,8 +1,6 @@
 package isapsw.tim43.ISCC.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import javax.persistence.*;
 import java.util.List;
 

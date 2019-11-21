@@ -3,6 +3,7 @@ package isapsw.tim43.ISCC.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Patient;
 import isapsw.tim43.ISCC.service.DataValidationService;
+import isapsw.tim43.ISCC.service.EmailService;
 import isapsw.tim43.ISCC.service.PatientService;
 
 @RestController
@@ -23,6 +25,9 @@ public class RegistrationController {
 	@Autowired
 	private PatientService patientService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<Patient> registerUser(@RequestBody UserDTO user)
 	{
@@ -33,7 +38,17 @@ public class RegistrationController {
 				Patient patient = new Patient(user.getEmail(), user.getPassword(), user.getFirstName(),
 						user.getLastName(), user.getAddress(), user.getCity(), user.getState(),
 						user.getPhoneNumber(), user.getHealthCareNumber(), "pending");
-				return new ResponseEntity<>(patientService.save(patient), HttpStatus.CREATED); //201
+				Patient p = patientService.save(patient);
+				try {
+					String emailContent = "User " + p.getFirstName() + " " + p.getLastName() + " has requested to register on ISCC!\n\n" +
+										"To accept click on the link below:\n"+
+										 "http://localhost:8081/registrationRequest/"+ p.getId();
+					emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return new ResponseEntity<>(p, HttpStatus.CREATED); //201
 			}
 			else
 			{

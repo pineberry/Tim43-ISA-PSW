@@ -70,7 +70,7 @@
         },
         methods : {
             submitRegistration : function () {
-                var Admin = {
+                var admin = {
                     "email" : this.email,
                     "password" : this.password,
                     "firstName" : this.firstName,
@@ -82,7 +82,22 @@
                     "state" : this.state
                 }
 
-                this.axios.post("http://localhost:8080/")
+                this.axios.post("http://localhost:8080/center/admin/register/clinic/administrator", admin)
+                    .then(response => {
+                        this.email = "";
+                        this.password = "";
+                        this.firstName = "";
+                        this.lastName = "";
+                        this.clinicName = "";
+                        this.phoneNumber = "";
+                        this.address = "";
+                        this.city = "";
+                        this.state = "";
+                        alert(response.data.firstName + " admin uspjesno dodan!")
+                    })
+                    .catch(error => {
+                        alert(error.response.data)
+                    })
             }
         }
     }

@@ -28,7 +28,6 @@
                 name : undefined,
                 address : undefined,
                 description : undefined,
-                averageRating : 0
             }
         },
         methods : {
@@ -36,14 +35,17 @@
                 var clinic = {
                     "name" : this.name,
                     "address" : this.address,
-                    "description" : this.description,
-                    "averageRating" : this.averageRating
+                    "description" : this.description
                 }
 
                this.axios.post('http://localhost:8080/center/admin/register/clinic', clinic)
-                    .then(function (response) {
-                        alert(response.data)
+                    .then(response => {
+                        this.name = "";
+                        this.address = "";
+                        this.description = ""
+                        alert(response.data.name + " klinika uspjesno dodata!")
                     })
+                   .catch(error => {alert(error.response.data)})
             }
         }
     }

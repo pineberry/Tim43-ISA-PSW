@@ -1,9 +1,6 @@
 package isapsw.tim43.ISCC.controller;
 
-import isapsw.tim43.ISCC.dto.ClinicAdministratorDTO;
-import isapsw.tim43.ISCC.dto.ClinicDTO;
-import isapsw.tim43.ISCC.dto.PatientDTO;
-import isapsw.tim43.ISCC.dto.RequestDeniedDTO;
+import isapsw.tim43.ISCC.dto.*;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.ClinicAdministrator;
 import isapsw.tim43.ISCC.model.ClinicCenterAdministrator;
@@ -36,6 +33,9 @@ public class ClinicCenterAdministratorController {
     @Autowired
     ClinicAdministratorService clinicAdministratorService;
 
+    @Autowired
+    CenterAdminValidationService centerAdminValidationService;
+
 
 
     @PutMapping(value = "/activate/{id}")
@@ -43,38 +43,40 @@ public class ClinicCenterAdministratorController {
 
         Patient patient = patientService.findById(id);
 
-
+        patient.setStatus("activated");
         patientService.save(patient);
         return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/accept", consumes = "application/json")
-    public ResponseEntity<PatientDTO> acceptRequest(@RequestBody PatientDTO patientDTO) throws InterruptedException {
-        Patient patient = new Patient();
+    @PutMapping(value = "/accept/{id}")
+    public ResponseEntity<PatientDTO> acceptRequest(@PathVariable Long id) throws InterruptedException {
 
-        if (patientDTO.getEmail() == null || patientDTO.getEmail().isEmpty() || patientDTO.getFirstName() == null  ||
-                patientDTO.getFirstName().isEmpty() || patientDTO.getLastName() == null  ||
-                patientDTO.getLastName().isEmpty() || patientDTO.getPassword() == null ||
-                patientDTO.getPassword().isEmpty() || patientDTO.getHealthCareNumber() == null ||
-                patientDTO.getHealthCareNumber().isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
-        }
+        Patient patient = patientService.findById(id);
 
-
-
+        patient.setStatus("accepted");
 
         try {
+            emailService.sendNotificationAsync(patient.getEmail(), "Your account is accepted please activate on" +
+                    " link bellow:\n\n http://localhost:8080/center/admin/activate/" + patient.getId());
         } catch ( Exception e ) {
             e.printStackTrace();
         }
 
         patientService.save(patient);
-        return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/deny", consumes = "application/json")
-    public void denyRequest(@RequestBody RequestDeniedDTO requestDeniedDTO) throws InterruptedException {
-        //emailService.sendNotificationAsync(requestDeniedDTO.getEmail(), requestDeniedDTO.getExplanation());
+    @DeleteMapping(value = "/deny/{id}", consumes = "application/json")
+    public void denyRequest(@RequestBody RequestDeniedDTO requestDeniedDTO, @PathVariable Long id) throws
+            InterruptedException {
+
+        patientService.remove(id);
+
+        try {
+            emailService.sendNotificationAsync(requestDeniedDTO.getEmail(), requestDeniedDTO.getExplanation());
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
     }
 
     @PostMapping(value = "/register/clinic", consumes = "application/json")
@@ -114,9 +116,36 @@ public class ClinicCenterAdministratorController {
         clinicAdministrator.setPassword(clinicAdministratorDTO.getPassword());
         clinicAdministrator.setFirstName(clinicAdministratorDTO.getFirstName());
         clinicAdministrator.setLastName(clinicAdministratorDTO.getLastName());
+        clinicAdministrator.setPhoneNumber(clinicAdministratorDTO.getPhoneNumber());
+        clinicAdministrator.setAddress(clinicAdministratorDTO.getAddress());
+        clinicAdministrator.setCity(clinicAdministratorDTO.getCity());
+        clinicAdministrator.setState(clinicAdministratorDTO.getState());
         clinicAdministrator.setClinic(clinic);
 
         clinicAdministratorService.save( clinicAdministrator );
         return new ResponseEntity<>( new ClinicAdministratorDTO( clinicAdministrator ), HttpStatus.CREATED );
+    }
+
+    @PostMapping(value = "/center/administrator", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClinicCenterAdministratorDTO> addCenterAdministrator(@RequestBody ClinicCenterAdministratorDTO
+                                                                               clinicCenterAdministratorDTO) {
+
+        ClinicCenterAdministrator admin = new ClinicCenterAdministrator();
+
+        admin.setEmail(clinicCenterAdministratorDTO.getEmail());
+        admin.setPassword(clinicCenterAdministratorDTO.getPassword());
+        admin.setFirstName(clinicCenterAdministratorDTO.getFirstName());
+        admin.setLastName(clinicCenterAdministratorDTO.getLastName());
+        admin.setPhoneNumber(clinicCenterAdministratorDTO.getPhoneNumber());
+        admin.setAddress(clinicCenterAdministratorDTO.getAddress());
+        admin.setCity(clinicCenterAdministratorDTO.getCity());
+        admin.setState(clinicCenterAdministratorDTO.getState());
+
+        if (!centerAdminValidationService.validateAdministrator(admin)) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        clinicCenterAdminService.save(admin);
+        return new ResponseEntity<>(new ClinicCenterAdministratorDTO(admin), HttpStatus.CREATED);
     }
 }
