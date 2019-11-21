@@ -57,7 +57,7 @@ public class ClinicCenterAdministratorController {
 
         try {
             emailService.sendNotificationAsync(patient.getEmail(), "Your account is accepted please activate on" +
-                    " link bellow:\n\n http://localhost:8080/center/admin/activate/" + patient.getId());
+                    " link bellow:\n\n http://localhost:8081/activateAccount/" + patient.getId());
         } catch ( Exception e ) {
             e.printStackTrace();
         }

@@ -12,6 +12,7 @@
               <router-link class="nav-item nav-link" to="/addClinic">Clinic</router-link>
               <router-link class="nav-link nav-item" to="/addClinicAdmin">Clinic Admin</router-link>
               <router-link class="nav-link nav-item" to="/codebook">Codebook</router-link>
+              <router-link class="nav-link nav-item" to="/addCenterAdmin">Center Admin</router-link>
             </div>
           </div>
         </div>

@@ -52,6 +52,8 @@
 
                 this.axios.post("http://localhost:8080/codebook/medicine", medicine)
                     .then(response => {
+                        this.medicineName = ""
+                        this.medicineCode = ""
                         alert(response.data.name + ' lijek uspjesno dodat u sifarnik')
                     })
                     .catch(error => {
@@ -67,6 +69,9 @@
 
                 this.axios.post("http://localhost:8080/codebook/diagnosis", diagnosis)
                     .then(response => {
+                        this.diagnosisName = ""
+                        this.diagnosisLName = ""
+                        this.diagnosisCode = ""
                         alert(response.data.name + ' dijagnoza uspjesno dodata u sifarnik')
                     })
                     .catch(error => {
