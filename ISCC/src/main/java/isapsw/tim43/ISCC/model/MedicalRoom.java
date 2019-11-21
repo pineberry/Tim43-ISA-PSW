@@ -20,9 +20,9 @@ public class MedicalRoom {
 	private String roomName;
 	
 	@Column(name = "roomNumber", nullable = false)
-	private long roomNumber;
+	private int roomNumber;
 
-	public MedicalRoom(long id, String roomName, long roomNumber) {
+	public MedicalRoom(long id, String roomName, int roomNumber) {
 		super();
 		this.id = id;
 		this.roomName = roomName;

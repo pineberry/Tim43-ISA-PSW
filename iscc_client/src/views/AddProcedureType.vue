@@ -61,10 +61,10 @@
                 if (this.typeDescription != undefined)
                     this.typeDescription.trim();
                 else
-                    this.typeDescription;
+                    this.typeDescription = '';
 
                 if (this.typeName === undefined || this.typeName === '' 
-                        || this.typeDescription === undefined || typeDescription === ''){
+                        || this.typeDescription === undefined || this.typeDescription === ''){
                     valid = false
                 }
 

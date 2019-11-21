@@ -6,7 +6,7 @@ public class MedicalRoomDTO {
 	
 	private long id;
 	private String roomName;
-	private long roomNumber;
+	private int roomNumber;
 	
 	public MedicalRoomDTO() {}
 	
@@ -14,7 +14,7 @@ public class MedicalRoomDTO {
 		this(medicalRoom.getId(), medicalRoom.getRoomName(), medicalRoom.getRoomNumber());
 	}
 	
-	public MedicalRoomDTO(long id, String roomName, long roomNumber) {
+	public MedicalRoomDTO(long id, String roomName, int roomNumber) {
 		super();
 		this.id = id;
 		this.roomName = roomName;
@@ -26,7 +26,7 @@ public class MedicalRoomDTO {
 	public String getRoomName() {
 		return roomName;
 	}
-	public long getRoomNumber() {
+	public int getRoomNumber() {
 		return roomNumber;
 	}
 	

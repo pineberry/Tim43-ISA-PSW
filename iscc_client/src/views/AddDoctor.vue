@@ -152,85 +152,81 @@
                     "workingtimeEnd": this.workingtimeEnd
                 }
 
-                var valid = ture;
-
-                var tempName = '';
-                var tempSurname = '';
-                var tempCity = '';
-                var tempState = '';
-
-                if (this.firstName != undefined){
+				var valid = true;
+				var tempName = '';
+				var tempSurname = '';
+				var tempCity = '';
+				var tempState = '';
+				if (this.firstName != undefined){
 					this.firstName.trim();
 					tempName = this.firstName.match('[A-Za-z]*');
 				}else {
 					this.firstName = '';
 				}
-
-                if (this.lastName != undefined){
+				if (this.lastName != undefined){
 					this.lastName.trim();
 					tempSurname = this.lastName.match('[A-Za-z]*');
 				}else {
 					this.lastName = '';
 				}
-
-                if (this.city != undefined){
+				if (this.city != undefined){
 					this.city.trim();
 					tempCity = this.city.match('[A-Za-z]*');
 				}else {
 					this.city = '';
 				}
-
-                if (this.state != undefined){
+				if (this.state != undefined){
 					this.city.trim();
 					tempState = this.state.match('[A-Za-z]*');
 				}else {
 					this.state = '';
 				}
-
-                if (this.address != undefined) 
+				if (this.address != undefined)
 					this.address.trim();
 				else
 					this.address = '';
-
-                if (this.email != undefined)
+				if (this.email != undefined)
 					this.email.trim();
 				else
 					this.email = '';
-
-                if (this.phoneNumber != undefined)
+				if (this.phoneNumber != undefined)
 					this.phoneNumber.trim();
-				else 
+				else
 					this.phoneNumber = '';
-
-                if (this.workingtimeStart != undefined)
+				if (this.workingtimeStart != undefined)
 					this.workingtimeStart.trim();
 				else
 					this.workingtimeStart = '';
-
-                if (this.workingtimeEnd != undefined)
+				if (this.workingtimeEnd != undefined)
 					this.workingtimeEnd.trim();
-				else 
+				else
 					this.workingtimeEnd = '';
-                
-                if (this.firstName === undefined || this.firstName === '' || this.lastName === undefined || this.lastName === '' 
-                    	|| this.city === undefined || this.city === '' || this.state === undefined || this.state === '' 
-                   		|| this.address === undefined || this.address === '' || this.email === undefined || this.email === ''
-                   		|| this.phoneNumber === undefined || this.phoneNumber === null || this.workingtimeStart === undefined
-                    	|| this.workingtimeStart === '' || this.workingtimeEnd === undefined || this.workingtimeEnd === ''){
-					
+
+				if (this.firstName === undefined || this.firstName === '' || this.lastName === undefined || this.lastName === ''
+						|| this.city === undefined || this.city === '' || this.state === undefined || this.state === ''
+						|| this.address === undefined || this.address === '' || this.email === undefined || this.email === ''
+						|| this.phoneNumber === undefined || this.phoneNumber === null || this.workingtimeStart === undefined
+						|| this.workingtimeStart === '' || this.workingtimeEnd === undefined || this.workingtimeEnd === ''){
+
 					valid = false;
 				}
-				else if ((tempName != this.firstName) || (tempSurname != this.lastName) || (tempCity != this.city) || (tempGrad != this.grad)
-                             || (tempState != this.state) || (this.firstName[0].match('[A-Z]') === null) || (this.lastName[0].match('[A-Z]') === null)
-                             || (this.grad[0].match('[A-Z]') === null) || (this.state[0].match('[A-Z]') === null)){
+				else if ((tempName != this.firstName) || (tempSurname != this.lastName) || (tempCity != this.city) || (tempCity != this.grad)
+						|| (tempState != this.state) || (this.firstName[0].match('[A-Z]') === null) || (this.lastName[0].match('[A-Z]') === null)
+						|| (this.grad[0].match('[A-Z]') === null) || (this.state[0].match('[A-Z]') === null)){
 					valid = false;
 				}
 				else {
 					valid = true;
-		        }
-                
+				}
+                valid = true;
                 if (valid){
                     this.axios.post("http://localhost:8080/doctor/add", doctor)
+							.then(response => {
+								alert(response.data.firstName)
+							})
+							.catch(errorr => {
+								alert(error.response.data)
+							})
                 }
             }
         }

@@ -19,7 +19,7 @@ public class MedicalRoomController {
 	@Autowired
 	private MedicalRoomService medicalRoomService;
 	
-	@PostMapping(value = "/add", consumes = "application/jason")
+	@PostMapping(value = "/add", consumes = "application/json")
 	public ResponseEntity<MedicalRoomDTO> saveRoom(@RequestBody MedicalRoomDTO medicalRoomDTO){
 		
 		if(medicalRoomDTO.getRoomName() == null || medicalRoomDTO.getRoomName().isEmpty()) {

@@ -23,8 +23,7 @@ public class DoctorController {
 	public ResponseEntity<DoctorDTO> saveDoctor(@RequestBody DoctorDTO doctorDTO){
 		
 		 if(doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null  || doctorDTO.getFirstName().isEmpty()
-                 || doctorDTO.getLastName() == null  || doctorDTO.getLastName().isEmpty() || doctorDTO.getPassword() == null
-                 || doctorDTO.getPassword().isEmpty() || doctorDTO.getState() == null  || doctorDTO.getState().isEmpty() || doctorDTO.getCity() == null
+                 || doctorDTO.getLastName() == null  || doctorDTO.getLastName().isEmpty() ||  doctorDTO.getState() == null  || doctorDTO.getState().isEmpty() || doctorDTO.getCity() == null
                  || doctorDTO.getCity().isEmpty() || doctorDTO.getAddress() == null  || doctorDTO.getAddress().isEmpty() || doctorDTO.getPhoneNumber() == null  || doctorDTO.getPhoneNumber().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
