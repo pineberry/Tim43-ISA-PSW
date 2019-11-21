@@ -3,12 +3,6 @@
         <div class="row">
             <form @submit.prevent="submitRegistration" class="col-6">
                 <div class="form-group">
-                    <label for="selectClinic">Clinic</label>
-                    <select class="form-control" v-model="clinicName" id="selectClinic">
-                        <option v-for="clinic in clinics" :key="clinic.id" :value="clinic.name">{{clinic.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="inputEmail">Email</label>
                     <input class="form-control" type="email" v-model="email" id="inputEmail" placeholder="Enter admins email">
                 </div>
@@ -40,7 +34,7 @@
                     <label for="inputState">State</label>
                     <input class="form-control" type="text" v-model="state" id="inputState" placeholder="Enter admins state(optional)">
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Register</button>
+                <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </div>
     </div>
@@ -48,25 +42,18 @@
 
 <script>
     export default {
-        name: "AddClinicAdmin",
+        name: "AddCenterAdmin",
         data : function() {
-          return{
+            return{
                 email : undefined,
                 password : undefined,
                 firstName : undefined,
                 lastName : undefined,
-                clinicName : undefined,
                 phoneNumber : undefined,
                 address : undefined,
                 city : undefined,
                 state : undefined,
-                clinics : undefined
-          }
-        },
-        mounted : function () {
-            this.axios.get("http://localhost:8080/clinic/clinics")
-                .then(response => {this.clinics = response.data})
-                .catch(error => {alert(error.response.data)})
+            }
         },
         methods : {
             submitRegistration : function () {
@@ -75,20 +62,18 @@
                     "password" : this.password,
                     "firstName" : this.firstName,
                     "lastName" : this.lastName,
-                    "clinicName" : this.clinicName,
                     "phoneNumber" : this.phoneNumber,
                     "address" : this.address,
                     "city" : this.city,
                     "state" : this.state
                 }
 
-                this.axios.post("http://localhost:8080/center/admin/register/clinic/administrator", admin)
+                this.axios.post("http://localhost:8080/center/admin/center/administrator", admin)
                     .then(response => {
                         this.email = "";
                         this.password = "";
                         this.firstName = "";
                         this.lastName = "";
-                        this.clinicName = "";
                         this.phoneNumber = "";
                         this.address = "";
                         this.city = "";

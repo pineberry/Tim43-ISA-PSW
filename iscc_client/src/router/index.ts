@@ -6,6 +6,9 @@ import Register from "../components/Register.vue";
 import Login from "../components/Login.vue";
 import AddClinicAdmin from "../views/AddClinicAdmin.vue";
 import RegistrationRequest from "../views/RegistrationRequest.vue";
+import Codebook from "../views/Codebook.vue";
+import AddCenterAdmin from "../views/AddCenterAdmin.vue";
+import ActivateAccount from "../components/ActivateAccount.vue";
 
 Vue.use(VueRouter);
 
@@ -48,6 +51,21 @@ const routes = [
     path: "/registrationRequest/:id",
     name: "registrationRequest",
     component: RegistrationRequest
+  },
+  {
+    path: "/codebook",
+    name: "codebook",
+    component: Codebook
+  },
+  {
+    path: "/addCenterAdmin",
+    name: "addCenterAdmin",
+    component: AddCenterAdmin
+  },
+  {
+    path: "/activateAccount/:id",
+    name: "activateAccount",
+    component: ActivateAccount
   }
 ];
 
