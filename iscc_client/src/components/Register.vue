@@ -63,7 +63,8 @@
                 city : undefined,
                 state : undefined,
                 phoneNumber : undefined,
-                healthCareNumber : undefined
+                healthCareNumber : undefined,
+                response : undefined
             }
         },
         methods : {
@@ -82,6 +83,11 @@
                 }
                console.log(user)
               this.axios.post('http://localhost:8080/register', user)
+              .then(response =>
+              {
+                    this.response = response
+                    console.log(this.response)  
+              })
             }
         }
     }
