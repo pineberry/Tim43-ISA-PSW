@@ -19,5 +19,7 @@ public class ClinicCenterAdministratorService {
         clinicCenterAdminRepo.deleteById(id);
     }
 
-
+    public ClinicCenterAdministrator findByEmail(String email) {
+        return clinicCenterAdminRepo.findByEmail(email);
+    }
 }
