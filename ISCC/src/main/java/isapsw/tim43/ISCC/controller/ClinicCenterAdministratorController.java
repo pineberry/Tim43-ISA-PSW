@@ -56,16 +56,19 @@ public class ClinicCenterAdministratorController {
         patient.setStatus("accepted");
 
         try {
+            emailService.sendNotificationAsync(patient.getEmail(), "Your account is accepted please activate on" +
+                    " link bellow:\n\n http://localhost:8080/center/admin/activate/" + patient.getId());
         } catch ( Exception e ) {
             e.printStackTrace();
         }
 
         patientService.save(patient);
-        return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/deny/{id}", consumes = "application/json")
-    public void denyRequest(@RequestBody RequestDeniedDTO requestDeniedDTO, @PathVariable Long id) throws InterruptedException {
+    public void denyRequest(@RequestBody RequestDeniedDTO requestDeniedDTO, @PathVariable Long id) throws
+            InterruptedException {
 
         patientService.remove(id);
 
