@@ -56,6 +56,7 @@
             }
         },
         mounted() {
+
             this.axios.get("http://localhost:8080/patient/" + this.$route.params.id)
                 .then(response => {
                     this.firstName = response.data.firstName;

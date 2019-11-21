@@ -1,0 +1,2 @@
+insert into clinic_center_administrator (email, password, first_name, last_name, phone_number, address, city, state)
+values ('isa.pws43@gmail.com', 'nesto', 'Dusan', 'Petkovic', '065282115', 'Lamela e5', 'Teslic', 'Bosna');

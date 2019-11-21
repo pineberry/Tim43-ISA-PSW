@@ -22,7 +22,7 @@ public class CenterAdminValidationService {
             return false;
         }
 
-        ClinicCenterAdministrator admin = clinicCenterAdministratorService.findByEmail(centerAdmin.getEmail());
+        ClinicCenterAdministrator admin = clinicCenterAdministratorService.findUserByEmailAddress(centerAdmin.getEmail());
 
         if (admin != null) {
             return false;
