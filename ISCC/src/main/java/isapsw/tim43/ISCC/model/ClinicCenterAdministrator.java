@@ -3,7 +3,6 @@ package isapsw.tim43.ISCC.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class ClinicCenterAdministrator {
