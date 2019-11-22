@@ -1,10 +1,13 @@
 package isapsw.tim43.ISCC.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Data
 public class ProcedureType {
 
 	@Id
@@ -29,35 +32,5 @@ public class ProcedureType {
 		super();
 		this.typeName = typeName;
 		this.typeDescription = typeDescription;
-	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getTypeName() {
-		return typeName;
-	}
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
-	public String getTypeDescription() {
-		return typeDescription;
-	}
-	public void setTypeDescription(String typeDescription) {
-		this.typeDescription = typeDescription;
-	}
-	public Set<Doctor> getDoctors() {
-		return doctors;
-	}
-	public void setDoctors(Set<Doctor> doctors) {
-		this.doctors = doctors;
-	}
-	public Set<MedicalProcedure> getMedicalProcedures() {
-		return medicalProcedures;
-	}
-	public void setMedicalProcedures(Set<MedicalProcedure> medicalProcedures) {
-		this.medicalProcedures = medicalProcedures;
 	}
 }

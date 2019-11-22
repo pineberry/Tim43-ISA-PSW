@@ -12,6 +12,7 @@ import ActivateAccount from "../components/ActivateAccount.vue";
 import AddDoctor from "../views/AddDoctor.vue"
 import AddProcedureType from "../views/AddProcedureType.vue"
 import AddMedicalRoom from "../views/AddMedicalRoom.vue"
+import AddAppointment from "../views/AddAppointment.vue"
 
 Vue.use(VueRouter);
 
@@ -85,6 +86,11 @@ const routes = [
     name: "addMedicalRoom",
     component: AddMedicalRoom
   },
+  {
+    path: "/addAppointment",
+    name: "addAppointment",
+    component: AddAppointment
+  }
 ];
 
 const router = new VueRouter({

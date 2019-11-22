@@ -1,7 +1,9 @@
 package isapsw.tim43.ISCC.dto;
 
 import isapsw.tim43.ISCC.model.MedicalRoom;
+import lombok.Data;
 
+@Data
 public class MedicalRoomDTO {
 	
 	private long id;
@@ -20,16 +22,4 @@ public class MedicalRoomDTO {
 		this.roomName = roomName;
 		this.roomNumber = roomNumber;
 	}
-	public long getId() {
-		return id;
-	}
-	public String getRoomName() {
-		return roomName;
-	}
-	public int getRoomNumber() {
-		return roomNumber;
-	}
-	
-	
-
 }

@@ -2,11 +2,9 @@ package isapsw.tim43.ISCC.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,6 +19,9 @@ public class MedicalRoom {
 	
 	@Column(name = "roomNumber", nullable = false)
 	private int roomNumber;
+
+	@OneToMany(mappedBy = "medicalRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<MedicalProcedure> medicalProcedures = new HashSet<MedicalProcedure>();
 
 	public MedicalRoom(long id, String roomName, int roomNumber) {
 		super();
