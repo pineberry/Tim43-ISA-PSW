@@ -1,40 +1,39 @@
 package isapsw.tim43.ISCC.model;
 
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Data
+@Entity
 public class Report {
-	
-	private long id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(name = "notes")
+	private String notes;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Diagnosis diagnosis;
-	private Prescription prescription;
-	
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Doctor doctor;
 
-	public Diagnosis getDiagnosis() {
-		return diagnosis;
-	}
+	@OneToMany(mappedBy = "report", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Prescription> prescription = new HashSet<Prescription>();
 
-	public void setDiagnosis(Diagnosis diagnosis) {
-		this.diagnosis = diagnosis;
-	}
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private MedicalRecord record;
 
-	public Prescription getPrescription() {
-		return prescription;
-	}
-
-	public void setPrescription(Prescription prescription) {
-		this.prescription = prescription;
-	}
-
-	public Report(long id, Diagnosis diagnosis, Prescription prescription) {
+	public Report(long id, Diagnosis diagnosis, MedicalRecord record) {
 		super();
 		this.id = id;
 		this.diagnosis = diagnosis;
-		this.prescription = prescription;
+		this.record = record;
 	}
 
 	public Report() {

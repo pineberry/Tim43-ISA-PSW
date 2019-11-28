@@ -11,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/codebook")
@@ -59,5 +58,27 @@ public class CodebookContoller {
 
         diagnosisService.save(diagnosis);
         return new ResponseEntity<>(new DiagnosisDTO(diagnosis), HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/diagnoses", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<DiagnosisDTO>> getDiagnosis() {
+        List<Diagnosis> diagnoses = diagnosisService.findAll();
+        List<DiagnosisDTO> diagnosisDTOList = new ArrayList<DiagnosisDTO>();
+        for (Diagnosis diag : diagnoses) {
+            diagnosisDTOList.add(new DiagnosisDTO(diag));
+        }
+
+        return new ResponseEntity<>(diagnosisDTOList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/medicines", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MedicineDTO>> getMedicines() {
+        List<Medicine> medicines = medicineService.findAll();
+        List<MedicineDTO> medicineDTOList = new ArrayList<MedicineDTO>();
+        for (Medicine medicine : medicines) {
+            medicineDTOList.add(new MedicineDTO(medicine));
+        }
+
+        return new ResponseEntity<>(medicineDTOList, HttpStatus.OK);
     }
 }

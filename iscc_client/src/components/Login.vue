@@ -37,13 +37,14 @@
         		this.axios.post('http://localhost:8080/authenticate', auth)
         		.then(response => 
         		{
-        			this.auth = response
-        			this.jwt = this.auth.data.jwt
+        			this.auth = response;
+        			this.jwt = this.auth.data.jwt;
 	        		if (this.jwt != null) 
 	        		{
+                        this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt
+                        localStorage.setItem('auth', 'Bearer ' + this.jwt)
         				this.$router.push('/addClinic')
-        				this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt
-        				localStorage.setItem('auth', 'Bearer ' + this.jwt)
+
 	        		}
 	        		else 
 	        		{

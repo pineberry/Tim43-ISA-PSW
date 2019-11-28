@@ -1,40 +1,32 @@
 package isapsw.tim43.ISCC.model;
 
+import lombok.Data;
+
+import javax.persistence.*;
+
+@Data
+@Entity
 public class Prescription {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String prescription; //sadrzaj recepta 
-	private Medicine medicine;
-	
-	public long getId() {
-		return id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public String getPrescription() {
-		return prescription;
-	}
-	
-	public void setPrescription(String prescription) {
-		this.prescription = prescription;
-	}
-	
-	public Medicine getMedicine() {
-		return medicine;
-	}
-	
-	public void setMedicine(Medicine medicine) {
-		this.medicine = medicine;
-	}
 
-	public Prescription(long id, String prescription, Medicine medicine) {
+	@Column(name = "checked")
+	private boolean checked;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Medicine medicine;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Report report;
+
+	public Prescription(long id,  Medicine medicine, boolean checked, Report report) {
 		super();
 		this.id = id;
-		this.prescription = prescription;
 		this.medicine = medicine;
+		this.report = report;
+		this.checked = checked;
 	}
 
 	public Prescription() {

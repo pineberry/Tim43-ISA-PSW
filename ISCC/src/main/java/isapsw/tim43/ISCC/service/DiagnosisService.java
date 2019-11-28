@@ -1,10 +1,11 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.model.Diagnosis;
-import isapsw.tim43.ISCC.model.Medicine;
 import isapsw.tim43.ISCC.repository.DiagnosisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DiagnosisService {
@@ -22,5 +23,9 @@ public class DiagnosisService {
 
     public Diagnosis findByCode(String code) {
         return diagnosisRepository.findByCode(code);
+    }
+
+    public List<Diagnosis> findAll() {
+        return diagnosisRepository.findAll();
     }
 }

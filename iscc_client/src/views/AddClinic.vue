@@ -38,7 +38,9 @@
                     "description" : this.description
                 }
 
-               this.axios.post('http://localhost:8080/center/admin/register/clinic', clinic)
+               this.axios.post('http://localhost:8080/center/admin/register/clinic', clinic, {headers : {
+                   "Authorization" : localStorage.getItem('auth')
+                   }})
                     .then(response => {
                         this.name = "";
                         this.address = "";

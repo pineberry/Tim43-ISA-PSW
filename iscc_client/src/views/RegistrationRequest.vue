@@ -71,7 +71,9 @@
         },
         methods : {
             acceptRegistration : function() {
-                this.axios.put("http://localhost:8080/center/admin/accept/" + this.$route.params.id)
+                this.axios.put("http://localhost:8080/center/admin/accept/" + this.$route.params.id, {header : {
+                    "Authorization" : localStorage.getItem('auth')
+                    }})
                     .then(response => {alert("Uspjesno prihvacen pacijent")})
                     .catch(error => {alert(error.response.data)})
             },

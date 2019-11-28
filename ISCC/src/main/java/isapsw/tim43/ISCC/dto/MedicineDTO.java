@@ -5,16 +5,18 @@ import lombok.Data;
 
 @Data
 public class MedicineDTO {
+    private Long id;
     private String name;
     private String code;
 
-    public MedicineDTO(String name, String code) {
+    public MedicineDTO(Long id, String name, String code) {
+        this.id = id;
         this.name = name;
         this.code = code;
     }
 
     public MedicineDTO(Medicine medicine) {
-        this(medicine.getName(), medicine.getCode());
+        this(medicine.getId(), medicine.getName(), medicine.getCode());
     }
 
     public MedicineDTO() {}
