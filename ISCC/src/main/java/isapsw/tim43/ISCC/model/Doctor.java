@@ -61,13 +61,17 @@ public class Doctor {
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<MedicalProcedure> medicalProcedures = new HashSet<MedicalProcedure>();
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Clinic clinic;
+	
 	public Doctor() {
 		super();
 	}
-	
+
 	public Doctor(long id, String email, String password, String firstName, String lastName, String address,
 			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,
-			String workingtimeEnd, boolean onVacation) {
+			String workingtimeEnd, Boolean onVacation, ProcedureType specialized,
+			Set<MedicalProcedure> medicalProcedures, Clinic clinic) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -82,5 +86,9 @@ public class Doctor {
 		this.workingtimeStart = workingtimeStart;
 		this.workingtimeEnd = workingtimeEnd;
 		this.onVacation = onVacation;
+		this.specialized = specialized;
+		this.medicalProcedures = medicalProcedures;
+		this.clinic = clinic;
 	}
+	
 }

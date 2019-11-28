@@ -27,6 +27,10 @@ public class Clinic {
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ClinicAdministrator> administrators;
+	
+	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Doctor> doctors;
+	
 	/*
 	private List<Date> appointmentDates;
 	private List<Doctor> doctors;

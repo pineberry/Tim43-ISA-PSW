@@ -79,5 +79,9 @@ public class DoctorService {
 
 		return doctorDTOList;
 	}
+	
+	public List<Doctor> findAll_(){
+		return doctorRepository.findAll();
+	}
 
 }
