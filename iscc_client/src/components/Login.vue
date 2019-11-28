@@ -19,7 +19,7 @@
 <script>
 
 	export default{
-        name: "Register",
+        name: "Login",
         data : function () {
             return{
                 emailAddress : undefined,
@@ -34,6 +34,7 @@
         			"emailAddress" : this.emailAddress,
         			"password" : this.password
         		}
+        		console.log(auth)
         		this.axios.post('http://localhost:8080/authenticate', auth)
         		.then(response => 
         		{
@@ -41,9 +42,10 @@
         			this.jwt = this.auth.data.jwt
 	        		if (this.jwt != null) 
 	        		{
-        				this.$router.push('/addClinic')
-        				this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt
-        				localStorage.setItem('auth', 'Bearer ' + this.jwt)
+        				
+        				/*this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt*/
+        				localStorage.setItem('auth', 'Bearer ' + this.jwt);
+        				this.$router.push('/addClinic');
 	        		}
 	        		else 
 	        		{

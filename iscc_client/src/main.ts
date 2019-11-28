@@ -6,10 +6,36 @@ import router from "./router";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import VueResource from "vue-resource";
+
+
 
 Vue.config.productionTip = false;
-Vue.prototype.axios = axios
-Vue.use(VueRouter)
+Vue.prototype.axios = axios;
+Vue.use(VueRouter);
+
+// telling vue.js to use this package
+Vue.use(VueResource);
+
+axios.interceptors.request.use((config) => {
+	const authToken = localStorage.getItem('auth')
+	console.log('Token\n' + authToken + '\n')
+	if( authToken )
+		console.log('salje token');
+		config.headers['Authorization'] = authToken;
+	return config;
+}, (error) => {
+  	Promise.reject(error)
+	return error;
+});
+
+axios.interceptors.response.use((response) => {
+
+    return response;
+}, (error) => {
+    return Promise.reject(error.message);
+});
+
 
 new Vue({
   router,
