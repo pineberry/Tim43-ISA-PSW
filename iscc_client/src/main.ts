@@ -19,7 +19,6 @@ Vue.use(VueResource);
 
 axios.interceptors.request.use((config) => {
 	const authToken = localStorage.getItem('auth')
-	console.log('Token\n' + authToken + '\n')
 	if( authToken )
 		console.log('salje token');
 		config.headers['Authorization'] = authToken;

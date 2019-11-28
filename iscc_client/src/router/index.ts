@@ -13,6 +13,8 @@ import AddDoctor from "../views/AddDoctor.vue"
 import AddProcedureType from "../views/AddProcedureType.vue"
 import AddMedicalRoom from "../views/AddMedicalRoom.vue"
 import AddAppointment from "../views/AddAppointment.vue"
+import PatientHome from "../components/PatientHome.vue";
+import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtClinic.vue";
 
 Vue.use(VueRouter);
 
@@ -90,7 +92,18 @@ const routes = [
     path: "/addAppointment",
     name: "addAppointment",
     component: AddAppointment
+  },
+  {
+    path: "/patientHome",
+    name: "patientHome",
+    component: PatientHome
+  },
+  {
+    path: "/searchAvailable",
+    name: "searchAvailable",
+    component: SearchAvailableDoctorsAtClinic
   }
+
 ];
 
 const router = new VueRouter({

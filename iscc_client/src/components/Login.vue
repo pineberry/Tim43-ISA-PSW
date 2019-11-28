@@ -24,7 +24,8 @@
             return{
                 emailAddress : undefined,
                 password : undefined,
-                auth : null,
+                response : undefined,
+                usersDetails : null,
                 jwt : null
             }
         },
@@ -38,17 +39,28 @@
         		this.axios.post('http://localhost:8080/authenticate', auth)
         		.then(response => 
         		{
-        			this.auth = response
-        			this.jwt = this.auth.data.jwt
-	        		if (this.jwt != null) 
-	        		{
-        				
-        				/*this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt*/
-        				localStorage.setItem('auth', 'Bearer ' + this.jwt);
-        				this.$router.push('/addClinic');
-	        		}
-	        		else 
-	        		{
+        			this.response = response
+        			this.usersDetails = this.response.data
+
+        			if ( this.usersDetails )
+        			{
+        				localStorage.setItem('auth', 'Bearer ' + this.usersDetails.jwt)
+        				localStorage.setItem('user', this.usersDetails.firstName + ' ' + this.usersDetails.lastName)
+        				if (this.usersDetails.typeOfUser == "patient")
+        				{
+        					this.$router.push('/patientHome');
+        				}
+						else if (this.usersDetails.typeOfUser == "doctor")
+        				{
+        					this.$router.push('/doctorHome');
+        				}
+        				else if (this.usersDetails.typeOfUser == "clinicAdministrator")
+        				{
+        					this.$router.push('/clinicAdministratorHome');
+        				}
+        				else
+        					this.$router.push('/clinicCenterAdministratorHome')
+        			} else {
 	        			this.$router.push('/error')
 	        		}
         		})

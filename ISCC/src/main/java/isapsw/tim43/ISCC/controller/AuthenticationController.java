@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import isapsw.tim43.ISCC.auth.AuthenticationRequest;
 import isapsw.tim43.ISCC.auth.AuthenticationResponse;
+import isapsw.tim43.ISCC.dto.UsersDetailsDTO;
 import isapsw.tim43.ISCC.service.IsccUserDetailsService;
 import isapsw.tim43.ISCC.service.JWTUtil;
 
@@ -45,8 +46,10 @@ public class AuthenticationController {
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmailAddress());
 		
 		final String jwt = jwtUtil.generateToken(userDetails);
+		UsersDetailsDTO usersDetailsDTO = userDetailsService.getUsersDetails(authenticationRequest.getEmailAddress());
+		usersDetailsDTO.setJwt(jwt);
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(usersDetailsDTO);
 	}
 	
 }
