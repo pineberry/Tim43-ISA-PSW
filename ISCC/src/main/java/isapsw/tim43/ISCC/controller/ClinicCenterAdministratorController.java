@@ -140,6 +140,7 @@ public class ClinicCenterAdministratorController {
         admin.setAddress(clinicCenterAdministratorDTO.getAddress());
         admin.setCity(clinicCenterAdministratorDTO.getCity());
         admin.setState(clinicCenterAdministratorDTO.getState());
+        admin.setFirstLogin(true);
 
         if (!centerAdminValidationService.validateAdministrator(admin)) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -147,5 +148,27 @@ public class ClinicCenterAdministratorController {
 
         clinicCenterAdminService.save(admin);
         return new ResponseEntity<>(new ClinicCenterAdministratorDTO(admin), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/change/password", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> changePassword(@RequestBody UserDTO userDTO) {
+
+        ClinicCenterAdministrator admin = clinicCenterAdminService.findByEmail(userDTO.getEmail());
+
+        if (admin != null) {
+           if (userDTO.getPassword().equals(userDTO.getPasswordF())) {
+               admin.setPassword(userDTO.getPassword());
+               admin.setFirstLogin(false);
+               clinicCenterAdminService.save(admin);
+           }
+           else {
+               return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+           }
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }

@@ -43,9 +43,10 @@
         			this.usersDetails = this.response.data
 
         			if ( this.usersDetails )
-        			{
-        				localStorage.setItem('auth', 'Bearer ' + this.usersDetails.jwt)
-        				localStorage.setItem('user', this.usersDetails.firstName + ' ' + this.usersDetails.lastName)
+                    {
+        				localStorage.setItem('auth', 'Bearer ' + this.usersDetails.jwt);
+        				localStorage.setItem('user', this.usersDetails.firstName + ' ' + this.usersDetails.lastName);
+        			    localStorage.setItem('email', this.usersDetails.email);
         				if (this.usersDetails.typeOfUser == "patient")
         				{
         					this.$router.push('/patientHome');
@@ -58,9 +59,15 @@
         				{
         					this.$router.push('/clinicAdministratorHome');
         				}
-        				else
-        					this.$router.push('/clinicCenterAdministratorHome')
-        			} else {
+        				else {
+                            if (this.usersDetails.firstLogin === true) {
+                                this.$router.push('/changePassword');
+                            }
+                            else {
+                                this.$router.push('/clinicCenterAdministratorHome')
+                            }
+        				}
+                    } else {
 	        			this.$router.push('/error')
 	        		}
         		})

@@ -1,5 +1,5 @@
-insert into clinic_center_administrator (email, password, first_name, last_name, phone_number, address, city, state)
-values ('isa.pws43@gmail.com', 'nesto', 'Dusan', 'Petkovic', '065282115', 'Lamela e5', 'Teslic', 'Bosna');
+insert into clinic_center_administrator (email, password, first_name, last_name, phone_number, address, city, state, first_login)
+values ('isa.pws43@gmail.com', 'nesto', 'Dusan', 'Petkovic', '065282115', 'Lamela e5', 'Teslic', 'Bosna', 'true');
 
 insert into clinic (name, address, description, average_rating)
 values ('medika43', 'utopija', 'bolje da ne dolazite', 0);

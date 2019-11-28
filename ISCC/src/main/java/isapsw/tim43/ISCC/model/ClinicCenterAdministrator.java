@@ -38,6 +38,9 @@ public class ClinicCenterAdministrator {
 	@Column(name = "state")
 	private String state;
 
+	@Column(name = "first_login")
+	private boolean firstLogin;
+
 	public ClinicCenterAdministrator() {
 	}
 

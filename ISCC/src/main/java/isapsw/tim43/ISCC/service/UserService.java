@@ -25,9 +25,9 @@ public class UserService {
 		{
 			return patientService.findUserByEmailAddress(emailAddress);
 		} 
-		else if (clinicCenterAdministratorService.findUserByEmailAddress(emailAddress) != null )
+		else if (clinicCenterAdministratorService.findByEmail(emailAddress) != null )
 		{
-			return clinicCenterAdministratorService.findUserByEmailAddress(emailAddress);
+			return clinicCenterAdministratorService.findByEmail(emailAddress);
 		}
 		else if (clinicAdministratorService.findUserByEmailAddress(emailAddress) != null )
 		{

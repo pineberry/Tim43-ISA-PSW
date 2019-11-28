@@ -16,10 +16,16 @@ import AddAppointment from "../views/AddAppointment.vue";
 import Report from "../views/Report.vue";
 import PatientHome from "../components/PatientHome.vue";
 import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtClinic.vue";
+import AdminPasswordChange from "../views/AdminPasswordChange.vue"
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/changePassword",
+    name: "adminPasswordChange",
+    component: AdminPasswordChange
+  },
   {
     path: "/",
     name: "home",
