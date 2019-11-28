@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.controller;
 
+import isapsw.tim43.ISCC.model.MedicalRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class RegistrationController {
 			{
 				Patient patient = new Patient(user.getEmail(), user.getPassword(), user.getFirstName(),
 						user.getLastName(), user.getAddress(), user.getCity(), user.getState(),
-						user.getPhoneNumber(), user.getHealthCareNumber(), "pending");
+						user.getPhoneNumber(), user.getHealthCareNumber(), "pending", new MedicalRecord());
 				Patient p = patientService.save(patient);
 				try {
 					String emailContent = "User " + p.getFirstName() + " " + p.getLastName() + " has requested to register on ISCC!\n\n" +

@@ -5,6 +5,8 @@ import isapsw.tim43.ISCC.repository.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicineService {
 
@@ -22,4 +24,6 @@ public class MedicineService {
     public Medicine findByCode(String code) {
         return medicineRepository.findByCode(code);
     }
+
+    public List<Medicine> findAll() { return medicineRepository.findAll(); }
 }

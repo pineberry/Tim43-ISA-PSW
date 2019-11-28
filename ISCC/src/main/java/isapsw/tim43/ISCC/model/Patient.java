@@ -44,13 +44,16 @@ public class Patient {
 
 	@Column(name = "status")
 	private String status;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private MedicalRecord record;
 	
 	public Patient() {
 		super();
 	}
 
 	public Patient(String email, String password, String firstName, String lastName, String address,
-			String city, String state, String phoneNumber, String healthCareNumber, String status) {
+			String city, String state, String phoneNumber, String healthCareNumber, String status, MedicalRecord record) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -62,5 +65,6 @@ public class Patient {
 		this.phoneNumber = phoneNumber;
 		this.healthCareNumber = healthCareNumber;
 		this.status = status;
+		this.record = record;
 	}
 }

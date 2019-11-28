@@ -1,44 +1,26 @@
 package isapsw.tim43.ISCC.model;
 
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-
+@Data
+@Entity
 public class MedicalRecord {
 
-	private long id;
-	private List<MedicalProcedure> medicalExamination;
-	private List<MedicalProcedure> surgeries;
-	
-	public long getId() {
-		return id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public List<MedicalProcedure> getMedicalExamination() {
-		return medicalExamination;
-	}
-	
-	public void setMedicalExamination(List<MedicalProcedure> medicalExamination) {
-		this.medicalExamination = medicalExamination;
-	}
-	
-	public List<MedicalProcedure> getSurgeries() {
-		return surgeries;
-	}
-	
-	public void setSurgeries(List<MedicalProcedure> surgeries) {
-		this.surgeries = surgeries;
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	public MedicalRecord(long id, List<MedicalProcedure> medicalExamination,
-			List<MedicalProcedure> surgeries) {
+	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Report> reports = new HashSet<Report>();
+
+	public MedicalRecord(long id) {
 		super();
 		this.id = id;
-		this.medicalExamination = medicalExamination;
-		this.surgeries = surgeries;
 	}
 
 	public MedicalRecord() {
