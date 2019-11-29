@@ -1,7 +1,12 @@
 package isapsw.tim43.ISCC.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import isapsw.tim43.ISCC.model.MedicalRoom;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Data
 public class MedicalRoomDTO {
@@ -9,7 +14,10 @@ public class MedicalRoomDTO {
 	private long id;
 	private String roomName;
 	private int roomNumber;
-	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date firstFreeDate;
+	private List<Date> scheduledDates = new ArrayList<Date>();
+
 	public MedicalRoomDTO() {}
 	
 	public MedicalRoomDTO(MedicalRoom medicalRoom) {

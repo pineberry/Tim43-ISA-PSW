@@ -9,10 +9,11 @@ import RegistrationRequest from "../views/RegistrationRequest.vue";
 import Codebook from "../views/Codebook.vue";
 import AddCenterAdmin from "../views/AddCenterAdmin.vue";
 import ActivateAccount from "../components/ActivateAccount.vue";
-import AddDoctor from "../views/AddDoctor.vue"
-import AddProcedureType from "../views/AddProcedureType.vue"
-import AddMedicalRoom from "../views/AddMedicalRoom.vue"
-import AddAppointment from "../views/AddAppointment.vue"
+import AddDoctor from "../views/AddDoctor.vue";
+import AddProcedureType from "../views/AddProcedureType.vue";
+import AddMedicalRoom from "../views/AddMedicalRoom.vue";
+import AddAppointment from "../views/AddAppointment.vue";
+import SeachMedicalRooms from "../views/SearchMedicalRooms.vue";
 
 Vue.use(VueRouter);
 
@@ -90,6 +91,11 @@ const routes = [
     path: "/addAppointment",
     name: "addAppointment",
     component: AddAppointment
+  },
+  {
+    path: "/searchRooms",
+    name: "searchMedicalRooms",
+    component: SeachMedicalRooms
   }
 ];
 
