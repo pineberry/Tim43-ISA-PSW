@@ -29,6 +29,13 @@ public class MedicalProcedure {
 
 	@Column(name = "discount")
 	private float discount;
+
+	@Column(name = "startTime")
+	private String startTime;
+
+	@Column(name = "endTime")
+	private String endTime;
+
 	/*booked 
 	 * - false: za unapred definisane preglede koji nisu zakazani od strane pacijenta
 	 * - true: pacijent zakazao unapred definisan pregled
@@ -54,6 +61,23 @@ public class MedicalProcedure {
 		this.name = name;
 	}
 */
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
 	public ProcedureType getType() {
 		return procedureType;
 	}

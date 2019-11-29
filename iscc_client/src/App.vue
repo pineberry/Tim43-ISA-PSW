@@ -18,6 +18,7 @@
               <router-link class="nav-link nav-item" to="/addMedicalRoom">Medical room</router-link>
               <router-link class="nav-link nav-item" to="/addAppointment">Procedure</router-link>
               <router-link class="nav-link nav-item" to="/report">Report</router-link>
+              <router-link class="nav-link nav-item" to="/searchRooms">Search rooms</router-link>
             </div>
           </div>
         </div>
