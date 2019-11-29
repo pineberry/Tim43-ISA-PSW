@@ -13,11 +13,20 @@ import AddDoctor from "../views/AddDoctor.vue";
 import AddProcedureType from "../views/AddProcedureType.vue";
 import AddMedicalRoom from "../views/AddMedicalRoom.vue";
 import AddAppointment from "../views/AddAppointment.vue";
+import Report from "../views/Report.vue";
+import PatientHome from "../components/PatientHome.vue";
+import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtClinic.vue";
+import AdminPasswordChange from "../views/AdminPasswordChange.vue"
 import SeachMedicalRooms from "../views/SearchMedicalRooms.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/changePassword",
+    name: "adminPasswordChange",
+    component: AdminPasswordChange
+  },
   {
     path: "/",
     name: "home",
@@ -93,10 +102,25 @@ const routes = [
     component: AddAppointment
   },
   {
-    path: "/searchRooms",
-    name: "searchMedicalRooms",
-    component: SeachMedicalRooms
-  }
+    path: "/patientHome",
+    name: "patientHome",
+    component: PatientHome
+  },
+  {
+    path: "/searchAvailable",
+    name: "searchAvailable",
+    component: SearchAvailableDoctorsAtClinic
+  },
+  {
+    path: "/report",
+    name: "report",
+    component: Report
+  },
+    {
+        path: "/searchRooms",
+        name: "searchMedicalRooms",
+        component: SeachMedicalRooms
+    }
 ];
 
 const router = new VueRouter({
