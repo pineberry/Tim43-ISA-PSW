@@ -15,7 +15,8 @@ values ('dusan.petkovic02@gmail.com', 'password', 'Dusan', 'Petkovic', '12312345
 insert into patient (email, password, first_name, last_name, phone_number, address, city, state, health_care_number, status)
 values ('teodora.95mandic@gmail.com', 'pass', 'Teodora', 'Mandic', '12345', 'Adresa', 'Grad', 'Drzava', '0asd122HH', 'activated');
 
-insert into medical_record (patient_id) values (1);
+insert into medical_record (height, weight, blood_type, patient_id) values (174, 72, 'AB-', 1);
+insert into medical_record (height, weight, blood_type, patient_id) values (168, 59, 'O+', 2);
 
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
 values ('dejan.radulovic@iscc.com', 'nestonesto', 'Dejan', 'Radulovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1);

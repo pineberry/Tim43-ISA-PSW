@@ -70,7 +70,7 @@ public class IsccUserDetailsService implements UserDetailsService{
 		else if (user.getClass() == Nurse.class)
 		{
 			Nurse nurse = (Nurse)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(nurse.getFirstName(), nurse.getLastName(), nurse.getEmail(), "nurse", null, false);
+			usersDetailsDTO = new UsersDetailsDTO(nurse.getFirstName(), nurse.getLastName(), nurse.getEmail(), "nurse", null, false, nurse.getId());
 		}
 		else 
 		{

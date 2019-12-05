@@ -24,10 +24,16 @@ import EditProcedureType from "../views/EditProcedureType.vue";
 import SearchProcedureType from "../views/SearchProcedureTypes.vue";
 import NurseHome from "../views/NurseHome.vue";
 import UncheckedPrescriptions from "../views/UncheckedPrescriptions.vue";
+import EditMedicalRecord from "../views/EditMeidcalRecord.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/editMedicalRecord/:id",
+    name: "editMedicalRecord",
+    component: EditMedicalRecord
+  },
   {
     path: "/uncheckedPrescriptions",
     name: "uncheckedPrescriptions",

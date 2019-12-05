@@ -9,7 +9,7 @@ import axios from "axios";
 import VueResource from "vue-resource";
 
 
-
+Vue.use(require('vue-moment'));
 Vue.config.productionTip = false;
 Vue.prototype.axios = axios;
 Vue.use(VueRouter);
