@@ -19,6 +19,7 @@
               <router-link class="nav-link nav-item" to="/addAppointment">Procedure</router-link>
               <router-link class="nav-link nav-item" to="/report">Report</router-link>
               <router-link class="nav-link nav-item" to="/searchRooms">Search rooms</router-link>
+              <router-link class="nav-link nav-item" to="/searchTypes">Search types</router-link>
             </div>
           </div>
         </div>
