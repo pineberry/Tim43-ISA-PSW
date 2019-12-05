@@ -24,7 +24,7 @@ public class Prescription {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Report report;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Nurse nurse;
 
 	public Prescription(Long id,  Medicine medicine, boolean checked, Report report, Nurse nurse) {

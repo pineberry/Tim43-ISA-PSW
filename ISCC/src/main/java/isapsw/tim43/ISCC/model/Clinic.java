@@ -31,7 +31,6 @@ public class Clinic {
 	private double averageRating;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
 	private List<ClinicAdministrator> administrators;
 	
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -39,11 +38,9 @@ public class Clinic {
 	private List<Doctor> doctors;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonBackReference
 	private List<Nurse> nurses;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonBackReference
 	private List<Prescription> prescriptions;
 	
 	/*
@@ -57,7 +54,7 @@ public class Clinic {
 
 	public Clinic(Long id, String name, String address, String description, double averageRating, List<Date> appointmentDates,
 				  List<Doctor> doctors, List<MedicalRoom> medicalRooms, Map<Double, MedicalProcedure> pricelist,
-				  List<ClinicAdministrator> administrators, List<Nurse> nurses) {
+				  List<ClinicAdministrator> administrators, List<Nurse> nurses, List<Prescription> prescriptions) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -66,6 +63,7 @@ public class Clinic {
 		this.doctors = doctors;
 		this.administrators = administrators;
 		this.nurses = nurses;
+		this.prescriptions = prescriptions;
 		/*this.appointmentDates = appointmentDates;
 		this.medicalRooms = medicalRooms;
 		this.pricelist = pricelist;

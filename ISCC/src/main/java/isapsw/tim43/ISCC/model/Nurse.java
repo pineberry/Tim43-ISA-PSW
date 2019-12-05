@@ -45,7 +45,7 @@ public class Nurse {
 	@Column(name = "on_vacation")
 	private boolean onVacation;
 
-	@OneToOne(mappedBy = "nurse", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nurse", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Prescription> checkedPrescriptions;
 
 	@Column(name = "first_login")

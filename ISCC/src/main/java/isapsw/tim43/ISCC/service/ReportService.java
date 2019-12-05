@@ -50,6 +50,7 @@ public class ReportService {
             Medicine medicine = medicineService.findByCode(code);
             prescription.setMedicine(medicine);
             prescription.setReport(report);
+            prescription.setClinic(report.getDoctor().getClinic());
             prescriptionService.save(prescription);
         }
 

@@ -59,7 +59,12 @@
         				{
         					this.$router.push('/clinicAdministratorHome');
         				}
-        				else {
+        				else if (this.usersDetails.typeOfUser == "nurse")
+                        {
+                            this.$router.push('/nurseHome');
+                        }
+        				else
+                        {
                             if (this.usersDetails.firstLogin === true) {
                                 this.$router.push('/changePassword');
                             }
