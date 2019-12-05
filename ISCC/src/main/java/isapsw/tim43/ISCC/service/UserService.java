@@ -18,6 +18,9 @@ public class UserService {
 	
 	@Autowired
 	private PatientService patientService;
+
+	@Autowired
+	private NurseService nurseService;
 	
 	public Object findUserByEmailAddress(String emailAddress)
 	{
@@ -36,6 +39,10 @@ public class UserService {
 		else if (doctorService.findUserByEmailAddress(emailAddress) != null )
 		{
 			return doctorService.findUserByEmailAddress(emailAddress);
+		}
+		else if (nurseService.findByEmail(emailAddress) != null)
+		{
+			return nurseService.findByEmail(emailAddress);
 		}
 		else return null;
 

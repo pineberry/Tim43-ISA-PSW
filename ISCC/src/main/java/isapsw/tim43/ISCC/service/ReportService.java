@@ -26,6 +26,9 @@ public class ReportService {
     @Autowired
     private PrescriptionService prescriptionService;
 
+    @Autowired
+    private ClinicService clinicService;
+
     public Report save(Report report) {
         return reportRepository.save(report);
     }
@@ -45,6 +48,7 @@ public class ReportService {
             Medicine medicine = medicineService.findByCode(code);
             prescription.setMedicine(medicine);
             prescription.setReport(report);
+            prescription.setClinic(report.getDoctor().getClinic());
             prescriptionService.save(prescription);
         }
 

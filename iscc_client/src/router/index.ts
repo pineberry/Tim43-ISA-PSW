@@ -22,10 +22,22 @@ import SearchDoctors from "../views/SearchDoctors.vue";
 import ScheduleAppointment from "../views/ScheduleAppointment.vue"
 import EditProcedureType from "../views/EditProcedureType.vue";
 import SearchProcedureType from "../views/SearchProcedureTypes.vue";
+import NurseHome from "../views/NurseHome.vue";
+import UncheckedPrescriptions from "../views/UncheckedPrescriptions.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/uncheckedPrescriptions",
+    name: "uncheckedPrescriptions",
+    component: UncheckedPrescriptions
+  },
+  {
+    path: "/nurseHome",
+    name: "nurseHome",
+    component: NurseHome
+  },
   {
     path: "/changePassword",
     name: "adminPasswordChange",

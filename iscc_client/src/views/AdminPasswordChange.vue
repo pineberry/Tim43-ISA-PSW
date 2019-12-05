@@ -34,7 +34,7 @@
                     "passwordF" : this.passwordF
                 }
 
-                this.axios.post("http://lcoalhost:8080/center/admin/change/password", User)
+                this.axios.post("http://localhost:8080/center/admin/change/password", User)
                     .then(response => { alert( response.data.email); })
                     .catch(error => { alert("Puklo sine"); })
             }

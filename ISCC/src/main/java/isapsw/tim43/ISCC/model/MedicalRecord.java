@@ -17,6 +17,9 @@ public class MedicalRecord {
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Report> reports = new HashSet<Report>();
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Patient patient;
+
 	public MedicalRecord(long id) {
 		super();
 		this.id = id;

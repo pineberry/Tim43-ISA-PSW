@@ -4,11 +4,13 @@ package isapsw.tim43.ISCC.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+@Data
 @Entity
 public class Clinic {
 
@@ -29,15 +31,20 @@ public class Clinic {
 	private double averageRating;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ClinicAdministrator> administrators;
+	private List<ClinicAdministrator> administrators;
 	
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<Doctor> doctors;
+
+	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Nurse> nurses;
+
+	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Prescription> prescriptions;
 	
 	/*
 	private List<Date> appointmentDates;
-	private List<Doctor> doctors;
 	private List<MedicalRoom> medicalRooms;
 	private Map<Double, MedicalProcedure> pricelist;
 	*/
@@ -46,84 +53,20 @@ public class Clinic {
 	}
 
 	public Clinic(Long id, String name, String address, String description, double averageRating, List<Date> appointmentDates,
-				  List<Doctor> doctors, List<MedicalRoom> medicalRooms, Map<Double, MedicalProcedure> pricelist, List<ClinicAdministrator> administrators) {
+				  List<Doctor> doctors, List<MedicalRoom> medicalRooms, Map<Double, MedicalProcedure> pricelist,
+				  List<ClinicAdministrator> administrators, List<Nurse> nurses, List<Prescription> prescriptions) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.description = description;
 		this.averageRating = averageRating;
-		/*this.appointmentDates = appointmentDates;
 		this.doctors = doctors;
-		this.medicalRooms = medicalRooms;
-		this.pricelist = pricelist;
-		this.administrators = administrators;*/
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public double getAverageRating() {
-		return averageRating;
-	}
-	public void setAverageRating(double averageRating) {
-		this.averageRating = averageRating;
-	}
-	/*public List<Date> getAppointmentDates() {
-		return appointmentDates;
-	}
-	public void setAppointmentDates(List<Date> appointmentDates) {
-		this.appointmentDates = appointmentDates;
-	}
-	public List<Doctor> getDoctors() {
-		return doctors;
-	}
-	public void setDoctors(List<Doctor> doctors) {
-		this.doctors = doctors;
-	}
-	public List<MedicalRoom> getMedicalRooms() {
-		return medicalRooms;
-	}
-	public void setMedicalRooms(List<MedicalRoom> medicalRooms) {
-		this.medicalRooms = medicalRooms;
-	}
-	public Map<Double, MedicalProcedure> getPricelist() {
-		return pricelist;
-	}
-	public void setPricelist(Map<Double, MedicalProcedure> pricelist) {
-		this.pricelist = pricelist;
-	}
-	public List<ClinicAdministrator> getAdministrators() {
-		return administrators;
-	}
-	public void setAdministrators(List<ClinicAdministrator> administrators) {
 		this.administrators = administrators;
-	}*/
-	
-	
-	
-	
-	
+		this.nurses = nurses;
+		this.prescriptions = prescriptions;
+		/*this.appointmentDates = appointmentDates;
+		this.medicalRooms = medicalRooms;
+		this.pricelist = pricelist;
+		*/
+	}
 }
