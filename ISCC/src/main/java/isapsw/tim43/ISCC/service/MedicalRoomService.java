@@ -2,7 +2,6 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
-import isapsw.tim43.ISCC.model.ProcedureType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

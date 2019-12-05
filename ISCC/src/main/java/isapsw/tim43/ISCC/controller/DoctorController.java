@@ -10,9 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import isapsw.tim43.ISCC.dto.DoctorDTO;
-import isapsw.tim43.ISCC.model.Doctor;
+import isapsw.tim43.ISCC.service.AvailableAppointmentsService;
 import isapsw.tim43.ISCC.service.DoctorService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,9 @@ public class DoctorController {
 
 	@Autowired
 	private ReportService reportService;
+	
+	@Autowired
+	private AvailableAppointmentsService appointmentsService;
 	
 	@PostMapping(value = "/add", consumes = "application/json")
 	public ResponseEntity<DoctorDTO> addDoctor(@RequestBody DoctorDTO doctorDTO){
@@ -48,6 +54,22 @@ public class DoctorController {
 
 		reportService.save(report);
 		return new ResponseEntity<ReportDTO>(reportDTO, HttpStatus.CREATED);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable String id)
+	{
+		return new ResponseEntity<DoctorDTO>(doctorService.findOne_(Long.parseLong(id)), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/{id}/available-appointments")
+	public ResponseEntity<List<String>> getAvailableAppointments(@RequestParam(name = "date") String date, @PathVariable String id) throws ParseException
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss");  
+		Date date_ = formatter.parse(date.substring(0, 24));
+		System.out.println(date_);
+		List<String> unavailableAppointments = appointmentsService.checkUnavailableAppointments(Long.parseLong(id), date_);
+		return new ResponseEntity<List<String>>(unavailableAppointments, HttpStatus.OK);
 	}
 
 }

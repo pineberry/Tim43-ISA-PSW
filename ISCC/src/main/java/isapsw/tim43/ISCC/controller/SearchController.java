@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import isapsw.tim43.ISCC.dto.ProcedureTypeDTO;
 import isapsw.tim43.ISCC.dto.SearchClinicParametersDTO;
 import isapsw.tim43.ISCC.dto.SearchResultClinicsDoctorsDTO;
 import isapsw.tim43.ISCC.service.SearchService;
@@ -28,7 +27,6 @@ public class SearchController {
 	public ResponseEntity<SearchResultClinicsDoctorsDTO> searchClinics(@RequestParam(name="date") String date, @RequestParam(name="typeOfProcedure") String procedure, 
 			@RequestParam(name="location") String location, @RequestParam(name="rating") String rating) throws NumberFormatException, ParseException
 	{
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		SimpleDateFormat formatter_ = new SimpleDateFormat("yyyy-MM-dd");
 		Date date_ = formatter_.parse(date);
 		

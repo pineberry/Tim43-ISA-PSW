@@ -67,6 +67,10 @@ public class DoctorService {
 	public Doctor findOne(long id){
 		return doctorRepository.findById(id).orElseGet(null);
 	}
+	
+	public DoctorDTO findOne_(long id){
+		return new DoctorDTO(doctorRepository.findById(id).get());
+	}
 
 	public List<DoctorDTO> findAll(){
 		List<Doctor> doctors = doctorRepository.findAll();

@@ -1,12 +1,9 @@
 package isapsw.tim43.ISCC.dto;
 
-import isapsw.tim43.ISCC.model.Medicine;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 public class ReportDTO {

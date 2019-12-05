@@ -4,8 +4,6 @@ import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.model.Medicine;
 import isapsw.tim43.ISCC.model.Prescription;
 import isapsw.tim43.ISCC.model.Report;
-import isapsw.tim43.ISCC.repository.DiagnosisRepository;
-import isapsw.tim43.ISCC.repository.DoctorRepository;
 import isapsw.tim43.ISCC.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

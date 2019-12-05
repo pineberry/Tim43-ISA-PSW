@@ -7,10 +7,8 @@ import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.jni.Proc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

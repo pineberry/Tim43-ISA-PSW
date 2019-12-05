@@ -11,12 +11,14 @@ public class UsersDetailsDTO {
 	private String typeOfUser;
 	private String jwt;
 	private boolean firstLogin;
+	private Long id;
 	
 	public UsersDetailsDTO() {
 	
 	}
 
-	public UsersDetailsDTO(String firstName, String lastName, String email, String typeOfUser, String jwt, boolean firstLogin) {
+	public UsersDetailsDTO(String firstName, String lastName, String email, String typeOfUser, String jwt,
+			boolean firstLogin, Long id) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -24,6 +26,8 @@ public class UsersDetailsDTO {
 		this.typeOfUser = typeOfUser;
 		this.jwt = jwt;
 		this.firstLogin = firstLogin;
+		this.id = id;
 	}
+
 	
 }

@@ -168,6 +168,19 @@ public class MedicalProcedure {
 		this.discount = discount;
 		this.booked = booked;
 	}
+	public MedicalProcedure(ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
+			Doctor doctor, float price, float discount, boolean booked) {
+		super();
+		this.procedureType = procedureType;
+		this.dateOfProcedure = dateOfProcedure;
+		this.medicalRoom = medicalRoom;
+		this.doctor = doctor;
+		this.price = price;
+		this.discount = discount;
+		this.booked = booked;
+	}
+
+	
 
 	public MedicalProcedure() {
 		super();

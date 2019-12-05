@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-6">
                 <label>Enter data to search:</label>
-                <form v-on:submit.prevent="search">
+                <form>
                     <div class="form-group row">
                         <label for="firstName" class="col-sm-4 col-form-label">Doctor's first name</label>
                         <div class="col-sm-8">
@@ -27,20 +27,28 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-sm-8 ">
-                            
-                        </div>
                     </div>
                 </form>
             </div>
-            <div class="col-8">
-                
-                <div class="card text-center m-1" v-for="doctor in filteredDoctors" :key="doctor.id">
+            <div class="col-6">
+                <div class="card m-1" v-for="doctor in filteredDoctors" :key="doctor.id">
                     <div class="card-body">
                         <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
-                        <hr class="my-4">
-                        <p class="card-text">Avarage rating: {{doctor.averageRating}}</p>
-                        <a href="#" class="btn btn-dark">...</a>
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="../images/doctor.png" alt="..." class="rounded float-left">
+                            </div>
+                            <div class="col-5">
+                                <p>Average rating: {{doctor.averageRating}}</p>
+                            </div>
+                            <div class="col-5">
+                                <p>Specialization: {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</p>
+                                <p>Location: <b><a class="card-link" :href="'http://localhost:8081/clinic/'+doctor.clinic.id">{{doctor.clinic.name}}</a></b> {{doctor.address}} - {{doctor.city}}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <a :href="'http://localhost:8081/scheduling?doctor='+doctor.id" class="btn btn-secondary btn-sm">Request an appointment</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,6 +57,8 @@
 </template>
 
 <script>
+
+
 export default {
     name: "searchDoctors",
     data: function() {
@@ -115,12 +125,13 @@ export default {
             })
 		},
     methods: {
-
     }
 
 }
 </script>
 
 <style>
-
+.checked {
+  color: orange;
+}
 </style>

@@ -53,22 +53,22 @@ public class IsccUserDetailsService implements UserDetailsService{
 		if (user.getClass() == Patient.class)
 		{
 			Patient p = (Patient)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(p.getFirstName(), p.getLastName(), p.getEmail(), "patient", null, false);
+			usersDetailsDTO = new UsersDetailsDTO(p.getFirstName(), p.getLastName(), p.getEmail(), "patient", null, false, p.getId());
 		}
 		else if (user.getClass() == Doctor.class)
 		{
 			Doctor d = (Doctor)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(d.getFirstName(), d.getLastName(), d.getEmail(), "doctor", null, false);
+			usersDetailsDTO = new UsersDetailsDTO(d.getFirstName(), d.getLastName(), d.getEmail(), "doctor", null, false, d.getId());
 		}
 		else if (user.getClass() == User.class)
 		{
 			ClinicAdministrator ca = (ClinicAdministrator)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(ca.getFirstName(), ca.getLastName(), ca.getEmail(), "clinicAdministrator", null, false);
+			usersDetailsDTO = new UsersDetailsDTO(ca.getFirstName(), ca.getLastName(), ca.getEmail(), "clinicAdministrator", null, false, ca.getId());
 		}
 		else 
 		{
 			ClinicCenterAdministrator cca = (ClinicCenterAdministrator)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(cca.getFirstName(), cca.getLastName(), cca.getEmail(), "clinicCenterAdministrator", null, cca.isFirstLogin());
+			usersDetailsDTO = new UsersDetailsDTO(cca.getFirstName(), cca.getLastName(), cca.getEmail(), "clinicCenterAdministrator", null, cca.isFirstLogin(), cca.getId());
 		}
 		return usersDetailsDTO;
 	}

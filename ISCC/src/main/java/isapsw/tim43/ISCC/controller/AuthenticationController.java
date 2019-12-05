@@ -6,15 +6,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import isapsw.tim43.ISCC.auth.AuthenticationRequest;
-import isapsw.tim43.ISCC.auth.AuthenticationResponse;
 import isapsw.tim43.ISCC.dto.UsersDetailsDTO;
 import isapsw.tim43.ISCC.service.IsccUserDetailsService;
 import isapsw.tim43.ISCC.service.JWTUtil;

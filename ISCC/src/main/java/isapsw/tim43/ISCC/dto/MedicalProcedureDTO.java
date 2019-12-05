@@ -1,9 +1,6 @@
 package isapsw.tim43.ISCC.dto;
 
-import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
-import isapsw.tim43.ISCC.model.MedicalRoom;
-import isapsw.tim43.ISCC.model.ProcedureType;
 import lombok.Data;
 
 import java.util.Date;

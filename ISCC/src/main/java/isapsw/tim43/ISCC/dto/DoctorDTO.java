@@ -1,8 +1,6 @@
 package isapsw.tim43.ISCC.dto;
 
 import java.util.List;
-import java.util.Set;
-
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;

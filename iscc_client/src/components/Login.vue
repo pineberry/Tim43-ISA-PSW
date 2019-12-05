@@ -46,7 +46,8 @@
                     {
         				localStorage.setItem('auth', 'Bearer ' + this.usersDetails.jwt);
         				localStorage.setItem('user', this.usersDetails.firstName + ' ' + this.usersDetails.lastName);
-        			    localStorage.setItem('email', this.usersDetails.email);
+						localStorage.setItem('email', this.usersDetails.email);
+						localStorage.setItem('user_id', this.usersDetails.id);
         				if (this.usersDetails.typeOfUser == "patient")
         				{
         					this.$router.push('/patientHome');

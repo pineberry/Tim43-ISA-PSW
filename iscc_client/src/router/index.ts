@@ -19,6 +19,7 @@ import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtCli
 import AdminPasswordChange from "../views/AdminPasswordChange.vue"
 import SeachMedicalRooms from "../views/SearchMedicalRooms.vue";
 import SearchDoctors from "../views/SearchDoctors.vue";
+import ScheduleAppointment from "../views/ScheduleAppointment.vue"
 
 Vue.use(VueRouter);
 
@@ -126,6 +127,11 @@ const routes = [
         path: "/searchDoctors",
         name: "searchDoctors",
         component: SearchDoctors
+    },
+    {
+        path: "/scheduling",
+        name: "scheduleAppointment",
+        component: ScheduleAppointment
     }
 ];
 

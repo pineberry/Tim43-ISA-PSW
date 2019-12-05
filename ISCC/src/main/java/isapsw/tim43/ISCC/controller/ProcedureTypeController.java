@@ -1,7 +1,6 @@
 package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.ProcedureTypeDTO;
-import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.service.ProcedureTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
