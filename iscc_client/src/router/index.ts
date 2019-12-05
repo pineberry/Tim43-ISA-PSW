@@ -18,6 +18,7 @@ import PatientHome from "../components/PatientHome.vue";
 import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtClinic.vue";
 import AdminPasswordChange from "../views/AdminPasswordChange.vue"
 import SeachMedicalRooms from "../views/SearchMedicalRooms.vue";
+import SearchDoctors from "../views/SearchDoctors.vue";
 
 Vue.use(VueRouter);
 
@@ -120,6 +121,11 @@ const routes = [
         path: "/searchRooms",
         name: "searchMedicalRooms",
         component: SeachMedicalRooms
+    },
+    {
+        path: "/searchDoctors",
+        name: "searchDoctors",
+        component: SearchDoctors
     }
 ];
 

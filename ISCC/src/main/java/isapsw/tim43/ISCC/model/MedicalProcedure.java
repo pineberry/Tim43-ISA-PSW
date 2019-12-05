@@ -1,6 +1,9 @@
 package isapsw.tim43.ISCC.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.Date;
 
 @Entity
@@ -13,15 +16,18 @@ public class MedicalProcedure {
 //	private String name;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private ProcedureType procedureType;
 
 	@Column(name = "dateOfProcedure", unique = true, nullable = false)
 	private Date dateOfProcedure;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private MedicalRoom medicalRoom;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Doctor doctor;
 
 	@Column(name = "price")

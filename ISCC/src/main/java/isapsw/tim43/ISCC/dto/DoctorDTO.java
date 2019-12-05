@@ -1,7 +1,15 @@
 package isapsw.tim43.ISCC.dto;
 
-import isapsw.tim43.ISCC.model.Doctor;
+import java.util.List;
+import java.util.Set;
 
+import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.Doctor;
+import isapsw.tim43.ISCC.model.MedicalProcedure;
+import isapsw.tim43.ISCC.model.ProcedureType;
+import lombok.Data;
+
+@Data
 public class DoctorDTO {
 	
 	private long id;
@@ -16,32 +24,19 @@ public class DoctorDTO {
 	private double averageRating;
 	private String workingtimeStart;
 	private String workingtimeEnd;
+	private ProcedureType specialized;
+	private Clinic clinic;
+	private List<MedicalProcedure> medicalProcedures;
+	
 	
 	public DoctorDTO() {}
 	
 	public DoctorDTO(Doctor doctor) {
 		this(doctor.getId(), doctor.getEmail(), doctor.getPassword(), doctor.getFirstName(), doctor.getLastName(),
 				doctor.getAddress(), doctor.getCity(), doctor.getState(), doctor.getPhoneNumber(), doctor.getAverageRating(),
-				doctor.getWorkingtimeStart(), doctor.getWorkingtimeEnd());
+				doctor.getWorkingtimeStart(), doctor.getWorkingtimeEnd(), doctor.getSpecialized(), doctor.getClinic(), doctor.getMedicalProcedures());
 	}
 	
-	public DoctorDTO(long id, String email, String password, String firstName, String lastName, String address,
-			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,
-			String workingtimeEnd) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.phoneNumber = phoneNumber;
-		this.averageRating = averageRating;
-		this.workingtimeStart = workingtimeStart;
-		this.workingtimeEnd = workingtimeEnd;
-	}
 	public long getId() {
 		return id;
 	}
@@ -78,7 +73,25 @@ public class DoctorDTO {
 	public String getWorkingtimeEnd() {
 		return workingtimeEnd;
 	}
-	
-	
 
+	public DoctorDTO(long id, String email, String password, String firstName, String lastName, String address,
+			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,
+			String workingtimeEnd, ProcedureType specialized, Clinic clinic, List<MedicalProcedure> medicalProcedures) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.phoneNumber = phoneNumber;
+		this.averageRating = averageRating;
+		this.workingtimeStart = workingtimeStart;
+		this.workingtimeEnd = workingtimeEnd;
+		this.specialized = specialized;
+		this.clinic = clinic;
+		this.medicalProcedures = medicalProcedures;
+	}
 }

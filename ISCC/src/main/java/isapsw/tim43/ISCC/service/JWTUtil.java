@@ -50,7 +50,7 @@ public class JWTUtil {
     private String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) //istice za 10 sati
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 8760)) //istice za godinu dana
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact(); // kodira na osnovu prosledjene tajne sa signature algoritmom
     }
     // tek ovde proveravamo dal korisnik ima autorizovan pristup

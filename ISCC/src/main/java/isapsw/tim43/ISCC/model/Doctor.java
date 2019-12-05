@@ -2,10 +2,14 @@ package isapsw.tim43.ISCC.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -56,12 +60,15 @@ public class Doctor {
 	private Boolean onVacation;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private ProcedureType specialized;
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<MedicalProcedure> medicalProcedures = new HashSet<MedicalProcedure>();
+	@JsonBackReference
+	private List<MedicalProcedure> medicalProcedures;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Clinic clinic;
 	
 	public Doctor() {
@@ -71,7 +78,7 @@ public class Doctor {
 	public Doctor(long id, String email, String password, String firstName, String lastName, String address,
 			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,
 			String workingtimeEnd, Boolean onVacation, ProcedureType specialized,
-			Set<MedicalProcedure> medicalProcedures, Clinic clinic) {
+			List<MedicalProcedure> medicalProcedures, Clinic clinic) {
 		super();
 		this.id = id;
 		this.email = email;

@@ -2,6 +2,9 @@ package isapsw.tim43.ISCC.model;
 
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class Clinic {
     private List<ClinicAdministrator> administrators;
 	
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Doctor> doctors;
 	
 	/*

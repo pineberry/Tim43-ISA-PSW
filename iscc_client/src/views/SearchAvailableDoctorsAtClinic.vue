@@ -97,7 +97,7 @@
 					this.clinics = this.response.data.clinics
 					this.doctors = this.response.data.doctors
 					this.showResult = true
-					console.log(this.doctors)
+					console.log(this.response)
 				})
 				.catch(error => {alert(error.response.data)})
 			},

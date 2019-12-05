@@ -3,7 +3,11 @@ package isapsw.tim43.ISCC.model;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,10 +25,12 @@ public class ProcedureType {
 	private String typeDescription;
 
 	@OneToMany(mappedBy = "specialized", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Doctor> doctors = new HashSet<Doctor>();
+	@JsonBackReference
+	private List<Doctor> doctors;
 
 	@OneToMany(mappedBy = "procedureType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<MedicalProcedure> medicalProcedures = new HashSet<MedicalProcedure>();
+	@JsonBackReference
+	private List<MedicalProcedure> medicalProcedures;
 
 	public ProcedureType(){}
 	
