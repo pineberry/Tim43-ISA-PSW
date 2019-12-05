@@ -19,6 +19,8 @@ import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtCli
 import AdminPasswordChange from "../views/AdminPasswordChange.vue"
 import SeachMedicalRooms from "../views/SearchMedicalRooms.vue";
 import SearchDoctors from "../views/SearchDoctors.vue";
+import EditProcedureType from "../views/EditProcedureType.vue";
+import SearchProcedureType from "../views/SearchProcedureTypes.vue";
 
 Vue.use(VueRouter);
 
@@ -126,7 +128,17 @@ const routes = [
         path: "/searchDoctors",
         name: "searchDoctors",
         component: SearchDoctors
-    }
+    },
+  {
+    path: "/editType",
+    name: "editProcedureType",
+    component: EditProcedureType
+  },
+  {
+    path: "/searchTypes",
+    name: "searchProcedureTypes",
+    component: SearchProcedureType
+  }
 ];
 
 const router = new VueRouter({
