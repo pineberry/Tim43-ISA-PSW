@@ -28,6 +28,9 @@ public class ReportService {
     @Autowired
     private PrescriptionService prescriptionService;
 
+    @Autowired
+    private ClinicService clinicService;
+
     public Report save(Report report) {
         return reportRepository.save(report);
     }

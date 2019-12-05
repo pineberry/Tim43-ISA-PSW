@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.service;
 
+import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.Prescription;
 import isapsw.tim43.ISCC.repository.PrescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,8 @@ public class PrescriptionService {
 
     public void remove(Long id) {
         prescriptionRepository.deleteById(id);
+    }
+
+    public void findByDoctor(Doctor doctor) {
     }
 }
