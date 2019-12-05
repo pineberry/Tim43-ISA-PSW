@@ -18,6 +18,8 @@ import PatientHome from "../components/PatientHome.vue";
 import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtClinic.vue";
 import AdminPasswordChange from "../views/AdminPasswordChange.vue"
 import SeachMedicalRooms from "../views/SearchMedicalRooms.vue";
+import EditProcedureType from "../views/EditProcedureType.vue";
+import SearchProcedureType from "../views/SearchProcedureTypes.vue";
 
 Vue.use(VueRouter);
 
@@ -116,11 +118,21 @@ const routes = [
     name: "report",
     component: Report
   },
-    {
-        path: "/searchRooms",
-        name: "searchMedicalRooms",
-        component: SeachMedicalRooms
-    }
+  {
+    path: "/searchRooms",
+    name: "searchMedicalRooms",
+    component: SeachMedicalRooms
+  },
+  {
+    path: "/editType",
+    name: "editProcedureType",
+    component: EditProcedureType
+  },
+  {
+    path: "/searchTypes",
+    name: "searchProcedureTypes",
+    component: SearchProcedureType
+  }
 ];
 
 const router = new VueRouter({
