@@ -16,18 +16,18 @@ public class MedicalProcedure {
 //	private String name;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+//	@JsonManagedReference(value="procedure-type")
 	private ProcedureType procedureType;
 
 	@Column(name = "dateOfProcedure", unique = true, nullable = false)
 	private Date dateOfProcedure;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+//	@JsonManagedReference(value="procedure-room")
 	private MedicalRoom medicalRoom;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+//	@JsonManagedReference(value="doctor-procedure")
 	private Doctor doctor;
 
 	@Column(name = "price")

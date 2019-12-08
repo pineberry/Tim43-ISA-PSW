@@ -1,12 +1,15 @@
 package isapsw.tim43.ISCC.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,8 +27,8 @@ public class MedicalRoom {
 	private int roomNumber;
 
 	@OneToMany(mappedBy = "medicalRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonBackReference
-	private Set<MedicalProcedure> medicalProcedures = new HashSet<MedicalProcedure>();
+	@JsonIgnore
+	private List<MedicalProcedure> medicalProcedures;
 
 	public MedicalRoom(long id, String roomName, int roomNumber) {
 		super();
