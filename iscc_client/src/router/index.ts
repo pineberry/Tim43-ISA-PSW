@@ -25,6 +25,7 @@ import SearchProcedureType from "../views/SearchProcedureTypes.vue";
 import NurseHome from "../views/NurseHome.vue";
 import UncheckedPrescriptions from "../views/UncheckedPrescriptions.vue";
 import EditMedicalRecord from "../views/EditMeidcalRecord.vue";
+import EditMedicalRoom from "../views/EditMedicalRoom.vue";
 
 Vue.use(VueRouter);
 
@@ -162,6 +163,11 @@ const routes = [
     path: "/searchTypes",
     name: "searchProcedureTypes",
     component: SearchProcedureType
+  },
+  {
+    path: "/editRoom",
+    name: "editMedicalRoom",
+    component: EditMedicalRoom
   }
 ];
 

@@ -65,7 +65,6 @@
                         var index = this.procedureTypes.indexOf(type)
                         this.procedureTypes.splice(index, 1)
                     })
-
             }
         }
     }

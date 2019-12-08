@@ -50,7 +50,7 @@ public class ProcedureTypeController {
             procedureTypeDTO = procedureTypeService.update(procedureTypeDTO);
 
             if (procedureTypeDTO != null) {
-                return new ResponseEntity<ProcedureTypeDTO>(procedureTypeDTO, HttpStatus.OK);
+                return new ResponseEntity<>(procedureTypeDTO, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -65,7 +65,11 @@ public class ProcedureTypeController {
         @GetMapping(value = "/{id}", produces = "application/json")
         public ResponseEntity<ProcedureTypeDTO> getTypeById(@PathVariable long id){
             ProcedureType procedureType = procedureTypeService.findOne(id);
-            return new ResponseEntity<>(new ProcedureTypeDTO(procedureType), HttpStatus.OK);
+            if (procedureType != null) {
+                return new ResponseEntity<>(new ProcedureTypeDTO(procedureType), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
 
 }

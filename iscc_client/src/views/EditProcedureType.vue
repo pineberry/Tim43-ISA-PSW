@@ -76,6 +76,9 @@
 
                 if (valid) {
                     this.axios.put("http://localhost:8080/procedure/type/update", this.procedureType)
+                        .then(response => {
+                            this.$router.push('/searchTypes');
+                        })
                 }
             }
         }
