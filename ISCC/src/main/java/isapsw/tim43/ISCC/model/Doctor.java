@@ -60,15 +60,16 @@ public class Doctor {
 	private Boolean onVacation;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+//	@JsonManagedReference(value="doctor-type")
 	private ProcedureType specialized;
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonBackReference
+//	@JsonBackReference(value="doctor-procedure")
+    @JsonIgnore
 	private List<MedicalProcedure> medicalProcedures;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+//	@JsonManagedReference(value="doctor-clinic")
 	private Clinic clinic;
 	
 	public Doctor() {

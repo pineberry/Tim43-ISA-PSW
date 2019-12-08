@@ -31,15 +31,19 @@ public class MedicalProcedureService {
 
     public MedicalProcedureDTO save(MedicalProcedureDTO medicalProcedureDTO){
         if(medicalProcedureDTO.getProcedureType() == null || medicalProcedureDTO.getDateOfProcedure() == null ||
-                medicalProcedureDTO.getDoctor() == null || medicalProcedureDTO.getMedicalRoom() == null) {
+                medicalProcedureDTO.getDoctor() == null) {
             return null;
         }
 
+        MedicalRoom medicalRoom = null;
+
+        if(medicalProcedureDTO.getMedicalRoom() != null)
+            medicalRoom = medicalRoomService.findOne(medicalProcedureDTO.getMedicalRoom().getId());
+
         ProcedureType procedureType = procedureTypeService.findOne(medicalProcedureDTO.getProcedureType().getId());
-        MedicalRoom medicalRoom = medicalRoomService.findOne(medicalProcedureDTO.getMedicalRoom().getId());
         Doctor doctor = doctorService.findOne(medicalProcedureDTO.getDoctor().getId());
 
-        if(procedureType == null || medicalRoom == null || doctor == null){
+        if(procedureType == null || doctor == null){
             return null;
         }
 

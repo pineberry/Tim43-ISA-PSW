@@ -34,6 +34,18 @@
 						<label for="inputPhone">Phone number:</label>
 						<input id="inputPhone" type="text" class="form-control" placeholder="Enter phone number" v-model="phoneNumber">
 					</div>
+					<div class="form-group">
+						<label for="selectClinic">Clinic</label>
+						<select id="selectClinic" class="form-control" v-model="clinic">
+							<option v-for="c in clinics" :key="c.id" :value="c">{{c.name}}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="selectType">Procedure type</label>
+						<select id="selectType" class="form-control" v-model="specialized">
+							<option v-for="pType in procedureTypes" :key="pType.id" :value="pType">{{pType.typeName}}</option>
+						</select>
+					</div>
                     <div class="form-group">
 						<label for="inputStart">Workingtime Start:</label>
 						<input id="inputStart" type="time" class="form-control" v-model="workingtimeStart">
@@ -65,9 +77,20 @@
                 state: undefined,
                 workingtimeStart: undefined,
                 workingtimeEnd: undefined,
+				clinic: null,
+				specialized: null,
+				clinics: null,
+				procedureTypes: null
             }
         },
-
+		mounted: function(){
+			this.axios.get("http://localhost:8080/procedure/type/all")
+					.then(response => {this.procedureTypes = response.data})
+					.catch(error => {alert(error.response.data)})
+			this.axios.get("http://localhost:8080/clinic/clinics")
+					.then(response => {this.clinics = response.data})
+					.catch(error => {alert(error.response.data)})
+		},
         computed: {
             valName: function(){
 				if(this.firstName != undefined && this.firstName.length > 0){
@@ -149,7 +172,9 @@
                     "state": this.state,
                     "phoneNumber": this.phoneNumber,
                     "workingtimeStart": this.workingtimeStart,
-                    "workingtimeEnd": this.workingtimeEnd
+                    "workingtimeEnd": this.workingtimeEnd,
+					"specialized": this.specialized,
+					"clinic": this.clinic
                 }
 
 				var valid = true;
@@ -210,25 +235,46 @@
 
 					valid = false;
 				}
-				else if ((tempName != this.firstName) || (tempSurname != this.lastName) || (tempCity != this.city) || (tempCity != this.grad)
+				else if ((tempName != this.firstName) || (tempSurname != this.lastName) || (tempCity != this.city) || (tempCity != this.city)
 						|| (tempState != this.state) || (this.firstName[0].match('[A-Z]') === null) || (this.lastName[0].match('[A-Z]') === null)
-						|| (this.grad[0].match('[A-Z]') === null) || (this.state[0].match('[A-Z]') === null)){
+						|| (this.city[0].match('[A-Z]') === null) || (this.state[0].match('[A-Z]') === null)){
 					valid = false;
 				}
 				else {
 					valid = true;
 				}
-                valid = true;
+
+				if(!this.checkWorkingTime()){
+					valid = false
+				}
+
                 if (valid){
                     this.axios.post("http://localhost:8080/doctor/add", doctor)
 							.then(response => {
-								alert(response.data.firstName)
+								alert(response.data.firstName);
 							})
 							.catch(errorr => {
-								alert(error.response.data)
+								alert('Error');
 							})
                 }
-            }
+            },
+			checkWorkingTime: function(){
+            	var retVal = true;
+				var startTimeParts = this.workingtimeStart.split(":");
+				var endTimeParts = this.workingtimeEnd.split(":");
+				var startHour = parseInt(startTimeParts[0]);
+				var startMinute = parseInt(startTimeParts[1]);
+				var endHour = parseInt(endTimeParts[0]);
+				var endMinute = parseInt(endTimeParts[1]);
+
+				if (startHour > endHour) {
+					retVal = false
+				} else if ((startHour == endHour) && (startMinute >= endMinute)){
+					retVal = false
+				}
+
+				return retVal;
+			}
         }
     }
 

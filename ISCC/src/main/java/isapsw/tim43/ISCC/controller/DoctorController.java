@@ -32,7 +32,7 @@ public class DoctorController {
 		if(doctorDTO != null){
 			return new ResponseEntity<>(doctorDTO, HttpStatus.CREATED);
 		}else{
-			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 

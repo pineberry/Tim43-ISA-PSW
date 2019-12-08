@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -25,11 +26,13 @@ public class ProcedureType {
 	private String typeDescription;
 
 	@OneToMany(mappedBy = "specialized", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonBackReference
+//	@JsonBackReference(value="doctor-type")
+    @JsonIgnore
 	private List<Doctor> doctors;
 
 	@OneToMany(mappedBy = "procedureType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonBackReference
+//	@JsonBackReference(value="procedure-type")
+    @JsonIgnore
 	private List<MedicalProcedure> medicalProcedures;
 
 	public ProcedureType(){}

@@ -32,7 +32,7 @@ public class Clinic {
     private List<ClinicAdministrator> administrators;
 	
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonBackReference
+	@JsonBackReference(value="doctor-clinic")
 	private List<Doctor> doctors;
 	
 	/*
