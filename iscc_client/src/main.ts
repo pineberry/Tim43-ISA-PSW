@@ -8,7 +8,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import VueResource from "vue-resource";
 
-
+Vue.mixin({
+	data: function() {
+		return {
+			role : localStorage.getItem('typeOfUser')
+		}
+	}
+});
 
 Vue.config.productionTip = false;
 Vue.prototype.axios = axios;

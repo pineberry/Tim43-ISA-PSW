@@ -22,6 +22,7 @@ import SearchDoctors from "../views/SearchDoctors.vue";
 import ScheduleAppointment from "../views/ScheduleAppointment.vue"
 import EditProcedureType from "../views/EditProcedureType.vue";
 import SearchProcedureType from "../views/SearchProcedureTypes.vue";
+import ClinicCenterAdministratorHome from '../components/ClinicCenterAdministratorHome.vue';
 
 Vue.use(VueRouter);
 
@@ -148,7 +149,7 @@ const routes = [
   {
     path: "/clinicCenterAdministratorHome",
     name: "clinicCenterAdministratorHome",
-    component : () => import('../components/ClinicCenterAdministratorHome.vue')
+    component : ClinicCenterAdministratorHome
   },
   {
     path: "/clinicAdministratorHome",
@@ -164,6 +165,11 @@ const routes = [
     path: "/doctorHome",
     name: "doctorHome",
     component : () => import('../components/DoctorHome.vue')
+  },
+  {
+    path: "/patientProfile",
+    name: "patientProfile",
+    component: () => import('../views/PatientProfile.vue')
   }
 ];
 

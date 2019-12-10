@@ -1,8 +1,5 @@
 <template>
   <div class="home">
-    <!-- <div class="fluid" v-if="user">
-      <PatientHome />
-    </div> -->
     <div class="fluid" v-if="!user">
       <Login />
     </div>
@@ -14,7 +11,6 @@
 export default {
   name: "home",
   components: {
-    // PatientHome: () => import("../components/PatientHome.vue"),
     Login: () => import("../components/Login.vue")
   },
   data : function() {

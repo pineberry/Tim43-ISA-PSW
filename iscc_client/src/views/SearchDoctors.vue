@@ -1,11 +1,8 @@
 <template>
     <div class="container">
-        <div v-if="user">
-            <PatientHome />
-        </div>
         <div class="row m-3">
             <div class="col-6">
-                <label>Enter data to search:</label>
+                <label>Enter info to filter:</label>
                 <form>
                     <div class="form-group row">
                         <label for="firstName" class="col-sm-4 col-form-label">Doctor's first name</label>
@@ -67,7 +64,6 @@
 export default {
     name: "searchDoctors",
     components: {
-        PatientHome: () => import('../components/PatientHome.vue')
     },
     data: function() {
         return {

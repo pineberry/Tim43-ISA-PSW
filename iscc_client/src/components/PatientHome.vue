@@ -4,23 +4,23 @@
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="http://localhost:8081/patientHome" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
                 <div class="dropdown-menu">
-					<router-link class="dropdown-item" to="/patientHome">Profile</router-link>
+					<router-link class="dropdown-item" to="patientProfile">Profile</router-link>
 					<a class="dropdown-item bg-danger text-white" v-on:click="logout" href="http://localhost:8081">
                         Logout
                     </a>
                 </div>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/patientHome">Clinics</router-link>
+                <router-link class="nav-link" to="">Clinics</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/searchDoctors">Doctors</router-link>
+                <router-link class="nav-link" to="searchDoctors">Doctors</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/patientHome">Procedure history</router-link>
+                <router-link class="nav-link" to="">Procedure history</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/patientHome">Medical record</router-link>
+                <router-link class="nav-link" to="">Medical record</router-link>
             </li>
         </ul>
         <div v-if="searchF == true">
@@ -30,7 +30,6 @@
         <div v-if="searchF == false">
             <p>If you want to schedule an examintation click <a v-on:click="showSearch" href="#">here</a>.</p>
         </div>
-        <router-view />
 	</div>
 </template>
 

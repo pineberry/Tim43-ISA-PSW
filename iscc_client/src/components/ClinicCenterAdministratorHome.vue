@@ -13,15 +13,15 @@
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add</a>
                 <div class="dropdown-menu">
-                    <router-link class="dropdown-item" to="/addClinic">Clinic</router-link>
-                    <router-link class="dropdown-item" to="/addClinicAdmin">Clinic administrator</router-link>
-                    <router-link class="dropdown-item" to="/addCenterAdmin">Clinic center administrator</router-link>
+                    <router-link class="dropdown-item" to="addClinic">Clinic</router-link>
+                    <router-link class="dropdown-item" to="addClinicAdmin">Clinic administrator</router-link>
+                    <router-link class="dropdown-item" to="addCenterAdmin">Clinic center administrator</router-link>
                 </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Codebooks</a>
                 <div class="dropdown-menu">
-                    <router-link class="dropdown-item" to="/codebook">Codebook</router-link>
+                    <router-link class="dropdown-item" to="codebook">Codebook</router-link>
                 </div>
             </li>
         </ul>
@@ -30,6 +30,7 @@
 
 <script>
 export default {
+    name: "clinicAdministratorHome",
     data : function() {
         return {
             user : localStorage.getItem('user')
