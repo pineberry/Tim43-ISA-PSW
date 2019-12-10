@@ -144,6 +144,26 @@ const routes = [
     path: "/searchTypes",
     name: "searchProcedureTypes",
     component: SearchProcedureType
+  },
+  {
+    path: "/clinicCenterAdministratorHome",
+    name: "clinicCenterAdministratorHome",
+    component : () => import('../components/ClinicCenterAdministratorHome.vue')
+  },
+  {
+    path: "/clinicAdministratorHome",
+    name: "clinicAdministratorHome",
+    component : () => import('../components/ClinicAdministratorHome.vue')
+  },
+  {
+    path: "/nurseHome",
+    name: "nurseHome",
+    component : () => import('../components/NurseHome.vue')
+  },
+  {
+    path: "/doctorHome",
+    name: "doctorHome",
+    component : () => import('../components/DoctorHome.vue')
   }
 ];
 

@@ -1,6 +1,9 @@
 <template>
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container">
+        <div v-if="user">
+            <PatientHome />
+        </div>
+        <div class="row m-3">
             <div class="col-6">
                 <label>Enter data to search:</label>
                 <form>
@@ -35,13 +38,15 @@
                     <div class="card-body">
                         <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
                         <div class="row">
-                            <div class="col-2">
-                                <img src="../images/doctor.png" alt="..." class="rounded float-left">
-                            </div>
-                            <div class="col-5">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <img src="../images/doctor.png" alt="..." class="rounded float-left">
+                                    </div>
+                                </div>
                                 <p>Average rating: {{doctor.averageRating}}</p>
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
                                 <p>Specialization: {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</p>
                                 <p>Location: <b><a class="card-link" :href="'http://localhost:8081/clinic/'+doctor.clinic.id">{{doctor.clinic.name}}</a></b> {{doctor.address}} - {{doctor.city}}</p>
                             </div>
@@ -61,6 +66,9 @@
 
 export default {
     name: "searchDoctors",
+    components: {
+        PatientHome: () => import('../components/PatientHome.vue')
+    },
     data: function() {
         return {
             doctors : [],
@@ -68,7 +76,8 @@ export default {
             lastName : undefined,
             rating : 0,
             allRatingsChecked : false,
-            response: undefined
+            response: undefined,
+            user : localStorage.getItem('user')
         }
     },
     computed: {
@@ -112,7 +121,7 @@ export default {
             document.getElementById('rating').removeAttribute('disabled');
         }
     },
-    mounted: function() {
+    created: function() {
         this.axios.get("http://localhost:8080/doctor/all")
         .then(response => {
                 this.response = response
@@ -131,7 +140,7 @@ export default {
 </script>
 
 <style>
-.checked {
-  color: orange;
+img {
+    width: 100%;
 }
 </style>

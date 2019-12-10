@@ -1,7 +1,33 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
+    <div class="container">
+        <div class="row">
+            <div>
+                <router-link to="/">
+                  <img src="./images/iscc_icon_64_M.png" alt="nema">
+                </router-link>
+            </div>
+            <div class="align-self-end ml-3">
+                <p class="h1 text-info font-weight-bold">Clinic center</p>
+            </div>
+        </div>
+    </div>
+    <div v-if="role === 'patient'">
+        <PatientHome />
+    </div>
+    <div v-if="role === 'nurse'">
+        <NurseHome />
+    </div>
+    <div v-if="role === 'clinicAdministrator'">
+        <ClinicAdministratorHome />
+    </div>
+    <div v-if="role === 'clinicCenterAdministrator'">
+        <ClinicCenterAdministratorHome />
+    </div>
+    <div v-if="role === 'doctor'">
+        <DoctorHome />
+    </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <div class="nav-item dropdown">
@@ -33,7 +59,15 @@
 
 export default {
   components: {
-    
+    PatientHome : () => import('../src/components/PatientHome.vue'),
+    DoctorHome : () => import('../src/components/DoctorHome.vue'),
+    ClinicAdministratorHome : () => import('../src/components/ClinicAdministratorHome.vue'),
+    ClinicCenterAdministratorHome : () => import('../src/components/ClinicCenterAdministratorHome.vue'),
+  },
+  data : function () {
+    return {
+      role : localStorage.getItem('typeOfUser')
+    }
   }
 };
 </script>
@@ -58,4 +92,5 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>

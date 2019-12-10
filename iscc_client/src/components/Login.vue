@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
-		<div class="row">
-			<form class="col-6" v-on:submit.prevent="submit" method="post">
+		<div class="m-5">
+			<form class="col-5" v-on:submit.prevent="submit" method="post">
 				<div class="form-group">
                     <label for="emailAddress">Email address</label>
                     <input type="text" class="form-control" id="emailAddress" v-model="emailAddress">
@@ -10,9 +10,13 @@
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" v-model="password">
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Login</button>
+                <div class="row justify-content-between m-1">
+					<small class="">To register click <span><router-link to="/register">here</router-link></span>.</small>
+					<button type="submit" class="btn btn-primary">Login</button>
+				</div>
 			</form>
 		</div>
+		<p class="nav-item nav-link"></p>  	
 	</div>
 </template>
 
@@ -48,6 +52,7 @@
         				localStorage.setItem('user', this.usersDetails.firstName + ' ' + this.usersDetails.lastName);
 						localStorage.setItem('email', this.usersDetails.email);
 						localStorage.setItem('user_id', this.usersDetails.id);
+						localStorage.setItem('typeOfUser', this.usersDetails.typeOfUser);
         				if (this.usersDetails.typeOfUser == "patient")
         				{
         					this.$router.push('/patientHome');
