@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.controller;
 
+import isapsw.tim43.ISCC.model.MedicalRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,17 @@ public class MedicalRoomController {
 		return new ResponseEntity<>(medicalRoomDTOList, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/{id}", produces = "application/json")
+	public ResponseEntity<MedicalRoomDTO> getRoomById(@PathVariable Long id){
+		MedicalRoom medicalRoom = medicalRoomService.findOne(id);
+
+		if (medicalRoom != null) {
+			return new ResponseEntity<>(new MedicalRoomDTO(medicalRoom), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@GetMapping(value = "/name/{roomName}/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<MedicalRoomDTO>> getRoomsByName(@PathVariable String roomName,
 															   		@PathVariable
@@ -52,6 +64,25 @@ public class MedicalRoomController {
 															   @DateTimeFormat(pattern = "yyy-MM-dd") Date date){
 		List<MedicalRoomDTO> medicalRoomDTOList = medicalRoomService.searchRoomsByNumber(roomNumber, date);
 		return new ResponseEntity<>(medicalRoomDTOList, HttpStatus.OK);
+	}
+
+	@PutMapping(value = "/update", consumes = "application/json")
+	public ResponseEntity<MedicalRoomDTO> updateRoom(@RequestBody MedicalRoomDTO medicalRoomDTO) {
+		medicalRoomDTO = medicalRoomService.update(medicalRoomDTO);
+		if (medicalRoomDTO != null) {
+			return new ResponseEntity<>(medicalRoomDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> deleteRoom(@PathVariable Long id){
+		if (medicalRoomService.remove(id)){
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

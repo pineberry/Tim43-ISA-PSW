@@ -34,43 +34,6 @@ public class DoctorDTO {
 				doctor.getAddress(), doctor.getCity(), doctor.getState(), doctor.getPhoneNumber(), doctor.getAverageRating(),
 				doctor.getWorkingtimeStart(), doctor.getWorkingtimeEnd(), doctor.getSpecialized(), doctor.getClinic(), doctor.getMedicalProcedures());
 	}
-	
-	public long getId() {
-		return id;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public String getCity() {
-		return city;
-	}
-	public String getState() {
-		return state;
-	}
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	public double getAverageRating() {
-		return averageRating;
-	}
-	public String getWorkingtimeStart() {
-		return workingtimeStart;
-	}
-	public String getWorkingtimeEnd() {
-		return workingtimeEnd;
-	}
 
 	public DoctorDTO(long id, String email, String password, String firstName, String lastName, String address,
 			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,

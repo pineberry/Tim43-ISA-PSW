@@ -36,6 +36,8 @@
                         <th scope="col">Room name</th>
                         <th scope="col">Room number</th>
                         <th scope="col">Free date</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
                     </thead>
                     <tbody>
                         <tr v-for="room in medicalRooms" :key="room.id">
@@ -43,6 +45,8 @@
                             <td>{{room.roomName}}</td>
                             <td>{{room.roomNumber}}</td>
                             <td>{{room.firstFreeDate}}</td>
+                            <td><router-link class="btn btn-primary" :to="{path: '/editRoom',query: {roomId: room.id}}">Edit</router-link></td>
+                            <td><button class="btn btn-warning" v-on:click="deleteRoom(room)">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -100,6 +104,13 @@
                         })
                     
                 }
+            },
+            deleteRoom: function(room){
+                this.axios.delete("http://localhost:8080/medical/room/" + room.id)
+                    .then(response => {
+                        var index = this.medicalRooms.indexOf(room)
+                        this.medicalRooms.splice(index, 1)
+                    })
             }
         }
 

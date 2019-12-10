@@ -28,4 +28,6 @@ public class ClinicService {
     public List<Clinic> findAll() {
         return clinicRepository.findAll();
     }
+
+    public Clinic findOne(long id) {return clinicRepository.findById(id).orElseGet(null);}
 }

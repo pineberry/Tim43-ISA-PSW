@@ -46,6 +46,34 @@ public class MedicalRoomService {
 		return medicalRoomDTOList;
 	}
 
+	public MedicalRoomDTO update(MedicalRoomDTO medicalRoomDTO) {
+		if(medicalRoomDTO.getRoomName() == null || medicalRoomDTO.getRoomName().isEmpty()) {
+			return null;
+		}
+
+		MedicalRoom medicalRoom = findOne(medicalRoomDTO.getId());
+
+		if (medicalRoom.getMedicalProcedures().size() != 0) {
+			return null;
+		}
+
+		medicalRoom.setRoomName(medicalRoomDTO.getRoomName());
+		medicalRoom.setRoomNumber(medicalRoomDTO.getRoomNumber());
+
+		medicalRoom = medicalRoomRepository.save(medicalRoom);
+
+		return new MedicalRoomDTO(medicalRoom);
+	}
+
+	public boolean remove(Long id) {
+		MedicalRoom medicalRoom = findOne(id);
+		if (medicalRoom == null || medicalRoom.getMedicalProcedures().size() != 0){
+			return false;
+		}
+		medicalRoomRepository.deleteById(id);
+		return true;
+	}
+
 	public List<MedicalRoomDTO> searchRoomsByName(String roomName, Date searchDate){
 		List<MedicalRoom> rooms = new ArrayList<MedicalRoom>();
 
@@ -88,10 +116,6 @@ public class MedicalRoomService {
 		}
 
 		return roomsDTO;
-	}
-
-	public void remove(Long id) {
-		medicalRoomRepository.deleteById(id);
 	}
 
 	private void formDateList(Date searchDate, List<Date> scheduledDates, MedicalRoom room,

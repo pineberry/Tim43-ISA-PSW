@@ -1,6 +1,10 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.DoctorDTO;
+import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.ProcedureType;
+import isapsw.tim43.ISCC.repository.ClinicRepository;
+import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,12 @@ public class DoctorService {
 	
 	@Autowired
 	private DoctorRepository doctorRepository;
+
+	@Autowired
+	private ProcedureTypeService procedureTypeService;
+
+	@Autowired
+	private ClinicService clinicService;
 	
 	public DoctorDTO save(DoctorDTO doctorDTO) {
 		if(doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null
@@ -24,6 +34,13 @@ public class DoctorService {
 				|| doctorDTO.getCity().isEmpty() || doctorDTO.getAddress() == null
 				|| doctorDTO.getAddress().isEmpty() || doctorDTO.getPhoneNumber() == null
 				|| doctorDTO.getPhoneNumber().isEmpty()) {
+			return null;
+		}
+
+		ProcedureType procedureType = procedureTypeService.findOne(doctorDTO.getSpecialized().getId());
+		Clinic clinic = clinicService.findOne(doctorDTO.getClinic().getId());
+
+		if(!checkWorkingTime(doctorDTO.getWorkingtimeStart(), doctorDTO.getWorkingtimeEnd())){
 			return null;
 		}
 
@@ -41,6 +58,8 @@ public class DoctorService {
 		doctor.setWorkingtimeEnd(doctorDTO.getWorkingtimeEnd());
 		doctor.setPhoneNumber(doctorDTO.getPhoneNumber());
 		doctor.setOnVacation(false);
+		doctor.setSpecialized(procedureType);
+		doctor.setClinic(clinic);
 
 		doctor = doctorRepository.save(doctor);
 
@@ -86,6 +105,31 @@ public class DoctorService {
 	
 	public List<Doctor> findAll_(){
 		return doctorRepository.findAll();
+	}
+
+	private boolean checkWorkingTime(String workingtimeStart, String workingtimeEnd){
+		boolean retVal = true;
+		String[] startTimeParts = workingtimeStart.split(":");
+		String[] endTimeParts = workingtimeEnd.split(":");
+		int startHour;
+		int startMinute;
+		int endHour;
+		int endMinute;
+		try{
+			startHour = Integer.parseInt(startTimeParts[0]);
+			startMinute = Integer.parseInt(startTimeParts[1]);
+			endHour = Integer.parseInt(endTimeParts[0]);
+			endMinute = Integer.parseInt(endTimeParts[1]);
+		}catch(Exception e){
+			return false;
+		}
+		if (startHour > endHour) {
+			retVal = false;
+		} else if ((startHour == endHour) && (startMinute >= endMinute)){
+			retVal = false;
+		}
+
+		return retVal;
 	}
 
 }

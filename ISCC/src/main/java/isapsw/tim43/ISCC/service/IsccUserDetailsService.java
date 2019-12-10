@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.service;
 
 import java.util.ArrayList;
 
+import isapsw.tim43.ISCC.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import isapsw.tim43.ISCC.dto.UsersDetailsDTO;
-import isapsw.tim43.ISCC.model.ClinicAdministrator;
-import isapsw.tim43.ISCC.model.ClinicCenterAdministrator;
-import isapsw.tim43.ISCC.model.Doctor;
-import isapsw.tim43.ISCC.model.Patient;
 
 @Service
 public class IsccUserDetailsService implements UserDetailsService{
@@ -38,6 +35,11 @@ public class IsccUserDetailsService implements UserDetailsService{
 		{
 			ClinicAdministrator ca = (ClinicAdministrator)userService.findUserByEmailAddress(emailAddress);
 			return new User(ca.getEmail(), ca.getPassword(), new ArrayList<>());
+		}
+		else if (user.getClass() == Nurse.class)
+		{
+			Nurse nurse = (Nurse)userService.findUserByEmailAddress(emailAddress);
+			return new User(nurse.getEmail(), nurse.getPassword(), new ArrayList<>());
 		}
 		else 
 		{
@@ -64,6 +66,11 @@ public class IsccUserDetailsService implements UserDetailsService{
 		{
 			ClinicAdministrator ca = (ClinicAdministrator)userService.findUserByEmailAddress(emailAddress);
 			usersDetailsDTO = new UsersDetailsDTO(ca.getFirstName(), ca.getLastName(), ca.getEmail(), "clinicAdministrator", null, false, ca.getId());
+		}
+		else if (user.getClass() == Nurse.class)
+		{
+			Nurse nurse = (Nurse)userService.findUserByEmailAddress(emailAddress);
+			usersDetailsDTO = new UsersDetailsDTO(nurse.getFirstName(), nurse.getLastName(), nurse.getEmail(), "nurse", null, false, nurse.getId());
 		}
 		else 
 		{
