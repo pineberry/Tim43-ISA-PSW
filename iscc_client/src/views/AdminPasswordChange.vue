@@ -35,13 +35,11 @@
                 }
 
                 this.axios.post("http://localhost:8080/center/admin/change/password", User)
-<<<<<<< HEAD
                     .then(response => { alert( response.data.email); 
                     this.$router.push('/clinicCenterAdministratorHome')
                     })
-=======
+
                     .then(response => { alert( response.data.email); })
->>>>>>> 0039212423cc909c7af3e5bfc117a166d9bd683f
                     .catch(error => { alert("Puklo sine"); })
             }
         }
