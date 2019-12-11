@@ -62,8 +62,8 @@ public class Doctor {
 	private ProcedureType specialized;
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JsonBackReference(value="doctor-procedure")
-    @JsonIgnore
+	@JsonBackReference(value="doctor-procedure")
+//    @JsonIgnore
 	private List<MedicalProcedure> medicalProcedures;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

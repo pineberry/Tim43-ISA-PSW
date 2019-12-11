@@ -38,6 +38,9 @@ insert into medicine (name, code) values ('Kafetin', '3A');
 insert into diagnosis(name, latin_name, code) values ('Upala uva', 'Upalius usus', '1A1C');
 insert into diagnosis(name, latin_name, code) values ('Upala sinusa', 'Rinitis', '1A2C');
 
+insert into clinic_administrator (email, password, first_name, last_name, phone_number, address, city, state, clinic_id)
+values ('admin@gmail.com', 'nesto', 'Dwight', 'Schrute', '065000000', 'Schrute Farm', 'Scranton', 'Pennsylvania', 1);
+
 
 
 

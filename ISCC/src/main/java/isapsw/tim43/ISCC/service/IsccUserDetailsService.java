@@ -62,7 +62,7 @@ public class IsccUserDetailsService implements UserDetailsService{
 			Doctor d = (Doctor)userService.findUserByEmailAddress(emailAddress);
 			usersDetailsDTO = new UsersDetailsDTO(d.getFirstName(), d.getLastName(), d.getEmail(), "doctor", null, false, d.getId());
 		}
-		else if (user.getClass() == User.class)
+		else if (user.getClass() == ClinicAdministrator.class)
 		{
 			ClinicAdministrator ca = (ClinicAdministrator)userService.findUserByEmailAddress(emailAddress);
 			usersDetailsDTO = new UsersDetailsDTO(ca.getFirstName(), ca.getLastName(), ca.getEmail(), "clinicAdministrator", null, false, ca.getId());
