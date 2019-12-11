@@ -4,6 +4,7 @@ package isapsw.tim43.ISCC.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.Date;
@@ -34,7 +35,8 @@ public class Clinic {
 	private List<ClinicAdministrator> administrators;
 	
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonBackReference(value="doctor-clinic")
+//	@JsonBackReference(value="doctor-clinic")
+	@JsonIgnore
 	private List<Doctor> doctors;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

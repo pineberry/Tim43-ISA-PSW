@@ -26,6 +26,8 @@ import NurseHome from "../views/NurseHome.vue";
 import UncheckedPrescriptions from "../views/UncheckedPrescriptions.vue";
 import EditMedicalRecord from "../views/EditMeidcalRecord.vue";
 import EditMedicalRoom from "../views/EditMedicalRoom.vue";
+import ClinicAdminProfile from "../views/ClinicAdminProfile.vue";
+import EditClinicAdmin from "../views/EditClinicAdmin.vue";
 
 Vue.use(VueRouter);
 
@@ -168,6 +170,16 @@ const routes = [
     path: "/editRoom",
     name: "editMedicalRoom",
     component: EditMedicalRoom
+  },
+  {
+    path: "/adminProfile",
+    name: "clinicAdminProfile",
+    component: ClinicAdminProfile
+  },
+  {
+    path: "/editAdmin",
+    name: "editClinicAdmin",
+    component: EditClinicAdmin
   }
 ];
 

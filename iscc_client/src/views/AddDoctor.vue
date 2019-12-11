@@ -230,7 +230,7 @@
 				if (this.firstName === undefined || this.firstName === '' || this.lastName === undefined || this.lastName === ''
 						|| this.city === undefined || this.city === '' || this.state === undefined || this.state === ''
 						|| this.address === undefined || this.address === '' || this.email === undefined || this.email === ''
-						|| this.phoneNumber === undefined || this.phoneNumber === null || this.workingtimeStart === undefined
+						|| this.phoneNumber === undefined || this.phoneNumber === '' || this.workingtimeStart === undefined
 						|| this.workingtimeStart === '' || this.workingtimeEnd === undefined || this.workingtimeEnd === ''){
 
 					valid = false;
