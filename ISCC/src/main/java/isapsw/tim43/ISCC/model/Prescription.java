@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;

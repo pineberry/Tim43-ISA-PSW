@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.NurseDTO;
 import isapsw.tim43.ISCC.dto.PrescriptionDTO;
+import isapsw.tim43.ISCC.model.MedicalRecord;
 import isapsw.tim43.ISCC.service.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,23 @@ public class NurseController {
 
         return new ResponseEntity<>(prescriptionDTOList, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/checked/prescriptions/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PrescriptionDTO>> getCheckedPrescritpions(@PathVariable Long id) {
+        List<PrescriptionDTO> prescriptionDTOS = nurseService.checkedPrescriptions(id);
+        return new ResponseEntity<>(prescriptionDTOS, HttpStatus.OK);
+    }
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NurseDTO> getNurse(@PathVariable Long id) {
+        NurseDTO nurseDTO = nurseService.getNurse(id);
+
+        if (nurseDTO == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(nurseDTO, HttpStatus.OK);
+    }
+
 
     @PutMapping(value = "/check/prescription/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PrescriptionDTO>> checkPrescription(@RequestBody NurseDTO nurseDTO, @PathVariable Long id) {

@@ -67,7 +67,7 @@
         				}
         				else if (this.usersDetails.typeOfUser == "nurse")
                         {
-                            this.$router.push('/nurseHome');
+                            this.$router.push('/');
                         }
         				else
                         {

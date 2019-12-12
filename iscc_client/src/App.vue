@@ -25,16 +25,14 @@
         </div>
       </div>
     </nav>
-    <div class="container">
-        <div class="row">
-            <div>
-                <router-link to="">
-                  <img src="./images/iscc_icon_64_M.png" alt="nema">
-                </router-link>
-            </div>
-            <div class="align-self-end ml-3">
-                <p class="h1 text-info font-weight-bold">Clinic center</p>
-            </div>
+    <div class="row">
+        <div>
+            <router-link to="">
+              <img src="./images/iscc_icon_64_M.png" alt="nema">
+            </router-link>
+        </div>
+        <div class="align-self-end ml-3">
+            <p class="h1 text-info font-weight-bold">Clinic center</p>
         </div>
     </div>
     <div v-if="role === 'patient'">
@@ -64,6 +62,7 @@ export default {
     DoctorHome : () => import('../src/components/DoctorHome.vue'),
     ClinicAdministratorHome : () => import('../src/components/ClinicAdministratorHome.vue'),
     ClinicCenterAdministratorHome : () => import('../src/components/ClinicCenterAdministratorHome.vue'),
+    NurseHome : () => import('../src/components/NurseHome.vue')
   },
   data : function () {
     return {

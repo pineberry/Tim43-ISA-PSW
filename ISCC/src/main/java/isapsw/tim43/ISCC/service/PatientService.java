@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PatientService {
 
@@ -84,6 +87,36 @@ public class PatientService {
 				patientData.getHealthCareNumber(), patientRepository.findById(patientData.getId()).get().getStatus(),
 				patientRepository.findById(patientData.getId()).get().getRecord()));
 		return null;
+	}
+
+	public List<PatientDTO> getAllPatients() {
+		List<Patient> patients = patientRepository.findAll();
+
+		List<PatientDTO> patientDTOS = new ArrayList<>();
+
+		for (Patient patient:
+			 patients) {
+			PatientDTO patientDTO = modelToDto(patient);
+			patientDTOS.add(patientDTO);
+		}
+
+		return patientDTOS;
+	}
+
+	public PatientDTO modelToDto(Patient patient) {
+		PatientDTO patientDTO = new PatientDTO();
+
+		patientDTO.setId(patient.getId());
+		patientDTO.setEmail(patient.getEmail());
+		patientDTO.setFirstName(patient.getFirstName());
+		patientDTO.setLastName(patient.getLastName());
+		patientDTO.setHealthCareNumber(patient.getHealthCareNumber());
+		patientDTO.setAddress(patient.getAddress());
+		patientDTO.setCity(patient.getCity());
+		patientDTO.setState(patient.getState());
+		patientDTO.setPhoneNumber(patient.getPhoneNumber());
+
+		return patientDTO;
 	}
 
 }
