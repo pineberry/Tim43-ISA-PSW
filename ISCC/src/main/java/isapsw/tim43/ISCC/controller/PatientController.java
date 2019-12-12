@@ -48,7 +48,7 @@ public class PatientController {
         
         return new ResponseEntity<MedicalProcedureDTO>(
         		patientService.scheduleAppointment(patient, doctor, 
-        				new MedicalProcedure(doctor.getSpecialized(), formatter.parse(date), medicalRoomService.findOne(1), doctor, 0, 0, false), hour), 
+        				new MedicalProcedure(doctor.getSpecialized(), formatter.parse(date), medicalRoomService.findOne(1), doctor, 0, 0, false), hour),
         		HttpStatus.OK);
     }
     

@@ -61,4 +61,28 @@ public class MedicalProcedureService {
     public List<MedicalProcedure> findAll(){
     	return medicalProcedureRepository.findAll();
     }
+
+    public MedicalProcedure findOne(Long id) {return medicalProcedureRepository.findById(id).orElseGet(null);}
+
+    public MedicalProcedureDTO getProcedureById(Long id){
+        MedicalProcedure medicalProcedure = findOne(id);
+
+        if (medicalProcedure == null){
+            return null;
+        }
+
+        return new MedicalProcedureDTO(medicalProcedure);
+    }
+
+    public MedicalProcedure bookRoom(Long procedureId, Long roomId){
+        MedicalRoom medicalRoom = medicalRoomService.findOne(roomId);
+        MedicalProcedure medicalProcedure = findOne(procedureId);
+
+        if (medicalProcedure == null || medicalRoom == null) {
+           return null;
+        }
+
+        medicalProcedure.setMedicalRoom(medicalRoom);
+        return medicalProcedureRepository.save(medicalProcedure);
+    }
 }

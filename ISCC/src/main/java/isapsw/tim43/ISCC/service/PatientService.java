@@ -70,7 +70,7 @@ public class PatientService {
 							month + "/" +
 							year + " at " + hour +":00 o'clock.\n\n" +
 				"To accept click on the link below:\n"+
-				"http://localhost:8081/";
+				"http://localhost:8081/searchRooms/" + medicalProcedure.getId();
 		emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 		return medicalProcedureService.save(new MedicalProcedureDTO(medicalProcedure));
 		
