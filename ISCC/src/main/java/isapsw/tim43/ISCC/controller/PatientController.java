@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.dto.PatientDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.model.Patient;
@@ -33,9 +34,13 @@ public class PatientController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<PatientDTO> getPatientById(@PathVariable Long id) {
 
-        Patient patient = patientService.findById(id);
+        return new ResponseEntity<>(new PatientDTO(patientService.findById(id)), HttpStatus.OK);
+    }
+    
+    @PutMapping(value = "/update")
+    public ResponseEntity<PatientDTO> updatePatientsData(@RequestBody PatientDTO user) {
 
-        return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+        return new ResponseEntity<PatientDTO>(patientService.updatePatientsData(user), HttpStatus.OK);
     }
     
     @GetMapping(value = "/schedule-appointment")
@@ -43,13 +48,10 @@ public class PatientController {
     		@RequestParam(name="patient") String patient_id, @RequestParam(name="doctor") String doctor_id) throws ParseException, MailException, InterruptedException {
 
         Doctor doctor = doctorService.findOne(Long.parseLong(doctor_id));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Patient patient = patientService.findById(Long.parseLong(patient_id));
         
-        return new ResponseEntity<MedicalProcedureDTO>(
-        		patientService.scheduleAppointment(patient, doctor, 
-        				new MedicalProcedure(doctor.getSpecialized(), formatter.parse(date), medicalRoomService.findOne(1), doctor, 0, 0, false), hour), 
-        		HttpStatus.OK);
+        return new ResponseEntity<MedicalProcedureDTO>(patientService.scheduleAppointment(patientService.findById(Long.parseLong(patient_id)),
+        		doctor, new MedicalProcedure(doctor.getSpecialized(), new SimpleDateFormat("yyyy-MM-dd").parse(date), 
+        		medicalRoomService.findOne(1), doctor, 0, 0, false), hour), HttpStatus.OK);
     }
     
     

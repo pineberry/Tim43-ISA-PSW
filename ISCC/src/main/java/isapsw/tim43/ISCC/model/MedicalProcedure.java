@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.Date;
@@ -24,10 +25,12 @@ public class MedicalProcedure {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="procedure-room")
+	@JsonIgnore
 	private MedicalRoom medicalRoom;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="doctor-procedure")
+	@JsonIgnore
 	private Doctor doctor;
 
 	@Column(name = "price")

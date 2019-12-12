@@ -22,13 +22,13 @@
             <li class="nav-item">
                 <router-link class="nav-link" to="">Medical record</router-link>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" v-on:click="showSearch" href="#">Search</a>
+            </li>
         </ul>
         <div v-if="searchF == true">
             <SearchAvailableDoctorsAtClinic/>
             <a v-on:click="showSearch" href="#">Remove form.</a>
-        </div>
-        <div v-if="searchF == false">
-            <p>If you want to schedule an examintation click <a v-on:click="showSearch" href="#">here</a>.</p>
         </div>
 	</div>
 </template>

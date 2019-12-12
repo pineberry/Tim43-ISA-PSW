@@ -1,6 +1,8 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
+import isapsw.tim43.ISCC.dto.PatientDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.model.Patient;
@@ -74,6 +76,14 @@ public class PatientService {
 		emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 		return medicalProcedureService.save(new MedicalProcedureDTO(medicalProcedure));
 		
+	}
+
+	public PatientDTO updatePatientsData(PatientDTO patientData) {
+		patientRepository.save(new Patient(patientData.getId(), patientData.getEmail(), patientData.getPassword(), patientData.getFirstName(),
+				patientData.getLastName(), patientData.getAddress(), patientData.getCity(), patientData.getState(), patientData.getPhoneNumber(),
+				patientData.getHealthCareNumber(), patientRepository.findById(patientData.getId()).get().getStatus(),
+				patientRepository.findById(patientData.getId()).get().getRecord()));
+		return null;
 	}
 
 }

@@ -9,6 +9,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import VueResource from "vue-resource";
 
+Vue.config.silent = true; 
+
 Vue.mixin({
 	data: function() {
 		return {

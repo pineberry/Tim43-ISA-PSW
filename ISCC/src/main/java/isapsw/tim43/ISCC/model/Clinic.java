@@ -32,6 +32,7 @@ public class Clinic {
 	private double averageRating;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<ClinicAdministrator> administrators;
 	
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -40,9 +41,11 @@ public class Clinic {
 	private List<Doctor> doctors;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Nurse> nurses;
 
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Prescription> prescriptions;
 	
 	/*

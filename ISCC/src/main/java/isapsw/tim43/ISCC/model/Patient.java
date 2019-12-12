@@ -12,7 +12,7 @@ public class Patient {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
@@ -67,4 +67,24 @@ public class Patient {
 		this.status = status;
 		this.record = record;
 	}
+
+	public Patient(Long id, String email, String password, String firstName, String lastName, String address,
+			String city, String state, String phoneNumber, String healthCareNumber, String status,
+			MedicalRecord record) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.phoneNumber = phoneNumber;
+		this.healthCareNumber = healthCareNumber;
+		this.status = status;
+		this.record = record;
+	}
+	
+	
 }

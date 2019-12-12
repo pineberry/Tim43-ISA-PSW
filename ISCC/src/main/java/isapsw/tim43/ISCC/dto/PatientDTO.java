@@ -35,7 +35,7 @@ public class PatientDTO {
     }
 
     public PatientDTO(Patient patient) {
-        this(patient.getId(), patient.getEmail(), null, patient.getFirstName(), patient.getLastName(),
+        this(patient.getId(), patient.getEmail(), patient.getPassword(), patient.getFirstName(), patient.getLastName(),
                 patient.getHealthCareNumber(), patient.getAddress(), patient.getCity(), patient.getState(),
                 patient.getPhoneNumber());
     }
