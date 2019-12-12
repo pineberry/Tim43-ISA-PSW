@@ -23,7 +23,6 @@ import ScheduleAppointment from "../views/ScheduleAppointment.vue"
 import EditProcedureType from "../views/EditProcedureType.vue";
 import SearchProcedureType from "../views/SearchProcedureTypes.vue";
 import ClinicCenterAdministratorHome from '../components/ClinicCenterAdministratorHome.vue';
-import NurseHome from "../views/NurseHome.vue";
 import UncheckedPrescriptions from "../views/UncheckedPrescriptions.vue";
 import EditMedicalRecord from "../views/EditMeidcalRecord.vue";
 import EditMedicalRoom from "../views/EditMedicalRoom.vue";
@@ -42,11 +41,6 @@ const routes = [
     path: "/uncheckedPrescriptions",
     name: "uncheckedPrescriptions",
     component: UncheckedPrescriptions
-  },
-  {
-    path: "/nurseHome",
-    name: "nurseHome",
-    component: NurseHome
   },
   {
     path: "/changePassword",

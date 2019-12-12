@@ -16,16 +16,7 @@
             }
         },
         mounted : function () {
-            var nurse = {
-                "email" : localStorage.getItem("email")
-            }
-            this.axios.post("http://localhost:8080/nurse/unchecked/prescriptions", nurse)
-                .then(response => {
-                    this.prescriptions = response.data
-                })
-                .catch(error => {
-                    alert(error.response.data);
-                })
+           this.getPrescriptions();
         },
         methods : {
             check : function (id) {
@@ -33,8 +24,20 @@
                     "email" : localStorage.getItem("email")
                 }
                 this.axios.put("http://localhost:8080/nurse/check/prescription/" + id, nurse)
-                    .then(response => {alert("uspjesno cekcekcekiram");})
+                    .then(response => {alert("uspjesno cekcekcekiram"); this.getPrescriptions()})
                     .catch(error => {alert(error.response.data)})
+            },
+            getPrescriptions : function () {
+                var nurse = {
+                    "email" : localStorage.getItem("email")
+                }
+                this.axios.post("http://localhost:8080/nurse/unchecked/prescriptions", nurse)
+                    .then(response => {
+                        this.prescriptions = response.data
+                    })
+                    .catch(error => {
+                        alert(error.response.data);
+                    })
             }
         }
     }

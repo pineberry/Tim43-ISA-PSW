@@ -11,6 +11,8 @@ import isapsw.tim43.ISCC.service.PatientService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +52,14 @@ public class PatientController {
         		patientService.scheduleAppointment(patient, doctor, 
         				new MedicalProcedure(doctor.getSpecialized(), formatter.parse(date), medicalRoomService.findOne(1), doctor, 0, 0, false), hour), 
         		HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/patients")
+    public ResponseEntity<List<PatientDTO>> getAllPatients() {
+
+        List<PatientDTO> patientDTOS = patientService.getAllPatients();
+
+        return new ResponseEntity<>(patientDTOS, HttpStatus.OK);
     }
     
     

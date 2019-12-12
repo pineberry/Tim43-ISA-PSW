@@ -7,7 +7,9 @@ import isapsw.tim43.ISCC.model.Prescription;
 import isapsw.tim43.ISCC.repository.NurseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,20 @@ public class NurseService {
         return prescriptionDTOs;
     }
 
+    public List<PrescriptionDTO> checkedPrescriptions(Long id) {
+        Nurse nurse = nurseRepository.findById(id).orElse(null);
+        List<Prescription> prescriptions = prescriptionService.findAllByNurse(nurse);
+
+        List<PrescriptionDTO> prescriptionDTOS = new ArrayList<>();
+        for (Prescription prescription:
+             prescriptions) {
+            PrescriptionDTO prescriptionDTO = prescriptionService.modelToDto(prescription);
+            prescriptionDTOS.add(prescriptionDTO);
+        }
+
+        return prescriptionDTOS;
+    }
+
     public List<PrescriptionDTO> checkPrescription(NurseDTO nurseDTO, Long id) {
         Nurse nurse = nurseRepository.findByEmail(nurseDTO.getEmail());
         if (nurse == null) {
@@ -62,6 +78,30 @@ public class NurseService {
         }
 
         return getCheckedPrescription(nurseDTO);
+    }
+
+    public NurseDTO getNurse(Long id) {
+        Nurse nurse = nurseRepository.findById(id).orElse(null);
+
+        if(nurse == null) {
+            return null;
+        }
+
+        return modelToDto(nurse);
+    }
+
+    public NurseDTO modelToDto(Nurse nurse) {
+        NurseDTO nurseDTO = new NurseDTO();
+
+        nurseDTO.setEmail(nurse.getEmail());
+        nurseDTO.setAddress(nurse.getAddress());
+        nurseDTO.setFirstName(nurse.getFirstName());
+        nurseDTO.setLastName(nurse.getLastName());
+        nurseDTO.setCity(nurse.getCity());
+        nurseDTO.setPhoneNumber(nurse.getPhoneNumber());
+        nurseDTO.setState(nurse.getState());
+
+        return nurseDTO;
     }
 
     public List<PrescriptionDTO> getCheckedPrescription(NurseDTO nurseDTO) {

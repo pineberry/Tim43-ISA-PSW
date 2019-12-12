@@ -1,6 +1,7 @@
 package isapsw.tim43.ISCC.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -52,6 +53,7 @@ public class Nurse {
 	private boolean firstLogin;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private Clinic clinic;
 
 	public Nurse(long id, String email, String password, String firstName, String lastName, String phoneNumber,

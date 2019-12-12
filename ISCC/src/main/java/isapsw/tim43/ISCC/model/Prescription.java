@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Prescription {
 	private Medicine medicine;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Clinic clinic;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
