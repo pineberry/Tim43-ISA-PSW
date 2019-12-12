@@ -17,7 +17,7 @@
               <router-link class="nav-link nav-item" to="/addMedicalRoom">Medical room</router-link>
               <router-link class="nav-link nav-item" to="/addAppointment">Procedure</router-link>
               <router-link class="nav-link nav-item" to="/report">Report</router-link>
-              <router-link class="nav-link nav-item" to="/searchRooms">Search rooms</router-link>
+              <router-link class="nav-link nav-item" to="/searchRooms/0">Search rooms</router-link>
               <router-link class="nav-link nav-item" to="/searchTypes">Search types</router-link>
               <router-link class="nav-link nav-item" to="/adminProfile">Clinic Admin</router-link>
             </div>

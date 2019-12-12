@@ -38,6 +38,7 @@
                         <th scope="col">Free date</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
+                        <th v-show="procedureId != 0" scope="col">Delete</th>
                     </thead>
                     <tbody>
                         <tr v-for="room in medicalRooms" :key="room.id">
@@ -47,6 +48,7 @@
                             <td>{{room.firstFreeDate}}</td>
                             <td><router-link class="btn btn-primary" :to="{path: '/editRoom',query: {roomId: room.id}}">Edit</router-link></td>
                             <td><button class="btn btn-warning" v-on:click="deleteRoom(room)">Delete</button></td>
+                            <td v-show="procedureId != 0"><button class="btn btn-warning" v-on:click="bookRoom(room.id)">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -65,13 +67,15 @@
                 roomName: undefined,
                 roomNumber: undefined,
                 searchDate: undefined,
-                medicalRooms: null
+                medicalRooms: null,
+                procedureId: 0
             }
         },
         mounted: function(){
             this.axios.get("http://localhost:8080/medical/room/all")
                 .then(response => {
                     this.medicalRooms = response.data;
+                    this.procedureId = this.$route.params.id;
                 })
         },
         methods: {
@@ -111,6 +115,23 @@
                         var index = this.medicalRooms.indexOf(room)
                         this.medicalRooms.splice(index, 1)
                     })
+            },
+            bookRoom: function (id) {
+                this.axios.put("http://localhost:8080/medical/procedure/" + this.procedureId + "/" + id)
+                    .then(response => {this.$router.push('/adminProfile');})
+            }
+        },
+        watch: {
+            procedureId: function(){
+                if (this.procedureId != 0) {
+                    this.get("http://localhost:8080/medical/procedure/" + this.procedureId)
+                        .then(response => {
+                            this.searchDate = response.data.dateOfProcedure
+                        })
+                        .catch(error => {
+                            alert('error');
+                        })
+                }
             }
         }
 

@@ -14,6 +14,8 @@ insert into patient (email, password, first_name, last_name, phone_number, addre
 values ('dusan.petkovic02@gmail.com', 'password', 'Dusan', 'Petkovic', '123123456', 'Karadjordjeva Lamela E5', 'Teslic', 'Bosna i Hercegovina', '0122HH', 'activated');
 insert into patient (email, password, first_name, last_name, phone_number, address, city, state, health_care_number, status)
 values ('teodora.95mandic@gmail.com', 'pass', 'Teodora', 'Mandic', '12345', 'Adresa', 'Grad', 'Drzava', '0asd122HH', 'activated');
+insert into patient (email, password, first_name, last_name, phone_number, address, city, state, health_care_number, status)
+values ('pacijent@gmail.com', 'nesto', 'Marko', 'Markovic', '06000060', 'Centar', 'Novi Sad', 'Srbija', 's007', 'activated');
 
 insert into medical_record (height, weight, blood_type, patient_id) values (174, 72, 'AB-', 1);
 insert into medical_record (height, weight, blood_type, patient_id) values (168, 59, 'O+', 2);

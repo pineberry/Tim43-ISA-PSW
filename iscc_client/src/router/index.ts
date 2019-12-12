@@ -137,7 +137,7 @@ const routes = [
     component: Report
   },
     {
-        path: "/searchRooms",
+        path: "/searchRooms/:id",
         name: "searchMedicalRooms",
         component: SeachMedicalRooms
     },
