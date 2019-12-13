@@ -28,10 +28,16 @@ import EditMedicalRecord from "../views/EditMeidcalRecord.vue";
 import EditMedicalRoom from "../views/EditMedicalRoom.vue";
 import ClinicAdminProfile from "../views/ClinicAdminProfile.vue";
 import EditClinicAdmin from "../views/EditClinicAdmin.vue";
+import EditExamReport from "../views/EditExamReport.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+    {
+        path: "/editReport/:id",
+        name: "editReport",
+        component: EditExamReport
+    },
   {
     path: "/editMedicalRecord/:id",
     name: "editMedicalRecord",

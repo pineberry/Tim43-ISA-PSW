@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.controller;
 
+import com.sun.mail.iap.Response;
 import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.model.Report;
 import isapsw.tim43.ISCC.service.ReportService;
@@ -13,6 +14,7 @@ import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.service.AvailableAppointmentsService;
 import isapsw.tim43.ISCC.service.DoctorService;
 
+import javax.print.attribute.standard.Media;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,6 +57,16 @@ public class DoctorController {
 		reportService.save(report);
 		return new ResponseEntity<ReportDTO>(reportDTO, HttpStatus.CREATED);
 	}
+
+	@PostMapping(value = "/edit/report", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ReportDTO> editReport(@RequestBody ReportDTO reportDTO) {
+		ReportDTO reportDto = reportService.editReport(reportDTO);
+
+		if(reportDTO == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<ReportDTO>(reportDTO, HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<DoctorDTO> getDoctorById(@PathVariable String id)
@@ -72,4 +84,25 @@ public class DoctorController {
 		return new ResponseEntity<List<String>>(unavailableAppointments, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/reports/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ReportDTO>> getExamReports(@PathVariable  Long id) {
+		List<ReportDTO> reportDTOS = doctorService.getExamReports(id);
+
+		if(reportDTOS == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>(reportDTOS, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/report/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ReportDTO> getReport(@PathVariable Long id) {
+		ReportDTO reportDTO = doctorService.getReport(id);
+
+		if(reportDTO == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>(reportDTO, HttpStatus.OK);
+	}
 }

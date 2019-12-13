@@ -1,8 +1,10 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.DoctorDTO;
+import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.ProcedureType;
+import isapsw.tim43.ISCC.model.Report;
 import isapsw.tim43.ISCC.repository.ClinicRepository;
 import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class DoctorService {
 
 	@Autowired
 	private ProcedureTypeService procedureTypeService;
+
+	@Autowired
+	private ReportService reportService;
 
 	@Autowired
 	private ClinicService clinicService;
@@ -87,7 +92,7 @@ public class DoctorService {
 		return doctorRepository.findById(id).orElseGet(null);
 	}
 	
-	public DoctorDTO findOne_(long id){
+	public DoctorDTO findOne_(Long id){
 		return new DoctorDTO(doctorRepository.findById(id).get());
 	}
 
@@ -130,6 +135,36 @@ public class DoctorService {
 		}
 
 		return retVal;
+	}
+
+	public List<ReportDTO> getExamReports(Long id) {
+		Doctor doctor = findOne(id);
+
+		if (doctor == null) {
+			return null;
+		}
+
+		List<Report> reports = reportService.findAllByDoctor(doctor);
+		List<ReportDTO> reportDTOS = new ArrayList<>();
+		for (Report report:
+			 reports) {
+			ReportDTO reportDTO = reportService.modelToDto(report);
+			reportDTOS.add(reportDTO);
+		}
+
+		return reportDTOS;
+	}
+
+	public ReportDTO getReport(Long id) {
+		Report report = reportService.findById(id);
+
+		if(report == null) {
+			return null;
+		}
+
+		ReportDTO reportDTO = reportService.modelToDto(report);
+
+		return reportDTO;
 	}
 
 }
