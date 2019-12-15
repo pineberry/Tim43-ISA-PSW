@@ -30,11 +30,16 @@ public class MedicalRoom {
 	@JsonIgnore
 	private List<MedicalProcedure> medicalProcedures;
 
-	public MedicalRoom(long id, String roomName, int roomNumber) {
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Clinic clinic;
+
+	public MedicalRoom(long id, String roomName, int roomNumber, Clinic clinic) {
 		super();
 		this.id = id;
 		this.roomName = roomName;
 		this.roomNumber = roomNumber;
+		this.clinic = clinic;
 	}
 	
 	public MedicalRoom() {

@@ -6,7 +6,7 @@ values ('medika43', 'utopija', 'bolje da ne dolazite', 0);
 insert into clinic (name, address, description, average_rating)
 values ('izetMed', 'Bascarsija 88', 'Sve rjesavamo maksuzijom', 5);
 
-insert into medical_room (room_name, room_number) values ('Room 1', 1);
+insert into medical_room (room_name, room_number, clinic_id) values ('Room 1', 1, 1);
 insert into procedure_type (type_description, type_name) values ('Description', ' Type 1');
 insert into procedure_type (type_description, type_name) values ('Description 2', ' Type 2');
 

@@ -27,6 +27,9 @@ public class MedicalProcedureService {
     @Autowired
     private DoctorService doctorService;
 
+    @Autowired
+    private EmailService emailService;
+
     public MedicalProcedureDTO save(MedicalProcedureDTO medicalProcedureDTO){
         if(medicalProcedureDTO.getProcedureType() == null || medicalProcedureDTO.getDateOfProcedure() == null ||
                 medicalProcedureDTO.getDoctor() == null) {
@@ -74,7 +77,7 @@ public class MedicalProcedureService {
         return new MedicalProcedureDTO(medicalProcedure);
     }
 
-    public MedicalProcedure bookRoom(Long procedureId, Long roomId){
+    public MedicalProcedure bookRoom(Long procedureId, Long roomId) throws InterruptedException {
         MedicalRoom medicalRoom = medicalRoomService.findOne(roomId);
         MedicalProcedure medicalProcedure = findOne(procedureId);
 
@@ -83,6 +86,10 @@ public class MedicalProcedureService {
         }
 
         medicalProcedure.setMedicalRoom(medicalRoom);
+
+        String emailContent = "Test: Your appointment has been scheduled for " + medicalProcedure.getDateOfProcedure();
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+
         return medicalProcedureRepository.save(medicalProcedure);
     }
 }

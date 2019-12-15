@@ -38,7 +38,7 @@ public class MedicalProcedureController {
 
     @PutMapping(value = "/{procedureId}/{roomId}")
     public ResponseEntity<Void> bookRoom(@PathVariable("procedureId") Long procedureId,
-                                         @PathVariable("roomId") Long roomId){
+                                         @PathVariable("roomId") Long roomId) throws InterruptedException {
         if (medicalProcedureService.bookRoom(procedureId, roomId) != null){
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

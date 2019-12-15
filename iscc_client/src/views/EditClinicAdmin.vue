@@ -3,10 +3,6 @@
             <form @submit.prevent="editAdmin" class="row">
                 <div class="col-6">
                     <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input class="form-control" type="email" v-model="email" id="inputEmail" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
                         <label for="inputFirstName">Name</label>
                         <input class="form-control" type="text" v-model="firstName" id="inputFirstName" placeholder="Enter name">
                     </div>
