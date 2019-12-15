@@ -27,7 +27,7 @@
     </nav>
     <div class="row">
         <div>
-            <router-link to="">
+            <router-link to="/">
               <img src="./images/iscc_icon_64_M.png" alt="nema">
             </router-link>
         </div>

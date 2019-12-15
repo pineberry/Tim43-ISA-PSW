@@ -10,15 +10,24 @@
                     </a>
                 </div>
             </li>
+          <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 1}" v-on:click="tab = 1">Reports</a></li>
         </ul>
+      <div class="tab-content">
+          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}" >
+              <ExaminationReports/>
+          </div>
+      </div>
   </div>
 </template>
 
 <script>
+import ExaminationReports from "./ExaminationReports";
 export default {
+    components: {ExaminationReports},
     data : function() {
         return {
-            user : localStorage.getItem('user')
+            user : localStorage.getItem('user'),
+            tab : 1
         }
     },
     methods : {
