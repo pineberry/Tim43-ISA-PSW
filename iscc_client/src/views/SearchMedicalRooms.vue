@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h4>Medical Rooms</h4>
-        <form @submit.prevent="serachRooms" accept-charset="UTF-8" method="get">
+        <form @submit.prevent="searchRooms" accept-charset="UTF-8" method="get">
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -38,17 +38,17 @@
                         <th scope="col">Free date</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
-                        <th v-show="procedureId != 0" scope="col">Delete</th>
+                        <th v-show="procedureId != 0" scope="col">Book</th>
                     </thead>
                     <tbody>
                         <tr v-for="room in medicalRooms" :key="room.id">
                             <td>{{medicalRooms.indexOf(room) + 1}}</td>
                             <td>{{room.roomName}}</td>
                             <td>{{room.roomNumber}}</td>
-                            <td>{{room.firstFreeDate}}</td>
+                            <td>{{room.firstFreeDate | formatDate}}</td>
                             <td><router-link class="btn btn-primary" :to="{path: '/editRoom',query: {roomId: room.id}}">Edit</router-link></td>
                             <td><button class="btn btn-warning" v-on:click="deleteRoom(room)">Delete</button></td>
-                            <td v-show="procedureId != 0"><button class="btn btn-warning" v-on:click="bookRoom(room.id)">Delete</button></td>
+                            <td v-show="procedureId != 0"><button class="btn btn-warning" v-on:click="bookRoom(room.id)">Book</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,7 +60,7 @@
     import axios from "axios"
 
     export default {
-        name: "SeachMedicalRooms",
+        name: "searchMedicalRooms",
         data: function(){
             return {
                 searchBy: 'name',
@@ -78,31 +78,45 @@
                     this.procedureId = this.$route.params.id;
                 })
         },
+        filters: {
+            formatDate: function(date){
+                if (!date) return '';
+                let formatedDate = new Date(date);
+                var month = ('0' + (formatedDate.getMonth() + 1)).slice(-2);
+                var day = ('0' + formatedDate.getDate()).slice(-2);
+                var year = formatedDate.getFullYear();
+                return year + '-' + month + '-' + day;
+            }
+        },
         methods: {
-            serachRooms: function(){
+            searchRooms: function(){
+                if (this.searchDate === undefined || this.searchDate === ''){
+                    var date = new Date();
+                    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    var day = ('0' + date.getDate()).slice(-2);
+                    var year = date.getFullYear();
+                    this.searchDate = year + '-' + month + '-' + day;
+                }
+
                 if (this.searchBy === 'name'){
-                    if (this.roomName === undefined){
-                        this.roomName = 'all';
+                    var searchName = this.roomName;
+                    if (this.roomName === undefined || this.roomName.trim() === ''){
+                        searchName = 'all';
                     }
-                    if (this.searchDate === undefined){
-                        var date = new Date();
-                        var month = ('0' + (date.getMonth() + 1)).slice(-2);
-                        var day = ('0' + date.getDate()).slice(-2);
-                        var year = date.getFullYear();
-                        this.searchDate = year + '-' + month + '-' + day;
-                    }
-                    this.axios.get("http://localhost:8080/medical/room/name/" + this.roomName + "/" + this.searchDate)
+
+                    this.axios.get("http://localhost:8080/medical/room/name/" + searchName + "/" + this.searchDate)
                         .then(response => {
                             this.medicalRooms = response.data;
                         })
                     
-                }else {
+                } else {
+                    var searchNumber = this.roomNumber;
 
-                    if (this.roomNumber === undefined){
-                        this.roomNumber = -1;            
+                    if (this.roomNumber === undefined || this.roomNumber === ''){
+                        searchNumber = -1;
                     }
                     
-                    this.axios.get("http://localhost:8080/medical/room/number/" + this.roomNumber + "/" + this.searchDate)
+                    this.axios.get("http://localhost:8080/medical/room/number/" + searchNumber + "/" + this.searchDate)
                         .then(response => {
                             this.medicalRooms = response.data;
                         })
@@ -119,14 +133,15 @@
             bookRoom: function (id) {
                 this.axios.put("http://localhost:8080/medical/procedure/" + this.procedureId + "/" + id)
                     .then(response => {this.$router.push('/adminProfile');})
-            }
+            },
         },
         watch: {
             procedureId: function(){
                 if (this.procedureId != 0) {
-                    this.get("http://localhost:8080/medical/procedure/" + this.procedureId)
+                    this.axios.get("http://localhost:8080/medical/procedure/" + this.procedureId)
                         .then(response => {
-                            this.searchDate = response.data.dateOfProcedure
+                            var date = new Date(response.data.dateOfProcedure);
+                            this.searchDate = this.formatDate(date);
                         })
                         .catch(error => {
                             alert('error');

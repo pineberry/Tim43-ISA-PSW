@@ -69,15 +69,16 @@ public class PatientService {
 
 	public MedicalProcedureDTO scheduleAppointment(Patient patient, Doctor doctor, MedicalProcedure medicalProcedure, String hour) throws MailException, InterruptedException {
 		int year = medicalProcedure.getDateOfProcedure().getYear() + 1900;
-		int month = medicalProcedure.getDateOfProcedure().getMonth() + 1;	
+		int month = medicalProcedure.getDateOfProcedure().getMonth() + 1;
+		MedicalProcedureDTO retVal = medicalProcedureService.save(new MedicalProcedureDTO(medicalProcedure));
 		String emailContent = patient.getFirstName() + " " + patient.getLastName() + " has requested an appointment with dr. " + 
 							doctor.getFirstName() + " " + doctor.getLastName() + " for date: " + medicalProcedure.getDateOfProcedure().getDate() + "/" +
 							month + "/" +
 							year + " at " + hour +":00 o'clock.\n\n" +
 				"To accept click on the link below:\n"+
-				"http://localhost:8081/searchRooms/" + medicalProcedure.getId();
+				"http://localhost:8081/searchRooms/" + retVal.getId();
 		emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
-		return medicalProcedureService.save(new MedicalProcedureDTO(medicalProcedure));
+		return retVal;
 		
 	}
 

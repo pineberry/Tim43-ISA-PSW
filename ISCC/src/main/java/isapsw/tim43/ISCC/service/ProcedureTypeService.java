@@ -41,9 +41,11 @@ public class ProcedureTypeService {
         public List<ProcedureTypeDTO> searchTypeByBame(String name){
             List<ProcedureTypeDTO> procedureTypeDTOList = new ArrayList<ProcedureTypeDTO>();
             List<ProcedureType> procedureTypes = procedureTypeRepository.findProcedureTypeByTypeName(name);
-            for (ProcedureType procedureType: procedureTypes) {
-                ProcedureTypeDTO procedureTypeDTO = new ProcedureTypeDTO(procedureType);
-                procedureTypeDTOList.add(procedureTypeDTO);
+            if (procedureTypes != null || !procedureTypes.isEmpty()) {
+                for (ProcedureType procedureType : procedureTypes) {
+                    ProcedureTypeDTO procedureTypeDTO = new ProcedureTypeDTO(procedureType);
+                    procedureTypeDTOList.add(procedureTypeDTO);
+                }
             }
             return  procedureTypeDTOList;
         }

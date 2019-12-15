@@ -47,10 +47,13 @@ public class Clinic {
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Prescription> prescriptions;
+
+	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<MedicalRoom> medicalRooms;
 	
 	/*
 	private List<Date> appointmentDates;
-	private List<MedicalRoom> medicalRooms;
 	private Map<Double, MedicalProcedure> pricelist;
 	*/
 

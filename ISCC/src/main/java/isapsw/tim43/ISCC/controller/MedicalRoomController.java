@@ -53,7 +53,7 @@ public class MedicalRoomController {
 	@GetMapping(value = "/name/{roomName}/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<MedicalRoomDTO>> getRoomsByName(@PathVariable String roomName,
 															   		@PathVariable
-																	@DateTimeFormat(pattern = "yyy-MM-dd") Date date){
+																	@DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
 		List<MedicalRoomDTO> medicalRoomDTOList = medicalRoomService.searchRoomsByName(roomName, date);
 		return new ResponseEntity<>(medicalRoomDTOList, HttpStatus.OK);
 	}
@@ -61,7 +61,7 @@ public class MedicalRoomController {
 	@GetMapping(value = "/number/{roomNumber}/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<MedicalRoomDTO>> getRoomsByNumber(@PathVariable int roomNumber,
 															   @PathVariable
-															   @DateTimeFormat(pattern = "yyy-MM-dd") Date date){
+															   @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
 		List<MedicalRoomDTO> medicalRoomDTOList = medicalRoomService.searchRoomsByNumber(roomNumber, date);
 		return new ResponseEntity<>(medicalRoomDTOList, HttpStatus.OK);
 	}

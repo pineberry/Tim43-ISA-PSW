@@ -1,6 +1,7 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
+import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class MedicalRoomService {
 	
 	@Autowired
 	private MedicalRoomRepository medicalRoomRepository;
+
+	@Autowired
+	private ClinicService clinicService;
 	
 	public MedicalRoomDTO save(MedicalRoomDTO medicalRoomDTO) {
 		if(medicalRoomDTO.getRoomName() == null || medicalRoomDTO.getRoomName().isEmpty()) {
@@ -25,6 +29,8 @@ public class MedicalRoomService {
 		MedicalRoom medicalRoom = new MedicalRoom();
 		medicalRoom.setRoomName(medicalRoomDTO.getRoomName());
 		medicalRoom.setRoomNumber(medicalRoomDTO.getRoomNumber());
+		Clinic clinic = clinicService.findOne(medicalRoomDTO.getClinic().getId());
+		medicalRoom.setClinic(clinic);
 
 		medicalRoom = medicalRoomRepository.save(medicalRoom);
 
@@ -60,13 +66,15 @@ public class MedicalRoomService {
 
 		medicalRoom.setRoomName(medicalRoomDTO.getRoomName());
 		medicalRoom.setRoomNumber(medicalRoomDTO.getRoomNumber());
+		Clinic clinic = clinicService.findOne(medicalRoomDTO.getClinic().getId());
+		medicalRoom.setClinic(clinic);
 
 		medicalRoom = medicalRoomRepository.save(medicalRoom);
 
 		return new MedicalRoomDTO(medicalRoom);
 	}
 
-	public boolean remove(Long id) {
+	public boolean remove(long id) {
 		MedicalRoom medicalRoom = findOne(id);
 		if (medicalRoom == null || medicalRoom.getMedicalProcedures().size() != 0){
 			return false;
@@ -103,22 +111,31 @@ public class MedicalRoomService {
 		List<MedicalRoomDTO> roomsDTO = new ArrayList<MedicalRoomDTO>();
 		List<Date> scheduledDates = new ArrayList<Date>();
 		Map<Date, List<String>> datesAndTimes = new HashMap<Date, List<String>>();
-
-		for (MedicalRoom room: rooms){
-			MedicalRoomDTO medicalRoomDTO = new MedicalRoomDTO(room);
-			formDateList(searchDate, scheduledDates, room, datesAndTimes);
-			if (scheduledDates.isEmpty()){
-				medicalRoomDTO.setFirstFreeDate(searchDate);
-			}else {
-				medicalRoomDTO.setFirstFreeDate(findFirstFreeDate(searchDate, datesAndTimes));
+		if (rooms != null || !rooms.isEmpty()) {
+			for (MedicalRoom room : rooms) {
+				MedicalRoomDTO medicalRoomDTO = new MedicalRoomDTO(room);
+				formDateList(searchDate, scheduledDates, room, datesAndTimes);        /* Formiranje liste zauzetih datuma */
+				if (scheduledDates.isEmpty()) {
+					medicalRoomDTO.setFirstFreeDate(searchDate);        /* Ako je sala slobodna, datum pretrage odgovara */
+				} else {
+					//	medicalRoomDTO.setFirstFreeDate(findFirstFreeDate(searchDate, datesAndTimes));
+					medicalRoomDTO.setFirstFreeDate(searchDate);
+				}
+				medicalRoomDTO.setScheduledDates(scheduledDates);
+				roomsDTO.add(medicalRoomDTO);
 			}
-			medicalRoomDTO.setScheduledDates(scheduledDates);
-			roomsDTO.add(medicalRoomDTO);
 		}
 
 		return roomsDTO;
 	}
 
+	/*
+	 * Za svaku salu, koja odgovara trazenom broju / imenu, se formira lista zakazanih pregleda.
+	 * Ukoliko se datum pregleda poklapa sa trazenim datumom pretrage ili je veci, on se dodaje
+	 * u listu zakazanih datuma - scheduledDates. Takodje, formira se i mapa, sa kljucem za svaki datum,
+	 * a vrednost mape je lista satnica pregleda za taj dan u formatu startTime:endTime.
+	 *
+	 */
 	private void formDateList(Date searchDate, List<Date> scheduledDates, MedicalRoom room,
 							  		Map<Date, List<String>> map){
 		for (MedicalProcedure medicalProcedure: room.getMedicalProcedures()){
@@ -137,6 +154,11 @@ public class MedicalRoomService {
 	//	Collections.sort(scheduledDates);
 	}
 
+	/*
+	 * Za mapu zauzeca sale, ondnosno za svaki datum i listu zauzetih satnica tog dana,se trazi prvi slobodan termin,
+	 * u vidu datuma. Datum ce se inkrementirati dok se nedodje do dana kada sala nije zakazana, ili ima makar jedan
+	 * slobodan termin (proverava se u metodi hasFreeTime).
+	 */
 	private Date findFirstFreeDate(Date searchDate, Map<Date, List<String>> map){
 
 		while(!map.containsKey(searchDate) || !hasFreeTime(map.get(searchDate))) {
@@ -149,9 +171,14 @@ public class MedicalRoomService {
 		return searchDate;
 	}
 
+	/*
+	 * Algoritam za racunanje slobodnog termina v1.0
+	 * Metoda prima listu satnica za odgovarajauci dan i provera da li tog dana ima slobodne satnice za pregled.
+	 * Pretpostavka je da klinika radu 9h dnevno (540 minuta) i da je potrebno imati makar 60 minuta za pregled.
+	 */
 	private boolean hasFreeTime(List<String> stringList){
 		boolean retVal = false;
-		int freeTime = 5400;
+		int freeTime = 540;
 
 		for (String times: stringList) {
 			String[] timesAndMinutes = times.split(":");
@@ -166,7 +193,7 @@ public class MedicalRoomService {
 				freeTime = freeTime - (endHour - startHour) * 60 - (startMinute - endMinute);
 			}
 		}
-		if (freeTime > 60 ){
+		if (freeTime > 59 ){
 			retVal = true;
 		}
 

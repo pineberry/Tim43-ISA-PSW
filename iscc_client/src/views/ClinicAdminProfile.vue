@@ -9,6 +9,7 @@
                 <p>City: {{admin.city}}</p>
                 <p>State: {{admin.state}}</p>
                 <p>Phone number: {{admin.phoneNumber}}</p>
+                <p>E-mail: {{admin.email}}</p>
                 <p>Clinic: {{admin.clinicName}}</p>
             </div>
             <div class="col-3">

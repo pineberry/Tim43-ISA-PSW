@@ -41,7 +41,7 @@ public class ClinicAdministrator {
 	private String state;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
+	@JsonIgnore
 	private Clinic clinic;
 	/*
 	private List<VacationRequest> vacationRequests;

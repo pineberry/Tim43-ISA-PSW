@@ -54,10 +54,19 @@
         },
         methods: {
             searchTypes: function(){
-                this.axios.get("http://localhost:8080/procedure/type/" + this.typeName)
-                    .then(response => {
-                        this.procedureTypes = response.data;
-                    })
+                if (this.typeName != undefined) {
+                    if (this.typeName.trim() != '') {
+                        this.axios.get("http://localhost:8080/procedure/type/search/" + this.typeName)
+                            .then(response => {
+                                this.procedureTypes = response.data;
+                            })
+                    } else {
+                    this.axios.get("http://localhost:8080/procedure/type/all")
+                        .then(response => {
+                            this.procedureTypes = response.data;
+                        })
+                    }
+                }
             },
             deleteType: function(type){
                 this.axios.delete("http://localhost:8080/procedure/type/" + type.id)
@@ -65,7 +74,7 @@
                         var index = this.procedureTypes.indexOf(type)
                         this.procedureTypes.splice(index, 1)
                     })
-            }
+            },
         }
     }
 </script>
