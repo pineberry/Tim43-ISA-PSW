@@ -13,7 +13,16 @@
                 <p>Clinic: {{admin.clinicName}}</p>
             </div>
             <div class="col-3">
-                <router-link to="/editAdmin" class="btn btn-primary">Edit profile</router-link>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="drdpButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Settings
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="drdpButton">
+                        <router-link class="dropdown-item" to="/editAdmin">Edit profile</router-link>
+                        <router-link class="dropdown-item" to="/changePasswordDoctor">Change password</router-link>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

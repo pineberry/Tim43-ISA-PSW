@@ -57,17 +57,28 @@
         				{
         					this.$router.push('/patientHome');
         				}
-						else if (this.usersDetails.typeOfUser == "doctor")
-        				{
-        					this.$router.push('/doctorHome');
-        				}
+						else if (this.usersDetails.typeOfUser == "doctor") {
+							if (this.usersDetails.firstLogin === true) {
+								this.$router.push('/changePasswordDoctor')
+							} else {
+								this.$router.push('/doctorHome');
+							}
+						}
         				else if (this.usersDetails.typeOfUser == "clinicAdministrator")
         				{
-        					this.$router.push('/clinicAdministratorHome');
+        					if (this.usersDetails.firstLogin === true) {
+        						this.$router.push('/changePasswordDoctor')
+							} else {
+								this.$router.push('/clinicAdministratorHome');
+							}
         				}
         				else if (this.usersDetails.typeOfUser == "nurse")
                         {
-                            this.$router.push('/');
+                        	if (this.usersDetails.firstLogin === true) {
+                        		this.$router.push('/changePasswordDoctor')
+							} else {
+								this.$router.push('/nurseHome');
+							}
                         }
         				else
                         {

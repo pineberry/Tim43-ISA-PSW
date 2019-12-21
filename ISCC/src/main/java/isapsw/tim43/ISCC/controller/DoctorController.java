@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.controller;
 
 import com.sun.mail.iap.Response;
 import isapsw.tim43.ISCC.dto.ReportDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Report;
 import isapsw.tim43.ISCC.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,17 @@ public class DoctorController {
 	public ResponseEntity<List<DoctorDTO>> getAllDoctors(){
 		List<DoctorDTO> doctorDTOList = doctorService.findAll();
 		return new ResponseEntity<>(doctorDTOList, HttpStatus.OK);
+	}
+
+	@PutMapping(value = "/update", consumes = "application/json")
+	public ResponseEntity<DoctorDTO> editDoctor(@RequestBody DoctorDTO doctorDTO){
+		doctorDTO = doctorService.update(doctorDTO);
+
+		if (doctorDTO != null) {
+			return new ResponseEntity<>(doctorDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@PostMapping(value = "/report", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -104,5 +116,16 @@ public class DoctorController {
 		}
 
 		return new ResponseEntity<>(reportDTO, HttpStatus.OK);
+	}
+
+	@PutMapping(value = "/change/password", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserDTO> changePassword(@RequestBody UserDTO userDTO){
+		userDTO = doctorService.changePassword(userDTO);
+
+		if (userDTO != null) {
+			return new ResponseEntity<>(userDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }

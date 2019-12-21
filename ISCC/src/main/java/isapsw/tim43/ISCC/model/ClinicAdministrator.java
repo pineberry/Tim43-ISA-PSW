@@ -43,6 +43,9 @@ public class ClinicAdministrator {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Clinic clinic;
+
+	@Column(name = "firstLogin")
+	private boolean firstLogin;
 	/*
 	private List<VacationRequest> vacationRequests;
 	private List<BookingRequest> bookingRequests;*/

@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.NurseDTO;
 import isapsw.tim43.ISCC.dto.PrescriptionDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Nurse;
 import isapsw.tim43.ISCC.model.Prescription;
 import isapsw.tim43.ISCC.repository.NurseRepository;
@@ -28,6 +29,38 @@ public class NurseService {
 
     public void remove(Long id) {
         nurseRepository.deleteById(id);
+    }
+
+    public NurseDTO update(NurseDTO nurseDTO){
+        Nurse nurse = nurseRepository.findByEmail(nurseDTO.getEmail());
+
+        if (nurse == null) {
+            return null;
+        }
+
+        nurse.setFirstName(nurseDTO.getFirstName());
+        nurse.setLastName(nurseDTO.getLastName());
+        nurse.setPhoneNumber(nurseDTO.getPhoneNumber());
+        nurse.setAddress(nurseDTO.getAddress());
+        nurse.setCity(nurseDTO.getCity());
+        nurse.setState(nurseDTO.getState());
+
+        nurse = save(nurse);
+        return modelToDto(nurse);
+    }
+
+    public UserDTO changePassword(UserDTO userDTO){
+        Nurse nurse = findByEmail(userDTO.getEmail());
+
+        if (nurse == null || !userDTO.getPassword().equals(userDTO.getPasswordF())) {
+            return null;
+        }
+
+        nurse.setPassword(userDTO.getPassword());
+        nurse.setFirstLogin(false);
+        nurseRepository.save(nurse);
+
+        return userDTO;
     }
 
     public Nurse findByEmail(String email) {

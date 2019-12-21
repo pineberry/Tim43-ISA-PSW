@@ -20,12 +20,12 @@ values ('pacijent@gmail.com', 'nesto', 'Marko', 'Markovic', '06000060', 'Centar'
 insert into medical_record (height, weight, blood_type, patient_id) values (174, 72, 'AB-', 1);
 insert into medical_record (height, weight, blood_type, patient_id) values (168, 59, 'O+', 2);
 
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('dejan.radulovic@iscc.com', 'nestonesto', 'Dejan', 'Radulovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('marko.markovic@mail.com', 'markopass', 'Marko', 'Markovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('damir.fazlinovic@mail.com', 'damirpass', 'Damir', 'Fazlinovic', 'Bascarsija 88', 'Sarajevo', 'Bosna i Hercegovina', '033123456', 2.8, 'false', '09:00', '12:00', 2, 2);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('dejan.radulovic@iscc.com', 'nestonesto', 'Dejan', 'Radulovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1, false );
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('marko.markovic@mail.com', 'markopass', 'Marko', 'Markovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1, false);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('damir.fazlinovic@mail.com', 'damirpass', 'Damir', 'Fazlinovic', 'Bascarsija 88', 'Sarajevo', 'Bosna i Hercegovina', '033123456', 2.8, 'false', '09:00', '12:00', 2, 2, false);
 
 insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
 values (1, '2019-12-12 12:30:00', 1, 1, 162, '12:00', '13:00', 0.0, true);
@@ -40,8 +40,8 @@ insert into medicine (name, code) values ('Kafetin', '3A');
 insert into diagnosis(name, latin_name, code) values ('Upala uva', 'Upalius usus', '1A1C');
 insert into diagnosis(name, latin_name, code) values ('Upala sinusa', 'Rinitis', '1A2C');
 
-insert into clinic_administrator (email, password, first_name, last_name, phone_number, address, city, state, clinic_id)
-values ('admin@gmail.com', 'nesto', 'Dwight', 'Schrute', '065000000', 'Schrute Farm', 'Scranton', 'Pennsylvania', 1);
+insert into clinic_administrator (email, password, first_name, last_name, phone_number, address, city, state, clinic_id, first_login)
+values ('admin@gmail.com', 'nesto', 'Dwight', 'Schrute', '065000000', 'Schrute Farm', 'Scranton', 'Pennsylvania', 1, false);
 
 
 

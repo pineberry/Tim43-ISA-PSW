@@ -29,6 +29,9 @@ import EditMedicalRoom from "../views/EditMedicalRoom.vue";
 import ClinicAdminProfile from "../views/ClinicAdminProfile.vue";
 import EditClinicAdmin from "../views/EditClinicAdmin.vue";
 import EditExamReport from "../views/EditExamReport.vue";
+import EditDoctor from "../views/EditDoctor.vue";
+import PasswordChange from "../views/DoctorPasswordChange.vue";
+
 
 Vue.use(VueRouter);
 
@@ -205,6 +208,16 @@ const routes = [
     path: "/editAdmin",
     name: "editClinicAdmin",
     component: EditClinicAdmin
+  },
+  {
+    path: "/editDoctor",
+    name: "editDoctor",
+    component: EditDoctor
+  },
+  {
+    path: "/changePasswordDoctor",
+    name: "DoctorPasswordChange",
+    component: PasswordChange
   }
 ];
 

@@ -92,10 +92,7 @@
             searchRooms: function(){
                 if (this.searchDate === undefined || this.searchDate === ''){
                     var date = new Date();
-                    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-                    var day = ('0' + date.getDate()).slice(-2);
-                    var year = date.getFullYear();
-                    this.searchDate = year + '-' + month + '-' + day;
+                    this.searchDate = this.dateFormating(date);
                 }
 
                 if (this.searchBy === 'name'){
@@ -134,6 +131,13 @@
                 this.axios.put("http://localhost:8080/medical/procedure/" + this.procedureId + "/" + id)
                     .then(response => {this.$router.push('/adminProfile');})
             },
+            dateFormating: function(date){
+                if (!date) return '';
+                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                var day = ('0' + date.getDate()).slice(-2);
+                var year = date.getFullYear();
+                return year + '-' + month + '-' + day;
+            }
         },
         watch: {
             procedureId: function(){
@@ -141,7 +145,7 @@
                     this.axios.get("http://localhost:8080/medical/procedure/" + this.procedureId)
                         .then(response => {
                             var date = new Date(response.data.dateOfProcedure);
-                            this.searchDate = this.formatDate(date);
+                            this.searchDate = this.dateFormating(date);
                         })
                         .catch(error => {
                             alert('error');
