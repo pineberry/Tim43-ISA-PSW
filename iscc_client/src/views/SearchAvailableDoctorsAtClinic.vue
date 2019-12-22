@@ -8,7 +8,7 @@
 				</div>
 				<div class="form-group">
 					<label for="typeOfProcedure">Procedure type</label>
-					<select id="typeOfProcedure" class="form-control" v-model="typeOfProcedure">
+					<select id="typeOfProcedure" class="form-control" v-model="typeOfProcedure" v-if="procedureTypes">
 						<option v-for="procedure in procedureTypes" :key="procedure.id" :value="procedure">{{procedure.typeName}}</option>
 					</select>
 				</div>
@@ -30,7 +30,7 @@
 				<button type="submit" class="btn btn-primary mb-2">Search</button>
 			</form>
 		</div>
-		<div class="row" v-if="showResult == true">
+		<div class="row" v-if="showResult == true && clinics && doctors">
 			<div class="jumbotron col-12" v-for="clinic in clinics" :key="clinic.id">
 				<h2><span><a v-on:click="showDoctors" href="#">{{clinic.name}}</a></span></h2>
 				<p>Address: {{clinic.address}}</p>
@@ -39,7 +39,7 @@
 				<div v-if="showDoctorsF == true">
 					<h4>Available doctors:</h4>
 					<div v-for="doctor in doctors" :key="doctor.id">
-						<div v-if="doctor.clinic.id == clinic.id">
+						<div v-if="doctor.clinic.id === clinic.id">
 							<b>{{doctor.firstName}} {{doctor.lastName}}</b>
 							<p>Ocena: <span><b>{{doctor.averageRating}}</b></span></p>
 						</div>

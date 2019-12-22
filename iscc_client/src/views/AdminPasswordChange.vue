@@ -38,9 +38,7 @@
                     .then(response => { alert( response.data.email); 
                     this.$router.push('/clinicCenterAdministratorHome')
                     })
-
-                    .then(response => { alert( response.data.email); })
-                    .catch(error => { alert("Puklo sine"); })
+                    .catch(error => { alert(error) })
             }
         }
 

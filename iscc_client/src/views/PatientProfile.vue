@@ -1,5 +1,5 @@
 <template>
-  <div class="fluid row">
+  <div class="fluid row" v-if="user">
     <div v-if="editDataF == false" class="col-6 card m-5 p-5">
       <div class="row justify-content-start">
         <div class="col-6">

@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <p class="h5">Appointment requested with doctor:</p>
         <div class="card m-1 col-5">
-            <div class="card-body">
+            <div class="card-body" v-if="doctor">
                 <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
                 <div class="row">
                     <div class="col-2">
@@ -88,7 +88,7 @@ export default {
 					this.response = response
 					console.log(this.response)
 				})
-				.catch(error => {alert(error.response.data)})
+				.catch(error => {alert(error)})
         },
         setDate : function(date) {
             this.date = date

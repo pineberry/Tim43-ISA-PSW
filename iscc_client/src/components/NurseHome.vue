@@ -104,7 +104,7 @@ export default {
             this.axios.get("http://localhost:8080/nurse/" + localStorage.getItem('user_id'))
                 .then(response => {this.nurse = response.data})
                 .catch(error => {alert(error)})
-        }
+        },
     }
 }
 </script>

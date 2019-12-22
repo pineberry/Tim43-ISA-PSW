@@ -38,17 +38,8 @@
     <div v-if="role === 'patient'">
         <PatientHome />
     </div>
-    <div v-if="role === 'nurse'">
-        <NurseHome />
-    </div>
-    <div v-if="role === 'clinicAdministrator'">
-        <ClinicAdministratorHome />
-    </div>
     <div v-if="role === 'clinicCenterAdministrator'">
         <ClinicCenterAdministratorHome />
-    </div>
-    <div v-if="role === 'doctor'">
-        <DoctorHome />
     </div>
     <router-view />
   </div>
@@ -59,10 +50,7 @@
 export default {
   components: {
     PatientHome : () => import('../src/components/PatientHome.vue'),
-    DoctorHome : () => import('../src/components/DoctorHome.vue'),
-    ClinicAdministratorHome : () => import('../src/components/ClinicAdministratorHome.vue'),
     ClinicCenterAdministratorHome : () => import('../src/components/ClinicCenterAdministratorHome.vue'),
-    NurseHome : () => import('../src/components/NurseHome.vue')
   },
   data : function () {
     return {

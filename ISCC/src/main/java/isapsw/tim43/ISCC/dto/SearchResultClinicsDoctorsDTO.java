@@ -9,9 +9,9 @@ import lombok.Data;
 @Data
 public class SearchResultClinicsDoctorsDTO {
 	
-	private ArrayList<Clinic> clinics;
-	private ArrayList<Doctor> doctors;
-	public SearchResultClinicsDoctorsDTO(ArrayList<Clinic> clinics, ArrayList<Doctor> doctors) {
+	private ArrayList<ClinicDTO> clinics;
+	private ArrayList<DoctorDTO> doctors;
+	public SearchResultClinicsDoctorsDTO(ArrayList<ClinicDTO> clinics, ArrayList<DoctorDTO> doctors) {
 		super();
 		this.clinics = clinics;
 		this.doctors = doctors;

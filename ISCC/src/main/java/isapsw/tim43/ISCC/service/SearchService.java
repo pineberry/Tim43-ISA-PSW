@@ -3,7 +3,11 @@ package isapsw.tim43.ISCC.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
+import isapsw.tim43.ISCC.dto.ClinicDTO;
+import isapsw.tim43.ISCC.dto.DoctorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +27,12 @@ public class SearchService {
 	private DoctorService doctorService;
 
 	public SearchResultClinicsDoctorsDTO searchClinics(SearchClinicParametersDTO parameters) {
-		ArrayList<Clinic> clinics = new ArrayList<Clinic>();
-		ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+		HashMap<Long , ClinicDTO> clinics = new HashMap<Long, ClinicDTO>();
+		HashMap<Long, DoctorDTO> doctors = new HashMap<Long, DoctorDTO>();
 		for (Clinic clinic : clinicService.findAll()) 
 		{
 			for (Doctor doctor : doctorService.findAll_()) {
-				if (doctor.getClinic().getId() == clinic.getId() && !doctor.getOnVacation()) // lekar iz klinike i ako nije na odmoru 
+				if (doctor.getClinic().getId() == clinic.getId() && !doctor.getOnVacation()) // lekar iz klinike i ako nije na odmoru
 				{
 					if (!doctor.getMedicalProcedures().isEmpty()) 
 					{ //ako ima zakazane preglede ide dalja provera
@@ -39,19 +43,27 @@ public class SearchService {
 									formatter.format(parameters.getDate()) && // ako nisu u isto vreme
 									parameters.getDate().after(new Date())) //ako je neko vreme pocev od sutra
 							{
-								clinics.add(clinic);
-								doctors.add(doctor);
+								if(!clinics.containsKey(clinic.getId()))
+									clinics.put(clinic.getId(), new ClinicDTO(clinic.getId(), clinic.getName(),
+											clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating()));
+
+								if(!doctors.containsKey(doctor.getId()))
+									doctors.put(doctor.getId(), new DoctorDTO(doctor));
 							}
 						} 
 					}
 					else {
-						clinics.add(clinic);
-						doctors.add(doctor);
+						if(!clinics.containsKey(clinic.getId()))
+						clinics.put(clinic.getId(), new ClinicDTO(clinic.getId(), clinic.getName(),
+								clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating()));
+
+						if(!doctors.containsKey(doctor.getId()))
+							doctors.put(doctor.getId(), new DoctorDTO(doctor));
 					}
 				}
 			}
 		}
-		return new SearchResultClinicsDoctorsDTO(clinics, doctors);
+		return new SearchResultClinicsDoctorsDTO(new ArrayList<ClinicDTO>(clinics.values()), new ArrayList<DoctorDTO>(doctors.values()));
 	}
 
 	
