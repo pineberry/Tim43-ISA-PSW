@@ -1,6 +1,7 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.ClinicAdministratorDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.ClinicAdministrator;
 import isapsw.tim43.ISCC.repository.ClinicAdministratorRepository;
@@ -78,6 +79,20 @@ public class ClinicAdministratorService {
 
 		clinicAdministrator = clinicAdministratorRepository.save(clinicAdministrator);
     	return new ClinicAdministratorDTO(clinicAdministrator);
+	}
+
+	public UserDTO changePassword(UserDTO userDTO){
+    	ClinicAdministrator clinicAdministrator = clinicAdministratorRepository.
+																	findClinicAdministratorByEmail(userDTO.getEmail());
+
+    	if (clinicAdministrator == null || !userDTO.getPassword().equals(userDTO.getPasswordF())) {
+    		return null;
+		}
+
+    	clinicAdministrator.setPassword(userDTO.getPassword());
+    	clinicAdministrator.setFirstLogin(false);
+    	clinicAdministratorRepository.save(clinicAdministrator);
+    	return userDTO;
 	}
 }
 

@@ -60,17 +60,17 @@ public class IsccUserDetailsService implements UserDetailsService{
 		else if (user.getClass() == Doctor.class)
 		{
 			Doctor d = (Doctor)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(d.getFirstName(), d.getLastName(), d.getEmail(), "doctor", null, false, d.getId());
+			usersDetailsDTO = new UsersDetailsDTO(d.getFirstName(), d.getLastName(), d.getEmail(), "doctor", null, d.isFirstLogin(), d.getId());
 		}
 		else if (user.getClass() == ClinicAdministrator.class)
 		{
 			ClinicAdministrator ca = (ClinicAdministrator)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(ca.getFirstName(), ca.getLastName(), ca.getEmail(), "clinicAdministrator", null, false, ca.getId());
+			usersDetailsDTO = new UsersDetailsDTO(ca.getFirstName(), ca.getLastName(), ca.getEmail(), "clinicAdministrator", null, ca.isFirstLogin(), ca.getId());
 		}
 		else if (user.getClass() == Nurse.class)
 		{
 			Nurse nurse = (Nurse)userService.findUserByEmailAddress(emailAddress);
-			usersDetailsDTO = new UsersDetailsDTO(nurse.getFirstName(), nurse.getLastName(), nurse.getEmail(), "nurse", null, false, nurse.getId());
+			usersDetailsDTO = new UsersDetailsDTO(nurse.getFirstName(), nurse.getLastName(), nurse.getEmail(), "nurse", null, nurse.isFirstLogin(), nurse.getId());
 		}
 		else 
 		{

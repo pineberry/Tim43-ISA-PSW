@@ -71,6 +71,9 @@ public class Doctor {
 //	@JsonManagedReference(value="doctor-clinic")
 	@JsonIgnore
 	private Clinic clinic;
+
+	@Column(name = "firstLogin")
+	private boolean firstLogin = true;
 	
 	public Doctor() {
 		super();

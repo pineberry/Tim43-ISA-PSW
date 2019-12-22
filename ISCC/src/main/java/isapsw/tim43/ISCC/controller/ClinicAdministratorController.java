@@ -2,10 +2,12 @@ package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.ClinicAdministratorDTO;
 import isapsw.tim43.ISCC.dto.ClinicCenterAdministratorDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.service.ClinicAdministratorService;
 import isapsw.tim43.ISCC.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +46,17 @@ public class ClinicAdministratorController {
         clinicAdministratorDTO = clinicAdministratorService.save(clinicAdministratorDTO);
         if (clinicAdministratorDTO != null){
             return new ResponseEntity<>(clinicAdministratorDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "/change/password", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> changePassword(@RequestBody UserDTO userDTO){
+        userDTO = clinicAdministratorService.changePassword(userDTO);
+
+        if (userDTO != null) {
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

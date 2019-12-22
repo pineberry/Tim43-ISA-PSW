@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.model.Report;
@@ -70,9 +71,38 @@ public class DoctorService {
 
 		return new DoctorDTO(doctor);
 	}
-	
+
+	public DoctorDTO update(DoctorDTO doctorDTO){
+		Doctor doctor = findOne(doctorDTO.getId());
+
+		doctor.setFirstName(doctorDTO.getFirstName());
+		doctor.setLastName(doctorDTO.getLastName());
+		doctor.setCity(doctorDTO.getCity());
+		doctor.setState(doctorDTO.getState());
+		doctor.setAddress(doctorDTO.getAddress());
+		doctor.setPhoneNumber(doctorDTO.getPhoneNumber());
+
+		doctor = doctorRepository.save(doctor);
+		return new DoctorDTO(doctor);
+
+	}
+
 	public void remove(Long id) {
 		doctorRepository.deleteById(id);
+	}
+
+	public UserDTO changePassword(UserDTO userDTO){
+		Doctor doctor = findUserByEmailAddress(userDTO.getEmail());
+
+		if (doctor == null || !userDTO.getPassword().equals(userDTO.getPasswordF())) {
+			return null;
+		}
+
+		doctor.setPassword(userDTO.getPassword());
+		doctor.setFirstLogin(false);
+		doctorRepository.save(doctor);
+
+		return userDTO;
 	}
 
 	public Doctor findUserByEmailAddress(String emailAddress) {
