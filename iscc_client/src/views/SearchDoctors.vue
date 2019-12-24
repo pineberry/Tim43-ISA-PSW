@@ -1,37 +1,25 @@
 <template>
-    <div class="container">
-        <div class="row m-3">
-            <div class="col-6">
-                <label>Enter info to filter:</label>
-                <form>
-                    <div class="form-group row">
-                        <label for="firstName" class="col-sm-4 col-form-label">Doctor's first name</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="firstName" v-model="firstName">
+    <div class="fluid row m-3">
+        <div class="col-12">
+            <label>Enter info to filter:</label>
+            <form>
+                <div class="row">
+                    <input type="text" class="form-control col m-1" placeholder="First name" id="firstName" v-model="firstName">
+                    <input type="text" class="form-control col m-1" placeholder="Last name" id="lastName" v-model="lastName">
+                    <input type="number" min="0" max="5" step=".1" class="form-control col m-1" placeholder="Rating" id="rating" v-model="rating"
+                    data-toggle="tooltip" data-placement="top" data-html="true" title="Average rating">
+                    <div class="form-check col m-1 align-self-center">
+                            <input class="form-check-input" type="checkbox" id="allRatingsChecked" v-model="allRatingsChecked">
+                            <label class="form-check-label" for="allRatingsChecked">
+                                <small>Disregard ratings</small>
+                            </label>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="lastName" class="col-sm-4 col-form-label">Doctor's last name</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="lastName" v-model="lastName">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="rating" class="col-sm-4 col-form-label">Rating</label>
-                        <div class="col-sm-8">
-                            <input type="number" min="0" max="5" step=".1" class="form-control" id="rating" v-model="rating">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="allRatingsChecked" v-model="allRatingsChecked">
-                                <label class="form-check-label" for="allRatingsChecked">
-                                    Consider all doctors regardless of rating
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-6">
-                <div class="card m-1" v-for="doctor in filteredDoctors" :key="doctor.id">
+                </div>
+            </form>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="card m-1 col-5" v-for="doctor in filteredDoctors" :key="doctor.id">
                     <div class="card-body">
                         <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
                         <div class="row">
@@ -49,7 +37,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <a :href="'http://localhost:8081/scheduling?doctor='+doctor.id" class="btn btn-secondary btn-sm">Request an appointment</a>
+                            <a :href="'http://localhost:8081/scheduling?doctor='+doctor.id" class="btn btn-outline-primary btn-sm">Request an appointment</a>
                         </div>
                     </div>
                 </div>
@@ -121,9 +109,7 @@ export default {
         this.axios.get("http://localhost:8080/doctor/all")
         .then(response => {
                 this.response = response
-                console.log(response)
                 this.doctors = response.data
-                console.log(this.doctors)
             })
         .catch(error => {
             alert(error.response.data)

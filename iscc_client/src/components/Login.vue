@@ -30,7 +30,7 @@
                 password : undefined,
                 response : undefined,
                 usersDetails : null,
-                jwt : null
+				jwt : null
             }
         },
         methods : {
@@ -45,7 +45,6 @@
         		{
         			this.response = response
         			this.usersDetails = this.response.data
-
         			if ( this.usersDetails )
                     {
         				localStorage.setItem('auth', 'Bearer ' + this.usersDetails.jwt);
@@ -55,7 +54,7 @@
 						localStorage.setItem('typeOfUser', this.usersDetails.typeOfUser);
         				if (this.usersDetails.typeOfUser == "patient")
         				{
-        					this.$router.push('/patientHome');
+							this.$router.go();
         				}
 						else if (this.usersDetails.typeOfUser == "doctor")
         				{

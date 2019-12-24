@@ -140,11 +140,9 @@
                 if (this.procedureId != 0) {
                     this.axios.get("http://localhost:8080/medical/procedure/" + this.procedureId)
                         .then(response => {
+                            console.log(response)
                             var date = new Date(response.data.dateOfProcedure);
                             this.searchDate = this.formatDate(date);
-                        })
-                        .catch(error => {
-                            alert('error');
                         })
                 }
             }

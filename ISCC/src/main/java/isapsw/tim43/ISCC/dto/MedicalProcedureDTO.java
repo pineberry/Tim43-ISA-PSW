@@ -13,6 +13,7 @@ public class MedicalProcedureDTO {
     private Date dateOfProcedure;
     private MedicalRoomDTO medicalRoom;
     private DoctorDTO doctor;
+    private PatientDTO patient;
     private float price;
     private float discount;
     private boolean booked;
@@ -37,6 +38,7 @@ public class MedicalProcedureDTO {
         dateOfProcedure = medicalProcedure.getDateOfProcedure();
         medicalRoom = new MedicalRoomDTO(medicalProcedure.getMedicalRoom());
         doctor = new DoctorDTO(medicalProcedure.getDoctor());
+        patient = new PatientDTO(medicalProcedure.getPatient());
         price = medicalProcedure.getPrice();
         discount = medicalProcedure.getDiscount();
         booked = medicalProcedure.isBooked();

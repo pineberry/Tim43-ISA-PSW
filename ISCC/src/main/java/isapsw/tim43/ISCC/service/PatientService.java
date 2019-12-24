@@ -13,6 +13,7 @@ import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,12 +68,19 @@ public class PatientService {
 		return patient;
 	}
 
-	public MedicalProcedureDTO scheduleAppointment(Patient patient, Doctor doctor, MedicalProcedure medicalProcedure, String hour) throws MailException, InterruptedException {
+	public MedicalProcedureDTO scheduleAppointment(Doctor doctor, MedicalProcedure medicalProcedure, String hour) throws MailException, InterruptedException {
 		int year = medicalProcedure.getDateOfProcedure().getYear() + 1900;
 		int month = medicalProcedure.getDateOfProcedure().getMonth() + 1;
+		int date = medicalProcedure.getDateOfProcedure().getDate();
+		@SuppressWarnings("deprecation")
+		Date dateOfProcedure = medicalProcedure.getDateOfProcedure();
+		dateOfProcedure.setHours(Integer.parseInt(hour));
+		medicalProcedure.setDateOfProcedure(dateOfProcedure);
 		MedicalProcedureDTO retVal = medicalProcedureService.save(new MedicalProcedureDTO(medicalProcedure));
+		Patient patient = medicalProcedure.getPatient();
 		String emailContent = patient.getFirstName() + " " + patient.getLastName() + " has requested an appointment with dr. " + 
-							doctor.getFirstName() + " " + doctor.getLastName() + " for date: " + medicalProcedure.getDateOfProcedure().getDate() + "/" +
+							doctor.getFirstName() + " " + doctor.getLastName() + " for date: " + 
+							date + "/" +
 							month + "/" +
 							year + " at " + hour +":00 o'clock.\n\n" +
 				"To accept click on the link below:\n"+

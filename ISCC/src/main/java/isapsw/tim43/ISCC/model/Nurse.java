@@ -55,8 +55,6 @@ public class Nurse {
 	private boolean firstLogin;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JsonManagedReference(value="nurse-clinic")
-	@JsonIgnore
 	private Clinic clinic;
 
 	public Nurse(long id, String email, String password, String firstName, String lastName, String phoneNumber,

@@ -31,7 +31,6 @@ public class MedicalRoom {
 	private List<MedicalProcedure> medicalProcedures;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
 	private Clinic clinic;
 
 	public MedicalRoom(long id, String roomName, int roomNumber, Clinic clinic) {

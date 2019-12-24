@@ -3,6 +3,9 @@ package isapsw.tim43.ISCC.model;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +19,7 @@ public class MedicalRecord {
 	private Long id;
 
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<Report> reports = new HashSet<Report>();
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

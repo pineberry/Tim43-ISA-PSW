@@ -27,13 +27,15 @@ public class MedicalProcedure {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="procedure-room")
-	@JsonIgnore
 	private MedicalRoom medicalRoom;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="doctor-procedure")
-	@JsonIgnore
 	private Doctor doctor;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Patient patient;
 
 	@Column(name = "price")
 	private float price;
@@ -69,11 +71,12 @@ public class MedicalProcedure {
 		this.booked = booked;
 	}
 	public MedicalProcedure(ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
-			Doctor doctor, float price, float discount, boolean booked) {
+			Doctor doctor, Patient patient, float price, float discount, boolean booked) {
 		super();
 		this.procedureType = procedureType;
 		this.dateOfProcedure = dateOfProcedure;
 		this.medicalRoom = medicalRoom;
+		this.patient = patient;
 		this.doctor = doctor;
 		this.price = price;
 		this.discount = discount;

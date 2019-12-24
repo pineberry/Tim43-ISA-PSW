@@ -1,6 +1,6 @@
 <template>
-	<div class="container">
-        <ul class="nav nav-tabs swatch-cyan">
+	<div class="container p-0">
+        <ul class="nav nav-tabs swatch-cyan justify-content-between">
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="http://localhost:8081/patientHome" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
                 <div class="dropdown-menu">
@@ -11,25 +11,18 @@
                 </div>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="">Clinics</router-link>
+                <router-link class="nav-link pl-5 pr-5" to="searchClinics">Clinics</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="searchDoctors">Doctors</router-link>
+                <router-link class="nav-link pl-5 pr-5" to="searchDoctors">Doctors</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="">Procedure history</router-link>
+                <router-link class="nav-link pl-3 pr-3" to="">Procedure history</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="">Medical record</router-link>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" v-on:click="showSearch" href="#">Search</a>
+                <router-link class="nav-link pl-4 pr-4" to="">Medical record</router-link>
             </li>
         </ul>
-        <div v-if="searchF == true">
-            <SearchAvailableDoctorsAtClinic/>
-            <a v-on:click="showSearch" href="#">Remove form.</a>
-        </div>
 	</div>
 </template>
 
@@ -39,13 +32,9 @@
 
     export default {
         name: "patientHome",
-        components : {
-            SearchAvailableDoctorsAtClinic
-        },
         data : function() {
             return {
-                user : localStorage.getItem('user'),
-                searchF : false
+                user : localStorage.getItem('user')
             }
         },
         methods : {
@@ -55,9 +44,6 @@
                 localStorage.removeItem("user");
                 localStorage.removeItem("user_id");
                 localStorage.removeItem("typeOfUser");
-            },
-            showSearch : function () {
-                this.searchF = !this.searchF
             }
         }
     };

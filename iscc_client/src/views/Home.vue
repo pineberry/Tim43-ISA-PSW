@@ -3,7 +3,6 @@
     <div class="fluid" v-if="!user">
       <Login />
     </div>
-    <router-view />
   </div>
 </template>
 

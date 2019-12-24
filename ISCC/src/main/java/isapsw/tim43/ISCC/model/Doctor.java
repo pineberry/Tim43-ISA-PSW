@@ -59,7 +59,6 @@ public class Doctor {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="doctor-type")
-	@JsonIgnore
 	private ProcedureType specialized;
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -69,7 +68,6 @@ public class Doctor {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="doctor-clinic")
-	@JsonIgnore
 	private Clinic clinic;
 	
 	public Doctor() {

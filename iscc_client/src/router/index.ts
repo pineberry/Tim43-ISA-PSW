@@ -133,8 +133,8 @@ const routes = [
     component: PatientHome
   },
   {
-    path: "/searchAvailable",
-    name: "searchAvailable",
+    path: "/searchClinics",
+    name: "searchClinics",
     component: SearchAvailableDoctorsAtClinic
   },
   {

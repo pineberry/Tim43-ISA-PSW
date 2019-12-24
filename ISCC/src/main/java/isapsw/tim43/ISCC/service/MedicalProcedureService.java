@@ -26,6 +26,9 @@ public class MedicalProcedureService {
 
     @Autowired
     private DoctorService doctorService;
+    
+    @Autowired
+    private PatientService patientService;
 
     @Autowired
     private EmailService emailService;
@@ -53,6 +56,7 @@ public class MedicalProcedureService {
         medicalProcedure.setDateOfProcedure(medicalProcedureDTO.getDateOfProcedure());
         medicalProcedure.setMedicalRoom(medicalRoom);
         medicalProcedure.setDoctor(doctor);
+        medicalProcedure.setPatient(patientService.findById(medicalProcedureDTO.getPatient().getId()));
         medicalProcedure.setPrice(medicalProcedureDTO.getPrice());
         medicalProcedure.setDiscount(0);
         medicalProcedure.setBooked(false);
@@ -87,7 +91,9 @@ public class MedicalProcedureService {
 
         medicalProcedure.setMedicalRoom(medicalRoom);
 
-        String emailContent = "Test: Your appointment has been scheduled for " + medicalProcedure.getDateOfProcedure();
+        String emailContent = "Dear " + medicalProcedure.getPatient().getFirstName() + " " 
+        		+ medicalProcedure.getPatient().getLastName() + ",\nYour appointment has been scheduled for " 
+        		+ medicalProcedure.getDateOfProcedure() + ".";
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
         return medicalProcedureRepository.save(medicalProcedure);

@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <div class="nav-item dropdown">
@@ -24,15 +24,15 @@
           </div>
         </div>
       </div>
-    </nav>
-    <div class="row">
+    </nav> -->
+    <div class="row mt-3 mb-3">
         <div>
             <router-link to="/">
               <img src="./images/iscc_icon_64_M.png" alt="nema">
             </router-link>
         </div>
         <div class="align-self-end ml-3">
-            <p class="h1 text-info font-weight-bold">Clinic center</p>
+            <p class="h1 color-lilac font-weight-bold">Clinic center</p>
         </div>
     </div>
     <div v-if="role === 'patient'">
@@ -73,8 +73,10 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Ubuntu";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -92,5 +94,32 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+.nav-link{
+    color: var(--gray-dark);
+}
+.nav-link:hover{
+  color: #c093d5;
+}
+.color-lilac {
+  background: -webkit-linear-gradient(top right, #3fcef9, #caabd8);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
+#app .btn-primary {
+  background: #3fcef9;
+  border-color: #3fcef9;
+}
+#app .btn-primary:hover {
+  background: #c093d5;
+  border-color: #c093d5;
+}
+
+/* #app .btn-secondary {
+  -webkit-border-image: -webkit-linear-gradient(top right, rgb(129, 205, 255), #caabd8);
+  border-image: -webkit-linear-gradient(top right, rgb(129, 205, 255), #caabd8);
+  border-width: 2px;
+  background-color: transparent;
+} */
 </style>

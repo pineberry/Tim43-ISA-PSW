@@ -1,17 +1,18 @@
 <template>
-    <div class="container-fluid">
-        <p class="h5">Appointment requested with doctor:</p>
-        <div class="card m-1 col-5">
+    <div class="container-fluid row justify-content-center">
+        <div class="card m-2 col-6">
             <div class="card-body">
                 <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
                 <div class="row">
-                    <div class="col-2">
-                        <img src="../images/doctor.png" alt="..." class="rounded float-left">
-                    </div>
-                    <div class="col-5">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <img src="../images/doctor.png" alt="..." class="rounded float-left">
+                            </div>
+                        </div>
                         <p>Average rating: {{doctor.averageRating}}</p>
                     </div>
-                    <div class="col-5">
+                    <div class="col-6">
                         <p>Specialization: {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</p>
                         <p>Location: <b><a class="card-link" :href="'http://localhost:8081/clinic/'+doctor.clinic.id">{{doctor.clinic.name}}</a></b> {{doctor.address}} - {{doctor.city}}</p>
                         <p>Working time: {{doctor.workingtimeStart}} - {{doctor.workingtimeEnd}}</p>
@@ -19,23 +20,27 @@
                 </div>
             </div>
         </div>
-        <form class="col-5 m-1">
-            <div class="form-group row">
-                <label for="date">Date for the appointment</label>
-                <div class="col-sm-8 text-right">
-                    <input type="date" class="form-control" :min="today" v-on:change="setDate(date)"  id="date" v-model="date">
+        <div class="col-6">
+            <p>Choose date and time:</p>
+            <div class="row justify-content-center">
+                <input type="date" class="form-control col m-1" :min="today" v-on:change="setDate(date)"  id="date" v-model="date">
+                <div class="col p-0 m-1">
+                    <button class="btn btn-outline-primary w-100 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choose time
+                    </button>
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                        <div v-for="hour in workingtimeEnd" :key="hour" >
+                            <a class="dropdown-item" href="#" v-if="hour >= workingtimeStart  && hour < workingtimeEnd" v-on:click="requestAppointment(hour)">
+                                {{hour}}:00 - {{hour + 1}}:00
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
-        
-        <div class="col-5">
-            <div class="row" v-for="hour in workingtimeEnd" :key="hour">
-                <button class="col-sm-6 btn btn-primary btn-sm m-2" v-if="hour >= workingtimeStart  && hour < workingtimeEnd" 
-                    v-on:click="requestAppointment(hour)">
-                    {{hour}}:00 - {{hour + 1}}:00
-                </button>
-            </div>
         </div>
+        
+        
+        
     </div>
 </template>
 
@@ -76,6 +81,7 @@ export default {
     },
     methods : {
         requestAppointment : function(hour) {
+            console.log(hour)
             this.axios.get("http://localhost:8080/patient/schedule-appointment", {
 					params: {
 						date : this.date,

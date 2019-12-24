@@ -19,19 +19,15 @@ public class Prescription {
 	private boolean checked;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
 	private Medicine medicine;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
 	private Clinic clinic;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
 	private Report report;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
 	private Nurse nurse;
 
 	public Prescription(Long id,  Medicine medicine, boolean checked, Report report, Nurse nurse) {

@@ -39,13 +39,17 @@ public class SearchService {
 									formatter.format(parameters.getDate()) && // ako nisu u isto vreme
 									parameters.getDate().after(new Date())) //ako je neko vreme pocev od sutra
 							{
-								clinics.add(clinic);
+								if (!clinics.contains(clinic)) {
+									clinics.add(clinic);
+								}
 								doctors.add(doctor);
 							}
 						} 
 					}
 					else {
-						clinics.add(clinic);
+						if (!clinics.contains(clinic)) {
+							clinics.add(clinic);
+						}
 						doctors.add(doctor);
 					}
 				}
