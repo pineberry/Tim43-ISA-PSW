@@ -7,6 +7,7 @@ import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,4 +99,30 @@ public class MedicalProcedureService {
 
         return medicalProcedureRepository.save(medicalProcedure);
     }
+
+	public List<MedicalProcedureDTO> getPatientsProcedures(Long patientID) {
+		
+		List<MedicalProcedureDTO> procedures = new ArrayList<MedicalProcedureDTO>();
+		for (MedicalProcedure procedure : findAll()) {
+			if (procedure.getPatient().getId() == patientID) {
+				procedures.add(new MedicalProcedureDTO(procedure));
+			}
+		}
+		
+		return procedures;
+	}
+
+	public List<MedicalProcedureDTO> confirmAppointment(MedicalProcedureDTO procedure) {
+		MedicalProcedure mp = findOne(procedure.getId());
+		mp.setBooked(true);
+		
+		medicalProcedureRepository.save(mp);
+		
+		return getPatientsProcedures(procedure.getPatient().getId());
+	}
+
+	public List<MedicalProcedureDTO> denyAppointment(Long procedureID, Long patientID) {
+		medicalProcedureRepository.deleteById(procedureID);
+		return getPatientsProcedures(patientID);
+	}
 }

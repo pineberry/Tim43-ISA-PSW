@@ -5,6 +5,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.List;
@@ -31,6 +34,7 @@ public class ProcedureType {
 	@OneToMany(mappedBy = "procedureType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JsonBackReference(value="procedure-type")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
 	private List<MedicalProcedure> medicalProcedures;
 
 	public ProcedureType(){}

@@ -62,7 +62,7 @@ export default {
     mounted: function() {
         this.today = new Date();
         this.today = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2);
-        this.axios.get("http://localhost:8080/doctor/"+this.$route.query.doctor)
+        this.axios.get("http://localhost:8080/doctor/"+this.$route.params.doctor)
         .then(response => {
                 this.response = response
                 this.doctor = this.response.data
@@ -92,9 +92,9 @@ export default {
 				})
 				.then(response => {
 					this.response = response
-					console.log(this.response)
 				})
-				.catch(error => {alert(error.response.data)})
+                .catch(error => {alert(error.response.data)})
+                this.$router.push('/');
         },
         setDate : function(date) {
             this.date = date

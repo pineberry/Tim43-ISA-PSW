@@ -23,6 +23,7 @@ public class MedicalRecord {
 	private Set<Report> reports = new HashSet<Report>();
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Patient patient;
 
 	@Column(name = "height")

@@ -3,7 +3,7 @@
         <div class="col-12">
             <label>Enter info to filter:</label>
             <form>
-                <div class="row">
+                <div class="row justify-content-center">
                     <input type="text" class="form-control col m-1" placeholder="First name" id="firstName" v-model="firstName">
                     <input type="text" class="form-control col m-1" placeholder="Last name" id="lastName" v-model="lastName">
                     <input type="number" min="0" max="5" step=".1" class="form-control col m-1" placeholder="Rating" id="rating" v-model="rating"
@@ -19,25 +19,31 @@
         </div>
         <div class="col-12">
             <div class="row">
-                <div class="card m-1 col-5" v-for="doctor in filteredDoctors" :key="doctor.id">
+                <div class="card m-1 w-05" v-for="doctor in filteredDoctors" :key="doctor.id">
                     <div class="card-body">
                         <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
-                        <div class="row">
-                            <div class="col-6">
+                        <hr class="my-1">
+                        <div class="row mt-2">
+                            <div class="col-3">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col">
                                         <img src="../images/doctor.png" alt="..." class="rounded float-left">
                                     </div>
                                 </div>
-                                <p>Average rating: {{doctor.averageRating}}</p>
                             </div>
-                            <div class="col-6">
-                                <p>Specialization: {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</p>
-                                <p>Location: <b><a class="card-link" :href="'http://localhost:8081/clinic/'+doctor.clinic.id">{{doctor.clinic.name}}</a></b> {{doctor.address}} - {{doctor.city}}</p>
+                            <div class="col-8">
+                                <p class="m-0 border-bottom"><small>Specialization:</small> <br> <b> {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</b></p>
+                                <p class="m-0 border-bottom"><small>Clinic:</small> <br>
+                                    <b>
+                                        <a class="special-link" :href="'http://localhost:8081/clinic/'+doctor.clinic.id"> {{doctor.clinic.name}}</a>
+                                    </b>
+                                    <small class="text-muted"><br>{{doctor.address}}, {{doctor.city}}</small>
+                                </p>
+                                <p class="m-0"><small>Average rating: <b>{{doctor.averageRating}}</b></small></p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <a :href="'http://localhost:8081/scheduling?doctor='+doctor.id" class="btn btn-outline-primary btn-sm">Request an appointment</a>
+                            <router-link class="btn mt-2 btn-outline-primary btn-sm" :to="'scheduling/'+doctor.id">Request an appointment</router-link>
                         </div>
                     </div>
                 </div>

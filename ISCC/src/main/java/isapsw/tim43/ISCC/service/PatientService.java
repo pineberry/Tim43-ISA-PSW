@@ -75,6 +75,8 @@ public class PatientService {
 		@SuppressWarnings("deprecation")
 		Date dateOfProcedure = medicalProcedure.getDateOfProcedure();
 		dateOfProcedure.setHours(Integer.parseInt(hour));
+		medicalProcedure.setStartTime(hour+":00");
+		medicalProcedure.setEndTime(Integer.toString(Integer.sum(Integer.parseInt(hour), 1))+":00");
 		medicalProcedure.setDateOfProcedure(dateOfProcedure);
 		MedicalProcedureDTO retVal = medicalProcedureService.save(new MedicalProcedureDTO(medicalProcedure));
 		Patient patient = medicalProcedure.getPatient();

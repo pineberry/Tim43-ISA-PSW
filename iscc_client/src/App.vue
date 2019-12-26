@@ -26,13 +26,13 @@
       </div>
     </nav> -->
     <div class="row mt-3 mb-3">
-        <div>
+        <div class="col-1 p-0 ml-3">
             <router-link to="/">
-              <img src="./images/iscc_icon_64_M.png" alt="nema">
+              <img src="./images/iscc_icon.svg" alt="nema">
             </router-link>
         </div>
-        <div class="align-self-end ml-3">
-            <p class="h1 color-lilac font-weight-bold">Clinic center</p>
+        <div class="align-self-center ml-3">
+            <p class="h1 color-lilac font-weight-bold m-0">Clinic center</p>
         </div>
     </div>
     <div v-if="role === 'patient'">
@@ -98,28 +98,23 @@ export default {
     color: var(--gray-dark);
 }
 .nav-link:hover{
-  color: #c093d5;
+  color: #b4d8ff;
 }
 .color-lilac {
-  background: -webkit-linear-gradient(top right, #3fcef9, #caabd8);
+  background: -webkit-linear-gradient(top left, #007BFF, #b4d8ff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-#app .btn-primary {
-  background: #3fcef9;
-  border-color: #3fcef9;
-}
-#app .btn-primary:hover {
-  background: #c093d5;
-  border-color: #c093d5;
+#app a:hover {
+  text-decoration: none;
 }
 
-/* #app .btn-secondary {
-  -webkit-border-image: -webkit-linear-gradient(top right, rgb(129, 205, 255), #caabd8);
-  border-image: -webkit-linear-gradient(top right, rgb(129, 205, 255), #caabd8);
-  border-width: 2px;
-  background-color: transparent;
-} */
+#app .w-05 {
+    width: 49% !important;
+}
+#app .w-025 {
+    width: 24.5% !important;
+}
 </style>

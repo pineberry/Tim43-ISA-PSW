@@ -11,30 +11,36 @@
                 </div>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link pl-5 pr-5" to="searchClinics">Clinics</router-link>
+                <router-link class="nav-link pl-4 pr-4" to="patientAppointments">Appointments</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link pl-5 pr-5" to="searchDoctors">Doctors</router-link>
+                <router-link class="nav-link pl-4 pr-4" to="">Medical record</router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link pl-3 pr-3" to="">Procedure history</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link pl-4 pr-4" to="">Medical record</router-link>
+                <router-link class="nav-link pl-5 pr-5" to="clinics">Clinics</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link pl-5 pr-5" to="searchDoctors">Doctors</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="searchAvailableDoctorsAtClinic"><img class="size" src="../images/search.svg"><span class="pl-2">Available</span></router-link>
             </li>
         </ul>
 	</div>
 </template>
 
 <script>
-
     import SearchAvailableDoctorsAtClinic from '../views/SearchAvailableDoctorsAtClinic.vue';
-
     export default {
         name: "patientHome",
         data : function() {
             return {
-                user : localStorage.getItem('user')
+                user : localStorage.getItem('user'),
+                notificationCount: 0, 
+                appointments : []
             }
         },
         methods : {
@@ -50,5 +56,8 @@
 </script>
 
 <style>
-
+.size {
+    width: 18px;
+    height: auto;
+}
 </style>

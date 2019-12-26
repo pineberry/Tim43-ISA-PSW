@@ -7,6 +7,11 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import VueResource from "vue-resource";
+import lodash from 'lodash';
+
+Vue.use(lodash);
+Vue.prototype.lodash = lodash;
+
 
 Vue.config.silent = true; 
 

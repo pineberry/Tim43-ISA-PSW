@@ -18,23 +18,19 @@ public class MedicalProcedure {
 
 //	private String name;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JsonManagedReference(value="procedure-type")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ProcedureType procedureType;
 
 	@Column(name = "dateOfProcedure", unique = true, nullable = false)
 	private Date dateOfProcedure;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JsonManagedReference(value="procedure-room")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private MedicalRoom medicalRoom;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JsonManagedReference(value="doctor-procedure")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Doctor doctor;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Patient patient;
 
 	@Column(name = "price")

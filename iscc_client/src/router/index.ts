@@ -133,8 +133,8 @@ const routes = [
     component: PatientHome
   },
   {
-    path: "/searchClinics",
-    name: "searchClinics",
+    path: "/searchAvailableDoctorsAtClinic",
+    name: "searchCAvailableDoctorsAtClinic",
     component: SearchAvailableDoctorsAtClinic
   },
   {
@@ -153,7 +153,7 @@ const routes = [
         component: SearchDoctors
     },
     {
-        path: "/scheduling",
+        path: "/scheduling/:doctor",
         name: "scheduleAppointment",
         component: ScheduleAppointment
     },
@@ -205,7 +205,17 @@ const routes = [
     path: "/editAdmin",
     name: "editClinicAdmin",
     component: EditClinicAdmin
-  }
+  },
+  {
+    path: "/patientAppointments",
+    name: "patientAppointments",
+    component : () => import('../components/PatientAppointments.vue')
+  },
+  {
+    path: "/clinics",
+    name: "clinics",
+    component: () => import('../views/Clinics.vue')
+  },
 ];
 
 const router = new VueRouter({

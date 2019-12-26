@@ -15,7 +15,7 @@
 					</div>
 					<div class="col-6">
 						<div class="form-group m-0">
-							<label class="m-0" for="typeOfProcedure"><small>Procedure type</small></label>
+							<label class="m-0" for="typeOfProcedure"><small>Specialization</small></label>
 							<select id="typeOfProcedure" class="form-control" v-model="typeOfProcedure">
 								<option v-for="procedure in procedureTypes" :key="procedure.id" :value="procedure">{{procedure.typeName}}</option>
 							</select>
@@ -37,36 +37,39 @@
 				</div>
 			</form>
 		</div>
-		<div class="row m-0" v-if="showResult == true">
+		<div class="row m-0" v-if="showResult == true" id="clinics">
 			<div class="card mb-1 col-12" v-for="clinic in clinics" :key="clinic.id">
 				<div class="card-body">
-					<h3 class="card-title m-0"><a v-on:click="showDoctors(clinic.id)" href="#">{{clinic.name}}</a></h3>
+					<h3 class="card-title m-0"><a data-toggle="collapse" :href="'#show'+clinic.id" aria-expanded="true" :aria-controls="'show'+clinic.id">{{clinic.name}}</a></h3>
 					<p class="card-subtitle m-0 text-muted"><small>Address: {{clinic.address}}</small></p>
 					<p>Average rating: <span><b>{{clinic.averageRating}}</b></span></p>
 					<hr class="my-1">
-					<div v-if="showDoctorsF == clinic.id">
+					<div class="collapse" :id="'show'+clinic.id" data-parent="#clinics">
 						<p>Available doctors:</p>
 						<div class="row m-1">
-							<div class="card border-primary p-2 col-4 mr-1 " v-for="doctor in filteredDoctors(clinic.id)" :key="doctor.id">
-								<div class="row">
-									<div class="col-4 align-self-center">
+							<div class="card border-primary p-2 w-025 mr-1 " v-for="doctor in filteredDoctors(clinic.id)" :key="doctor.id">
+								<div class="row justify-content-center">
+									<div class="col-6">
 										<img src="../images/doctor.png" alt="..." class="rounded float-left">
 									</div>
-									<div class="col">
-										<div v-if="doctor.clinic.id == clinic.id">
+								</div>
+								<div class="row justify-content-center">
+									<div v-if="doctor.clinic.id == clinic.id">
+										<div class="row justify-content-center">
 											<p class="card-title m-0"><b>{{doctor.firstName}} {{doctor.lastName}}</b></p>
-											<p class="card-subtitle m-0 text-muted">
-												<small>
-													Average rating: <span><b>{{doctor.averageRating}}</b></span>
-												</small>
-											</p>
-											<p class="card-subtitle m-0 text-muted">
-												<small>
-													Working time: <span><b>{{doctor.workingtimeStart}} - {{doctor.workingtimeEnd}}</b></span>
-												</small>
-											</p>
-											<a :href="'http://localhost:8081/scheduling?doctor='+doctor.id" class="btn mt-2 btn-outline-primary btn-sm">Request an appointment</a>
 										</div>
+										<hr class="my-1">
+										<p class="card-subtitle m-0 text-muted">
+											<small>
+												Average rating: <span><b>{{doctor.averageRating}}</b></span>
+											</small>
+										</p>
+										<p class="card-subtitle m-0 text-muted">
+											<small>
+												Working time: <span><b>{{doctor.workingtimeStart}} - {{doctor.workingtimeEnd}}</b></span>
+											</small>
+										</p>
+										<router-link class="btn mt-2 btn-outline-primary btn-sm" :to="'scheduling/'+doctor.id">Request an appointment</router-link>
 									</div>
 								</div>
 							</div>
