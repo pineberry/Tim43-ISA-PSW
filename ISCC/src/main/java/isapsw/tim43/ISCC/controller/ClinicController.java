@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +34,15 @@ public class ClinicController {
         }
 
         return new ResponseEntity<>(clinicsDTO, HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ClinicDTO> getClinicById(@PathVariable("id") Long clinicID) {
+    	
+    	if(clinicService.findOne(clinicID) == null) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	} else {
+			return new ResponseEntity<ClinicDTO>(new ClinicDTO(clinicService.findOne(clinicID)),HttpStatus.OK);
+		}
     }
 }

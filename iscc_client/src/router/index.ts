@@ -18,7 +18,7 @@ import PatientHome from "../components/PatientHome.vue";
 import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtClinic.vue";
 import AdminPasswordChange from "../views/AdminPasswordChange.vue"
 import SeachMedicalRooms from "../views/SearchMedicalRooms.vue";
-import SearchDoctors from "../views/SearchDoctors.vue";
+import Doctors from "../views/Doctors.vue";
 import ScheduleAppointment from "../views/ScheduleAppointment.vue"
 import EditProcedureType from "../views/EditProcedureType.vue";
 import SearchProcedureType from "../views/SearchProcedureTypes.vue";
@@ -148,12 +148,12 @@ const routes = [
         component: SeachMedicalRooms
     },
     {
-        path: "/searchDoctors",
-        name: "searchDoctors",
-        component: SearchDoctors
+        path: "/doctors",
+        name: "doctors",
+        component: Doctors
     },
     {
-        path: "/scheduling/:doctor",
+        path: "/scheduling_:detail",
         name: "scheduleAppointment",
         component: ScheduleAppointment
     },
@@ -215,6 +215,11 @@ const routes = [
     path: "/clinics",
     name: "clinics",
     component: () => import('../views/Clinics.vue')
+  },
+  {
+    path: "/clinic_:id",
+    name: "clinic",
+    component: () => import('../views/Clinic.vue')
   },
 ];
 

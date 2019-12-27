@@ -1,7 +1,12 @@
 package isapsw.tim43.ISCC.dto;
 
-import isapsw.tim43.ISCC.model.Clinic;
+import java.util.List;
 
+import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.Doctor;
+import lombok.Data;
+
+@Data
 public class ClinicDTO {
 
     private Long id;
@@ -9,20 +14,22 @@ public class ClinicDTO {
     private String address;
     private String description;
     private double averageRating;
+    private List<Doctor> doctors;
 
     public ClinicDTO() {
     }
 
-    public ClinicDTO(Long id, String name, String address, String description, double averageRating) {
+    public ClinicDTO(Long id, String name, String address, String description, double averageRating, List<Doctor> doctors) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.description = description;
         this.averageRating = averageRating;
+        this.doctors = doctors;
     }
 
     public ClinicDTO(Clinic clinic){
-        this(clinic.getId(), clinic.getName(), clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating());
+        this(clinic.getId(), clinic.getName(), clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating(), clinic.getDoctors());
     }
 
     public Long getId() {

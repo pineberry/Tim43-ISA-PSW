@@ -35,7 +35,7 @@
                                 <p class="m-0 border-bottom"><small>Specialization:</small> <br> <b> {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</b></p>
                                 <p class="m-0 border-bottom"><small>Clinic:</small> <br>
                                     <b>
-                                        <a class="special-link" :href="'http://localhost:8081/clinic/'+doctor.clinic.id"> {{doctor.clinic.name}}</a>
+                                        <a class="special-link" :href="'http://localhost:8081/clinic_'+doctor.clinic.id"> {{doctor.clinic.name}}</a>
                                     </b>
                                     <small class="text-muted"><br>{{doctor.address}}, {{doctor.city}}</small>
                                 </p>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <router-link class="btn mt-2 btn-outline-primary btn-sm" :to="'scheduling/'+doctor.id">Request an appointment</router-link>
+                            <router-link class="btn mt-2 btn-outline-primary btn-sm" :to="'scheduling_'+doctor.id">Request an appointment</router-link>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
 
 
 export default {
-    name: "searchDoctors",
+    name: "doctors",
     components: {
     },
     data: function() {
@@ -111,7 +111,7 @@ export default {
             document.getElementById('rating').removeAttribute('disabled');
         }
     },
-    created: function() {
+    beforeCreate: function() {
         this.axios.get("http://localhost:8080/doctor/all")
         .then(response => {
                 this.response = response

@@ -1,7 +1,7 @@
 <template>
-    <div class="container-fluid row justify-content-center">
+    <div class="container row justify-content-center">
         <div class="card m-2 col-6">
-            <div class="card-body">
+            <div class="card-body" v-if="doctor">
                 <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
                 <div class="row">
                     <div class="col-6">
@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-6">
                         <p>Specialization: {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</p>
-                        <p>Location: <b><a class="card-link" :href="'http://localhost:8081/clinic/'+doctor.clinic.id">{{doctor.clinic.name}}</a></b> {{doctor.address}} - {{doctor.city}}</p>
+                        <p>Location: <b><a class="card-link" :href="'http://localhost:8081/clinic_'+doctor.clinic.id">{{doctor.clinic.name}}</a></b> {{doctor.address}} - {{doctor.city}}</p>
                         <p>Working time: {{doctor.workingtimeStart}} - {{doctor.workingtimeEnd}}</p>
                     </div>
                 </div>
@@ -56,13 +56,19 @@ export default {
             unavailableAppointments : [],
             response : undefined,
             workingtimeStart : undefined,
-            workingtimeEnd : undefined
+            workingtimeEnd : undefined,
+            apointInfo : []
         }
     },
     mounted: function() {
         this.today = new Date();
         this.today = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2);
-        this.axios.get("http://localhost:8080/doctor/"+this.$route.params.doctor)
+        this.apointInfo = this.$route.params.detail.split('_');
+        var doctor = this.apointInfo[0];
+        if (this.apointInfo[1] != '') {
+            this.date = this.apointInfo[1];
+        }
+        this.axios.get("http://localhost:8080/doctor/"+doctor)
         .then(response => {
                 this.response = response
                 this.doctor = this.response.data

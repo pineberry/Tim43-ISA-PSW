@@ -25,15 +25,25 @@
         </div>
       </div>
     </nav> -->
-    <div class="row mt-3 mb-3">
-        <div class="col-1 p-0 ml-3">
+    <div class="row mt-3 mb-3 justify-content-between">
+      <div class="col">
+        <div class="row">
+          <div class="col-2 p-0 ml-3">
             <router-link to="/">
               <img src="./images/iscc_icon.svg" alt="nema">
             </router-link>
+          </div>
+          <div class="align-self-center ml-3">
+              <p class="h1 color-lilac font-weight-bold m-0">Clinic center</p>
+          </div>
         </div>
-        <div class="align-self-center ml-3">
-            <p class="h1 color-lilac font-weight-bold m-0">Clinic center</p>
+      </div>
+      <div class="col">
+       <div class="nav m-1 p-0 justify-content-end">
+            <a class="bf-arrow pl-2 pr-2 pb-1 justify-self-end" @click="$router.go(-1)"> <img class="size ml-2 mr-2" src="./images/back-forward.svg" alt=""> </a>
+            <a class="bf-arrow pl-2 pr-2 pb-1" @click="$router.go(+1)"> <img class="size rotate ml-2 mr-2 " src="./images/back-forward.svg" alt=""> </a>
         </div>
+      </div>
     </div>
     <div v-if="role === 'patient'">
         <PatientHome />
@@ -116,5 +126,21 @@ export default {
 }
 #app .w-025 {
     width: 24.5% !important;
+}
+
+#app .size {
+    width: 18px;
+    height: auto;
+}
+.rotate {
+    transform: rotate(180deg);
+}
+.bf-arrow:hover {
+    background-color: #b4d8ff;
+    cursor: pointer;
+}
+.bf-arrow {
+    border-radius: 5px;
+    border: 5px solid transparent;
 }
 </style>

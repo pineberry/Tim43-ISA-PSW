@@ -1,8 +1,25 @@
 <template>
 	<div class="container">
-		<div class="row m-0 mt-2">
-			<div class="card m-1 w-05" v-for="clinic in clinics" :key="clinic.id">
-				<a class="clinic-card" href="">
+		<div class="col-12 mt-3">
+			<label>Enter info to filter:</label>
+            <form>
+                <div class="row justify-content-center">
+                    <input type="text" class="form-control col m-1" placeholder="Clinic name" id="name" v-model="name">
+                    <input type="text" class="form-control col m-1" placeholder="Address" id="address" v-model="address">
+                    <input type="number" min="0" max="5" step=".1" class="form-control col m-1" placeholder="Rating" id="rating" v-model="rating"
+                    data-toggle="tooltip" data-placement="top" data-html="true" title="Average rating">
+                    <div class="form-check col m-1 align-self-center">
+                            <input class="form-check-input" type="checkbox" id="allRatingsChecked" v-model="allRatingsChecked">
+                            <label class="form-check-label" for="allRatingsChecked">
+                                <small>Disregard ratings</small>
+                            </label>
+                        </div>
+                </div>
+            </form>
+		</div>
+		<div class="row m-0">
+			<div class="card m-1 w-05" v-for="clinic in filteredClinics" :key="clinic.id">
+				<router-link class="clinic-card" :to="'clinic_'+clinic.id">
 					<div class="card-body">
 						<h3 class="card-title m-0">{{clinic.name}}</h3>
 						<hr class="my-1">
@@ -11,7 +28,7 @@
 						<hr class="my-1">
 						<footer class="blockquote-footer"><small>{{clinic.description}}</small></footer>
 					</div>
-				</a>
+				</router-link>
 			</div>
 		</div>
 	</div>
@@ -22,7 +39,11 @@ export default {
 	name: "clinics",
 	data : function () {
 		return {
-			clinics : []
+			clinics : [],
+			name : undefined,
+			address : undefined,
+			rating : 0,
+			allRatingsChecked : false
 		}
 	}, 
 	mounted : function() {
@@ -33,7 +54,41 @@ export default {
 	}, 
 	methods : {
 
-	}
+	},
+    computed: {
+        filteredClinics (){
+            if (!this.allRatingsChecked)
+            {
+                if (this.rating) {
+                    return this.filterByAddress.filter((clinic) => {
+                        return clinic.averageRating>=this.rating;
+                    })
+                } else {
+                    return this.filterByAddress;
+                }
+            } else {
+                return this.filterByAddress;
+            }
+        },
+        filterByName () {
+            if (this.name) {
+                return this.clinics.filter((clinic) => {
+                    return clinic.name.toLowerCase().startsWith(this.name.toLowerCase());
+                })
+            } else {
+                return this.clinics;
+            }
+        },
+        filterByAddress () {
+            if (this.address) {
+                return this.filterByName.filter((clinic) => {
+                    return clinic.address.toLowerCase().startsWith(this.address.toLowerCase());
+                })
+            } else {
+                return this.filterByName;
+            }
+        }
+    }
 
 }
 </script>

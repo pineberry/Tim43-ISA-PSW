@@ -6,7 +6,7 @@
 					<div class="col-6">
 						<div class="form-group m-0">
 							<label class="m-0" for="date"><small>Date</small></label>
-							<input type="date" class="form-control" id="date" v-model="date">
+							<input type="date" :min="today" class="form-control" id="date" v-model="date">
 						</div>
 						<div v-if="searchAdvancedF == true" class="form-group m-0">
 							<label class="m-0" for="location"><small>Location</small></label>
@@ -28,10 +28,10 @@
 				</div>
 				<div class="row mt-2 m-0 justify-content-between">
 					<div v-if="searchAdvancedF == true">
-						<a class="m-1" v-on:click="showSearch" href="#"><img class="small_img rotate" src="../images/arrow.png" alt="Basic"></a>
+						<a class="ml-2 m-1" v-on:click="showSearch" href="#"><img class="small_img rotate" src="../images/down-button.svg" alt="Basic"></a>
 					</div>
 					<div v-if="searchAdvancedF == false">
-						<a class="m-1" v-on:click="showSearch" href="#"><img class="small_img" src="../images/arrow.png" alt="Advanced"></a>
+						<a class="ml-2 m-1" v-on:click="showSearch" href="#"><img class="small_img" src="../images/down-button.svg" alt="Advanced"></a>
 					</div>
 					<button type="submit" class="btn btn-primary mb-2">Search</button>
 				</div>
@@ -69,7 +69,7 @@
 												Working time: <span><b>{{doctor.workingtimeStart}} - {{doctor.workingtimeEnd}}</b></span>
 											</small>
 										</p>
-										<router-link class="btn mt-2 btn-outline-primary btn-sm" :to="'scheduling/'+doctor.id">Request an appointment</router-link>
+										<router-link class="btn mt-2 btn-outline-primary btn-sm" :to="'scheduling_'+doctor.id+'_'+date">Request an appointment</router-link>
 									</div>
 								</div>
 							</div>
@@ -93,6 +93,7 @@
 				doctors: [],
 				procedureTypes: [],
 				date: undefined,
+				today: undefined,
 				typeOfProcedure: undefined,
 				location: "",
 				rating: 0,
@@ -103,6 +104,8 @@
 			}
 		},
 		mounted: function() {
+			this.today = new Date();
+        	this.today = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2);
 			this.axios.get("http://localhost:8080/procedure/type/all")
 			.then(response => {this.procedureTypes = response.data})
 			.catch(error => {alert(error.response.data)})
@@ -112,7 +115,7 @@
 				this.axios.get("http://localhost:8080/search/clinic", {
 					params: {
 						date : this.date,
-						typeOfProcedure : this.typeOfProcedure,
+						typeOfProcedure : this.typeOfProcedure.typeName,
 						location : this.location,
 						rating : this.rating
 					}

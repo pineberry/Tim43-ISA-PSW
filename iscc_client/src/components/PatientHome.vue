@@ -23,7 +23,7 @@
                 <router-link class="nav-link pl-5 pr-5" to="clinics">Clinics</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link pl-5 pr-5" to="searchDoctors">Doctors</router-link>
+                <router-link class="nav-link pl-5 pr-5" to="doctors">Doctors</router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="searchAvailableDoctorsAtClinic"><img class="size" src="../images/search.svg"><span class="pl-2">Available</span></router-link>
@@ -56,8 +56,5 @@
 </script>
 
 <style>
-.size {
-    width: 18px;
-    height: auto;
-}
+
 </style>

@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,13 +23,20 @@ public class SearchService {
 	@Autowired
 	private DoctorService doctorService;
 
-	public SearchResultClinicsDoctorsDTO searchClinics(SearchClinicParametersDTO parameters) {
+	public SearchResultClinicsDoctorsDTO searchClinics(SearchClinicParametersDTO parameters) throws ParseException {
+		
+		SimpleDateFormat formatter_ = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = formatter_.parse(parameters.getDate());
+		
 		ArrayList<Clinic> clinics = new ArrayList<Clinic>();
 		ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+		
+		
 		for (Clinic clinic : clinicService.findAll()) 
 		{
 			for (Doctor doctor : doctorService.findAll_()) {
-				if (doctor.getClinic().getId() == clinic.getId() && !doctor.getOnVacation()) // lekar iz klinike i ako nije na odmoru 
+				if (doctor.getClinic().getId() == clinic.getId() && !doctor.getOnVacation() 
+						&& doctor.getSpecialized().getTypeName().equals(parameters.getTypeOfProcedure())) // lekar iz klinike i ako nije na odmoru 
 				{
 					if (!doctor.getMedicalProcedures().isEmpty()) 
 					{ //ako ima zakazane preglede ide dalja provera
@@ -36,8 +44,8 @@ public class SearchService {
 						{
 							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 							if (formatter.format(procedure.getDateOfProcedure()) != 
-									formatter.format(parameters.getDate()) && // ako nisu u isto vreme
-									parameters.getDate().after(new Date())) //ako je neko vreme pocev od sutra
+									formatter.format(date) && // ako nisu u isto vreme
+									date.after(new Date())) //ako je neko vreme pocev od sutra
 							{
 								if (!clinics.contains(clinic)) {
 									clinics.add(clinic);
