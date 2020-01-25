@@ -3,7 +3,9 @@ package isapsw.tim43.ISCC.dto;
 import isapsw.tim43.ISCC.model.Patient;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class MedicalRecordDTO {
@@ -15,6 +17,7 @@ public class MedicalRecordDTO {
     private float weight;
     private Date dateOfBirth;
     private String bloodType;
+    private List<ReportDTO> reports = new ArrayList<ReportDTO>();
 
     public MedicalRecordDTO() {
     }

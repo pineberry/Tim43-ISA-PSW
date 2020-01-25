@@ -197,4 +197,16 @@ public class DoctorService {
 		return reportDTO;
 	}
 
+	public boolean deleteDoctor(Long id){
+		Doctor doctor = findOne(id);
+
+		if (doctor == null || !doctor.getMedicalProcedures().isEmpty()) {
+			return false;
+		}
+
+		remove(id);
+
+		return true;
+	}
+
 }

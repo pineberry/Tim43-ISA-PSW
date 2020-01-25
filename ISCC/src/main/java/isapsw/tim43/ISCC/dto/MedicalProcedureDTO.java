@@ -16,6 +16,8 @@ public class MedicalProcedureDTO {
     private float price;
     private float discount;
     private boolean booked;
+    private String startTime;
+    private String endTime;
 
     public MedicalProcedureDTO(){}
 

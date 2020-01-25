@@ -56,6 +56,8 @@ public class MedicalProcedureService {
         medicalProcedure.setPrice(medicalProcedureDTO.getPrice());
         medicalProcedure.setDiscount(0);
         medicalProcedure.setBooked(false);
+        medicalProcedure.setStartTime(medicalProcedureDTO.getStartTime());
+        medicalProcedure.setEndTime(medicalProcedureDTO.getEndTime());
 
         medicalProcedure = medicalProcedureRepository.save(medicalProcedure);
         return new MedicalProcedureDTO(medicalProcedure);

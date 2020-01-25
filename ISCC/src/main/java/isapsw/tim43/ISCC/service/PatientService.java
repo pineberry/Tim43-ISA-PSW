@@ -104,6 +104,46 @@ public class PatientService {
 		return patientDTOS;
 	}
 
+	public List<PatientDTO> searchByHealthCareNumber(String hcNumber){
+		if (hcNumber == null || hcNumber.trim().isEmpty()) {
+			return null;
+		}
+
+		List<PatientDTO> patientDTOList = new ArrayList<PatientDTO>();
+		Patient patient = patientRepository.findByHealthCareNumber(hcNumber);
+
+		if (patient == null) {
+			return null;
+		}
+
+		patientDTOList.add(modelToDto(patient));
+		return patientDTOList;
+	}
+
+	public List<PatientDTO> searchByNameAndLastName(String name, String lastName){
+		if ((name == null || name.trim().isEmpty() || name.equals("empty")) &&
+				(lastName == null || lastName.trim().isEmpty() || lastName.equals("empty"))) {
+			return null;
+		}
+
+		List<PatientDTO> patientDTOList = new ArrayList<PatientDTO>();
+		List<Patient> patients = new ArrayList<Patient>();
+
+		if (name.equals("empty")) {
+			patients = patientRepository.findPatientByLastName(lastName);
+		} else if(lastName.equals("empty")) {
+			patients = patientRepository.findPatientByFirstName(name);
+		} else {
+			patients = patientRepository.findByFirstNameAndLastName(name, lastName);
+		}
+
+		for (Patient patient: patients) {
+			patientDTOList.add(modelToDto(patient));
+		}
+
+		return patientDTOList;
+	}
+
 	public PatientDTO modelToDto(Patient patient) {
 		PatientDTO patientDTO = new PatientDTO();
 

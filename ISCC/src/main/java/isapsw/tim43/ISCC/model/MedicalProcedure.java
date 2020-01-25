@@ -22,7 +22,7 @@ public class MedicalProcedure {
 //	@JsonManagedReference(value="procedure-type")
 	private ProcedureType procedureType;
 
-	@Column(name = "dateOfProcedure", unique = true, nullable = false)
+	@Column(name = "dateOfProcedure", nullable = false)
 	private Date dateOfProcedure;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

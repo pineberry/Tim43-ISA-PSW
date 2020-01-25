@@ -35,4 +35,15 @@ public class MedicalRecordController {
         return new ResponseEntity<>(medicalRecordDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/patient/{id}")
+    public ResponseEntity<MedicalRecordDTO> getMPatientMedicalRecord(@PathVariable Long id) {
+        MedicalRecordDTO medicalRecordDTO = medicalRecordService.getPatientRecord(id);
+
+        if (medicalRecordDTO != null) {
+            return new ResponseEntity<>(medicalRecordDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

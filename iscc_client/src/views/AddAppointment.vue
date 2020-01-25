@@ -30,6 +30,14 @@
                         <label for="inputDate">Date:</label>
                         <input id="inputDate" type="date" class="form-control" v-model="dateOfProcedure">
                     </div>
+                    <div class="form-group">
+                        <label for="inputStart">Start time:</label>
+                        <input id="inputStart" type="time" class="form-control" v-model="startTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEnd">End time:</label>
+                        <input id="inputEnd" type="time" class="form-control" v-model="endTime">
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
@@ -49,6 +57,8 @@
                 medicalRoom: undefined,
                 doctor: undefined,
                 price: undefined,
+                startTime: undefined,
+                endTime: undefined,
                 procedureTypes: [],
                 medicalRooms: [],
                 doctors: []
@@ -74,14 +84,16 @@
                     "dateOfProcedure": this.dateOfProcedure,
                     "medicalRoom": this.medicalRoom,
                     "doctor": this.doctor,
-                    "price": this.price
+                    "price": this.price,
+                    "startTime": this.startTime,
+                    "endTime": this.endTime
                 }
 
                 var valid = true;
 
                 if(this.procedureType === undefined || this.dateOfProcedure === undefined 
                         || this.medicalRoom === undefined || this.doctor === undefined
-                        || this.price === undefined){
+                        || this.price === undefined || this.startTime === undefined || this.endTime === undefined){
                     valid = false;
                 }
 

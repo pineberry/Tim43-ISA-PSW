@@ -31,7 +31,7 @@
     import RoomList from "../views/SearchMedicalRooms.vue"
     export default {
         name: "ClinicProfile",
-        comments: {RoomList},
+        components: {RoomList},
         data: function () {
             return {
                 clinic: null,
