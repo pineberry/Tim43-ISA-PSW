@@ -37,11 +37,14 @@ public class MedicalProcedureDTO {
         id = medicalProcedure.getId();
         procedureType = new ProcedureTypeDTO(medicalProcedure.getProcedureType());
         dateOfProcedure = medicalProcedure.getDateOfProcedure();
-        medicalRoom = new MedicalRoomDTO(medicalProcedure.getMedicalRoom());
+        if (medicalProcedure.getMedicalRoom() != null)
+            medicalRoom = new MedicalRoomDTO(medicalProcedure.getMedicalRoom());
         doctor = new DoctorDTO(medicalProcedure.getDoctor());
         price = medicalProcedure.getPrice();
         discount = medicalProcedure.getDiscount();
         booked = medicalProcedure.isBooked();
+        startTime = medicalProcedure.getStartTime();
+        endTime = medicalProcedure.getEndTime();
     }
 
 }

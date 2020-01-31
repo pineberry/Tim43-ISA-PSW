@@ -36,6 +36,7 @@ import EditClinic from "../views/EditClinic.vue";
 import SearchPatients from "../views/SearchPatients.vue";
 import PatientData from "../views/PatientData.vue";
 import PatientRecord from "../views/PatientRecord.vue";
+import RescheduleAppointment from "../views/RescheduleAppointment.vue";
 
 Vue.use(VueRouter);
 
@@ -247,6 +248,11 @@ const routes = [
     path: "/patientRecord",
     name: "PatientRecord",
     component: PatientRecord
+  },
+  {
+    path: "/reschedule",
+    name: "RescheduleAppointment",
+    component: RescheduleAppointment
   }
 ];
 

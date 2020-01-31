@@ -102,7 +102,7 @@
                         .then(response => {
 							alert("Medical procedure has been added")
 						})
-						.catch(errorr => {
+						.catch(error => {
 							alert(error.response.data)
 						})
                 }

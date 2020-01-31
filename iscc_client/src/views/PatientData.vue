@@ -13,9 +13,10 @@
                 <p>E-mail: {{patient.email}}</p>
             </div>
             <div class="col-6">
-                <router-link class="btn btn-primary" :to="{path: '/patientRecord', query: {id: patient.id}}">
+               <p><router-link class="btn btn-primary" :to="{path: '/patientRecord', query: {id: patient.id}}">
                     Medical record
-                </router-link>
+               </router-link></p>
+                <p><router-link class="btn btn-outline-primary" to="/reschedule">Schedule appointment</router-link></p>
             </div>
         </div>
     </div>
