@@ -3,15 +3,12 @@ package isapsw.tim43.ISCC.service;
 import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
-import isapsw.tim43.ISCC.model.Clinic;
-import isapsw.tim43.ISCC.model.ProcedureType;
-import isapsw.tim43.ISCC.model.Report;
+import isapsw.tim43.ISCC.model.*;
 import isapsw.tim43.ISCC.repository.ClinicRepository;
 import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.repository.DoctorRepository;
 
 import java.util.ArrayList;
@@ -31,6 +28,9 @@ public class DoctorService {
 
 	@Autowired
 	private ClinicService clinicService;
+
+	@Autowired
+	private MedicalRoomService medicalRoomService;
 	
 	public DoctorDTO save(DoctorDTO doctorDTO) {
 		if(doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null
@@ -208,5 +208,31 @@ public class DoctorService {
 
 		return true;
 	}
+
+	/*
+	 * Provera da li je za slobodan termin sale slobodan i doktor koji je zatrazen u pregledu, ukoliko nije, trazi se
+	 * prvi sledeci doktor koji je slobodan, a ima istu specijalizaciju.
+	 */
+	public Doctor getAvailableDoctor(MedicalProcedure medicalProcedure, String requestedTimes) {
+		Doctor doctor = medicalProcedure.getDoctor();
+
+		List<String> times = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+																				doctor.getMedicalProcedures());
+		if (!medicalRoomService.overlapingTimes(times, requestedTimes)) {
+			return doctor;
+		} else {
+			for (Doctor doc: doctorRepository.findAllBySpecialized(doctor.getSpecialized())) {
+				List<String> timesForChosenDate = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+						doc.getMedicalProcedures());
+				if (!medicalRoomService.overlapingTimes(timesForChosenDate, requestedTimes)) {
+					return doctor;
+				}
+			}
+		}
+
+		return null;
+	}
+
+
 
 }
