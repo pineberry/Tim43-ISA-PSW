@@ -1,6 +1,7 @@
 package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
+import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.service.MedicalProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,24 @@ public class MedicalProcedureController {
     public ResponseEntity<Void> bookRoom(@PathVariable("procedureId") Long procedureId,
                                          @PathVariable("roomId") Long roomId) throws InterruptedException {
         if (medicalProcedureService.bookRoom(procedureId, roomId) != null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/exam", consumes = "application/json")
+    public ResponseEntity<Void> examinationRequest(@RequestBody MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        if (medicalProcedureService.scheduleExam(medicalProcedureDTO) != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/surgery", consumes = "application/json")
+    public ResponseEntity<Void> surgeryRequest(@RequestBody MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        if (medicalProcedureService.scheduleSurgery(medicalProcedureDTO) != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

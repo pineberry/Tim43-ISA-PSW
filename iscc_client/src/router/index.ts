@@ -31,7 +31,12 @@ import EditClinicAdmin from "../views/EditClinicAdmin.vue";
 import EditExamReport from "../views/EditExamReport.vue";
 import EditDoctor from "../views/EditDoctor.vue";
 import PasswordChange from "../views/DoctorPasswordChange.vue";
-
+import ClinicProfile from "../components/ClinicProfile.vue";
+import EditClinic from "../views/EditClinic.vue";
+import SearchPatients from "../views/SearchPatients.vue";
+import PatientData from "../views/PatientData.vue";
+import PatientRecord from "../views/PatientRecord.vue";
+import RescheduleAppointment from "../views/RescheduleAppointment.vue";
 
 Vue.use(VueRouter);
 
@@ -218,6 +223,36 @@ const routes = [
     path: "/changePasswordDoctor",
     name: "DoctorPasswordChange",
     component: PasswordChange
+  },
+  {
+    path: "/clinicProfile",
+    name: "ClinicProfile",
+    component: ClinicProfile
+  },
+  {
+    path: "/editClinic",
+    name: "EditClinic",
+    component: EditClinic
+  },
+  {
+    path: "/searchPatients",
+    name: "SearchPatients",
+    component: SearchPatients
+  },
+  {
+    path: "/patientData",
+    name: "PatientData",
+    component: PatientData
+  },
+  {
+    path: "/patientRecord",
+    name: "PatientRecord",
+    component: PatientRecord
+  },
+  {
+    path: "/reschedule",
+    name: "RescheduleAppointment",
+    component: RescheduleAppointment
   }
 ];
 

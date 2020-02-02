@@ -12,6 +12,7 @@
           </li>
           <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 1}" v-on:click="tab = 1">Reports</a></li>
           <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 2}" v-on:click="tab = 2">Profile</a></li>
+          <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 3}" v-on:click="tab = 3">Patients</a></li>
         </ul>
       <div class="tab-content">
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}" >
@@ -48,14 +49,18 @@
                   </div>
               </div>
           </div>
+          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 3}" >
+              <SearchPatients/>
+          </div>
       </div>
   </div>
 </template>
 
 <script>
 import ExaminationReports from "./ExaminationReports";
+import SearchPatients from "../views/SearchPatients.vue";
 export default {
-    components: {ExaminationReports},
+    components: {ExaminationReports, SearchPatients},
     data : function() {
         return {
             user : localStorage.getItem('user'),

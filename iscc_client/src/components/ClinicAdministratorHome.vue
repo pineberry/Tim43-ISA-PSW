@@ -11,7 +11,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/clinicHome">Clinics</router-link>
+                <router-link class="nav-link" :to="{path: '/clinicProfile',query: {name: this.clinicName}}">Clinics</router-link>
             </li>
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add</a>
@@ -31,8 +31,17 @@
 export default {
     data : function() {
         return {
-            user : localStorage.getItem('user')
+            user : localStorage.getItem('user'),
+            admin: null,
+            clinicName: undefined
         }
+    },
+    mounted: function() {
+        this.axios.get("http://localhost:8080/clinic/admin/" + localStorage.getItem('user_id'))
+            .then(response =>{
+                this.admin = response.data;
+                this.clinicName = this.admin.clinicName;
+            })
     },
     methods : {
         logout : function () {

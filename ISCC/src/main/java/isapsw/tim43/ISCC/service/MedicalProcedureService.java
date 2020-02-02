@@ -56,6 +56,8 @@ public class MedicalProcedureService {
         medicalProcedure.setPrice(medicalProcedureDTO.getPrice());
         medicalProcedure.setDiscount(0);
         medicalProcedure.setBooked(false);
+        medicalProcedure.setStartTime(medicalProcedureDTO.getStartTime());
+        medicalProcedure.setEndTime(medicalProcedureDTO.getEndTime());
 
         medicalProcedure = medicalProcedureRepository.save(medicalProcedure);
         return new MedicalProcedureDTO(medicalProcedure);
@@ -91,5 +93,41 @@ public class MedicalProcedureService {
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
         return medicalProcedureRepository.save(medicalProcedure);
+    }
+
+    public MedicalProcedureDTO scheduleExam(MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        medicalProcedureDTO = save(medicalProcedureDTO);
+
+        if (medicalProcedureDTO == null) {
+            return null;
+        }
+
+        String emailContent = "Dr. " + medicalProcedureDTO.getDoctor().getFirstName() + " "
+                + medicalProcedureDTO.getDoctor().getLastName() + " has requested an examination appointment for date: "
+                + medicalProcedureDTO.getDateOfProcedure() + " in period from: " + medicalProcedureDTO.getStartTime()
+                + " to " + medicalProcedureDTO.getEndTime() + "\n\n"
+                + "To accept click on the link below:\n"
+                + "http://localhost:8081/searchRooms/" + medicalProcedureDTO.getId();
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+
+        return medicalProcedureDTO;
+    }
+
+    public MedicalProcedureDTO scheduleSurgery(MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        medicalProcedureDTO = save(medicalProcedureDTO);
+
+        if (medicalProcedureDTO == null) {
+            return null;
+        }
+
+        String emailContent = "Dr. " + medicalProcedureDTO.getDoctor().getFirstName() + " "
+                + medicalProcedureDTO.getDoctor().getLastName() + " has requested a surgery appointment for date: "
+                + medicalProcedureDTO.getDateOfProcedure() + " in period from: " + medicalProcedureDTO.getStartTime()
+                + " to" + medicalProcedureDTO.getEndTime() + "\n\n"
+                + "To accept click on the link below:\n"
+                + "TBA";
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+
+        return medicalProcedureDTO;
     }
 }

@@ -74,7 +74,7 @@ public class DoctorController {
 	public ResponseEntity<ReportDTO> editReport(@RequestBody ReportDTO reportDTO) {
 		ReportDTO reportDto = reportService.editReport(reportDTO);
 
-		if(reportDTO == null) {
+		if(reportDto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<ReportDTO>(reportDTO, HttpStatus.OK);
@@ -124,6 +124,15 @@ public class DoctorController {
 
 		if (userDTO != null) {
 			return new ResponseEntity<>(userDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> deleteDoctor(@PathVariable Long id){
+		if (doctorService.deleteDoctor(id)) {
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

@@ -43,6 +43,7 @@ insert into diagnosis(name, latin_name, code) values ('Upala sinusa', 'Rinitis',
 insert into clinic_administrator (email, password, first_name, last_name, phone_number, address, city, state, clinic_id, first_login)
 values ('admin@gmail.com', 'nesto', 'Dwight', 'Schrute', '065000000', 'Schrute Farm', 'Scranton', 'Pennsylvania', 1, false);
 
+insert into report(notes, diagnosis_id, doctor_id, record_id) values ('Random notes', 1, 1, 1);
 
 
 

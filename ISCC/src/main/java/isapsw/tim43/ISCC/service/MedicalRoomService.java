@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.repository.MedicalRoomRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -110,7 +111,7 @@ public class MedicalRoomService {
 	private List<MedicalRoomDTO> formRoomList(List<MedicalRoom> rooms, Date searchDate){
 		List<MedicalRoomDTO> roomsDTO = new ArrayList<MedicalRoomDTO>();
 		List<Date> scheduledDates = new ArrayList<Date>();
-		Map<Date, List<String>> datesAndTimes = new HashMap<Date, List<String>>();
+		Map<String, List<String>> datesAndTimes = new HashMap<String, List<String>>();
 		if (rooms != null || !rooms.isEmpty()) {
 			for (MedicalRoom room : rooms) {
 				MedicalRoomDTO medicalRoomDTO = new MedicalRoomDTO(room);
@@ -118,8 +119,8 @@ public class MedicalRoomService {
 				if (scheduledDates.isEmpty()) {
 					medicalRoomDTO.setFirstFreeDate(searchDate);        /* Ako je sala slobodna, datum pretrage odgovara */
 				} else {
-					//	medicalRoomDTO.setFirstFreeDate(findFirstFreeDate(searchDate, datesAndTimes));
-					medicalRoomDTO.setFirstFreeDate(searchDate);
+					medicalRoomDTO.setFirstFreeDate(findFirstFreeDate(searchDate, datesAndTimes));
+				//	medicalRoomDTO.setFirstFreeDate(searchDate);
 				}
 				medicalRoomDTO.setScheduledDates(scheduledDates);
 				roomsDTO.add(medicalRoomDTO);
@@ -137,17 +138,18 @@ public class MedicalRoomService {
 	 *
 	 */
 	private void formDateList(Date searchDate, List<Date> scheduledDates, MedicalRoom room,
-							  		Map<Date, List<String>> map){
+							  		Map<String, List<String>> map){
 		for (MedicalProcedure medicalProcedure: room.getMedicalProcedures()){
 			if (medicalProcedure.getDateOfProcedure().compareTo(searchDate) >= 0){
 				scheduledDates.add(medicalProcedure.getDateOfProcedure());
 				String procedureTime = medicalProcedure.getStartTime() + ":" + medicalProcedure.getEndTime();
-				if (map.containsKey(medicalProcedure.getDateOfProcedure())){
-					map.get(medicalProcedure.getDateOfProcedure()).add(procedureTime);
+				String keyDate = applyDateFormat(medicalProcedure.getDateOfProcedure());
+				if (map.containsKey(keyDate)){
+					map.get(keyDate).add(procedureTime);
 				}else {
 					List<String> l = new ArrayList<String>();
 					l.add(procedureTime);
-					map.put(medicalProcedure.getDateOfProcedure(), l);
+					map.put(keyDate, l);
 				}
 			}
 		}
@@ -156,12 +158,11 @@ public class MedicalRoomService {
 
 	/*
 	 * Za mapu zauzeca sale, ondnosno za svaki datum i listu zauzetih satnica tog dana,se trazi prvi slobodan termin,
-	 * u vidu datuma. Datum ce se inkrementirati dok se nedodje do dana kada sala nije zakazana, ili ima makar jedan
+	 * u vidu datuma. Datum ce se inkrementirati dok se ne dodje do dana kada sala nije zakazana, ili ima makar jedan
 	 * slobodan termin (proverava se u metodi hasFreeTime).
 	 */
-	private Date findFirstFreeDate(Date searchDate, Map<Date, List<String>> map){
-
-		while(!map.containsKey(searchDate) || !hasFreeTime(map.get(searchDate))) {
+	private Date findFirstFreeDate(Date searchDate, Map<String, List<String>> map){
+		while(map.containsKey(applyDateFormat(searchDate)) && !hasFreeTime(map.get(applyDateFormat(searchDate)))) {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(searchDate);
 			cal.add(Calendar.DATE, 1);
@@ -198,6 +199,13 @@ public class MedicalRoomService {
 		}
 
 		return retVal;
+	}
+
+	private String applyDateFormat(Date date) {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String stringDate = simpleDateFormat.format(date);
+		return stringDate;
 	}
 
 }

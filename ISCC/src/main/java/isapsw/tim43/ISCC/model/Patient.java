@@ -46,6 +46,7 @@ public class Patient {
 	private String status;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
 	private MedicalRecord record;
 	
 	public Patient() {

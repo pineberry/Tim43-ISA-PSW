@@ -1,11 +1,10 @@
 package isapsw.tim43.ISCC.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -16,9 +15,11 @@ public class MedicalRecord {
 	private Long id;
 
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Report> reports = new HashSet<Report>();
+	@JsonIgnore
+	private List<Report> reports = new ArrayList<Report>();
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Patient patient;
 
 	@Column(name = "height")
@@ -34,7 +35,7 @@ public class MedicalRecord {
 	private String bloodType;
 
 
-	public MedicalRecord(Set<Report> reports, Patient patient, float height, float weight, Date dateOfBirth,
+	public MedicalRecord(List<Report> reports, Patient patient, float height, float weight, Date dateOfBirth,
 						 String bloodType) {
 		this.reports = reports;
 		this.patient = patient;

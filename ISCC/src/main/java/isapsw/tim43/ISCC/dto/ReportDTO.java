@@ -13,6 +13,8 @@ public class ReportDTO {
     private Long doctor;
     private String diagnosis;
     private List<String> medicines = new ArrayList<String>();
+    private String doctorFirstName;
+    private String doctorLastName;
 
     public ReportDTO() {
     }
