@@ -7,6 +7,7 @@ import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,11 @@ public class MedicalProcedureService {
 
     public MedicalProcedure findOne(Long id) {return medicalProcedureRepository.findById(id).orElseGet(null);}
 
+    public List<MedicalProcedure> findByDoctor(Long id) {
+        Doctor doctor = doctorService.findOne(id);
+        return medicalProcedureRepository.findByDoctor(doctor);
+    }
+
     public MedicalProcedureDTO getProcedureById(Long id){
         MedicalProcedure medicalProcedure = findOne(id);
 
@@ -80,6 +86,21 @@ public class MedicalProcedureService {
         }
 
         return new MedicalProcedureDTO(medicalProcedure);
+    }
+
+    public List<MedicalProcedureDTO> proceduresByDoctor(Long id) {
+        List<MedicalProcedure> procedures = findByDoctor(id);
+
+        List<MedicalProcedureDTO> medicalProcedureDTOS = new ArrayList<>();
+        for (MedicalProcedure proc : procedures) {
+            MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO();
+            medicalProcedureDTO.setDateOfProcedure(proc.getDateOfProcedure());
+            medicalProcedureDTO.setStartTime(proc.getStartTime());
+            medicalProcedureDTO.setEndTime(proc.getEndTime());
+            medicalProcedureDTOS.add(medicalProcedureDTO);
+        }
+
+        return medicalProcedureDTOS;
     }
 
     public MedicalProcedure bookRoom(Long procedureId, Long roomId) throws InterruptedException {
