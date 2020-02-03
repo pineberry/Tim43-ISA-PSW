@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/medical/procedure")
 public class MedicalProcedureController {
@@ -34,6 +36,16 @@ public class MedicalProcedureController {
             return new ResponseEntity<>(medicalProcedureDTO, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = "/doctor/{id}")
+    public ResponseEntity<List<MedicalProcedureDTO>> getProceduresByDoctor(@PathVariable Long id) {
+        List<MedicalProcedureDTO> medicalProcedureDTOS = medicalProcedureService.proceduresByDoctor(id);
+        if(medicalProcedureDTOS != null) {
+            return new ResponseEntity<>(medicalProcedureDTOS, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

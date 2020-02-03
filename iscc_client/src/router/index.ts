@@ -37,15 +37,21 @@ import SearchPatients from "../views/SearchPatients.vue";
 import PatientData from "../views/PatientData.vue";
 import PatientRecord from "../views/PatientRecord.vue";
 import RescheduleAppointment from "../views/RescheduleAppointment.vue";
+import Calendar from "../components/Calendar.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: "/editReport/:id",
-        name: "editReport",
-        component: EditExamReport
-    },
+  {
+    path: "/calendar",
+    name: "calendar",
+    component: Calendar
+  },
+  {
+      path: "/editReport/:id",
+      name: "editReport",
+      component: EditExamReport
+  },
   {
     path: "/editMedicalRecord/:id",
     name: "editMedicalRecord",
