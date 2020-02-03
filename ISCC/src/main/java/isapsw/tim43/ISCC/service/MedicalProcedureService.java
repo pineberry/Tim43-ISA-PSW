@@ -10,7 +10,10 @@ import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MedicalProcedureService {
@@ -87,12 +90,31 @@ public class MedicalProcedureService {
            return null;
         }
 
-        medicalProcedure.setMedicalRoom(medicalRoom);
+        List<String> timesOfProcedures = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+                                                                                        medicalRoom.getMedicalProcedures());
+        String timeOfNewProcedure = medicalProcedure.getStartTime() + ":" + medicalProcedure.getEndTime();
+
+        if (!medicalRoomService.overlapingTimes(timesOfProcedures, timeOfNewProcedure))
+            medicalProcedure.setMedicalRoom(medicalRoom);
+        else
+            return null;
 
         String emailContent = "Test: Your appointment has been scheduled for " + medicalProcedure.getDateOfProcedure();
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
         return medicalProcedureRepository.save(medicalProcedure);
+    }
+
+    public MedicalProcedureDTO autoBookRoom(Long id) {
+        MedicalProcedure medicalProcedure = findOne(id);
+
+        if (medicalProcedure == null) {
+            return null;
+        }
+
+        medicalProcedure = medicalRoomService.findAvailableAppoinment(medicalProcedure);
+        medicalProcedure = medicalProcedureRepository.save(medicalProcedure);
+        return new MedicalProcedureDTO(medicalProcedure);
     }
 
     public MedicalProcedureDTO scheduleExam(MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
@@ -129,5 +151,17 @@ public class MedicalProcedureService {
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
         return medicalProcedureDTO;
+    }
+
+    // Svaki dan u 23:01 svim pregledima koji nemaju dodeljene sale, dodeli jednu
+    @Scheduled(cron = "0 1 23 * * ?")
+    @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
+    public void timerBooking() {
+        List<MedicalProcedure> medicalProcedures = medicalProcedureRepository.findAllWithoutRoom();
+
+        for (MedicalProcedure medicalProcedure: medicalProcedures) {
+            medicalProcedure = medicalRoomService.findAvailableAppoinment(medicalProcedure);
+            medicalProcedureRepository.save(medicalProcedure);
+        }
     }
 }

@@ -145,6 +145,15 @@
             bookRoom: function (id) {
                 this.axios.put("http://localhost:8080/medical/procedure/" + this.procedureId + "/" + id)
                     .then(response => {this.$router.push('/adminProfile');})
+                    .catch(error => {
+                        if(confirm('Would you like automatically to book room?')) {
+                            this.axios.put("http://localhost:8080/medical/procedure/auto/book/" + this.procedureId)
+                                .then(response => {
+                                    var procedure = response.data;
+                                    alert('Brao');
+                                })
+                        }
+                    })
             },
             dateFormating: function(date){
                 if (!date) return '';

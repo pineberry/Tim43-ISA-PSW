@@ -47,6 +47,17 @@ public class MedicalProcedureController {
         }
     }
 
+    @PutMapping(value = "/auto/book/{id}")
+    public ResponseEntity<MedicalProcedureDTO> automaticallyBookRoom(@PathVariable("id") Long procedureId){
+        MedicalProcedureDTO medicalProcedureDTO = medicalProcedureService.autoBookRoom(procedureId);
+
+        if (medicalProcedureDTO != null) {
+            return new ResponseEntity<>(medicalProcedureDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping(value = "/exam", consumes = "application/json")
     public ResponseEntity<Void> examinationRequest(@RequestBody MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
         if (medicalProcedureService.scheduleExam(medicalProcedureDTO) != null) {
