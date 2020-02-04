@@ -8,9 +8,6 @@
 			<p><small>E-mail address: </small>{{user.email}}</p>
 		</div>
 		<div class="row justify-content-center">
-			<p><small>Password: </small>{{user.password}}</p>
-		</div>
-		<div class="row justify-content-center">
 			<p><small>Address: </small>{{user.address}} - {{user.city}}, {{user.state}}</p>
 		</div>
 		<div class="row justify-content-center">

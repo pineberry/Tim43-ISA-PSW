@@ -14,7 +14,7 @@
                 <router-link class="nav-link pl-4 pr-4" to="patientAppointments">Appointments</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link pl-4 pr-4" to="">Medical record</router-link>
+                <router-link class="nav-link pl-4 pr-4" to="medicalRecord">Medical record</router-link>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link pl-3 pr-3" to="">Procedure history</router-link>

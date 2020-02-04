@@ -38,7 +38,7 @@ insert into patient (email, password, first_name, last_name, phone_number, addre
 values ('pacijent@gmail.com', 'nesto', 'Marko', 'Markovic', '06000060', 'Centar', 'Novi Sad', 'Srbija', 's007', 'activated');
 
 insert into medical_record (height, weight, blood_type, patient_id) values (174, 72, 'AB-', 1);
-insert into medical_record (height, weight, blood_type, patient_id) values (168, 59, 'O+', 2);
+insert into medical_record (height, weight, blood_type, patient_id, date_of_birth) values (168, 59, 'O+', 2, '1995-05-27');
 
 
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
@@ -79,9 +79,15 @@ values ('judimila@gmail.com', 'judi4life', 'Judmila', 'Karapandza', '2130457', '
 insert into medicine (name, code) values ('Bromezepan', '1A');
 insert into medicine (name, code) values ('Paracetamol', '2A');
 insert into medicine (name, code) values ('Kafetin', '3A');
+insert into medicine (name, code) values ('Panklav', '4-A1');
 
 insert into diagnosis(name, latin_name, code) values ('Upala uva', 'Upalius usus', '1A1C');
 insert into diagnosis(name, latin_name, code) values ('Upala sinusa', 'Rinitis', '1A2C');
+
+insert into report (notes, diagnosis_id, doctor_id, record_id) 
+values ('Pacijent se zali na zacepljeno levo uvo. Izrazena osetljivost pri dodiru oko usnog kanala', 1, 4, 2);
+
+insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 1, 1, 1, 1);
 
 insert into clinic_administrator (email, password, first_name, last_name, phone_number, address, city, state, clinic_id)
 values ('admin@gmail.com', 'nesto', 'Dwight', 'Schrute', '065000000', 'Schrute Farm', 'Scranton', 'Pennsylvania', 1);

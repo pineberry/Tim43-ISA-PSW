@@ -18,7 +18,7 @@ public class Prescription {
 	@Column(name = "checked")
 	private boolean checked;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Medicine medicine;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

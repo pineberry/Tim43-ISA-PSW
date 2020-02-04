@@ -53,6 +53,7 @@ public class MedicalRecordService {
         medicalRecordDTO.setWeight(medicalRecord.getWeight());
         medicalRecordDTO.setPatientEmail(medicalRecord.getPatient().getEmail());
         medicalRecordDTO.setDateOfBirth(medicalRecord.getDateOfBirth());
+        medicalRecordDTO.setReports(medicalRecord.getReports());
 
         return  medicalRecordDTO;
     }

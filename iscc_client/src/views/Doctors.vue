@@ -35,7 +35,7 @@
                                 <p class="m-0 border-bottom"><small>Specialization:</small> <br> <b> {{doctor.specialized.typeName}} - {{doctor.specialized.typeDescription}}</b></p>
                                 <p class="m-0 border-bottom"><small>Clinic:</small> <br>
                                     <b>
-                                        <a class="special-link" :href="'http://localhost:8081/clinic_'+doctor.clinic.id"> {{doctor.clinic.name}}</a>
+                                        <router-link class="special-link" :to="'clinic_'+doctor.clinic.id"> {{doctor.clinic.name}}</router-link>
                                     </b>
                                     <small class="text-muted"><br>{{doctor.address}}, {{doctor.city}}</small>
                                 </p>

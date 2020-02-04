@@ -7,8 +7,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,7 +19,7 @@ public class MedicalRecord {
 
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
-	private Set<Report> reports = new HashSet<Report>();
+	private List<Report> reports;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -39,7 +38,7 @@ public class MedicalRecord {
 	private String bloodType;
 
 
-	public MedicalRecord(Set<Report> reports, Patient patient, float height, float weight, Date dateOfBirth,
+	public MedicalRecord(List<Report> reports, Patient patient, float height, float weight, Date dateOfBirth,
 						 String bloodType) {
 		this.reports = reports;
 		this.patient = patient;

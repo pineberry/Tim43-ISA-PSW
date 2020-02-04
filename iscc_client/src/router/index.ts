@@ -221,6 +221,11 @@ const routes = [
     name: "clinic",
     component: () => import('../views/Clinic.vue')
   },
+  {
+    path: "/medicalRecord",
+    name: "medicalRecord",
+    component: () => import('../views/MedicalRecord.vue')
+  }
 ];
 
 const router = new VueRouter({
