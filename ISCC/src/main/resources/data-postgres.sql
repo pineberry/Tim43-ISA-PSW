@@ -40,43 +40,34 @@ values ('pacijent@gmail.com', 'nesto', 'Marko', 'Markovic', '06000060', 'Centar'
 insert into medical_record (height, weight, blood_type, patient_id) values (174, 72, 'AB-', 1);
 insert into medical_record (height, weight, blood_type, patient_id, date_of_birth) values (168, 59, 'O+', 2, '1995-05-27');
 
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('dejan.radulovic@iscc.com', 'nestonesto', 'Dejan', 'Radulovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('marko.markovic@mail.com', 'markopass', 'Marko', 'Markovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 4, 1);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('damir.fazlinovic@mail.com', 'damirpass', 'Damir', 'Fazlinovic', 'Bascarsija 88', 'Sarajevo', 'Bosna i Hercegovina', '033123456', 2.8, 'false', '09:00', '12:00', 3, 6);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('brankabajic@mail.com', 'nestonesto', 'Branka', 'Bajić', 'Pariske Komune 26', 'Novi Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 1, 1);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('idajovanovic@mail.com', 'nestonesto', 'Ida', 'Jovanović', 'Jurija Gagarina 14', 'Novi Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 3, 2);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('vesnabogdanovic@mail.com', 'nestonesto', 'Vesna', 'Bogdanović', 'Balzakova 44', 'Novi Sad', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 4, 3);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('sladjanadrobnjak@mail.com', 'nestonesto', 'Slađana', 'Drobnjak', 'Bulevar Kralja Aleksandra 294', 'Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 2, 4);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('zorantomic@mail.com', 'nestonesto', 'Zoran', 'Tomić', 'Vuka Karadžića 19', 'Subotica', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 7, 5);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('slavicabbumbic@mail.com', 'nestonesto', 'Slavica', 'Bajagić Bumbić', 'Bascarsija 88', 'Sarajevo', 'Bosna i Hercegovina', '123456', 0, 'false', '07:00', '16:00', 5, 2);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('zagorkabbasta@mail.com', 'nestonesto', 'Zagorka', 'Bećarević Basta', 'Bulevar Cara Lazara 2', 'Novi Sad', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 6, 7);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('ivanabjankucic@mail.com', 'nestonesto', 'Ivana', 'Branković-Jankucić', 'Pariske Komune 26', 'Novi Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 8, 1);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('petarbursac@mail.com', 'nestonesto', 'Petar', 'Bursać', 'Balzakova 44', 'Novi Sad', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 8, 3);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('veselinkajovanovic@mail.com', 'nestonesto', 'Veselinka', 'Jovanović', 'Bulevar Kralja Aleksandra 294', 'Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 2, 4);
-insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id)
-values ('dragoslavmaksimovic@mail.com', 'nestonesto', 'Dragoslav', 'Maksimović', 'Vuka Karadžića 19', 'Subotica', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 4, 5);
-
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
-values (1, '2019-12-12 12:30:00', 1, 1, 2, 162, '12:00', '13:00', 0.0, true);
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
-values ('dejan.radulovic@iscc.com', 'nestonesto', 'Dejan', 'Radulovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1, false );
+values ('dejan.radulovic@iscc.com', 'nestonesto', 'Dejan', 'Radulovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1, true);
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
-values ('marko.markovic@mail.com', 'markopass', 'Marko', 'Markovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1, false);
+values ('marko.markovic@mail.com', 'markopass', 'Marko', 'Markovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 4, 1, true);
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
-values ('damir.fazlinovic@mail.com', 'damirpass', 'Damir', 'Fazlinovic', 'Bascarsija 88', 'Sarajevo', 'Bosna i Hercegovina', '033123456', 2.8, 'false', '09:00', '12:00', 2, 2, false);
+values ('damir.fazlinovic@mail.com', 'damirpass', 'Damir', 'Fazlinovic', 'Bascarsija 88', 'Sarajevo', 'Bosna i Hercegovina', '033123456', 2.8, 'false', '09:00', '12:00', 3, 6, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('brankabajic@mail.com', 'nestonesto', 'Branka', 'Bajić', 'Pariske Komune 26', 'Novi Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 1, 1, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('idajovanovic@mail.com', 'nestonesto', 'Ida', 'Jovanović', 'Jurija Gagarina 14', 'Novi Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 3, 2, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('vesnabogdanovic@mail.com', 'nestonesto', 'Vesna', 'Bogdanović', 'Balzakova 44', 'Novi Sad', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 4, 3, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('sladjanadrobnjak@mail.com', 'nestonesto', 'Slađana', 'Drobnjak', 'Bulevar Kralja Aleksandra 294', 'Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 2, 4, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('zorantomic@mail.com', 'nestonesto', 'Zoran', 'Tomić', 'Vuka Karadžića 19', 'Subotica', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 7, 5, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('slavicabbumbic@mail.com', 'nestonesto', 'Slavica', 'Bajagić Bumbić', 'Bascarsija 88', 'Sarajevo', 'Bosna i Hercegovina', '123456', 0, 'false', '07:00', '16:00', 5, 2, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('zagorkabbasta@mail.com', 'nestonesto', 'Zagorka', 'Bećarević Basta', 'Bulevar Cara Lazara 2', 'Novi Sad', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 6, 7, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('ivanabjankucic@mail.com', 'nestonesto', 'Ivana', 'Branković-Jankucić', 'Pariske Komune 26', 'Novi Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 8, 1, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('petarbursac@mail.com', 'nestonesto', 'Petar', 'Bursać', 'Balzakova 44', 'Novi Sad', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 8, 3, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('veselinkajovanovic@mail.com', 'nestonesto', 'Veselinka', 'Jovanović', 'Bulevar Kralja Aleksandra 294', 'Beograd', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 2, 4, true);
+insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
+values ('dragoslavmaksimovic@mail.com', 'nestonesto', 'Dragoslav', 'Maksimović', 'Vuka Karadžića 19', 'Subotica', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 4, 5, true);
 
 insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
 values (1, '2019-12-12 12:30:00', 1, 1, 162, '12:00', '13:00', 0.0, true);
