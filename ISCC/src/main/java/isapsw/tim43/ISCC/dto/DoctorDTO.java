@@ -34,7 +34,7 @@ public class DoctorDTO {
 				doctor.getAddress(), doctor.getCity(), doctor.getState(), doctor.getPhoneNumber(), doctor.getAverageRating(),
 				doctor.getWorkingtimeStart(), doctor.getWorkingtimeEnd(), doctor.getSpecialized(), new ClinicDTO(doctor.getClinic().getId(),
 						doctor.getClinic().getName(), doctor.getClinic().getAddress(), doctor.getClinic().getDescription(),
-						doctor.getClinic().getAverageRating()), doctor.getMedicalProcedures());
+						doctor.getClinic().getAverageRating(), null), doctor.getMedicalProcedures());
 	}
 
 	public DoctorDTO(long id, String email, String password, String firstName, String lastName, String address,

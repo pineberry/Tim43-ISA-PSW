@@ -19,8 +19,7 @@ public class MedicalRecord {
 	private Long id;
 
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
-	private List<Report> reports;
+
 	@JsonIgnore
 	private List<Report> reports = new ArrayList<Report>();
 

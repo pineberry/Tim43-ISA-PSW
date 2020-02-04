@@ -19,13 +19,13 @@ public class MedicalRecordDTO {
     private float weight;
     private Date dateOfBirth;
     private String bloodType;
-    private List<Report> reports;
+    private List<ReportDTO> reports;
     
     public MedicalRecordDTO() {
     }
 
     public MedicalRecordDTO(Long id, String patientEmail, float height, float weight, Date dateOfBirth,
-                            String bloodType, List<Report> reports) {
+                            String bloodType, List<ReportDTO> reports) {
         this.id = id;
         this.patientEmail = patientEmail;
         this.height = height;

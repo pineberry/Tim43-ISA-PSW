@@ -10,6 +10,9 @@ import isapsw.tim43.ISCC.repository.MedicalRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class MedicalRecordService {
 
@@ -83,7 +86,11 @@ public class MedicalRecordService {
         medicalRecordDTO.setWeight(medicalRecord.getWeight());
         medicalRecordDTO.setPatientEmail(medicalRecord.getPatient().getEmail());
         medicalRecordDTO.setDateOfBirth(medicalRecord.getDateOfBirth());
-        medicalRecordDTO.setReports(medicalRecord.getReports());
+        List<ReportDTO> reportDTOS = new ArrayList<>();
+        for (Report rep: medicalRecord.getReports()) {
+            reportDTOS.add(reportService.modelToDto(rep));
+        }
+        medicalRecordDTO.setReports(reportDTOS);
 
         return  medicalRecordDTO;
     }
