@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <div class="nav-item dropdown">
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-    </nav> -->
+    </nav>
     <div class="row mt-3 mb-3 justify-content-between">
       <div class="col">
         <div class="row">
