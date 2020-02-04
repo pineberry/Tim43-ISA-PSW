@@ -30,7 +30,7 @@ public class MedicalProcedureService {
 
     @Autowired
     private DoctorService doctorService;
-    
+
     @Autowired
     private PatientService patientService;
 
@@ -64,6 +64,8 @@ public class MedicalProcedureService {
         medicalProcedure.setPrice(medicalProcedureDTO.getPrice());
         medicalProcedure.setDiscount(0);
         medicalProcedure.setBooked(false);
+        medicalProcedure.setStartTime(medicalProcedureDTO.getStartTime());
+        medicalProcedure.setEndTime(medicalProcedureDTO.getEndTime());
 
         medicalProcedure = medicalProcedureRepository.save(medicalProcedure);
         return new MedicalProcedureDTO(medicalProcedure);
@@ -75,6 +77,11 @@ public class MedicalProcedureService {
 
     public MedicalProcedure findOne(Long id) {return medicalProcedureRepository.findById(id).orElseGet(null);}
 
+    public List<MedicalProcedure> findByDoctor(Long id) {
+        Doctor doctor = doctorService.findOne(id);
+        return medicalProcedureRepository.findByDoctor(doctor);
+    }
+
     public MedicalProcedureDTO getProcedureById(Long id){
         MedicalProcedure medicalProcedure = findOne(id);
 
@@ -83,6 +90,22 @@ public class MedicalProcedureService {
         }
 
         return new MedicalProcedureDTO(medicalProcedure);
+    }
+
+    public List<MedicalProcedureDTO> proceduresByDoctor(Long id) {
+        List<MedicalProcedure> procedures = findByDoctor(id);
+
+        List<MedicalProcedureDTO> medicalProcedureDTOS = new ArrayList<>();
+        for (MedicalProcedure proc : procedures) {
+            MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO();
+            medicalProcedureDTO.setDateOfProcedure(proc.getDateOfProcedure());
+            medicalProcedureDTO.setStartTime(proc.getStartTime());
+            medicalProcedureDTO.setEndTime(proc.getEndTime());
+            medicalProcedureDTO.setBooked(proc.isBooked());
+            medicalProcedureDTOS.add(medicalProcedureDTO);
+        }
+
+        return medicalProcedureDTOS;
     }
 
     public MedicalProcedure bookRoom(Long procedureId, Long roomId) throws InterruptedException {
@@ -95,8 +118,8 @@ public class MedicalProcedureService {
 
         medicalProcedure.setMedicalRoom(medicalRoom);
 
-        String emailContent = "Dear " + medicalProcedure.getPatient().getFirstName() + " " 
-        		+ medicalProcedure.getPatient().getLastName() + ",\nYour appointment has been scheduled for " 
+        String emailContent = "Dear " + medicalProcedure.getPatient().getFirstName() + " "
+        		+ medicalProcedure.getPatient().getLastName() + ",\nYour appointment has been scheduled for "
         		+ medicalProcedure.getDateOfProcedure() + ".";
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
@@ -104,23 +127,23 @@ public class MedicalProcedureService {
     }
 
 	public List<MedicalProcedureDTO> getPatientsProcedures(Long patientID) {
-		
+
 		List<MedicalProcedureDTO> procedures = new ArrayList<MedicalProcedureDTO>();
 		for (MedicalProcedure procedure : findAll()) {
 			if (procedure.getPatient().getId() == patientID) {
 				procedures.add(new MedicalProcedureDTO(procedure));
 			}
 		}
-		
+
 		return procedures;
 	}
 
 	public List<MedicalProcedureDTO> confirmAppointment(MedicalProcedureDTO procedure) {
 		MedicalProcedure mp = findOne(procedure.getId());
 		mp.setBooked(true);
-		
+
 		medicalProcedureRepository.save(mp);
-		
+
 		return getPatientsProcedures(procedure.getPatient().getId());
 	}
 
