@@ -94,6 +94,7 @@ public class MedicalProcedureService {
             medicalProcedureDTO.setDateOfProcedure(proc.getDateOfProcedure());
             medicalProcedureDTO.setStartTime(proc.getStartTime());
             medicalProcedureDTO.setEndTime(proc.getEndTime());
+            medicalProcedureDTO.setBooked(proc.isBooked());
             medicalProcedureDTOS.add(medicalProcedureDTO);
         }
 
