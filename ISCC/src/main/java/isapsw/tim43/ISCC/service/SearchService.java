@@ -4,11 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
-import isapsw.tim43.ISCC.dto.ClinicDTO;
-import isapsw.tim43.ISCC.dto.DoctorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +23,6 @@ public class SearchService {
 	@Autowired
 	private DoctorService doctorService;
 
-<<<<<<< HEAD
 	public SearchResultClinicsDoctorsDTO searchClinics(SearchClinicParametersDTO parameters) throws ParseException {
 		
 		SimpleDateFormat formatter_ = new SimpleDateFormat("yyyy-MM-dd");
@@ -42,15 +37,6 @@ public class SearchService {
 			for (Doctor doctor : doctorService.findAll_()) {
 				if (doctor.getClinic().getId() == clinic.getId() && !doctor.getOnVacation() 
 						&& doctor.getSpecialized().getTypeName().equals(parameters.getTypeOfProcedure())) // lekar iz klinike i ako nije na odmoru 
-=======
-	public SearchResultClinicsDoctorsDTO searchClinics(SearchClinicParametersDTO parameters) {
-		HashMap<Long , ClinicDTO> clinics = new HashMap<Long, ClinicDTO>();
-		HashMap<Long, DoctorDTO> doctors = new HashMap<Long, DoctorDTO>();
-		for (Clinic clinic : clinicService.findAll()) 
-		{
-			for (Doctor doctor : doctorService.findAll_()) {
-				if (doctor.getClinic().getId() == clinic.getId() && !doctor.getOnVacation()) // lekar iz klinike i ako nije na odmoru
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
 				{
 					if (!doctor.getMedicalProcedures().isEmpty()) 
 					{ //ako ima zakazane preglede ide dalja provera
@@ -61,41 +47,23 @@ public class SearchService {
 									formatter.format(date) && // ako nisu u isto vreme
 									date.after(new Date())) //ako je neko vreme pocev od sutra
 							{
-<<<<<<< HEAD
 								if (!clinics.contains(clinic)) {
 									clinics.add(clinic);
 								}
 								doctors.add(doctor);
-=======
-								if(!clinics.containsKey(clinic.getId()))
-									clinics.put(clinic.getId(), new ClinicDTO(clinic.getId(), clinic.getName(),
-											clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating()));
-
-								if(!doctors.containsKey(doctor.getId()))
-									doctors.put(doctor.getId(), new DoctorDTO(doctor));
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
 							}
 						} 
 					}
 					else {
-<<<<<<< HEAD
 						if (!clinics.contains(clinic)) {
 							clinics.add(clinic);
 						}
 						doctors.add(doctor);
-=======
-						if(!clinics.containsKey(clinic.getId()))
-						clinics.put(clinic.getId(), new ClinicDTO(clinic.getId(), clinic.getName(),
-								clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating()));
-
-						if(!doctors.containsKey(doctor.getId()))
-							doctors.put(doctor.getId(), new DoctorDTO(doctor));
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
 					}
 				}
 			}
 		}
-		return new SearchResultClinicsDoctorsDTO(new ArrayList<ClinicDTO>(clinics.values()), new ArrayList<DoctorDTO>(doctors.values()));
+		return new SearchResultClinicsDoctorsDTO(clinics, doctors);
 	}
 
 	
