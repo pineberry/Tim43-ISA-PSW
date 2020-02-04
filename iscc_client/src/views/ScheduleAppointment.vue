@@ -1,12 +1,6 @@
 <template>
-<<<<<<< HEAD
     <div class="container row justify-content-center">
         <div class="card m-2 col-6">
-=======
-    <div class="container-fluid">
-        <p class="h5">Appointment requested with doctor:</p>
-        <div class="card m-1 col-5">
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
             <div class="card-body" v-if="doctor">
                 <h3 class="card-title">{{doctor.firstName}} {{doctor.lastName}}</h3>
                 <div class="row">
@@ -105,12 +99,8 @@ export default {
 				.then(response => {
 					this.response = response
 				})
-<<<<<<< HEAD
                 .catch(error => {alert(error.response.data)})
                 this.$router.push('/');
-=======
-				.catch(error => {alert(error)})
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
         },
         setDate : function(date) {
             this.date = date

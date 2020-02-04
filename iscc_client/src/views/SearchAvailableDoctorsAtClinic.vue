@@ -1,7 +1,6 @@
 <template>
 	<div id="container">
 		<div class="row">
-<<<<<<< HEAD
 			<form class="col" v-on:submit.prevent="search" method="post">
 				<div class="row">
 					<div class="col-6">
@@ -13,23 +12,6 @@
 							<label class="m-0" for="location"><small>Location</small></label>
 							<input type="text" class="form-control" id="location" v-model="location">
 						</div>
-=======
-			<form class="col-6" v-on:submit.prevent="search" method="post">
-				<div class="form-group">
-					<label for="date">Date for the appointment</label>
-					<input type="date" class="form-control" id="date" v-model="date">
-				</div>
-				<div class="form-group">
-					<label for="typeOfProcedure">Procedure type</label>
-					<select id="typeOfProcedure" class="form-control" v-model="typeOfProcedure" v-if="procedureTypes">
-						<option v-for="procedure in procedureTypes" :key="procedure.id" :value="procedure">{{procedure.typeName}}</option>
-					</select>
-				</div>
-				<div v-if="searchAdvancedF == true">
-					<div class="form-group">
-						<label for="location">Location</label>
-						<input type="text" class="form-control" id="location" v-model="location">
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
 					</div>
 					<div class="col-6">
 						<div class="form-group m-0">
@@ -55,7 +37,6 @@
 				</div>
 			</form>
 		</div>
-<<<<<<< HEAD
 		<div class="row m-0" v-if="showResult == true" id="clinics">
 			<div class="card mb-1 col-12" v-for="clinic in clinics" :key="clinic.id">
 				<div class="card-body">
@@ -92,20 +73,6 @@
 									</div>
 								</div>
 							</div>
-=======
-		<div class="row" v-if="showResult == true && clinics && doctors">
-			<div class="jumbotron col-12" v-for="clinic in clinics" :key="clinic.id">
-				<h2><span><a v-on:click="showDoctors" href="#">{{clinic.name}}</a></span></h2>
-				<p>Address: {{clinic.address}}</p>
-				<small>{{clinic.description}}</small> 
-				<p>Ocena: <span><b>{{clinic.averageRating}}</b></span></p>
-				<div v-if="showDoctorsF == true">
-					<h4>Available doctors:</h4>
-					<div v-for="doctor in doctors" :key="doctor.id">
-						<div v-if="doctor.clinic.id === clinic.id">
-							<b>{{doctor.firstName}} {{doctor.lastName}}</b>
-							<p>Ocena: <span><b>{{doctor.averageRating}}</b></span></p>
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
 						</div>
 						<hr class="my-1">
 					</div>

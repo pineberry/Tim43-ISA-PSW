@@ -1,5 +1,5 @@
 <template>
-<<<<<<< HEAD
+
 <div class="container row justify-content-center m-0">
 	<div v-if="editDataF == false" class="col-10 card m-5 p-5">
 		<div class="row justify-content-center">
@@ -57,90 +57,6 @@
 		</form>
 	</div>
 </div>
-=======
-  <div class="fluid row" v-if="user">
-    <div v-if="editDataF == false" class="col-6 card m-5 p-5">
-      <div class="row justify-content-start">
-        <div class="col-6">
-          <p class="text-secondary font-weight-bold">Name:</p>
-        </div>
-        <div class="col-6">
-          <p class="font-weight-light">{{user.firstName}} {{user.lastName}}</p>
-        </div>
-      </div>
-      <div class="row justify-content-start">
-        <div class="col-6">
-          <p class="text-secondary font-weight-bold">E-mail address:</p>
-        </div>
-        <div class="col-6">
-          <p class="font-weight-light">{{user.email}}</p>
-        </div>
-      </div>
-      <div class="row justify-content-start">
-        <div class="col-6">
-          <p class="text-secondary font-weight-bold">Password:</p>
-        </div>
-        <div class="col-6">
-          <p class="font-weight-light">{{user.password}}</p>
-        </div>
-      </div>
-      <div class="row justify-content-start">
-        <div class="col-6">
-          <p class="text-secondary font-weight-bold">Address:</p>
-        </div>
-        <div class="col-6">
-          <p class="font-weight-light">{{user.address}} - {{user.city}}, {{user.state}}</p>
-        </div>
-      </div>
-      <div class="row justify-content-start">
-        <div class="col-6">
-          <p class="text-secondary font-weight-bold">Phone number: </p>
-        </div>
-        <div class="col-6">
-          <p class="font-weight-light">{{user.phoneNumber}}</p>
-        </div>
-      </div>
-      <div class="row justify-content-start">
-        <div class="col-6">
-          <p class="text-secondary font-weight-bold">Insurance number:</p>
-        </div>
-        <div class="col-6">
-          <p class="font-weight-light">{{user.healthCareNumber}}</p>
-        </div>
-      </div>
-      <button class="btn btn-primary mt-2" v-on:click="editData">Edit data</button>
-    </div>
-    <div v-if="editDataF == true" class="col-6 card m-5 p-5">
-      <form v-on:submit.prevent="updateUsersData">
-        <div class="form-group row m-1">
-          <label for="firstName">First name:</label>
-          <input type="text" name="firstName" id="firstName" class="form-control" v-model="user.firstName">
-        </div>
-        <div class="form-group row m-1">
-          <label for="firstName">Last name:</label>
-          <input type="text" name="lastName" id="lastName" class="form-control" v-model="user.lastName">
-        </div>
-        <div class="form-group row m-1">
-          <label for="firstName">Address:</label>
-          <input type="text" name="address" id="address" class="form-control" v-model="user.address">
-        </div>
-        <div class="form-group row m-1">
-          <label for="firstName">City:</label>
-          <input type="text" name="city" id="city" class="form-control" v-model="user.city">
-        </div>
-        <div class="form-group row m-1">
-          <label for="firstName">State:</label>
-          <input type="text" name="state" id="state" class="form-control" v-model="user.state">
-        </div>
-        <div class="form-group row m-1">
-          <label for="firstName">Phonenumber:</label>
-          <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" v-model="user.phoneNumber">
-        </div>
-        <button class="btn btn-primary mt-2" type="submit">Submit update</button>
-      </form>
-    </div>
-  </div>
->>>>>>> ecf575e7cac1096797121689187dbacd97585603
 </template>
 
 <script>
