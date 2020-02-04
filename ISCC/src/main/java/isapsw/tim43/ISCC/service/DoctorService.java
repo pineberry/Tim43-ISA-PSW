@@ -2,15 +2,13 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
-import isapsw.tim43.ISCC.model.Clinic;
-import isapsw.tim43.ISCC.model.ProcedureType;
-import isapsw.tim43.ISCC.model.Report;
+import isapsw.tim43.ISCC.dto.UserDTO;
+import isapsw.tim43.ISCC.model.*;
 import isapsw.tim43.ISCC.repository.ClinicRepository;
 import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.repository.DoctorRepository;
 
 import java.util.ArrayList;
@@ -30,6 +28,9 @@ public class DoctorService {
 
 	@Autowired
 	private ClinicService clinicService;
+
+	@Autowired
+	private MedicalRoomService medicalRoomService;
 	
 	public DoctorDTO save(DoctorDTO doctorDTO) {
 		if(doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null
@@ -70,9 +71,38 @@ public class DoctorService {
 
 		return new DoctorDTO(doctor);
 	}
-	
+
+	public DoctorDTO update(DoctorDTO doctorDTO){
+		Doctor doctor = findOne(doctorDTO.getId());
+
+		doctor.setFirstName(doctorDTO.getFirstName());
+		doctor.setLastName(doctorDTO.getLastName());
+		doctor.setCity(doctorDTO.getCity());
+		doctor.setState(doctorDTO.getState());
+		doctor.setAddress(doctorDTO.getAddress());
+		doctor.setPhoneNumber(doctorDTO.getPhoneNumber());
+
+		doctor = doctorRepository.save(doctor);
+		return new DoctorDTO(doctor);
+
+	}
+
 	public void remove(Long id) {
 		doctorRepository.deleteById(id);
+	}
+
+	public UserDTO changePassword(UserDTO userDTO){
+		Doctor doctor = findUserByEmailAddress(userDTO.getEmail());
+
+		if (doctor == null || !userDTO.getPassword().equals(userDTO.getPasswordF())) {
+			return null;
+		}
+
+		doctor.setPassword(userDTO.getPassword());
+		doctor.setFirstLogin(false);
+		doctorRepository.save(doctor);
+
+		return userDTO;
 	}
 
 	public Doctor findUserByEmailAddress(String emailAddress) {
@@ -166,5 +196,43 @@ public class DoctorService {
 
 		return reportDTO;
 	}
+
+	public boolean deleteDoctor(Long id){
+		Doctor doctor = findOne(id);
+
+		if (doctor == null || !doctor.getMedicalProcedures().isEmpty()) {
+			return false;
+		}
+
+		remove(id);
+
+		return true;
+	}
+
+	/*
+	 * Provera da li je za slobodan termin sale slobodan i doktor koji je zatrazen u pregledu, ukoliko nije, trazi se
+	 * prvi sledeci doktor koji je slobodan, a ima istu specijalizaciju.
+	 */
+	public Doctor getAvailableDoctor(MedicalProcedure medicalProcedure, String requestedTimes) {
+		Doctor doctor = medicalProcedure.getDoctor();
+
+		List<String> times = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+																				doctor.getMedicalProcedures());
+		if (!medicalRoomService.overlapingTimes(times, requestedTimes)) {
+			return doctor;
+		} else {
+			for (Doctor doc: doctorRepository.findAllBySpecialized(doctor.getSpecialized())) {
+				List<String> timesForChosenDate = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+						doc.getMedicalProcedures());
+				if (!medicalRoomService.overlapingTimes(timesForChosenDate, requestedTimes)) {
+					return doctor;
+				}
+			}
+		}
+
+		return null;
+	}
+
+
 
 }

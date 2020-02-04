@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.NurseDTO;
 import isapsw.tim43.ISCC.dto.PrescriptionDTO;
+import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.MedicalRecord;
 import isapsw.tim43.ISCC.service.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,28 @@ public class NurseController {
         }
 
         return new ResponseEntity<>(prescriptionDTOS, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<NurseDTO> editNurse(@RequestBody NurseDTO nurseDTO){
+        nurseDTO = nurseService.update(nurseDTO);
+
+        if (nurseDTO != null) {
+            return new ResponseEntity<>(nurseDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PutMapping(value = "/change/password", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDTO> changePassword(@RequestBody UserDTO userDTO){
+        userDTO = nurseService.changePassword(userDTO);
+
+        if (userDTO != null) {
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

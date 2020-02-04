@@ -73,6 +73,9 @@ public class Doctor {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="doctor-clinic")
 	private Clinic clinic;
+
+	@Column(name = "firstLogin")
+	private boolean firstLogin = true;
 	
 	public Doctor() {
 		super();

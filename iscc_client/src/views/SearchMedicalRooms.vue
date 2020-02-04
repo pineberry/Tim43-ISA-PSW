@@ -24,6 +24,15 @@
 						<input id="inputDate" type="date" class="form-control" placeholder="Enter date" v-model="searchDate">
 					</div>
                 </div>
+                <div class="col-6">
+                    <span>Filter rooms</span>
+                    <p>
+                        <input id="filterName" type="text" class="form-control" placeholder="Filter by name" v-model="filterName">
+                    </p>
+                    <p>
+                        <input id="filterNumber" type="number" class="form-control" placeholder="Filter by number" v-model="filterNumber">
+                    </p>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
@@ -68,14 +77,20 @@
                 roomNumber: undefined,
                 searchDate: undefined,
                 medicalRooms: null,
-                procedureId: 0
+                unfilteredRooms: null,
+                procedureId: 0,
+                filterName: undefined,
+                filterNumber: undefined,
             }
         },
         mounted: function(){
             this.axios.get("http://localhost:8080/medical/room/all")
                 .then(response => {
-                    this.medicalRooms = response.data;
-                    this.procedureId = this.$route.params.id;
+                    this.unfilteredRooms = response.data;
+                    this.medicalRooms = this.unfilteredRooms.slice();
+                    if (this.$route.params.id != undefined) {
+                        this.procedureId = this.$route.params.id;
+                    }
                 })
         },
         filters: {
@@ -92,10 +107,7 @@
             searchRooms: function(){
                 if (this.searchDate === undefined || this.searchDate === ''){
                     var date = new Date();
-                    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-                    var day = ('0' + date.getDate()).slice(-2);
-                    var year = date.getFullYear();
-                    this.searchDate = year + '-' + month + '-' + day;
+                    this.searchDate = this.dateFormating(date);
                 }
 
                 if (this.searchBy === 'name'){
@@ -133,7 +145,23 @@
             bookRoom: function (id) {
                 this.axios.put("http://localhost:8080/medical/procedure/" + this.procedureId + "/" + id)
                     .then(response => {this.$router.push('/adminProfile');})
+                    .catch(error => {
+                        if(confirm('Would you like automatically to book room?')) {
+                            this.axios.put("http://localhost:8080/medical/procedure/auto/book/" + this.procedureId)
+                                .then(response => {
+                                    var procedure = response.data;
+                                    alert('Brao');
+                                })
+                        }
+                    })
             },
+            dateFormating: function(date){
+                if (!date) return '';
+                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                var day = ('0' + date.getDate()).slice(-2);
+                var year = date.getFullYear();
+                return year + '-' + month + '-' + day;
+            }
         },
         watch: {
             procedureId: function(){
@@ -142,8 +170,30 @@
                         .then(response => {
                             console.log(response)
                             var date = new Date(response.data.dateOfProcedure);
-                            this.searchDate = this.formatDate(date);
+                            this.searchDate = this.dateFormating(date);
                         })
+                }
+            },
+
+            filterName: function() {
+                if (this.filterName != undefined && this.filterName.trim() != '') {
+                    this.medicalRooms.length = 0;
+                    this.filterName = this.filterName.toLowerCase();
+                    this.medicalRooms = this.unfilteredRooms.filter((room) =>
+                                                                room.roomName.toLowerCase().includes(this.filterName));
+                } else {
+                    this.medicalRooms = this.unfilteredRooms.slice();
+                }
+            },
+
+            filterNumber: function() {
+                if (this.filterNumber != undefined && this.filterNumber != '') {
+                    this.medicalRooms.length = 0;
+                    this.filterNumber = this.filterNumber.toString();
+                    this.medicalRooms = this.unfilteredRooms.filter((room) =>
+                                                                room.roomNumber.toString().includes(this.filterNumber));
+                } else {
+                    this.medicalRooms = this.unfilteredRooms.slice();
                 }
             }
         }

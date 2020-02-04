@@ -21,7 +21,7 @@ public class MedicalProcedure {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private ProcedureType procedureType;
 
-	@Column(name = "dateOfProcedure", unique = true, nullable = false)
+	@Column(name = "dateOfProcedure", nullable = false)
 	private Date dateOfProcedure;
 
 	@ManyToOne(fetch = FetchType.EAGER)

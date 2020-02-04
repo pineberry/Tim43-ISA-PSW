@@ -17,6 +17,8 @@ public class MedicalProcedureDTO {
     private float price;
     private float discount;
     private boolean booked;
+    private String startTime;
+    private String endTime;
 
     public MedicalProcedureDTO(){}
 
@@ -36,12 +38,15 @@ public class MedicalProcedureDTO {
         id = medicalProcedure.getId();
         procedureType = new ProcedureTypeDTO(medicalProcedure.getProcedureType());
         dateOfProcedure = medicalProcedure.getDateOfProcedure();
-        medicalRoom = new MedicalRoomDTO(medicalProcedure.getMedicalRoom());
+        if (medicalProcedure.getMedicalRoom() != null)
+            medicalRoom = new MedicalRoomDTO(medicalProcedure.getMedicalRoom());
         doctor = new DoctorDTO(medicalProcedure.getDoctor());
         patient = new PatientDTO(medicalProcedure.getPatient());
         price = medicalProcedure.getPrice();
         discount = medicalProcedure.getDiscount();
         booked = medicalProcedure.isBooked();
+        startTime = medicalProcedure.getStartTime();
+        endTime = medicalProcedure.getEndTime();
     }
 
 }

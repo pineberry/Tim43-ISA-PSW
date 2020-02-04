@@ -1,7 +1,11 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.MedicalRecordDTO;
+import isapsw.tim43.ISCC.dto.ReportDTO;
+import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalRecord;
+import isapsw.tim43.ISCC.model.Patient;
+import isapsw.tim43.ISCC.model.Report;
 import isapsw.tim43.ISCC.repository.MedicalRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,12 @@ public class MedicalRecordService {
 
     @Autowired
     private MedicalRecordRepository medicalRecordRepository;
+
+    @Autowired
+    private ReportService reportService;
+
+    @Autowired
+    private PatientService patientService;
 
     public MedicalRecord save(MedicalRecord medicalRecord) {
         return medicalRecordRepository.save(medicalRecord);
@@ -41,6 +51,26 @@ public class MedicalRecordService {
         save(medicalRecord);
 
         return modelToDto(medicalRecord);
+    }
+
+    public MedicalRecordDTO getPatientRecord(Long id){
+        Patient p = patientService.findById(id);
+        MedicalRecord medicalRecord = medicalRecordRepository.getMedicalRecordByPatient(p);
+
+        if (medicalRecord == null) {
+            return null;
+        }
+
+        MedicalRecordDTO medicalRecordDTO = modelToDto(medicalRecord);
+
+        for (Report report: medicalRecord.getReports()) {
+            ReportDTO reportDTO = reportService.modelToDto(report);
+            reportDTO.setDoctorFirstName(report.getDoctor().getFirstName());
+            reportDTO.setDoctorLastName(report.getDoctor().getLastName());
+            medicalRecordDTO.getReports().add(reportDTO);
+        }
+
+        return medicalRecordDTO;
     }
 
 

@@ -125,4 +125,64 @@ public class MedicalProcedureService {
 		medicalProcedureRepository.deleteById(procedureID);
 		return getPatientsProcedures(patientID);
 	}
+
+    public MedicalProcedureDTO autoBookRoom(Long id) {
+        MedicalProcedure medicalProcedure = findOne(id);
+
+        if (medicalProcedure == null) {
+            return null;
+        }
+
+        medicalProcedure = medicalRoomService.findAvailableAppoinment(medicalProcedure);
+        medicalProcedure = medicalProcedureRepository.save(medicalProcedure);
+        return new MedicalProcedureDTO(medicalProcedure);
+    }
+
+    public MedicalProcedureDTO scheduleExam(MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        medicalProcedureDTO = save(medicalProcedureDTO);
+
+        if (medicalProcedureDTO == null) {
+            return null;
+        }
+
+        String emailContent = "Dr. " + medicalProcedureDTO.getDoctor().getFirstName() + " "
+                + medicalProcedureDTO.getDoctor().getLastName() + " has requested an examination appointment for date: "
+                + medicalProcedureDTO.getDateOfProcedure() + " in period from: " + medicalProcedureDTO.getStartTime()
+                + " to " + medicalProcedureDTO.getEndTime() + "\n\n"
+                + "To accept click on the link below:\n"
+                + "http://localhost:8081/searchRooms/" + medicalProcedureDTO.getId();
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+
+        return medicalProcedureDTO;
+    }
+
+    public MedicalProcedureDTO scheduleSurgery(MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        medicalProcedureDTO = save(medicalProcedureDTO);
+
+        if (medicalProcedureDTO == null) {
+            return null;
+        }
+
+        String emailContent = "Dr. " + medicalProcedureDTO.getDoctor().getFirstName() + " "
+                + medicalProcedureDTO.getDoctor().getLastName() + " has requested a surgery appointment for date: "
+                + medicalProcedureDTO.getDateOfProcedure() + " in period from: " + medicalProcedureDTO.getStartTime()
+                + " to" + medicalProcedureDTO.getEndTime() + "\n\n"
+                + "To accept click on the link below:\n"
+                + "TBA";
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+
+        return medicalProcedureDTO;
+    }
+
+    // Svaki dan u 23:01 svim pregledima koji nemaju dodeljene sale, dodeli jednu
+    @Scheduled(cron = "0 1 23 * * ?")
+    @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
+    public void timerBooking() {
+        List<MedicalProcedure> medicalProcedures = medicalProcedureRepository.findAllWithoutRoom();
+
+        for (MedicalProcedure medicalProcedure: medicalProcedures) {
+            medicalProcedure = medicalRoomService.findAvailableAppoinment(medicalProcedure);
+            medicalProcedureRepository.save(medicalProcedure);
+        }
+    }
 }

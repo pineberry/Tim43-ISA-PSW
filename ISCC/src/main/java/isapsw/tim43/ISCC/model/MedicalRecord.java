@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -20,6 +21,8 @@ public class MedicalRecord {
 	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Report> reports;
+	@JsonIgnore
+	private List<Report> reports = new ArrayList<Report>();
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore

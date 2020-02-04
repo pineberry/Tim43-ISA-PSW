@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +64,28 @@ public class PatientController {
 
         return new ResponseEntity<>(patientDTOS, HttpStatus.OK);
     }
-    
+
+    @GetMapping(value = "/number/{healthCareNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PatientDTO>> searchByHealthCareNumber(@PathVariable String healthCareNumber){
+        List<PatientDTO> patientDTOList = patientService.searchByHealthCareNumber(healthCareNumber);
+
+        if (patientDTOList != null) {
+            return new ResponseEntity<>(patientDTOList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/name/{name}/{lastName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PatientDTO>> searchByNameAndLastName(@PathVariable String name,
+                                                                                        @PathVariable String lastName){
+        List<PatientDTO> patientDTOList = patientService.searchByNameAndLastName(name, lastName);
+
+        if (patientDTOList != null) {
+            return new ResponseEntity<>(patientDTOList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
     
 }

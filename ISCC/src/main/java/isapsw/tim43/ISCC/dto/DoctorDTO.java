@@ -23,7 +23,7 @@ public class DoctorDTO {
 	private String workingtimeStart;
 	private String workingtimeEnd;
 	private ProcedureType specialized;
-	private Clinic clinic;
+	private ClinicDTO clinic;
 	private List<MedicalProcedure> medicalProcedures;
 	
 	
@@ -32,12 +32,14 @@ public class DoctorDTO {
 	public DoctorDTO(Doctor doctor) {
 		this(doctor.getId(), doctor.getEmail(), doctor.getPassword(), doctor.getFirstName(), doctor.getLastName(),
 				doctor.getAddress(), doctor.getCity(), doctor.getState(), doctor.getPhoneNumber(), doctor.getAverageRating(),
-				doctor.getWorkingtimeStart(), doctor.getWorkingtimeEnd(), doctor.getSpecialized(), doctor.getClinic(), doctor.getMedicalProcedures());
+				doctor.getWorkingtimeStart(), doctor.getWorkingtimeEnd(), doctor.getSpecialized(), new ClinicDTO(doctor.getClinic().getId(),
+						doctor.getClinic().getName(), doctor.getClinic().getAddress(), doctor.getClinic().getDescription(),
+						doctor.getClinic().getAverageRating()), doctor.getMedicalProcedures());
 	}
 
 	public DoctorDTO(long id, String email, String password, String firstName, String lastName, String address,
 			String city, String state, String phoneNumber, double averageRating, String workingtimeStart,
-			String workingtimeEnd, ProcedureType specialized, Clinic clinic, List<MedicalProcedure> medicalProcedures) {
+			String workingtimeEnd, ProcedureType specialized, ClinicDTO clinic, List<MedicalProcedure> medicalProcedures) {
 		super();
 		this.id = id;
 		this.email = email;

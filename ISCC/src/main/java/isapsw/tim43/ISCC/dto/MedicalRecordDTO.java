@@ -3,9 +3,11 @@ package isapsw.tim43.ISCC.dto;
 import isapsw.tim43.ISCC.model.Report;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 
 @Data
 public class MedicalRecordDTO {
@@ -18,7 +20,7 @@ public class MedicalRecordDTO {
     private Date dateOfBirth;
     private String bloodType;
     private List<Report> reports;
-
+    
     public MedicalRecordDTO() {
     }
 

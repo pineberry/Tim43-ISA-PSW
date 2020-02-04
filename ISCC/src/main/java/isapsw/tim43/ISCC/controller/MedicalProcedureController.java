@@ -1,6 +1,7 @@
 package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
+import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.service.MedicalProcedureService;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/medical/procedure")
@@ -50,6 +53,16 @@ public class MedicalProcedureController {
     	}
     }
 
+    @GetMapping(value = "/doctor/{id}")
+    public ResponseEntity<List<MedicalProcedureDTO>> getProceduresByDoctor(@PathVariable Long id) {
+        List<MedicalProcedureDTO> medicalProcedureDTOS = medicalProcedureService.proceduresByDoctor(id);
+        if(medicalProcedureDTOS != null) {
+            return new ResponseEntity<>(medicalProcedureDTOS, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PutMapping(value = "/{procedureId}/{roomId}")
     public ResponseEntity<Void> bookRoom(@PathVariable("procedureId") Long procedureId,
                                          @PathVariable("roomId") Long roomId) throws InterruptedException {
@@ -84,6 +97,35 @@ public class MedicalProcedureController {
     	} else {
     		return new ResponseEntity<>(procedures, HttpStatus.OK);
     	}
+    }
+
+    @PutMapping(value = "/auto/book/{id}")
+    public ResponseEntity<MedicalProcedureDTO> automaticallyBookRoom(@PathVariable("id") Long procedureId){
+        MedicalProcedureDTO medicalProcedureDTO = medicalProcedureService.autoBookRoom(procedureId);
+
+        if (medicalProcedureDTO != null) {
+            return new ResponseEntity<>(medicalProcedureDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/exam", consumes = "application/json")
+    public ResponseEntity<Void> examinationRequest(@RequestBody MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        if (medicalProcedureService.scheduleExam(medicalProcedureDTO) != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/surgery", consumes = "application/json")
+    public ResponseEntity<Void> surgeryRequest(@RequestBody MedicalProcedureDTO medicalProcedureDTO) throws InterruptedException {
+        if (medicalProcedureService.scheduleSurgery(medicalProcedureDTO) != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

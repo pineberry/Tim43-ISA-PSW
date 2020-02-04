@@ -12,6 +12,7 @@ import lodash from 'lodash';
 Vue.use(lodash);
 Vue.prototype.lodash = lodash;
 
+import modal from "vue-js-modal";
 
 Vue.config.silent = true; 
 
