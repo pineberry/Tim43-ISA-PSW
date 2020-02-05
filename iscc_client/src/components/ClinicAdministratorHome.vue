@@ -35,7 +35,7 @@ export default {
     data : function() {
         return {
             user : localStorage.getItem('user'),
-            admin: null,
+            admin: Object,
             clinicName: undefined
         }
     },
@@ -43,7 +43,7 @@ export default {
         this.axios.get("http://localhost:8080/clinic/admin/" + localStorage.getItem('user_id'))
             .then(response =>{
                 this.admin = response.data;
-                this.clinicName = this.admin.clinicName;
+                this.clinicName = this.admin.clinic.name;
             })
     },
     methods : {
