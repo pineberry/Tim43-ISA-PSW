@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h4>Medical Rooms</h4>
+        <h4>Patients</h4>
         <form @submit.prevent="searchPatients" accept-charset="UTF-8" method="get">
             <div class="row">
                 <div class="col-6">

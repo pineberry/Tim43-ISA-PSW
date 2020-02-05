@@ -26,6 +26,13 @@ public class ProcedureType {
 	@Column(name = "typeDescription", nullable = false)
 	private String typeDescription;
 
+	@Column(name = "price")
+	private float price;
+
+	@ManyToMany(mappedBy = "types")
+	@JsonIgnore
+	private List<Clinic> clinics;
+
 	@OneToMany(mappedBy = "specialized", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JsonBackReference(value="doctor-type")
     @JsonIgnore
@@ -39,9 +46,10 @@ public class ProcedureType {
 
 	public ProcedureType(){}
 	
-	public ProcedureType(String typeName, String typeDescription) {
+	public ProcedureType(String typeName, String typeDescription, float price) {
 		super();
 		this.typeName = typeName;
 		this.typeDescription = typeDescription;
+		this.price = price;
 	}
 }

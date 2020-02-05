@@ -28,6 +28,7 @@ public class ProcedureTypeService {
             ProcedureType procedureType = new ProcedureType();
             procedureType.setTypeName(procedureTypeDTO.getTypeName());
             procedureType.setTypeDescription(procedureTypeDTO.getTypeDescription());
+            procedureType.setPrice(procedureTypeDTO.getPrice());
 
             procedureType = procedureTypeRepository.save(procedureType);
 
@@ -75,7 +76,8 @@ public class ProcedureTypeService {
 
         public ProcedureTypeDTO update(ProcedureTypeDTO procedureTypeDTO){
             if (procedureTypeDTO.getTypeName() == null || procedureTypeDTO.getTypeName().isEmpty()
-                    || procedureTypeDTO.getTypeDescription() == null || procedureTypeDTO.getTypeDescription().isEmpty())
+                    || procedureTypeDTO.getTypeDescription() == null || procedureTypeDTO.getTypeDescription().isEmpty()
+                    || procedureTypeDTO.getPrice() < 0)
             {
                 return null;
             }
@@ -88,6 +90,7 @@ public class ProcedureTypeService {
 
             procedureType.setTypeName(procedureTypeDTO.getTypeName());
             procedureType.setTypeDescription(procedureTypeDTO.getTypeDescription());
+            procedureType.setPrice(procedureTypeDTO.getPrice());
 
             procedureType = procedureTypeRepository.save(procedureType);
 

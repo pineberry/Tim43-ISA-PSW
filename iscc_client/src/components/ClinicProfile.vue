@@ -27,6 +27,8 @@
             <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 2}">
                 <RoomList/>
             </div>
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 5}">
+            </div>
         </div>
     </div>
 </template>
@@ -61,7 +63,7 @@
                 .then(response => {
                     this.clinic = response.data;
                     provider
-                        .search({ query: 'Knez Mihaila 12, Beograd' })
+                        .search({ query: this.clinic.address })
                         .then(function(result) {
                             this.center = L.latLng(result[0].y, result[0].x);
                             this.marker = L.latLng(result[0].y, result[0].x);

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
-                        <label for="inputName">Room name:</label>
+                        <label for="inputName">Type name:</label>
                         <input id="inputName" type="text" class="form-control" placeholder="Enter type name" v-model="typeName">
                     </div>
                     <button type="submit" class="btn btn-primary">Search</button>
@@ -17,8 +17,9 @@
             <table class="table">
                 <thead class="thead-dark">
                 <th scope="col">#</th>
-                <th scope="col">Type name</th>
-                <th scope="col">Type description</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
                 </thead>
@@ -27,6 +28,7 @@
                     <td>{{procedureTypes.indexOf(type) + 1}}</td>
                     <td>{{type.typeName}}</td>
                     <td>{{type.typeDescription}}</td>
+                    <td>{{type.price}}</td>
                     <td><router-link class="btn btn-primary" :to="{path: '/editType',query: {typeId: type.id}}">Edit</router-link></td>
                     <td><button class="btn btn-warning" v-on:click="deleteType(type)">Delete</button></td>
                 </tr>

@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.ClinicDTO;
 import isapsw.tim43.ISCC.dto.DoctorDTO;
+import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.model.*;
 import isapsw.tim43.ISCC.repository.ClinicRepository;
@@ -22,7 +23,11 @@ public class ClinicService {
     @Autowired
     MedicalRoomService medicalRoomService;
 
+    @Autowired
+    ProcedureTypeService procedureTypeService;
+
     public Clinic save(Clinic clinic) {
+
         return clinicRepository.save(clinic);
     }
 
@@ -52,9 +57,37 @@ public class ClinicService {
         clinic.setName(clinicDTO.getName());
         clinic.setDescription(clinicDTO.getDescription());
         clinic.setAddress(clinicDTO.getAddress());
+        List<ProcedureType> types = new ArrayList<ProcedureType>();
+
+        for (ProcedureType procedureType: clinicDTO.getTypes()) {
+            procedureType = procedureTypeService.findOne(procedureType.getId());
+            types.add(procedureType);
+        }
+
+        clinic.setTypes(types);
 
         clinic = save(clinic);
         return new ClinicDTO(clinic);
+    }
+
+    public List<MedicalProcedureDTO> getPredefinedProcedures(String name) {
+        Clinic clinic = findByName(name);
+
+        if (clinic == null) {
+            return null;
+        }
+
+        List<MedicalProcedureDTO> medicalProcedureDTOS = new ArrayList<MedicalProcedureDTO>();
+
+        for (MedicalRoom room: clinic.getMedicalRooms()) {
+            for (MedicalProcedure medicalProcedure: room.getMedicalProcedures()) {
+                if (medicalProcedure.getPatient() == null) {
+                    medicalProcedureDTOS.add(new MedicalProcedureDTO(medicalProcedure));
+                }
+            }
+        }
+
+        return medicalProcedureDTOS;
     }
 
     public ClinicDTO getClinic(String name){
@@ -107,8 +140,8 @@ public class ClinicService {
             for (MedicalProcedure medicalProcedure: medicalRoom.getMedicalProcedures()) {
                 if (medicalProcedure.getDateOfProcedure().compareTo(dateStart) >= 0 &&
                         medicalProcedure.getDateOfProcedure().compareTo(dateEnd) <=0) {
-                    income += medicalProcedure.getPrice() -
-                                            (medicalProcedure.getPrice() * (medicalProcedure.getDiscount()/100));
+                    income += medicalProcedure.getProcedureType().getPrice() -
+                                            (medicalProcedure.getProcedureType().getPrice() * (medicalProcedure.getDiscount()/100));
                 }
             }
         }

@@ -4,10 +4,12 @@ import VueRouter from "vue-router";
 // import 'mdbvue/lib/css/mdb.min.css'
 
 import L from 'leaflet'
-import { Icon } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import { Icon }  from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
-delete Icon.Default.prototype._getIconUri;
+
+// this part resolve an issue where the markers would not appear
+delete Icon.Default.prototype._getIconUrl;
 
 Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),

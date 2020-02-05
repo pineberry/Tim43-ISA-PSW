@@ -121,4 +121,9 @@ export default {
     border-radius: 5px;
     border: 5px solid transparent;
 }
+.entryValidation {
+    bgColor: red;
+    font-size: small;
+}
+
 </style>

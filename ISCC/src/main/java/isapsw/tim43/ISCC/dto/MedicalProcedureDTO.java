@@ -28,13 +28,12 @@ public class MedicalProcedureDTO {
     public MedicalProcedureDTO(){}
 
     public MedicalProcedureDTO(long id, ProcedureTypeDTO procedureType, Date dateOfProcedure,
-                               MedicalRoomDTO medicalRoom, DoctorDTO doctor, float price, float discount, boolean booked, boolean doctorRated, boolean clinicRated) {
+                               MedicalRoomDTO medicalRoom, DoctorDTO doctor, float discount, boolean booked, boolean doctorRated, boolean clinicRated) {
         this.id = id;
         this.procedureType = procedureType;
         this.dateOfProcedure = dateOfProcedure;
         this.medicalRoom = medicalRoom;
         this.doctor = doctor;
-        this.price = price;
         this.discount = discount;
         this.booked = booked;
         this.doctorRated = doctorRated;
@@ -51,7 +50,6 @@ public class MedicalProcedureDTO {
         if (medicalProcedure.getPatient()!= null) {
 			patient = new PatientDTO(medicalProcedure.getPatient());
 		}
-		price = medicalProcedure.getPrice();
         discount = medicalProcedure.getDiscount();
         booked = medicalProcedure.isBooked();
         startTime = medicalProcedure.getStartTime();

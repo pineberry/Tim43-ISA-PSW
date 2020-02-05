@@ -9,6 +9,7 @@
                         <select id="selectType" class="form-control" v-model="procedureType">
                             <option v-for="pType in procedureTypes" :key="pType.id" :value="pType">{{pType.typeName}}</option>
                         </select>
+                        <span class="entryValidation">{{valType}}</span>
                      </div>
                      <div class="form-group">
                         <label for="selectRoom">Medical room</label>
@@ -22,10 +23,8 @@
                             <option v-for="doc in doctors" :key="doc.id" :value="doc">{{doc.firstName}}</option>
                         </select>
                      </div>
-                     <div class="form-group">
-                        <label for="inputPrice">Price:</label>
-                        <input id="inputPrice" type="number" class="form-control" v-model="price">
-                    </div>
+                </div>
+                <div class="col-6">
                     <div class="form-group">
                         <label for="inputDate">Date:</label>
                         <input id="inputDate" type="date" class="form-control" v-model="dateOfProcedure">
@@ -39,8 +38,8 @@
                         <input id="inputEnd" type="time" class="form-control" v-model="endTime">
                     </div>
                 </div>
+                <p class="float-right"><button type="submit" class="btn btn-primary">Add</button></p>
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
 </template>
@@ -56,7 +55,6 @@
                 procedureType: undefined,
                 medicalRoom: undefined,
                 doctor: undefined,
-                price: undefined,
                 startTime: undefined,
                 endTime: undefined,
                 procedureTypes: [],
@@ -77,6 +75,14 @@
                 .then(response => {this.medicalRooms = response.data})
                 .catch(error => {alert(error.response.data)})
         },
+        computed: {
+          valType: function () {
+                if (this.procedureType === undefined)
+                    return 'This is mandatory field!';
+                else
+                    return '';
+          }
+        },
         methods: {
             addMedicalProcedure: function(){
                 var medicalProcedure = {
@@ -84,7 +90,6 @@
                     "dateOfProcedure": this.dateOfProcedure,
                     "medicalRoom": this.medicalRoom,
                     "doctor": this.doctor,
-                    "price": this.price,
                     "startTime": this.startTime,
                     "endTime": this.endTime
                 }
@@ -93,7 +98,7 @@
 
                 if(this.procedureType === undefined || this.dateOfProcedure === undefined 
                         || this.medicalRoom === undefined || this.doctor === undefined
-                        || this.price === undefined || this.startTime === undefined || this.endTime === undefined){
+                        || this.startTime === undefined || this.endTime === undefined){
                     valid = false;
                 }
 

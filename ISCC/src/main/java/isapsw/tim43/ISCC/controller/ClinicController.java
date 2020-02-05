@@ -2,8 +2,10 @@ package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.ClinicDTO;
 import isapsw.tim43.ISCC.dto.DoctorDTO;
+import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.service.ClinicService;
 import isapsw.tim43.ISCC.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +123,17 @@ public class ClinicController {
                                                   @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
         double income = clinicService.getClinicIncome(id, startDate, endDate);
         return new ResponseEntity<>(income, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/predefined/{name}")
+    public ResponseEntity<List<MedicalProcedureDTO>> getPredefinedProcedures(@PathVariable String name){
+        List<MedicalProcedureDTO> medicalProcedureDTOList = clinicService.getPredefinedProcedures(name);
+
+        if (medicalProcedureDTOList != null) {
+            return new ResponseEntity<>(medicalProcedureDTOList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
