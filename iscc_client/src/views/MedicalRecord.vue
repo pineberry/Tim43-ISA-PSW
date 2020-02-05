@@ -14,6 +14,29 @@
                 <p><small>Date of birth: </small>{{medicalRecord.dateOfBirth | formatDate}}</p>
             </div>
         </div>
+        <div v-if="reports.length>0" class="col-10 card m-5 p-5">
+            <div class="card-title h3">Reports:</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Diagnosis</td>
+                        <td>Medicine</td>
+                        <td>Diagnosed by</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="report in reports" :key="report.id">
+                        <td>{{report.diagnosis}}</td>
+                        <td><span v-for="medicine in report.medicines" :key="medicine"><p>{{medicine}}</p></span></td>
+                        <td>
+                            <b>
+                                <router-link class="special-link" :to="'doctor_'+report.doctor.id">dr. {{report.doctor.firstName}} {{report.doctor.lastName}}</router-link>
+                            </b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
   </div>
 </template>
 
@@ -22,9 +45,13 @@ export default {
     name: "medicalRecord",
     data: function() {
         return {
-            medicalRecord : undefined
+            medicalRecord : Object,
+            reports : []
         }
     }, 
+    methods: {
+
+    },
     filters : {
         formatDate: function(date){
                 if (!date) return '';
@@ -40,7 +67,8 @@ export default {
 		.then(response => {
             this.medicalRecord = response.data;
             console.log(this.medicalRecord);
-		})
+            this.reports = response.data.reports;
+        });
 	}
 
 }

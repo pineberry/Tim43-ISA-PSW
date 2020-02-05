@@ -10,7 +10,7 @@ public class ReportDTO {
 
     private Long id;
     private String notes;
-    private Long doctor;
+    private DoctorDTO doctor;
     private String diagnosis;
     private List<String> medicines = new ArrayList<String>();
     private String doctorFirstName;
@@ -19,10 +19,12 @@ public class ReportDTO {
     public ReportDTO() {
     }
 
-    public ReportDTO(Long id, String notes, Long doctor, String diagnosis) {
+    public ReportDTO(Long id, String notes, DoctorDTO doctor, String diagnosis, String doctorFirstName, String doctorLastName) {
         this.id = id;
         this.notes = notes;
         this.diagnosis = diagnosis;
         this.doctor = doctor;
+        this.doctorFirstName = doctorFirstName;
+        this.doctorLastName = doctorLastName;
     }
 }

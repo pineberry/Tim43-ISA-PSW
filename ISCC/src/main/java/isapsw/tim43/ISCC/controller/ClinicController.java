@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping(value = "/clinic")
 public class ClinicController {
 
@@ -39,8 +38,18 @@ public class ClinicController {
         return new ResponseEntity<>(clinicsDTO, HttpStatus.OK);
     }
     
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<ClinicDTO> getClinicById(@PathVariable("id") Long clinicID) {
+//    @GetMapping(value = "/{id}") PROKLETA
+//    public ResponseEntity<ClinicDTO> getClinicById(@PathVariable("id") Long clinicID) {
+//    	
+//    	if(clinicService.findOne(clinicID) == null) {
+//    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    	} else {
+//			return new ResponseEntity<ClinicDTO>(new ClinicDTO(clinicService.findOne(clinicID)),HttpStatus.OK);
+//		}
+//    }
+    
+    @GetMapping(value = "/single/{id}")
+    public ResponseEntity<ClinicDTO> test(@PathVariable("id") Long clinicID) {
     	
     	if(clinicService.findOne(clinicID) == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);

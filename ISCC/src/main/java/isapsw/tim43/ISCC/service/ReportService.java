@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.service;
 
+import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.Medicine;
@@ -45,7 +46,7 @@ public class ReportService {
 
         report.setNotes(reportDTO.getNotes());
         report.setDiagnosis(diagnosisService.findByCode(reportDTO.getDiagnosis()));
-        report.setDoctor(doctorService.findOne(reportDTO.getDoctor()));
+        report.setDoctor(doctorService.findOne(reportDTO.getDoctor().getId()));
         for (String code: reportDTO.getMedicines()) {
             Prescription prescription = new Prescription();
             Medicine medicine = medicineService.findByCode(code);
@@ -65,7 +66,7 @@ public class ReportService {
 
         reportDTO.setId(report.getId());
         reportDTO.setDiagnosis(report.getDiagnosis().getName());
-        reportDTO.setDoctor(report.getDoctor().getId());
+        reportDTO.setDoctor(new DoctorDTO(report.getDoctor()));
         for (Prescription prescription :
              report.getPrescription()) {
             reportDTO.getMedicines().add(prescription.getMedicine().getName());
@@ -80,7 +81,7 @@ public class ReportService {
 
         report.setNotes(reportDTO.getNotes());
         report.setDiagnosis(diagnosisService.findByCode(reportDTO.getDiagnosis()));
-        report.setDoctor(doctorService.findOne(reportDTO.getDoctor()));
+        report.setDoctor(doctorService.findOne(reportDTO.getDoctor().getId()));
         for (String code:
              reportDTO.getMedicines()) {
             boolean exist = false;

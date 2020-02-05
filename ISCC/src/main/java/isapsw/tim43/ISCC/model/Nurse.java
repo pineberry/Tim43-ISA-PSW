@@ -54,7 +54,7 @@ public class Nurse {
 	@Column(name = "first_login")
 	private boolean firstLogin;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Clinic clinic;
 
 	public Nurse(long id, String email, String password, String firstName, String lastName, String phoneNumber,

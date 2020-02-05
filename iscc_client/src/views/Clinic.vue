@@ -61,7 +61,7 @@ export default {
     },
     beforeMount : function() {
         this.clinicID = this.$route.params.id;
-        this.axios.get("http://localhost:8080/clinic/" + this.clinicID)
+        this.axios.get("http://localhost:8080/clinic/single/" + this.clinicID)
         .then(response => {
             this.clinic = response.data;
             this.doctors = this.clinic.doctors;

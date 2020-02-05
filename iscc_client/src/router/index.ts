@@ -167,6 +167,11 @@ const routes = [
         component: Doctors
     },
     {
+      path: "/doctor_:id",
+      name: "doctor",
+      component: () => import('../views/Doctor.vue')
+    },
+    {
         path: "/scheduling_:detail",
         name: "scheduleAppointment",
         component: ScheduleAppointment
@@ -241,11 +246,6 @@ const routes = [
     component: () => import('../views/MedicalRecord.vue')
   },
   {
-    path: "/editDoctor",
-    name: "editDoctor",
-    component: EditDoctor
-  },
-  {
     path: "/changePasswordDoctor",
     name: "DoctorPasswordChange",
     component: PasswordChange
@@ -284,41 +284,6 @@ const routes = [
     path: "/editDoctor",
     name: "editDoctor",
     component: EditDoctor
-  },
-  {
-    path: "/changePasswordDoctor",
-    name: "DoctorPasswordChange",
-    component: PasswordChange
-  },
-  {
-    path: "/clinicProfile",
-    name: "ClinicProfile",
-    component: ClinicProfile
-  },
-  {
-    path: "/editClinic",
-    name: "EditClinic",
-    component: EditClinic
-  },
-  {
-    path: "/searchPatients",
-    name: "SearchPatients",
-    component: SearchPatients
-  },
-  {
-    path: "/patientData",
-    name: "PatientData",
-    component: PatientData
-  },
-  {
-    path: "/patientRecord",
-    name: "PatientRecord",
-    component: PatientRecord
-  },
-  {
-    path: "/reschedule",
-    name: "RescheduleAppointment",
-    component: RescheduleAppointment
   }
 ];
 

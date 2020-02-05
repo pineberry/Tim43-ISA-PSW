@@ -9,11 +9,11 @@
                     <input type="number" min="0" max="5" step=".1" class="form-control col m-1" placeholder="Rating" id="rating" v-model="rating"
                     data-toggle="tooltip" data-placement="top" data-html="true" title="Average rating">
                     <div class="form-check col m-1 align-self-center">
-                            <input class="form-check-input" type="checkbox" id="allRatingsChecked" v-model="allRatingsChecked">
-                            <label class="form-check-label" for="allRatingsChecked">
-                                <small>Disregard ratings</small>
-                            </label>
-                        </div>
+                        <input class="form-check-input" type="checkbox" id="allRatingsChecked" v-model="allRatingsChecked">
+                        <label class="form-check-label" for="allRatingsChecked">
+                            <small>Disregard ratings</small>
+                        </label>
+                    </div>
                 </div>
             </form>
 		</div>

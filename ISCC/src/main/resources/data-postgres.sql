@@ -69,8 +69,9 @@ values ('veselinkajovanovic@mail.com', 'nestonesto', 'Veselinka', 'Jovanović', 
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
 values ('dragoslavmaksimovic@mail.com', 'nestonesto', 'Dragoslav', 'Maksimović', 'Vuka Karadžića 19', 'Subotica', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 4, 5, true);
 
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
-values (1, '2019-12-12 12:30:00', 1, 1, 162, '12:00', '13:00', 0.0, true);
+
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
+values (1, '2019-12-12 12:30:00', 1, 1, 2, 162, '12:00', '13:00', 0.0, true);
 insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
 values (2, '2020-3-1 12:30:00', 1, 1, 162, '08:00', '9:30', 0.0, true);
 insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
@@ -86,11 +87,27 @@ insert into medicine (name, code) values ('Panklav', '4-A1');
 
 insert into diagnosis(name, latin_name, code) values ('Upala uva', 'Upalius usus', '1A1C');
 insert into diagnosis(name, latin_name, code) values ('Upala sinusa', 'Rinitis', '1A2C');
+insert into diagnosis(name, latin_name, code) values ('Zapaljenje zdrela', 'Laringitis', '1A3C');
+insert into diagnosis(name, latin_name, code) values ('Inflamacija brongija', 'Bronhitis', '1A4C');
+insert into diagnosis(name, latin_name, code) values ('Hronicna glavobolja', 'Migrena', '1A5C');
+insert into diagnosis(name, latin_name, code) values ('Dijabetes tip I', 'Diabetes mellitus', '1B1C');
+insert into diagnosis(name, latin_name, code) values ('Dijabetes tip II', 'Diabetes mellitus II', '1B2C');
+--insert into diagnosis(name, latin_name, code) values ('', '', '');
 
 insert into report (notes, diagnosis_id, doctor_id, record_id) 
 values ('Pacijent se zali na zacepljeno levo uvo. Izrazena osetljivost pri dodiru oko usnog kanala', 1, 4, 2);
+insert into report (notes, diagnosis_id, doctor_id, record_id) 
+values ('Pacijent se zali na zacepljenje sinusa, ne moze da dise kroz nos', 2, 4, 2);
+insert into report (notes, diagnosis_id, doctor_id, record_id) 
+values ('Vidljiva inflamacija zadnjeg dela zdrela i grkljana, otekli krajnici', 3, 6, 2);
+insert into report (notes, diagnosis_id, doctor_id, record_id) 
+values ('Pacijent se zali na konstantne bolove u predelu prednjeg dela lobanje i slepoocnica', 5, 2, 2);
 
-insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 1, 1, 1, 1);
+insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 4, 4, 1, 1);
+insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 2, 4, 1, 2);
+insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 4, 4, 1, 2);
+insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 4, 4, 1, 3);
+insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 3, 4, 1, 4);
 
 insert into clinic_administrator (email, password, first_name, last_name, phone_number, address, city, state, clinic_id, first_login)
 values ('admin@gmail.com', 'nesto', 'Dwight', 'Schrute', '065000000', 'Schrute Farm', 'Scranton', 'Pennsylvania', 1, false);
