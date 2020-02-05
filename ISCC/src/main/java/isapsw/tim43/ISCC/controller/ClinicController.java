@@ -62,7 +62,7 @@ public class ClinicController {
     	if(clinicService.findOne(clinicID) == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} else {
-			return new ResponseEntity<ClinicDTO>(new ClinicDTO(clinicService.findOne(id)),HttpStatus.OK);
+			return new ResponseEntity<ClinicDTO>(new ClinicDTO(clinicService.findOne(clinicID)),HttpStatus.OK);
 		}
     }
 

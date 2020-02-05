@@ -66,9 +66,9 @@ const routes = [
     component: Calendar
   },
   {
-      path: "/editReport/:id",
-      name: "editReport",
-      component: EditExamReport
+    path: "/editReport/:id",
+    name: "editReport",
+    component: EditExamReport
   },
   {
     path: "/editMedicalRecord/:id",
@@ -174,26 +174,26 @@ const routes = [
     name: "report",
     component: Report
   },
-    {
-        path: "/searchRooms",
-        name: "searchMedicalRooms",
-        component: SeachMedicalRooms
-    },
-    {
-        path: "/doctors",
-        name: "doctors",
-        component: Doctors
-    },
-    {
-      path: "/doctor_:id",
-      name: "doctor",
-      component: () => import('../views/Doctor.vue')
-    },
-    {
-        path: "/scheduling_:detail",
-        name: "scheduleAppointment",
-        component: ScheduleAppointment
-    },
+  {
+    path: "/searchRooms",
+    name: "searchMedicalRooms",
+    component: SeachMedicalRooms
+  },
+  {
+    path: "/doctors",
+    name: "doctors",
+    component: Doctors
+  },
+  {
+    path: "/doctor_:id",
+    name: "doctor",
+    component: () => import('../views/Doctor.vue')
+  },
+  {
+    path: "/scheduling_:detail",
+    name: "scheduleAppointment",
+    component: ScheduleAppointment
+  },
   {
     path: "/editType",
     name: "editProcedureType",
@@ -207,29 +207,30 @@ const routes = [
   {
     path: "/clinicCenterAdministratorHome",
     name: "clinicCenterAdministratorHome",
-    component : ClinicCenterAdministratorHome
+    component: ClinicCenterAdministratorHome
   },
   {
     path: "/clinicAdministratorHome",
     name: "clinicAdministratorHome",
-    component : () => import('../components/ClinicAdministratorHome.vue')
+    component: () => import('../components/ClinicAdministratorHome.vue')
   },
   {
     path: "/nurseHome",
     name: "nurseHome",
-    component : () => import('../components/NurseHome.vue')
+    component: () => import('../components/NurseHome.vue')
   },
   {
     path: "/doctorHome",
     name: "doctorHome",
-    component : () => import('../components/DoctorHome.vue')
+    component: () => import('../components/DoctorHome.vue')
   },
   {
     path: "/patientProfile",
     name: "patientProfile",
     component: () => import('../views/PatientProfile.vue')
   },
-  {path: "/editRoom",
+  {
+    path: "/editRoom",
     name: "editMedicalRoom",
     component: EditMedicalRoom
   },
@@ -246,7 +247,7 @@ const routes = [
   {
     path: "/patientAppointments",
     name: "patientAppointments",
-    component : () => import('../components/PatientAppointments.vue')
+    component: () => import('../components/PatientAppointments.vue')
   },
   {
     path: "/clinics",
@@ -317,19 +318,6 @@ const routes = [
     path: "/businessReport",
     name: "ClinicBusinessReport",
     component: ClinicBusinessReport
-    path: "/changePasswordDoctor",
-    name: "DoctorPasswordChange",
-    component: PasswordChange
-  },
-  {
-    path: "/clinicProfile",
-    name: "ClinicProfile",
-    component: ClinicProfile
-  },
-  {
-    path: "/editClinic",
-    name: "EditClinic",
-    component: EditClinic
   },
   {
     path: "/choseDoctors",
