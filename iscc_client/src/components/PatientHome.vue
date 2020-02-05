@@ -2,7 +2,7 @@
 	<div class="container p-0">
         <ul class="nav nav-tabs swatch-cyan justify-content-between">
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="http://localhost:8081/patientHome" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
+                <a class="nav-link dropdown-toggle" v-bind:class="{active: tab === 1}" v-on:click="tab = 1" data-toggle="dropdown" href="http://localhost:8081/patientHome" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
                 <div class="dropdown-menu">
 					<router-link class="dropdown-item" to="patientProfile">Profile</router-link>
 					<a class="dropdown-item bg-danger text-white" v-on:click="logout" href="http://localhost:8081">
@@ -10,6 +10,13 @@
                     </a>
                 </div>
             </li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 2}" v-on:click="tab = 2">Appointments</a></li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 3}" v-on:click="tab = 3">Medical record</a></li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Procedure history</a></li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 5}" v-on:click="tab = 5">Clinics</a></li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 6}" v-on:click="tab = 6">Doctors</a></li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 7}" v-on:click="tab = 7"><img class="size" src="../images/search.svg"><span class="pl-2">Available</span></a></li>
+<!-- 
             <li class="nav-item">
                 <router-link class="nav-link pl-4 pr-4" to="patientAppointments">Appointments</router-link>
             </li>
@@ -27,20 +34,57 @@
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="searchAvailableDoctorsAtClinic"><img class="size" src="../images/search.svg"><span class="pl-2">Available</span></router-link>
-            </li>
+            </li> -->
         </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}" >
+                <PatientProfile/>
+            </div>
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 2}" >
+                <PatientAppointments/>
+            </div>
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 3}" >
+                <MedicalRecord/>
+            </div>
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 4}" >
+                <ProcedureHistory/>
+            </div>
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 5}" >
+                <Clinics/>
+            </div>
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 6}" >
+                <Doctors/>
+            </div>
+            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 7}" >
+                <SearchAvailableDoctorsAtClinic/>
+            </div>
+        </div>
 	</div>
 </template>
 
 <script>
-    import SearchAvailableDoctorsAtClinic from '../views/SearchAvailableDoctorsAtClinic.vue';
+    import PatientProfile from '../views/PatientProfile.vue';
+    import PatientAppointments from '../components/PatientAppointments.vue';
+    import MedicalRecord from '../views/MedicalRecord.vue';
+    import ProcedureHistory from '../views/ProcedureHistory.vue';
+    import Clinics from '../views/Clinics.vue';
+    import Doctors from '../views/Doctors.vue';
+    import SearchAvailableDoctorsAtClinic from "../views/SearchAvailableDoctorsAtClinic.vue";
     export default {
+        components : {
+            PatientProfile,
+            PatientAppointments,
+            MedicalRecord,
+            ProcedureHistory,
+            Clinics,
+            Doctors,
+            SearchAvailableDoctorsAtClinic
+        },
         name: "patientHome",
         data : function() {
             return {
                 user : localStorage.getItem('user'),
-                notificationCount: 0, 
-                appointments : []
+                tab: 1
             }
         },
         methods : {
