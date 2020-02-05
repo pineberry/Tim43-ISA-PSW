@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -187,8 +188,10 @@ public class MedicalProcedureService {
 
 		List<MedicalProcedureDTO> procedures = new ArrayList<MedicalProcedureDTO>();
 		for (MedicalProcedure procedure : findAll()) {
-			if (procedure.getPatient().getId() == patientID && procedure.getDateOfProcedure().after(new Date())) {
-				procedures.add(new MedicalProcedureDTO(procedure));
+			if (procedure.getPatient() != null) {
+				if (procedure.getPatient().getId() == patientID && procedure.getDateOfProcedure().after(new Date())) {
+					procedures.add(new MedicalProcedureDTO(procedure));
+				} 
 			}
 		}
 
@@ -199,8 +202,10 @@ public class MedicalProcedureService {
 		
 		List<MedicalProcedureDTO> procedures = new ArrayList<MedicalProcedureDTO>();
 		for (MedicalProcedure procedure : findAll()) {
-			if (procedure.getPatient().getId() == patientID && procedure.getDateOfProcedure().before(new Date())) {
-				procedures.add(new MedicalProcedureDTO(procedure));
+			if (procedure.getPatient() != null) {
+				if (procedure.getPatient().getId() == patientID && procedure.getDateOfProcedure().before(new Date())) {
+					procedures.add(new MedicalProcedureDTO(procedure));
+				} 
 			}
 		}
 		
@@ -294,5 +299,38 @@ public class MedicalProcedureService {
 		}
 		medicalProcedureRepository.save(procedure.get());
 	}
+
+	public List<MedicalProcedureDTO> getPredefinedProcedures(Long clinicID) {
+		List<MedicalProcedureDTO> procedures = new ArrayList<MedicalProcedureDTO>();
+		
+		for (MedicalProcedure procedure : findAll()) {
+			if(procedure.getPatient() == null && //predefinisana
+					procedure.getDoctor().getClinic().getId()==clinicID) //trazena za datu kliniku  
+			{
+				procedure.setPrice(0);
+				procedures.add(new MedicalProcedureDTO(procedure));
+			}
+		}
+		
+		return procedures;
+	}
+
+	public List<MedicalProcedureDTO> confirmPredefinedAppointment(MedicalProcedureDTO procedure, Long patientID) throws MailException, InterruptedException {
+		MedicalProcedure mp = findOne(procedure.getId());
+		mp.setPatient(patientService.findById(patientID));
+		mp.setBooked(true);
+		mp.setDoctorRated(false);
+		mp.setClinicRated(false);
+		
+		String emailContent = "Dear " + mp.getPatient().getFirstName() + " "
+        		+ mp.getPatient().getLastName() + ",\nYour appointment has been scheduled for "
+        		+ mp.getDateOfProcedure().toString() + ".";
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+
+		medicalProcedureRepository.save(mp);
+
+		return getPatientsProcedures(patientID);
+	}
+
 
 }

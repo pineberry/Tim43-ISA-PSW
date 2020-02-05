@@ -48,8 +48,10 @@ public class MedicalProcedureDTO {
         if (medicalProcedure.getMedicalRoom() != null)
             medicalRoom = new MedicalRoomDTO(medicalProcedure.getMedicalRoom());
         doctor = new DoctorDTO(medicalProcedure.getDoctor());
-        patient = new PatientDTO(medicalProcedure.getPatient());
-        price = medicalProcedure.getPrice();
+        if (medicalProcedure.getPatient()!= null) {
+			patient = new PatientDTO(medicalProcedure.getPatient());
+		}
+		price = medicalProcedure.getPrice();
         discount = medicalProcedure.getDiscount();
         booked = medicalProcedure.isBooked();
         startTime = medicalProcedure.getStartTime();

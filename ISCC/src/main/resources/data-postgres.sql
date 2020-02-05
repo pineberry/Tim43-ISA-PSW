@@ -85,6 +85,16 @@ values (2, '2020-3-1 12:30:00', 1, 1, 3, 162, '08:00', '9:30', 0.0, true, false,
 insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
 values (1, '2020-2-9 12:30:00', 1, 1, 3, 162, '8:40', '9:50', 0.0, true, false, false);
 
+--unapred
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id,  price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2020-3-1 12:00:00', 1, 1, 162, '12:00', '13:00', 0.0, false, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id,  price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2020-3-2 12:00:00', 1, 1, 162, '12:00', '13:00', 0.0, false, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id,  price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2020-3-2 13:00:00', 1, 1, 162, '13:00', '16:00', 0.0, false, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id,  price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2020-3-3 12:00:00', 1, 1, 162, '12:00', '13:00', 0.0, false, false, false);
+
 insert into nurse (email, password, first_name, last_name, phone_number, address, city, state, first_login, clinic_id, on_vacation)
 values ('judimila@gmail.com', 'judi4life', 'Judmila', 'Karapandza', '2130457', 'Palih Boraca 1', 'Rakovac Donji', 'Danska', 'false', 1, 'false');
 

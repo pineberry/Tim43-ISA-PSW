@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,6 +65,17 @@ public class MedicalProcedureController {
     		return new ResponseEntity<>(medicalProcedureService.getPatientsPastProcedures(patientID), HttpStatus.OK);
     	}
     }
+    
+    @GetMapping(value = "/predefined/{clinicID}")  // vraca procedure koje su aktuelne -> nisu prosle
+    public ResponseEntity<List<MedicalProcedureDTO>> getPredefinedProcedures(@PathVariable Long clinicID)
+    {
+    	if (medicalProcedureService.getPredefinedProcedures(clinicID).isEmpty()) 
+    	{
+    		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    	} else {
+    		return new ResponseEntity<>(medicalProcedureService.getPredefinedProcedures(clinicID), HttpStatus.OK);
+    	}
+    }
 
     @GetMapping(value = "/doctor/{id}")
     public ResponseEntity<List<MedicalProcedureDTO>> getProceduresByDoctor(@PathVariable Long id) {
@@ -111,6 +123,20 @@ public class MedicalProcedureController {
     public ResponseEntity<List<MedicalProcedureDTO>> confirmAppointment(@RequestBody MedicalProcedureDTO procedure) {
     	
     	List<MedicalProcedureDTO> procedures = medicalProcedureService.confirmAppointment(procedure);
+    	
+    	if (procedures.isEmpty()) 
+    	{
+    		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    	} else {
+    		return new ResponseEntity<>(procedures, HttpStatus.OK);
+    	}
+    }
+    
+    @PutMapping(value = "/predefined_appointment/{patientID}")
+    public ResponseEntity<List<MedicalProcedureDTO>> confirmPredefinedAppointment(@RequestBody MedicalProcedureDTO procedure, @PathVariable Long patientID) throws MailException, InterruptedException {
+    	
+    	
+    	List<MedicalProcedureDTO> procedures = medicalProcedureService.confirmPredefinedAppointment(procedure, patientID);
     	
     	if (procedures.isEmpty()) 
     	{
