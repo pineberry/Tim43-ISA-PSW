@@ -10,6 +10,7 @@ import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -65,6 +66,8 @@ public class MedicalProcedureService {
         medicalProcedure.setPrice(medicalProcedureDTO.getPrice());
         medicalProcedure.setDiscount(0);
         medicalProcedure.setBooked(false);
+        medicalProcedure.setDoctorRated(false);
+        medicalProcedure.setClinicRated(false);
         medicalProcedure.setStartTime(medicalProcedureDTO.getStartTime());
         medicalProcedure.setEndTime(medicalProcedureDTO.getEndTime());
 
@@ -208,6 +211,8 @@ public class MedicalProcedureService {
 	public List<MedicalProcedureDTO> confirmAppointment(MedicalProcedureDTO procedure) {
 		MedicalProcedure mp = findOne(procedure.getId());
 		mp.setBooked(true);
+		mp.setDoctorRated(false);
+		mp.setClinicRated(false);
 
 		medicalProcedureRepository.save(mp);
 
@@ -279,5 +284,15 @@ public class MedicalProcedureService {
             medicalProcedureRepository.save(medicalProcedure);
         }
     }
+
+	public void updateMedicalProcedure(Long appointmentId, String rated) {
+		Optional<MedicalProcedure> procedure = medicalProcedureRepository.findById(appointmentId);
+		if(rated.equals("clinic")) {
+			procedure.get().setClinicRated(true);
+		} else {
+			procedure.get().setDoctorRated(true);
+		}
+		medicalProcedureRepository.save(procedure.get());
+	}
 
 }

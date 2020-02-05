@@ -174,4 +174,10 @@ public class ClinicService {
         int targetYear = targetCalendar.get(Calendar.YEAR);
         return month == targetMonth && year == targetYear;
     }
+
+	public void updateClinicRate(Long id, int rate) {
+		Optional<Clinic> clinic = clinicRepository.findById(id);
+		clinic.get().setAverageRating((clinic.get().getAverageRating()+rate)/2);
+		clinicRepository.save(clinic.get());
+	}
 }

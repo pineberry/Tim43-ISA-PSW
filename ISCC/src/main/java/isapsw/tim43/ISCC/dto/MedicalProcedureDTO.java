@@ -22,11 +22,13 @@ public class MedicalProcedureDTO {
     private boolean booked;
     private String startTime;
     private String endTime;
+    private boolean doctorRated;
+	private boolean clinicRated;
 
     public MedicalProcedureDTO(){}
 
     public MedicalProcedureDTO(long id, ProcedureTypeDTO procedureType, Date dateOfProcedure,
-                               MedicalRoomDTO medicalRoom, DoctorDTO doctor, float price, float discount, boolean booked) {
+                               MedicalRoomDTO medicalRoom, DoctorDTO doctor, float price, float discount, boolean booked, boolean doctorRated, boolean clinicRated) {
         this.id = id;
         this.procedureType = procedureType;
         this.dateOfProcedure = dateOfProcedure;
@@ -35,6 +37,8 @@ public class MedicalProcedureDTO {
         this.price = price;
         this.discount = discount;
         this.booked = booked;
+        this.doctorRated = doctorRated;
+        this.clinicRated = clinicRated;
     }
 
     public MedicalProcedureDTO(MedicalProcedure medicalProcedure){
@@ -50,6 +54,8 @@ public class MedicalProcedureDTO {
         booked = medicalProcedure.isBooked();
         startTime = medicalProcedure.getStartTime();
         endTime = medicalProcedure.getEndTime();
+        clinicRated = medicalProcedure.isClinicRated();
+        doctorRated = medicalProcedure.isDoctorRated();
     }
 
 }

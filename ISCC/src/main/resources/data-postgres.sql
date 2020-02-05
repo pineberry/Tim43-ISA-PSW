@@ -70,18 +70,20 @@ insert into doctor (email, password, first_name, last_name, address, city, state
 values ('dragoslavmaksimovic@mail.com', 'nestonesto', 'Dragoslav', 'Maksimović', 'Vuka Karadžića 19', 'Subotica', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 4, 5, true);
 
 
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
-values (1, '2019-12-12 12:30:00', 1, 1, 2, 162, '12:00', '13:00', 0.0, true);
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
-values (1, '2020-10-3 12:30:00', 3, 1, 2, 162, '12:00', '13:00', 0.0, true);
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
-values (3, '2019-12-20 11:00:00', 2, 3, 2, 180, '11:00', '11:30', 0.0, true);
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
-values (3, '2020-10-10 13:00:00', 2, 3, 2, 150, '13:00', '13:30', 0.0, true);
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
-values (2, '2020-3-1 12:30:00', 1, 1, 3, 162, '08:00', '9:30', 0.0, true);
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked)
-values (1, '2020-2-9 12:30:00', 1, 1, 3, 162, '8:40', '9:50', 0.0, true);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2019-12-12 12:30:00', 1, 1, 2, 162, '12:00', '13:00', 0.0, true, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2020-10-3 12:30:00', 3, 1, 2, 162, '12:00', '13:00', 0.0, true, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2020-10-5 12:30:00', 3, 1, 2, 162, '12:00', '13:00', 0.0, false, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (3, '2019-12-20 11:00:00', 2, 3, 2, 180, '11:00', '11:30', 0.0, true, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (3, '2020-10-10 13:00:00', 2, 3, 2, 150, '13:00', '13:30', 0.0, true, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (2, '2020-3-1 12:30:00', 1, 1, 3, 162, '08:00', '9:30', 0.0, true, false, false);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, price, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
+values (1, '2020-2-9 12:30:00', 1, 1, 3, 162, '8:40', '9:50', 0.0, true, false, false);
 
 insert into nurse (email, password, first_name, last_name, phone_number, address, city, state, first_login, clinic_id, on_vacation)
 values ('judimila@gmail.com', 'judi4life', 'Judmila', 'Karapandza', '2130457', 'Palih Boraca 1', 'Rakovac Donji', 'Danska', 'false', 1, 'false');

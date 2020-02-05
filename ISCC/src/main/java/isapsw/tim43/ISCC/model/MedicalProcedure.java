@@ -58,10 +58,16 @@ public class MedicalProcedure {
 
 	@Column(name = "booked")
 	private boolean booked;
+	
+	@Column(name = "doctorRated")
+	private boolean doctorRated;
+	
+	@Column(name = "clinicRated")
+	private boolean clinicRated;
 //	private Report report;
 
 	public MedicalProcedure(long id, ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
-			Doctor doctor, float price, float discount, boolean booked) {
+			Doctor doctor, float price, float discount, boolean booked, boolean doctorRated, boolean clinicRated) {
 		super();
 		this.id = id;
 		this.procedureType = procedureType;
@@ -70,6 +76,8 @@ public class MedicalProcedure {
 		this.doctor = doctor;
 		this.price = price;
 		this.discount = discount;
+		this.doctorRated = doctorRated;
+		this.clinicRated = clinicRated;
 		this.booked = booked;
 	}
 	public MedicalProcedure(ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
