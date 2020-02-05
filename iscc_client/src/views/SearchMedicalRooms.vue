@@ -79,6 +79,7 @@
                 medicalRooms: null,
                 unfilteredRooms: null,
                 procedureId: 0,
+                typeOfExamination: this.$route.query.type,
                 filterName: undefined,
                 filterNumber: undefined,
             }
@@ -88,8 +89,8 @@
                 .then(response => {
                     this.unfilteredRooms = response.data;
                     this.medicalRooms = this.unfilteredRooms.slice();
-                    if (this.$route.params.id != undefined) {
-                        this.procedureId = this.$route.params.id;
+                    if (this.$route.query.proc != undefined) {
+                        this.procedureId = this.$route.query.proc;
                     }
                 })
         },
@@ -143,17 +144,24 @@
                     })
             },
             bookRoom: function (id) {
-                this.axios.put("http://localhost:8080/medical/procedure/" + this.procedureId + "/" + id)
-                    .then(response => {this.$router.push('/adminProfile');})
-                    .catch(error => {
-                        if(confirm('Would you like automatically to book room?')) {
-                            this.axios.put("http://localhost:8080/medical/procedure/auto/book/" + this.procedureId)
-                                .then(response => {
-                                    var procedure = response.data;
-                                    alert('Brao');
-                                })
-                        }
-                    })
+                if(this.typeOfExamination != undefined) {
+                    if(this.typeOfExamination == 'exam'){
+                    this.axios.put("http://localhost:8080/medical/procedure/" + this.procedureId + "/" + id)
+                        .then(response => {this.$router.push('/adminProfile');})
+                        .catch(error => {
+                            if(confirm('Would you like automatically to book room?')) {
+                                this.axios.put("http://localhost:8080/medical/procedure/auto/book/" + this.procedureId)
+                                    .then(response => {
+                                        var procedure = response.data;
+                                        alert('Brao');
+                                    })
+                            }
+                        })
+                    }
+                    else if(this.typeOfExamination == 'surgery') {
+                        this.$router.push('/choseDoctors?proc=' + this.procedureId + '&room=' + id);
+                    }
+                }
             },
             dateFormating: function(date){
                 if (!date) return '';

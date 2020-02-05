@@ -69,12 +69,12 @@ values ('veselinkajovanovic@mail.com', 'nestonesto', 'Veselinka', 'Jovanović', 
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
 values ('dragoslavmaksimovic@mail.com', 'nestonesto', 'Dragoslav', 'Maksimović', 'Vuka Karadžića 19', 'Subotica', 'Srbija', '123456', 0, 'false', '07:00', '16:00', 4, 5, true);
 
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
-values (1, '2019-12-12 12:30:00', 1, 1, 162, '12:00', '13:00', 0.0, true);
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
-values (2, '2020-3-1 12:30:00', 1, 1, 162, '08:00', '9:30', 0.0, true);
-insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked)
-values (1, '2020-2-9 12:30:00', 1, 1, 162, '8:40', '9:50', 0.0, true);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked, patient_id)
+values (1, '2019-12-12 12:30:00', 1, 1, 162, '12:00', '13:00', 0.0, true, 1);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked, patient_id)
+values (2, '2020-3-1 12:30:00', 1, 1, 162, '08:00', '9:30', 0.0, true, 2);
+insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, price, start_time, end_time, discount, booked, patient_id)
+values (1, '2020-2-9 12:30:00', 1, 1, 162, '8:40', '9:50', 0.0, true, 3);
 
 insert into nurse (email, password, first_name, last_name, phone_number, address, city, state, first_login, clinic_id, on_vacation)
 values ('judimila@gmail.com', 'judi4life', 'Judmila', 'Karapandza', '2130457', 'Palih Boraca 1', 'Rakovac Donji', 'Danska', 'false', 1, 'false');

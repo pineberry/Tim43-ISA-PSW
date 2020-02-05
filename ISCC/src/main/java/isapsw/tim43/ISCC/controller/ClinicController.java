@@ -1,9 +1,11 @@
 package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.ClinicDTO;
+import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.service.ClinicService;
+import isapsw.tim43.ISCC.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +29,9 @@ public class ClinicController {
     @Autowired
     ClinicService clinicService;
 
+    @Autowired
+    DoctorService doctorService;
+
     @GetMapping(value = "/clinics", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ClinicDTO>> getAllClinics() {
         List<Clinic> clinics = clinicService.findAll();
@@ -40,12 +45,12 @@ public class ClinicController {
     }
     
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClinicDTO> getClinicById(@PathVariable("id") Long clinicID) {
+    public ResponseEntity<ClinicDTO> getClinicById(@PathVariable Long id) {
     	
-    	if(clinicService.findOne(clinicID) == null) {
+    	if(clinicService.findOne(id) == null) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	} else {
-			return new ResponseEntity<ClinicDTO>(new ClinicDTO(clinicService.findOne(clinicID)),HttpStatus.OK);
+			return new ResponseEntity<ClinicDTO>(new ClinicDTO(clinicService.findOne(id)),HttpStatus.OK);
 		}
     }
 
@@ -68,6 +73,16 @@ public class ClinicController {
             return new ResponseEntity<>(medicalRoomDTOList, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = "doctors/{id}")
+    public ResponseEntity<List<DoctorDTO>> getDoctorsByClinic(@PathVariable Long id){
+        List<DoctorDTO> doctorDTOS = doctorService.getDoctorsByClinic(id);
+        if(doctorDTOS == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
         }
     }
 

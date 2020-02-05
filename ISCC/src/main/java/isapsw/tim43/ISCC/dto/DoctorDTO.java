@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.Doctor;
@@ -25,6 +26,7 @@ public class DoctorDTO {
 	private ProcedureType specialized;
 	private ClinicDTO clinic;
 	private List<MedicalProcedure> medicalProcedures;
+	private List<MedicalProcedureDTO> attendingProcedures = new ArrayList<>();
 	
 	
 	public DoctorDTO() {}

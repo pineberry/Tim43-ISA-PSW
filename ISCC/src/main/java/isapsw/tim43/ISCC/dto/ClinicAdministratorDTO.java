@@ -11,7 +11,7 @@ public class ClinicAdministratorDTO {
     private String password;
     private String firstName;
     private String lastName;
-    private String clinicName;
+    private ClinicDTO clinic;
     private String phoneNumber;
     private String address;
     private String city;
@@ -21,7 +21,7 @@ public class ClinicAdministratorDTO {
     }
 
     public ClinicAdministratorDTO(Long id, String email, String password, String firstName, String lastName,
-                                  String phoneNumber, String address, String city, String state, String clinicName) {
+                                  String phoneNumber, String address, String city, String state, ClinicDTO clinicName) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -31,7 +31,7 @@ public class ClinicAdministratorDTO {
         this.address = address;
         this.city = city;
         this.state = state;
-        this.clinicName = clinicName;
+        this.clinic = clinicName;
     }
 
 
@@ -40,6 +40,6 @@ public class ClinicAdministratorDTO {
         this(clinicAdministrator.getId(), clinicAdministrator.getEmail(), clinicAdministrator.getPassword(),
                 clinicAdministrator.getFirstName(), clinicAdministrator.getLastName(),
                 clinicAdministrator.getPhoneNumber(), clinicAdministrator.getAddress(), clinicAdministrator.getCity(),
-                clinicAdministrator.getState(), clinicAdministrator.getClinic().getName());
+                clinicAdministrator.getState(),new ClinicDTO(clinicAdministrator.getClinic()));
     }
 }

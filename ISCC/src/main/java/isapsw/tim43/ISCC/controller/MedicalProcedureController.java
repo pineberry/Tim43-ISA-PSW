@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.controller;
 
+import isapsw.tim43.ISCC.dto.BookOperationDTO;
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.service.MedicalProcedureService;
@@ -67,6 +68,18 @@ public class MedicalProcedureController {
     public ResponseEntity<Void> bookRoom(@PathVariable("procedureId") Long procedureId,
                                          @PathVariable("roomId") Long roomId) throws InterruptedException {
         if (medicalProcedureService.bookRoom(procedureId, roomId) != null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "/book/operation", consumes = "application/json")
+    public ResponseEntity<Void> bookOperation(@RequestBody BookOperationDTO operationDTO) throws InterruptedException{
+        MedicalProcedureDTO medicalProcedureDTO = medicalProcedureService.bookOperationRoom(operationDTO.getProcedureId(),
+                                                                    operationDTO.getRoomId(), operationDTO.getDoctorsId());
+
+        if(medicalProcedureDTO != null) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

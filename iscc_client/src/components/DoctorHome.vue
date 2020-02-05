@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="doctor">
       <ul class="nav nav-tabs swatch-cyan">
           <li class="nav-item">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="http://localhost:8081/doctorHome" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
@@ -10,9 +10,10 @@
                   </a>
               </div>
           </li>
-          <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 1}" v-on:click="tab = 1">Reports</a></li>
+          <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 1}" v-on:click="tab = 1">Reports</a></li>
           <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 2}" v-on:click="tab = 2">Profile</a></li>
           <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 3}" v-on:click="tab = 3">Patients</a></li>
+          <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Calendar</a></li>
         </ul>
       <div class="tab-content">
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}" >
@@ -30,9 +31,9 @@
                       <p>E-mail: {{doctor.email}}</p>
                   </div>
                   <div class="col-4">
-                      <p>Clinic: {{doctor.clinic.name}}</p>
+                      <p>Clinic: {{clinic.name}}</p>
                       <p>Working time: {{doctor.workingtimeStart}} - {{doctor.workingtimeEnd}}</p>
-                      <p>Specialization: {{doctor.specialized.typeName}}</p>
+                      <p>Specialization: {{specialized.typeName}}</p>
                       <p>Average rating: {{doctor.averageRating}}</p>
                   </div>
                   <div class="col-4">
@@ -52,6 +53,9 @@
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 3}" >
               <SearchPatients/>
           </div>
+          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 4}" v-if="doctor.medicalProcedures && doctor.attendingProcedures">
+              <Calendar :doctor="doctor"/>
+          </div>
       </div>
   </div>
 </template>
@@ -59,19 +63,24 @@
 <script>
 import ExaminationReports from "./ExaminationReports";
 import SearchPatients from "../views/SearchPatients.vue";
+import Calendar from "../components/Calendar";
 export default {
-    components: {ExaminationReports, SearchPatients},
+    components: {ExaminationReports, SearchPatients, Calendar},
     data : function() {
         return {
             user : localStorage.getItem('user'),
-            tab : 1,
-            doctor: null
+            tab : 4,
+            doctor: Object,
+            clinic: Object,
+            specialized : Object
         }
     },
     mounted: function() {
       this.axios.get("http://localhost:8080/doctor/" + localStorage.getItem("user_id"))
           .then(response => {
               this.doctor = response.data;
+              this.clinic = this.doctor.clinic;
+              this.specialized = this.doctor.specialized;
           })
     },
     methods : {

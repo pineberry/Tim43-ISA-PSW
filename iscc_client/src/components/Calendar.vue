@@ -1,6 +1,5 @@
-
 <template>
-  <div>
+  <div v-if="doctor">
     <FullCalendar
       ref="fullCalendar"
       defaultView="dayGridMonth"
@@ -16,7 +15,7 @@
       @eventClick="eventClickHandler"
     />
 
-    <modals-container/>
+    <modals-container />
   </div>
 </template>
 
@@ -37,22 +36,53 @@ export default {
   components: {
     FullCalendar // make the <FullCalendar> tag available
   },
+  props: {
+    doctor: Object
+  },
   data: () => ({
     calendarPlugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-    calendarEvents: [],
-    response: undefined
+    calendarEvents: []
   }),
   mounted: function() {
-    if (localStorage.getItem("typeOfUser") == "doctor") {
-      this.axios
-        .get(
-          "http://localhost:8080/medical/procedure/doctor/" +
-            localStorage.getItem("user_id")
-        )
-        .then(response => {
-          this.response = response;
-          let procedures = this.response.data;
-          procedures.forEach(element => {
+    this.populateCalendar();
+  },
+  methods: {
+    eventClickHandler(arg) {
+      this.$modal.show(ModalEvent, {
+        event: arg.event
+      });
+    },
+    populateCalendar() {
+      if (localStorage.getItem("typeOfUser") == "doctor") {
+        let procedures = this.doctor.medicalProcedures;
+        let attending = this.doctor.attendingProcedures;
+        procedures.forEach(element => {
+          let start = new Date(element.dateOfProcedure);
+          let end = new Date(element.dateOfProcedure);
+          let startTime = element.startTime.split(":");
+          let endTime = element.endTime.split(":");
+          start.setHours(parseInt(startTime[0]));
+          start.setMinutes(parseInt(startTime[1]));
+          start.setSeconds(0);
+          end.setHours(parseInt(endTime[0]));
+          end.setMinutes(parseInt(endTime[1]));
+          end.setSeconds(0);
+          this.calendarEvents.push({
+            id: element.id,
+            title: "Pregled",
+            start: start,
+            end: end,
+            allDay: false
+          });
+        });
+        attending.forEach(element => {
+          let exist = false;
+          this.calendarEvents.forEach(ele => {
+            if (element.id === ele.id) {
+              exist = true;
+            }
+          });
+          if (!exist) {
             let start = new Date(element.dateOfProcedure);
             let end = new Date(element.dateOfProcedure);
             let startTime = element.startTime.split(":");
@@ -64,23 +94,15 @@ export default {
             end.setMinutes(parseInt(endTime[1]));
             end.setSeconds(0);
             this.calendarEvents.push({
+              id: element.id,
               title: "Pregled",
               start: start,
               end: end,
               allDay: false
             });
-          });
-        })
-        .catch(error => {
-          console.log(error);
+          }
         });
-    }
-  },
-  methods: {
-    eventClickHandler(arg) {
-      this.$modal.show(ModalEvent, {
-        event: arg.event
-      });
+      }
     }
   }
 };

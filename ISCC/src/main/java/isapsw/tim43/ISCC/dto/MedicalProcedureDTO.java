@@ -3,7 +3,9 @@ package isapsw.tim43.ISCC.dto;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class MedicalProcedureDTO {
@@ -13,6 +15,7 @@ public class MedicalProcedureDTO {
     private Date dateOfProcedure;
     private MedicalRoomDTO medicalRoom;
     private DoctorDTO doctor;
+    private List<DoctorDTO> doctors = new ArrayList<>();
     private PatientDTO patient;
     private float price;
     private float discount;

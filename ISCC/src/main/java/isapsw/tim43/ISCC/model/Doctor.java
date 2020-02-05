@@ -74,6 +74,10 @@ public class Doctor {
 //	@JsonManagedReference(value="doctor-clinic")
 	private Clinic clinic;
 
+	@ManyToMany(mappedBy = "doctors")
+	@JsonIgnore
+	private List<MedicalProcedure> procedures;
+
 	@Column(name = "firstLogin")
 	private boolean firstLogin = true;
 	

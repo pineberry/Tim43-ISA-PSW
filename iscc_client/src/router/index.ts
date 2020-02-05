@@ -37,16 +37,11 @@ import SearchPatients from "../views/SearchPatients.vue";
 import PatientData from "../views/PatientData.vue";
 import PatientRecord from "../views/PatientRecord.vue";
 import RescheduleAppointment from "../views/RescheduleAppointment.vue";
-import Calendar from "../components/Calendar.vue";
+import ChoseDoctors from "../views/ChoseDoctors.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/calendar",
-    name: "calendar",
-    component: Calendar
-  },
   {
       path: "/editReport/:id",
       name: "editReport",
@@ -157,7 +152,7 @@ const routes = [
     component: Report
   },
     {
-        path: "/searchRooms/:id",
+        path: "/searchRooms",
         name: "searchMedicalRooms",
         component: SeachMedicalRooms
     },
@@ -241,26 +236,6 @@ const routes = [
     component: () => import('../views/MedicalRecord.vue')
   },
   {
-    path: "/editDoctor",
-    name: "editDoctor",
-    component: EditDoctor
-  },
-  {
-    path: "/changePasswordDoctor",
-    name: "DoctorPasswordChange",
-    component: PasswordChange
-  },
-  {
-    path: "/clinicProfile",
-    name: "ClinicProfile",
-    component: ClinicProfile
-  },
-  {
-    path: "/editClinic",
-    name: "EditClinic",
-    component: EditClinic
-  },
-  {
     path: "/searchPatients",
     name: "SearchPatients",
     component: SearchPatients
@@ -276,7 +251,7 @@ const routes = [
     component: PatientRecord
   },
   {
-    path: "/reschedule",
+    path: "/reschedule/:id",
     name: "RescheduleAppointment",
     component: RescheduleAppointment
   },
@@ -301,24 +276,9 @@ const routes = [
     component: EditClinic
   },
   {
-    path: "/searchPatients",
-    name: "SearchPatients",
-    component: SearchPatients
-  },
-  {
-    path: "/patientData",
-    name: "PatientData",
-    component: PatientData
-  },
-  {
-    path: "/patientRecord",
-    name: "PatientRecord",
-    component: PatientRecord
-  },
-  {
-    path: "/reschedule",
-    name: "RescheduleAppointment",
-    component: RescheduleAppointment
+    path: "/choseDoctors",
+    name: "ChoseDoctors", 
+    component: ChoseDoctors
   }
 ];
 

@@ -16,7 +16,7 @@
                <p><router-link class="btn btn-primary" :to="{path: '/patientRecord', query: {id: patient.id}}">
                     Medical record
                </router-link></p>
-                <p><router-link class="btn btn-outline-primary" to="/reschedule">Schedule appointment</router-link></p>
+                <p><router-link class="btn btn-outline-primary" :to="{path: '/reschedule/' + id}">Schedule appointment</router-link></p>
             </div>
         </div>
     </div>
@@ -28,6 +28,7 @@
         data: function() {
             return {
                 patient: null,
+                id: this.$route.query.id
             }
         },
         mounted: function() {

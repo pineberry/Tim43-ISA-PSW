@@ -35,7 +35,7 @@ public class ClinicService {
         return clinicRepository.findAll();
     }
 
-    public Clinic findOne(long id) {return clinicRepository.findById(id).orElseGet(null);}
+    public Clinic findOne(Long id) {return clinicRepository.findById(id).orElseGet(null);}
 
     public ClinicDTO edit(ClinicDTO clinicDTO){
         Clinic clinic = findByName(clinicDTO.getName());

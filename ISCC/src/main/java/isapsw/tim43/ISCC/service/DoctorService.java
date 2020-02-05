@@ -1,6 +1,8 @@
 package isapsw.tim43.ISCC.service;
 
+import isapsw.tim43.ISCC.controller.DoctorController;
 import isapsw.tim43.ISCC.dto.DoctorDTO;
+import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.*;
@@ -72,6 +74,31 @@ public class DoctorService {
 		return new DoctorDTO(doctor);
 	}
 
+	public Doctor saveD(Doctor doctor) {
+		return doctorRepository.save(doctor);
+	}
+
+	public List<Doctor> findAllByClinic(Long id) {
+		Clinic clinic = clinicService.findOne(id);
+		return doctorRepository.findAllByClinic(clinic);
+	}
+
+	public List<DoctorDTO> getDoctorsByClinic(Long id) {
+		List<Doctor> doctors = findAllByClinic(id);
+
+		List<DoctorDTO> doctorDTOS = new ArrayList<>();
+		for (Doctor doc: doctors) {
+			DoctorDTO doctorDTO = new DoctorDTO();
+			doctorDTO.setId(doc.getId());
+			doctorDTO.setEmail(doc.getEmail());
+			doctorDTO.setFirstName(doc.getFirstName());
+			doctorDTO.setLastName(doc.getLastName());
+			doctorDTOS.add(doctorDTO);
+		}
+
+		return doctorDTOS;
+	}
+
 	public DoctorDTO update(DoctorDTO doctorDTO){
 		Doctor doctor = findOne(doctorDTO.getId());
 
@@ -123,7 +150,13 @@ public class DoctorService {
 	}
 	
 	public DoctorDTO findOne_(Long id){
-		return new DoctorDTO(doctorRepository.findById(id).get());
+		Doctor doctor = findOne(id);
+		DoctorDTO doctorDTO = new DoctorDTO(doctor);
+		for(MedicalProcedure medProc : doctor.getProcedures()) {
+			MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO(medProc);
+			doctorDTO.getAttendingProcedures().add(medicalProcedureDTO);
+		}
+		return doctorDTO;
 	}
 
 	public List<DoctorDTO> findAll(){
