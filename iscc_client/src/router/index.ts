@@ -263,6 +263,11 @@ const routes = [
     component: () => import('../views/MedicalRecord.vue')
   },
   {
+    path: "/procedureHistory",
+    name: "procedureHistory",
+    component: () => import('../views/ProcedureHistory.vue')
+  },
+  {
     path: "/changePasswordDoctor",
     name: "DoctorPasswordChange",
     component: PasswordChange

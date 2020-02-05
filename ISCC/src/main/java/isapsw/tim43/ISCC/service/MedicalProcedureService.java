@@ -8,6 +8,7 @@ import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,13 +151,26 @@ public class MedicalProcedureService {
 
 		List<MedicalProcedureDTO> procedures = new ArrayList<MedicalProcedureDTO>();
 		for (MedicalProcedure procedure : findAll()) {
-			if (procedure.getPatient().getId() == patientID) {
+			if (procedure.getPatient().getId() == patientID && procedure.getDateOfProcedure().after(new Date())) {
 				procedures.add(new MedicalProcedureDTO(procedure));
 			}
 		}
 
 		return procedures;
 	}
+	
+	public List<MedicalProcedureDTO> getPatientsPastProcedures(Long patientID) {
+		
+		List<MedicalProcedureDTO> procedures = new ArrayList<MedicalProcedureDTO>();
+		for (MedicalProcedure procedure : findAll()) {
+			if (procedure.getPatient().getId() == patientID && procedure.getDateOfProcedure().before(new Date())) {
+				procedures.add(new MedicalProcedureDTO(procedure));
+			}
+		}
+		
+		return procedures;
+	}
+	
 
 	public List<MedicalProcedureDTO> confirmAppointment(MedicalProcedureDTO procedure) {
 		MedicalProcedure mp = findOne(procedure.getId());
@@ -232,4 +246,5 @@ public class MedicalProcedureService {
             medicalProcedureRepository.save(medicalProcedure);
         }
     }
+
 }
