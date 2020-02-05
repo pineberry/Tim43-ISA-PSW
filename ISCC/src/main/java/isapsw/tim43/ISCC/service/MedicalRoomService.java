@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.repository.MedicalRoomRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

@@ -1,5 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
+// import 'mdbvue/lib/css/mdb.min.css'
+
+import L from 'leaflet'
+import { Icon } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+delete Icon.Default.prototype._getIconUri;
+
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
 import Home from "../views/Home.vue";
 import AddClinic from "../views/AddClinic.vue";
 import Register from "../components/Register.vue";
@@ -38,6 +53,8 @@ import PatientData from "../views/PatientData.vue";
 import PatientRecord from "../views/PatientRecord.vue";
 import RescheduleAppointment from "../views/RescheduleAppointment.vue";
 import Calendar from "../components/Calendar.vue";
+import RoomCalendar from "../views/RoomCalendar.vue";
+import ClinicBusinessReport from "../views/ClinicBusinessReport.vue";
 
 Vue.use(VueRouter);
 
@@ -259,6 +276,16 @@ const routes = [
     path: "/reschedule",
     name: "RescheduleAppointment",
     component: RescheduleAppointment
+  },
+  {
+    path: "/roomCalendar",
+    name: "RoomCalendar",
+    component: RoomCalendar
+  },
+  {
+    path: "/businessReport",
+    name: "ClinicBusinessReport",
+    component: ClinicBusinessReport
   }
 ];
 

@@ -103,6 +103,26 @@ public class MedicalProcedureService {
         return medicalProcedureDTOS;
     }
 
+    public List<MedicalProcedureDTO> proceduresByRoom(Long id){
+        MedicalRoom medicalRoom = medicalRoomService.findOne(id);
+        List<MedicalProcedure> procedures = medicalProcedureRepository.findByMedicalRoom(medicalRoom);
+
+        return formatProcedures(procedures);
+    }
+
+    public List<MedicalProcedureDTO> formatProcedures(List<MedicalProcedure> procedures){
+        List<MedicalProcedureDTO> medicalProcedureDTOS = new ArrayList<>();
+        for (MedicalProcedure proc : procedures) {
+            MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO();
+            medicalProcedureDTO.setDateOfProcedure(proc.getDateOfProcedure());
+            medicalProcedureDTO.setStartTime(proc.getStartTime());
+            medicalProcedureDTO.setEndTime(proc.getEndTime());
+            medicalProcedureDTOS.add(medicalProcedureDTO);
+        }
+
+        return medicalProcedureDTOS;
+    }
+
     public MedicalProcedure bookRoom(Long procedureId, Long roomId) throws InterruptedException {
         MedicalRoom medicalRoom = medicalRoomService.findOne(roomId);
         MedicalProcedure medicalProcedure = findOne(procedureId);
@@ -176,6 +196,7 @@ public class MedicalProcedureService {
 
     // Svaki dan u 23:01 svim pregledima koji nemaju dodeljene sale, dodeli jednu
     @Scheduled(cron = "0 1 23 * * ?")
+//    @Scheduled(cron = "0/60 * * * * ?")
     @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
     public void timerBooking() {
         List<MedicalProcedure> medicalProcedures = medicalProcedureRepository.findAllWithoutRoom();

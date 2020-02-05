@@ -5,6 +5,7 @@ import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -65,6 +67,20 @@ public class ClinicController {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(value = "/report/{id}")
+    public ResponseEntity<ClinicDTO> getClinicReport(@PathVariable Long id){
+       ClinicDTO clinicDTO = clinicService.getClinicReport(id);
+       return new ResponseEntity<>(clinicDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/income/{startDate}/{endDate}/{id}")
+    public ResponseEntity<Double> getClinicIncome(@PathVariable Long id,
+                                                  @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                  @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
+        double income = clinicService.getClinicIncome(id, startDate, endDate);
+        return new ResponseEntity<>(income, HttpStatus.OK);
     }
 
 }

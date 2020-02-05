@@ -1,7 +1,15 @@
 package isapsw.tim43.ISCC.dto;
 
 import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.Doctor;
+import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Data
 public class ClinicDTO {
 
     private Long id;
@@ -9,6 +17,8 @@ public class ClinicDTO {
     private String address;
     private String description;
     private double averageRating;
+    Map<String, Integer> numberOfProcedures = new HashMap<String, Integer>();
+    List<Doctor> doctors = new ArrayList<Doctor>();
 
     public ClinicDTO() {
     }
@@ -23,45 +33,5 @@ public class ClinicDTO {
 
     public ClinicDTO(Clinic clinic){
         this(clinic.getId(), clinic.getName(), clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
     }
 }

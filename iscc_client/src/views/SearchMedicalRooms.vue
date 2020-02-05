@@ -48,6 +48,7 @@
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
                         <th v-show="procedureId != 0" scope="col">Book</th>
+                        <th scope="col">Calendar</th>
                     </thead>
                     <tbody>
                         <tr v-for="room in medicalRooms" :key="room.id">
@@ -58,9 +59,11 @@
                             <td><router-link class="btn btn-primary" :to="{path: '/editRoom',query: {roomId: room.id}}">Edit</router-link></td>
                             <td><button class="btn btn-warning" v-on:click="deleteRoom(room)">Delete</button></td>
                             <td v-show="procedureId != 0"><button class="btn btn-warning" v-on:click="bookRoom(room.id)">Book</button></td>
+                            <td><router-link class="btn-primary" :to="{path: '/roomCalendar', query: {id: room.id}}">Details</router-link></td>
                         </tr>
                     </tbody>
                 </table>
+
         </div>
     </div>
 </template>
@@ -81,6 +84,7 @@
                 procedureId: 0,
                 filterName: undefined,
                 filterNumber: undefined,
+                show: false,
             }
         },
         mounted: function(){

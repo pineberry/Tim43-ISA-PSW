@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <router-link class="nav-link" :to="{path: '/clinicProfile',query: {name: this.clinicName}}">Clinics</router-link>
             </li>
+          <li class="nav-item">
+              <router-link class="nav-link" :to="{path: '/businessReport'}">Report</router-link>
+          </li>
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add</a>
                 <div class="dropdown-menu">
