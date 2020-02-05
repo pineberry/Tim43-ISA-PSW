@@ -109,7 +109,7 @@ public class ClinicCenterAdministratorController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        Clinic clinic = clinicService.findByName(clinicAdministratorDTO.getClinicName());
+        Clinic clinic = clinicService.findByName(clinicAdministratorDTO.getClinic().getName());
 
         ClinicAdministrator clinicAdministrator = new ClinicAdministrator();
         clinicAdministrator.setEmail(clinicAdministratorDTO.getEmail());

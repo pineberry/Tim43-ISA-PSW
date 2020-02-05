@@ -52,6 +52,7 @@ import SearchPatients from "../views/SearchPatients.vue";
 import PatientData from "../views/PatientData.vue";
 import PatientRecord from "../views/PatientRecord.vue";
 import RescheduleAppointment from "../views/RescheduleAppointment.vue";
+import ChoseDoctors from "../views/ChoseDoctors.vue";
 import Calendar from "../components/Calendar.vue";
 import RoomCalendar from "../views/RoomCalendar.vue";
 import ClinicBusinessReport from "../views/ClinicBusinessReport.vue";
@@ -174,7 +175,7 @@ const routes = [
     component: Report
   },
     {
-        path: "/searchRooms/:id",
+        path: "/searchRooms",
         name: "searchMedicalRooms",
         component: SeachMedicalRooms
     },
@@ -298,7 +299,7 @@ const routes = [
     component: PatientRecord
   },
   {
-    path: "/reschedule",
+    path: "/reschedule/:id",
     name: "RescheduleAppointment",
     component: RescheduleAppointment
   },
@@ -316,6 +317,24 @@ const routes = [
     path: "/businessReport",
     name: "ClinicBusinessReport",
     component: ClinicBusinessReport
+    path: "/changePasswordDoctor",
+    name: "DoctorPasswordChange",
+    component: PasswordChange
+  },
+  {
+    path: "/clinicProfile",
+    name: "ClinicProfile",
+    component: ClinicProfile
+  },
+  {
+    path: "/editClinic",
+    name: "EditClinic",
+    component: EditClinic
+  },
+  {
+    path: "/choseDoctors",
+    name: "ChoseDoctors",
+    component: ChoseDoctors
   }
 ];
 

@@ -17,7 +17,7 @@
               <router-link class="nav-link nav-item" to="/addMedicalRoom">Medical room</router-link>
               <router-link class="nav-link nav-item" to="/addAppointment">Procedure</router-link>
               <router-link class="nav-link nav-item" to="/report">Report</router-link>
-              <router-link class="nav-link nav-item" to="/searchRooms/0">Search rooms</router-link>
+              <router-link class="nav-link nav-item" to="/searchRooms">Search rooms</router-link>
               <router-link class="nav-link nav-item" to="/searchTypes">Search types</router-link>
               <router-link class="nav-link nav-item" to="/adminProfile">Clinic Admin</router-link>
             </div>
@@ -45,12 +45,6 @@
         </div>
       </div>
     </div>
-    <div v-if="role === 'patient'">
-        <PatientHome />
-    </div>
-    <div v-if="role === 'clinicCenterAdministrator'">
-        <ClinicCenterAdministratorHome />
-    </div>
     <router-view />
   </div>
 </template>
@@ -58,10 +52,6 @@
 <script>
 
 export default {
-  components: {
-    PatientHome : () => import('../src/components/PatientHome.vue'),
-    ClinicCenterAdministratorHome : () => import('../src/components/ClinicCenterAdministratorHome.vue'),
-  },
   data : function () {
     return {
       

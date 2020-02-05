@@ -80,7 +80,7 @@ public class MedicalProcedureService {
 
     public List<MedicalProcedure> findByDoctor(Long id) {
         Doctor doctor = doctorService.findOne(id);
-        return medicalProcedureRepository.findByDoctor(doctor);
+        return doctor.getMedicalProcedures();
     }
 
     public MedicalProcedureDTO getProcedureById(Long id){
@@ -141,10 +141,43 @@ public class MedicalProcedureService {
 
         String emailContent = "Dear " + medicalProcedure.getPatient().getFirstName() + " "
         		+ medicalProcedure.getPatient().getLastName() + ",\nYour appointment has been scheduled for "
-        		+ medicalProcedure.getDateOfProcedure() + ".";
+        		+ medicalProcedure.getDateOfProcedure().toString() + ".";
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
         return medicalProcedureRepository.save(medicalProcedure);
+    }
+
+    public MedicalProcedureDTO bookOperationRoom(Long procedureId, Long roomId, List<Long> doctorsId) throws InterruptedException {
+        MedicalRoom medicalRoom = medicalRoomService.findOne(roomId);
+        MedicalProcedure medicalProcedure = findOne(procedureId);
+        List<Doctor> doctors = new ArrayList<>();
+        for (Long id : doctorsId) {
+            Doctor doctor = doctorService.findOne(id);
+            doctors.add(doctor);
+        }
+
+        if(medicalProcedure == null || medicalRoom == null || doctors.isEmpty()) {
+            return null;
+        }
+
+        medicalProcedure.setDoctors(doctors);
+        medicalProcedure.setMedicalRoom(medicalRoom);
+        medicalProcedure.setBooked(true);
+        medicalProcedureRepository.save(medicalProcedure);
+
+        String emailContent = "Dear " + medicalProcedure.getPatient().getFirstName() + " "
+                + medicalProcedure.getPatient().getLastName() + ",\nYour surgery has been scheduled for "
+                + medicalProcedure.getDateOfProcedure().toString() + " at " + medicalProcedure.getStartTime() + ".";
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+
+        for (Doctor doctor : doctors) {
+            String doctorEmail = "Dear " + doctor.getFirstName() + " "
+                    + doctor.getLastName() + ",\nYou have scheduled surgery for "
+                    + medicalProcedure.getDateOfProcedure().toString() + " at " + medicalProcedure.getStartTime() + ".";
+            emailService.sendNotificationAsync("isa.pws43@gmail.com", doctorEmail);
+        }
+
+        return new MedicalProcedureDTO(medicalProcedure);
     }
 
 	public List<MedicalProcedureDTO> getPatientsProcedures(Long patientID) {
@@ -210,7 +243,7 @@ public class MedicalProcedureService {
                 + medicalProcedureDTO.getDateOfProcedure() + " in period from: " + medicalProcedureDTO.getStartTime()
                 + " to " + medicalProcedureDTO.getEndTime() + "\n\n"
                 + "To accept click on the link below:\n"
-                + "http://localhost:8081/searchRooms/" + medicalProcedureDTO.getId();
+                + "http://localhost:8081/searchRooms?proc=" + medicalProcedureDTO.getId() + "&type=exam";
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
         return medicalProcedureDTO;
@@ -228,7 +261,7 @@ public class MedicalProcedureService {
                 + medicalProcedureDTO.getDateOfProcedure() + " in period from: " + medicalProcedureDTO.getStartTime()
                 + " to" + medicalProcedureDTO.getEndTime() + "\n\n"
                 + "To accept click on the link below:\n"
-                + "TBA";
+                + "http://localhost:8081/searchRooms?proc=" + medicalProcedureDTO.getId() + "&type=surgery";
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 
         return medicalProcedureDTO;

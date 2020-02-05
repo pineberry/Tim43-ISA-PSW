@@ -72,8 +72,8 @@ public class ClinicAdministratorService {
     	clinicAdministrator.setEmail(clinicAdministratorDTO.getEmail());
     	clinicAdministrator.setPhoneNumber(clinicAdministratorDTO.getPhoneNumber());
 
-    	if (!clinicAdministrator.getClinic().getName().equals(clinicAdministratorDTO.getClinicName())) {
-			Clinic clinic = clinicService.findByName(clinicAdministratorDTO.getClinicName());
+    	if (!clinicAdministrator.getClinic().getName().equals(clinicAdministratorDTO.getClinic().getName())) {
+			Clinic clinic = clinicService.findByName(clinicAdministratorDTO.getClinic().getName());
 			clinicAdministrator.setClinic(clinic);
 		}
 

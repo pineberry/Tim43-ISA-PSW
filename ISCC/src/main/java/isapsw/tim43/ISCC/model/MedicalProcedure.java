@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -44,6 +45,11 @@ public class MedicalProcedure {
 
 	@Column(name = "endTime")
 	private String endTime;
+
+	@ManyToMany
+	@JsonIgnore
+	@JoinTable(name = "operating", joinColumns = @JoinColumn(name="procedure_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name="doctor_id", referencedColumnName = "id"))
+	private List<Doctor> doctors;
 
 	/*booked 
 	 * - false: za unapred definisane preglede koji nisu zakazani od strane pacijenta

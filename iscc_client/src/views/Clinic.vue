@@ -54,15 +54,16 @@ export default {
     name: "clinic",
     data : function() {
         return {
-            clinic : undefined,
+            clinic : Object,
             doctors : [], 
             clinicID : undefined
         }
     },
-    beforeMount : function() {
+    mounted : function() {
         this.clinicID = this.$route.params.id;
         this.axios.get("http://localhost:8080/clinic/single/" + this.clinicID)
         .then(response => {
+            console.log(response);
             this.clinic = response.data;
             this.doctors = this.clinic.doctors;
         });

@@ -45,7 +45,8 @@
                 appointment: 'exam',
                 procedureType: null,
                 procedureTypes: null,
-                doctor: null
+                doctor: null,
+                patient: null
             }
         },
         mounted: function() {
@@ -59,6 +60,9 @@
 
             this.axios.get("http://localhost:8080/doctor/" + localStorage.getItem('user_id'))
                 .then(response => {this.doctor = response.data;})
+
+             this.axios.get("http://localhost:8080/patient/" + this.$route.params.id)
+                .then(response => {this.patient = response.data})
         },
         methods: {
             makeAppointment: function() {
@@ -66,6 +70,7 @@
                     "procedureType": this.procedureType,
                     "dateOfProcedure": this.dateOfProcedure,
                     "doctor": this.doctor,
+                    "patient": this.patient,
                     "price" : 0,
                     "startTime": this.startTime,
                     "endTime": this.endTime
