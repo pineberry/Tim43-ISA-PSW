@@ -42,7 +42,7 @@ public class MedicalProcedureController {
         }
     }
     
-    @GetMapping(value = "/patient")
+    @GetMapping(value = "/patient/relevant")  // vraca procedure koje su aktuelne -> nisu prosle
     public ResponseEntity<List<MedicalProcedureDTO>> getPatientsProcedures(@RequestParam(name="patient") Long patientID)
     {
     	if (medicalProcedureService.getPatientsProcedures(patientID).isEmpty()) 
@@ -50,6 +50,17 @@ public class MedicalProcedureController {
     		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     	} else {
     		return new ResponseEntity<>(medicalProcedureService.getPatientsProcedures(patientID), HttpStatus.OK);
+    	}
+    }
+    
+    @GetMapping(value = "/patient/past")  // vraca procedure koje su aktuelne -> nisu prosle
+    public ResponseEntity<List<MedicalProcedureDTO>> getPatientsPastProcedures(@RequestParam(name="patient") Long patientID)
+    {
+    	if (medicalProcedureService.getPatientsProcedures(patientID).isEmpty()) 
+    	{
+    		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    	} else {
+    		return new ResponseEntity<>(medicalProcedureService.getPatientsPastProcedures(patientID), HttpStatus.OK);
     	}
     }
 

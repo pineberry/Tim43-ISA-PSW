@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container row justify-content-center m-0">
         <div class="col-10 card m-5 p-5">
             <div class="row justify-content-center">
                 <p><small>Blood type: </small>{{medicalRecord.bloodType}}</p>

@@ -14,6 +14,9 @@ Vue.prototype.lodash = lodash;
 
 import modal from "vue-js-modal";
 
+const SortedTablePlugin = require('vue-sorted-table');
+Vue.use(SortedTablePlugin);
+
 Vue.config.silent = true; 
 
 Vue.mixin({

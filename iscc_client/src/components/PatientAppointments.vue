@@ -94,11 +94,11 @@ export default {
                 var day = ('0' + formatedDate.getDate()).slice(-2);
                 var year = formatedDate.getFullYear();
                 var hour = formatedDate.getHours();
-                return day + '.' + month + '.' + year + ' - ' + hour + ':00h';
+                return day + '.' + month + '.' + year  + '.' + ' - ' + hour + ':00h';
             }
     },
     mounted: function () {
-        this.axios.get("http://localhost:8080/medical/procedure/patient", {
+        this.axios.get("http://localhost:8080/medical/procedure/patient/relevant", {
             params: {
                 patient : localStorage.getItem('user_id')}
         })
