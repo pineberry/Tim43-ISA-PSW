@@ -13,6 +13,7 @@ import isapsw.tim43.ISCC.repository.DoctorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DoctorService {
@@ -231,6 +232,13 @@ public class DoctorService {
 		}
 
 		return null;
+	}
+
+	public void updateDoctorRate(Long id, int rate) {
+		Optional<Doctor> doctor = doctorRepository.findById(id);
+		doctor.get().setAverageRating((doctor.get().getAverageRating()+rate)/2);
+		doctorRepository.save(doctor.get());
+		
 	}
 
 

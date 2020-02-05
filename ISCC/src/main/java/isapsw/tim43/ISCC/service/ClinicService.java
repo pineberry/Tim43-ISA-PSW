@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClinicService {
@@ -93,4 +94,10 @@ public class ClinicService {
 
         return doctorDTOList;
     }
+
+	public void updateClinicRate(Long id, int rate) {
+		Optional<Clinic> clinic = clinicRepository.findById(id);
+		clinic.get().setAverageRating((clinic.get().getAverageRating()+rate)/2);
+		clinicRepository.save(clinic.get());
+	}
 }

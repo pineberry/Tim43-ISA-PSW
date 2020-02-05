@@ -43,7 +43,6 @@ export default {
 				emailAddress: this.emailAddress,
 				password: this.password
 			};
-			console.log(auth);
 			this.axios
 				.post("http://localhost:8080/authenticate", auth)
 				.then(response => {
