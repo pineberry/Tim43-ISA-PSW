@@ -4,7 +4,9 @@ import java.util.List;
 
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.Doctor;
+import isapsw.tim43.ISCC.model.ProcedureType;
 import lombok.Data;
+import org.apache.tomcat.jni.Proc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public class ClinicDTO {
     private double averageRating;
     Map<String, Integer> numberOfProcedures = new HashMap<String, Integer>();
     List<Doctor> doctors = new ArrayList<Doctor>();
+    List<ProcedureType> types = new ArrayList<>();
 
     public ClinicDTO() {
     }

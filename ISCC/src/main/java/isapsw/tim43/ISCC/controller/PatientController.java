@@ -54,7 +54,7 @@ public class PatientController {
         
         return new ResponseEntity<MedicalProcedureDTO>(patientService.scheduleAppointment(
         		doctor, new MedicalProcedure(doctor.getSpecialized(), new SimpleDateFormat("yyyy-MM-dd").parse(date), 
-        		medicalRoomService.findOne(1), doctor, patientService.findById(Long.parseLong(patient_id)), 0, 0, false), hour), HttpStatus.OK);
+        		medicalRoomService.findOne(1), doctor, patientService.findById(Long.parseLong(patient_id)), 0, false), hour), HttpStatus.OK);
     }
 
     @GetMapping(value = "/patients")

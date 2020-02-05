@@ -34,9 +34,6 @@ public class MedicalProcedure {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Patient patient;
 
-	@Column(name = "price")
-	private float price;
-
 	@Column(name = "discount")
 	private float discount;
 
@@ -61,26 +58,24 @@ public class MedicalProcedure {
 //	private Report report;
 
 	public MedicalProcedure(long id, ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
-			Doctor doctor, float price, float discount, boolean booked) {
+			Doctor doctor, float discount, boolean booked) {
 		super();
 		this.id = id;
 		this.procedureType = procedureType;
 		this.dateOfProcedure = dateOfProcedure;
 		this.medicalRoom = medicalRoom;
 		this.doctor = doctor;
-		this.price = price;
 		this.discount = discount;
 		this.booked = booked;
 	}
 	public MedicalProcedure(ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
-			Doctor doctor, Patient patient, float price, float discount, boolean booked) {
+			Doctor doctor, Patient patient, float discount, boolean booked) {
 		super();
 		this.procedureType = procedureType;
 		this.dateOfProcedure = dateOfProcedure;
 		this.medicalRoom = medicalRoom;
 		this.patient = patient;
 		this.doctor = doctor;
-		this.price = price;
 		this.discount = discount;
 		this.booked = booked;
 	}

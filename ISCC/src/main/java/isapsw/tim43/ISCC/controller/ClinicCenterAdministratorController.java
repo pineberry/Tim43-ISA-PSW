@@ -1,16 +1,16 @@
 package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.*;
-import isapsw.tim43.ISCC.model.Clinic;
-import isapsw.tim43.ISCC.model.ClinicAdministrator;
-import isapsw.tim43.ISCC.model.ClinicCenterAdministrator;
-import isapsw.tim43.ISCC.model.Patient;
+import isapsw.tim43.ISCC.model.*;
 import isapsw.tim43.ISCC.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -35,6 +35,9 @@ public class ClinicCenterAdministratorController {
 
     @Autowired
     CenterAdminValidationService centerAdminValidationService;
+
+    @Autowired
+    ProcedureTypeService procedureTypeService;
 
 
 
@@ -93,6 +96,15 @@ public class ClinicCenterAdministratorController {
         clinic.setAddress(clinicDTO.getAddress());
         clinic.setDescription(clinicDTO.getDescription());
         clinic.setAverageRating(0.0);
+
+        List<ProcedureType> types = new ArrayList<ProcedureType>();
+
+        for (ProcedureType procedureType: clinicDTO.getTypes()) {
+            procedureType = procedureTypeService.findOne(procedureType.getId());
+            types.add(procedureType);
+        }
+
+        clinic.setTypes(types);
 
         clinicService.save(clinic);
         return new ResponseEntity<>(new ClinicDTO(clinic), HttpStatus.CREATED);

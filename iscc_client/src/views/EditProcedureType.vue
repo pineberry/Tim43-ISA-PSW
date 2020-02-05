@@ -12,6 +12,10 @@
                         <label for="inputDescription">Type description:</label>
                         <textarea id="inputDescription" rows="3" class="form-control" placeholder="Enter type description" v-model="typeDescription"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="inputPrice">Price:</label>
+                        <input id="inputPrice" type="number" class="form-control" v-model="price">
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Edit</button>
@@ -26,6 +30,7 @@
             return {
                 typeName: undefined,
                 typeDescription: undefined,
+                price: undefined,
                 procedureType: null
             }
         },
@@ -35,6 +40,7 @@
                     this.procedureType = response.data;
                     this.typeName = this.procedureType.typeName;
                     this.typeDescription = this.procedureType.typeDescription;
+                    this.price = this.procedureType.price;
                 })
         },
         computed: {
@@ -56,6 +62,7 @@
 
                 this.procedureType.typeName = this.typeName;
                 this.procedureType.typeDescription = this.typeDescription;
+                this.procedureType.price = this.price;
 
                 var valid = true;
 
@@ -70,7 +77,8 @@
                     this.typeDescription = '';
 
                 if (this.typeName === undefined || this.typeName === ''
-                    || this.typeDescription === undefined || this.typeDescription === '') {
+                    || this.typeDescription === undefined || this.typeDescription === ''
+                    || this.price === '' || this.price < 0) {
                     valid = false
                 }
 

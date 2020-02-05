@@ -12,6 +12,10 @@
                         <label for="inputDescription">Type description:</label>
                         <textarea id="inputDescription" rows="3" class="form-control" placeholder="Enter type description" v-model="typeDescription"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="inputPrice">Price:</label>
+                        <input id="inputPrice" type="number" class="form-control" v-model="price">
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
@@ -27,7 +31,8 @@
         data: function(){
             return{
                 typeName: undefined,
-                typeDescription: undefined
+                typeDescription: undefined,
+                price: undefined
             }
         },
         computed: {
@@ -48,7 +53,8 @@
             addProcedureType: function(){
                 var procedureType = {
                     "typeName": this.typeName,
-                    "typeDescription": this.typeDescription
+                    "typeDescription": this.typeDescription,
+                    "price": this.price
                 }
 
                 var valid = true;
@@ -64,7 +70,8 @@
                     this.typeDescription = '';
 
                 if (this.typeName === undefined || this.typeName === '' 
-                        || this.typeDescription === undefined || this.typeDescription === ''){
+                        || this.typeDescription === undefined || this.typeDescription === ''
+                        || this.price === '' || this.price < 0){
                     valid = false
                 }
 

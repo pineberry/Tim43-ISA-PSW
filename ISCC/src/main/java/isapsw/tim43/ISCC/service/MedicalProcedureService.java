@@ -61,8 +61,9 @@ public class MedicalProcedureService {
         medicalProcedure.setDateOfProcedure(medicalProcedureDTO.getDateOfProcedure());
         medicalProcedure.setMedicalRoom(medicalRoom);
         medicalProcedure.setDoctor(doctor);
-        medicalProcedure.setPatient(patientService.findById(medicalProcedureDTO.getPatient().getId()));
-        medicalProcedure.setPrice(medicalProcedureDTO.getPrice());
+        if (medicalProcedureDTO.getPatient() != null) {
+            medicalProcedure.setPatient(patientService.findById(medicalProcedureDTO.getPatient().getId()));
+        }
         medicalProcedure.setDiscount(0);
         medicalProcedure.setBooked(false);
         medicalProcedure.setStartTime(medicalProcedureDTO.getStartTime());

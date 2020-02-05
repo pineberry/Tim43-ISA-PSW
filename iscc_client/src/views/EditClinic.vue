@@ -16,6 +16,12 @@
                         <label for="inputAddress">Address:</label>
                         <input id="inputAddress" type="text" class="form-control" placeholder="Enter type name" v-model="clinicAddress">
                     </div>
+                    <div v-if="types" class="form-group">
+                        <label for="selectType">Types</label>
+                        <select class="custom-select" v-model="clinicTypes" id="selectType" multiple>
+                            <option v-for="t in types" :key="t.id" :value="t">{{t.typeName}}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Edit</button>
@@ -31,7 +37,9 @@
                 clinic: null,
                 clinicName: undefined,
                 clinicDescription: undefined,
-                clinicAddress: undefined
+                clinicAddress: undefined,
+                clinicTypes: [],
+                types: null
             }
         },
         mounted: function (){
@@ -41,6 +49,11 @@
                     this.clinicName = this.clinic.name;
                     this.clinicDescription = this.clinic.description;
                     this.clinicAddress = this.clinic.address;
+                    this.clinicTypes = this.clinic.types
+                })
+            this.axios.get("http://localhost:8080/procedure/type/all")
+                .then(response => {
+                    this.types = response.data;
                 })
         },
         methods: {
@@ -49,6 +62,7 @@
                 this.clinic.name = this.clinicName;
                 this.clinic.description = this.clinicDescription;
                 this.clinic.address = this.clinicAddress;
+                this.clinic.types = this.clinicTypes;
 
                 var valid = true;
 

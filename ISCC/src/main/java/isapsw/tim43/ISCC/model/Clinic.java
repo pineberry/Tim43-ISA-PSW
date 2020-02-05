@@ -51,6 +51,11 @@ public class Clinic {
 	@OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<MedicalRoom> medicalRooms;
+
+	@ManyToMany
+	@JsonIgnore
+	@JoinTable(name = "clinicTypes", joinColumns = @JoinColumn(name = "clinic_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "type_id", referencedColumnName = "id"))
+	private List<ProcedureType> types;
 	
 	/*
 	private List<Date> appointmentDates;
