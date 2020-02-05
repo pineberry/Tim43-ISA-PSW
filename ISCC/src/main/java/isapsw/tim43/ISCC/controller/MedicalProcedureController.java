@@ -63,6 +63,16 @@ public class MedicalProcedureController {
         }
     }
 
+    @GetMapping(value = "/room/{id}")
+    public ResponseEntity<List<MedicalProcedureDTO>> getProceduresByRoom(@PathVariable Long id){
+        List<MedicalProcedureDTO> medicalProcedureDTOS = medicalProcedureService.proceduresByRoom(id);
+        if(medicalProcedureDTOS != null) {
+            return new ResponseEntity<>(medicalProcedureDTOS, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PutMapping(value = "/{procedureId}/{roomId}")
     public ResponseEntity<Void> bookRoom(@PathVariable("procedureId") Long procedureId,
                                          @PathVariable("roomId") Long roomId) throws InterruptedException {

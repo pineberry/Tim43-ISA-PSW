@@ -94,13 +94,13 @@ insert into diagnosis(name, latin_name, code) values ('Dijabetes tip I', 'Diabet
 insert into diagnosis(name, latin_name, code) values ('Dijabetes tip II', 'Diabetes mellitus II', '1B2C');
 --insert into diagnosis(name, latin_name, code) values ('', '', '');
 
-insert into report (notes, diagnosis_id, doctor_id, record_id) 
+insert into report (notes, diagnosis_id, doctor_id, record_id)
 values ('Pacijent se zali na zacepljeno levo uvo. Izrazena osetljivost pri dodiru oko usnog kanala', 1, 4, 2);
-insert into report (notes, diagnosis_id, doctor_id, record_id) 
+insert into report (notes, diagnosis_id, doctor_id, record_id)
 values ('Pacijent se zali na zacepljenje sinusa, ne moze da dise kroz nos', 2, 4, 2);
-insert into report (notes, diagnosis_id, doctor_id, record_id) 
+insert into report (notes, diagnosis_id, doctor_id, record_id)
 values ('Vidljiva inflamacija zadnjeg dela zdrela i grkljana, otekli krajnici', 3, 6, 2);
-insert into report (notes, diagnosis_id, doctor_id, record_id) 
+insert into report (notes, diagnosis_id, doctor_id, record_id)
 values ('Pacijent se zali na konstantne bolove u predelu prednjeg dela lobanje i slepoocnica', 5, 2, 2);
 
 insert into prescription (checked, medicine_id, clinic_id, nurse_id, report_id) values ('true', 4, 4, 1, 1);

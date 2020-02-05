@@ -10,13 +10,17 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}">
                 <div v-if="clinic" class="row">
-                    <div class="col-8">
+                    <div class="col-6">
                         <p>Name: {{this.clinic.name}}</p>
                         <p>Descrption: {{this.clinic.description}}</p>
                         <p>Address: {{this.clinic.address}}</p>
+                        <p><router-link class="btn btn-primary" :to="{path: '/editClinic', query: {name: this.clinic.name}}">Edit</router-link></p>
                     </div>
-                    <div class="col-4">
-                        <router-link class="btn btn-primary" :to="{path: '/editClinic', query: {name: this.clinic.name}}">Edit</router-link>
+                    <div class="col-6">
+                        <l-map :zoom="zoom" :center="center">
+                            <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+                            <l-marker v-if="marker" :lat-lng="marker"></l-marker>
+                        </l-map>
                     </div>
                 </div>
             </div>
@@ -29,19 +33,40 @@
 
 <script>
     import RoomList from "../views/SearchMedicalRooms.vue"
+    import {LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+    import { OpenStreetMapProvider } from 'leaflet-geosearch';
+    const provider = new OpenStreetMapProvider();
+
     export default {
         name: "ClinicProfile",
-        components: {RoomList},
+        components: {RoomList,
+                     LMap,
+                     LTileLayer,
+                     LMarker
+                },
         data: function () {
             return {
                 clinic: null,
                 clinicName: undefined,
-                tab: 1
+                tab: 1,
+                zoom:13,
+                center: L.latLng(45.25, 19.80),
+                url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+                attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+                marker: undefined,
             }
         },
         mounted() {
             this.axios.get("http://localhost:8080/clinic/" + this.$route.query.name)
-                .then(response => {this.clinic = response.data})
+                .then(response => {
+                    this.clinic = response.data;
+                    provider
+                        .search({ query: 'Knez Mihaila 12, Beograd' })
+                        .then(function(result) {
+                            this.center = L.latLng(result[0].y, result[0].x);
+                            this.marker = L.latLng(result[0].y, result[0].x);
+                        }.bind(this));
+                })
         }
     }
 </script>

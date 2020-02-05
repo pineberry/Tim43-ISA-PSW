@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.repository;
 
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
+import isapsw.tim43.ISCC.model.MedicalRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,4 +16,6 @@ public interface MedicalProcedureRepository extends JpaRepository<MedicalProcedu
     List<MedicalProcedure> findAllWithoutRoom();
 
     public List<MedicalProcedure> findByDoctor(Doctor doctor);
+
+    List<MedicalProcedure> findByMedicalRoom(MedicalRoom room);
 }
