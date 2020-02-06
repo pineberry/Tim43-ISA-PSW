@@ -17,7 +17,6 @@ public class MedicalProcedureDTO {
     private DoctorDTO doctor;
     private List<DoctorDTO> doctors = new ArrayList<>();
     private PatientDTO patient;
-    private float price;
     private float discount;
     private boolean booked;
     private String startTime;

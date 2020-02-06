@@ -308,7 +308,6 @@ public class MedicalProcedureService {
 			if(procedure.getPatient() == null && //predefinisana
 					procedure.getDoctor().getClinic().getId()==clinicID) //trazena za datu kliniku  
 			{
-				procedure.getProcedureType().setPrice(0);
 				procedures.add(new MedicalProcedureDTO(procedure));
 			}
 		}

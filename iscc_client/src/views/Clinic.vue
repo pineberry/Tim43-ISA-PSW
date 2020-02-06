@@ -45,7 +45,7 @@
                             <div class="col p-0">
                                 <p class="m-0">Date: <b>{{appoint.dateOfProcedure | formatDate}}</b></p>
                                 <p class="m-0">Room: <b>{{appoint.medicalRoom.roomName}}-{{appoint.medicalRoom.roomNumber}}</b></p>
-                                <p class="m-0">Price: <b>${{appoint.price}}</b> </p>
+                                <p class="m-0">Price: <b>${{appoint.procedureType.price}}</b> </p>
                                 <p class="m-0">Discount: <b>{{appoint.dicount}}%</b> </p>
                             </div>
                             <div class="col p-0">
@@ -130,7 +130,7 @@ export default {
         this.clinicID = this.$route.params.id;
         this.axios.get("http://localhost:8080/clinic/single/" + this.clinicID)
         .then(response => {
-            console.log(response);
+            //console.log(response);
             this.clinic = response.data;
             this.doctors = this.clinic.doctors;
         });
@@ -138,6 +138,7 @@ export default {
         this.axios.get("http://localhost:8080/medical/procedure/predefined/" + this.clinicID)
         .then(response => {
             this.availableAppointments = response.data;
+            console.log(this.availableAppointments);
         });
     }
 }
