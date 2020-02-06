@@ -84,4 +84,15 @@ public class NurseController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping(value = "/add", consumes = "application/json")
+    public ResponseEntity<NurseDTO> addNurse(@RequestBody NurseDTO nurseDTO) {
+        NurseDTO nurseDTO1 = nurseService.addNurse(nurseDTO);
+
+        if(nurseDTO1 != null) {
+            return new ResponseEntity<>(nurseDTO1, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

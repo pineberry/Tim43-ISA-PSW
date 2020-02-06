@@ -35,12 +35,6 @@
 						<input id="inputPhone" type="text" class="form-control" placeholder="Enter phone number" v-model="phoneNumber">
 					</div>
 					<div class="form-group">
-						<label for="selectClinic">Clinic</label>
-						<select id="selectClinic" class="form-control" v-model="clinic">
-							<option v-for="c in clinics" :key="c.id" :value="c">{{c.name}}</option>
-						</select>
-					</div>
-					<div class="form-group">
 						<label for="selectType">Procedure type</label>
 						<select id="selectType" class="form-control" v-model="specialized">
 							<option v-for="pType in procedureTypes" :key="pType.id" :value="pType">{{pType.typeName}}</option>
@@ -77,19 +71,24 @@
                 state: undefined,
                 workingtimeStart: undefined,
                 workingtimeEnd: undefined,
-				clinic: null,
-				specialized: null,
-				clinics: null,
-				procedureTypes: null
+								clinic: null,
+								specialized: null,
+								admin: Object,
+								procedureTypes: null
             }
         },
 		mounted: function(){
 			this.axios.get("http://localhost:8080/procedure/type/all")
 					.then(response => {this.procedureTypes = response.data})
 					.catch(error => {alert(error.response.data)})
-			this.axios.get("http://localhost:8080/clinic/clinics")
-					.then(response => {this.clinics = response.data})
-					.catch(error => {alert(error.response.data)})
+			if(localStorage.getItem("typeOfUser") == "clinicAdministrator") {
+				this.axios.get("http://localhost:8080/clinic/admin/" + localStorage.getItem("user_id"))
+					.then(response => { 
+						this.admin = response.data; 
+						this.clinic = this.admin.clinic;
+					})
+					.catch(error => {console.log(error);})
+			}
 		},
         computed: {
             valName: function(){
@@ -162,20 +161,20 @@
         },
 
         methods: {
-            addDoctor: function(){
-                var doctor = {
-                    "email": this.email,
-                    "firstName": this.firstName,
-                    "lastName": this.lastName,
-                    "address": this.address,
-                    "city": this.city,
-                    "state": this.state,
-                    "phoneNumber": this.phoneNumber,
-                    "workingtimeStart": this.workingtimeStart,
-                    "workingtimeEnd": this.workingtimeEnd,
-					"specialized": this.specialized,
-					"clinic": this.clinic
-                }
+					addDoctor: function(){
+						var doctor = {
+								"email": this.email,
+								"firstName": this.firstName,
+								"lastName": this.lastName,
+								"address": this.address,
+								"city": this.city,
+								"state": this.state,
+								"phoneNumber": this.phoneNumber,
+								"workingtimeStart": this.workingtimeStart,
+								"workingtimeEnd": this.workingtimeEnd,
+								"specialized": this.specialized,
+								"clinic": this.clinic
+						}
 
 				var valid = true;
 				var tempName = '';
@@ -248,16 +247,16 @@
 					valid = false
 				}
 
-                if (valid){
-                    this.axios.post("http://localhost:8080/doctor/add", doctor)
-							.then(response => {
-								alert(response.data.firstName);
-							})
-							.catch(errorr => {
-								alert('Error');
-							})
-                }
-            },
+				if (valid){
+					this.axios.post("http://localhost:8080/doctor/add", doctor)
+						.then(response => {
+							alert(response.data.firstName);
+						})
+						.catch(errorr => {
+							alert('Error');
+						})
+				}
+			},
 			checkWorkingTime: function(){
             	var retVal = true;
 				var startTimeParts = this.workingtimeStart.split(":");

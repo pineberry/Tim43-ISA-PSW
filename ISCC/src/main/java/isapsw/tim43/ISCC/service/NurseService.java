@@ -1,8 +1,10 @@
 package isapsw.tim43.ISCC.service;
 
+import isapsw.tim43.ISCC.dto.ClinicDTO;
 import isapsw.tim43.ISCC.dto.NurseDTO;
 import isapsw.tim43.ISCC.dto.PrescriptionDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
+import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.Nurse;
 import isapsw.tim43.ISCC.model.Prescription;
 import isapsw.tim43.ISCC.repository.NurseRepository;
@@ -23,6 +25,9 @@ public class NurseService {
     @Autowired
     PrescriptionService prescriptionService;
 
+    @Autowired
+    ClinicService clinicService;
+
     public Nurse save(Nurse nurse) {
         return nurseRepository.save(nurse);
     }
@@ -30,6 +35,8 @@ public class NurseService {
     public void remove(Long id) {
         nurseRepository.deleteById(id);
     }
+
+    public Nurse findById(Long id) { return nurseRepository.findById(id).orElse(null); }
 
     public NurseDTO update(NurseDTO nurseDTO){
         Nurse nurse = nurseRepository.findByEmail(nurseDTO.getEmail());
@@ -126,6 +133,7 @@ public class NurseService {
     public NurseDTO modelToDto(Nurse nurse) {
         NurseDTO nurseDTO = new NurseDTO();
 
+        nurseDTO.setId(nurse.getId());
         nurseDTO.setEmail(nurse.getEmail());
         nurseDTO.setAddress(nurse.getAddress());
         nurseDTO.setFirstName(nurse.getFirstName());
@@ -133,8 +141,24 @@ public class NurseService {
         nurseDTO.setCity(nurse.getCity());
         nurseDTO.setPhoneNumber(nurse.getPhoneNumber());
         nurseDTO.setState(nurse.getState());
+        nurseDTO.setClinic(new ClinicDTO(nurse.getClinic()));
 
         return nurseDTO;
+    }
+
+    public Nurse dtoToModel(NurseDTO nurseDTO) {
+        Nurse nurse = new Nurse();
+
+        nurse.setEmail(nurseDTO.getEmail());
+        nurse.setAddress(nurseDTO.getAddress());
+        nurse.setFirstName(nurseDTO.getFirstName());
+        nurse.setLastName(nurseDTO.getLastName());
+        nurse.setCity(nurseDTO.getCity());
+        nurse.setState(nurseDTO.getState());
+        nurse.setPhoneNumber(nurseDTO.getPhoneNumber());
+        nurse.setClinic(clinicService.findOne(nurseDTO.getClinic().getId()));
+
+        return nurse;
     }
 
     public List<PrescriptionDTO> getCheckedPrescription(NurseDTO nurseDTO) {
@@ -153,4 +177,12 @@ public class NurseService {
         return prescriptionDTOS;
     }
 
+    public NurseDTO addNurse(NurseDTO nurseDTO) {
+        Nurse nurse = dtoToModel(nurseDTO);
+        nurse.setFirstLogin(true);
+        nurse.setPassword("isapsw");
+        save(nurse);
+
+        return modelToDto(nurse);
+    }
 }
