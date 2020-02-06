@@ -22,14 +22,14 @@ public class Report {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Diagnosis diagnosis;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Doctor doctor;
 
 	@OneToMany(mappedBy = "report", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Prescription> prescription;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private MedicalRecord record;
 
 	public Report(long id, Diagnosis diagnosis, MedicalRecord record) {

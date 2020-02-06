@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -60,7 +61,7 @@ public class Doctor {
 	@Column(name = "onVacation", nullable = false)
 	private Boolean onVacation;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="doctor-type")
 	private ProcedureType specialized;
 
@@ -70,7 +71,7 @@ public class Doctor {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	private List<MedicalProcedure> medicalProcedures;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 //	@JsonManagedReference(value="doctor-clinic")
 	private Clinic clinic;
 
@@ -80,6 +81,10 @@ public class Doctor {
 
 	@Column(name = "firstLogin")
 	private boolean firstLogin = true;
+
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Report> reports;
 	
 	public Doctor() {
 		super();

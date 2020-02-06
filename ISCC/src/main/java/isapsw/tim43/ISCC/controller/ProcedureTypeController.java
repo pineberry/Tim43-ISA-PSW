@@ -72,4 +72,14 @@ public class ProcedureTypeController {
             }
         }
 
+    @GetMapping(value = "/search/clinic/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ProcedureTypeDTO>> searchTypes(@PathVariable Long id){
+        List<ProcedureTypeDTO> procedureTypeDTOList = procedureTypeService.findByClinic(id);
+        if (procedureTypeDTOList != null) {
+            return new ResponseEntity<>(procedureTypeDTOList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

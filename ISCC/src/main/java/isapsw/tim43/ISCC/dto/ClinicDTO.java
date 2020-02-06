@@ -39,5 +39,6 @@ public class ClinicDTO {
 
     public ClinicDTO(Clinic clinic){
         this(clinic.getId(), clinic.getName(), clinic.getAddress(), clinic.getDescription(), clinic.getAverageRating(), clinic.getDoctors());
+        this.types = clinic.getTypes();
     }
 }

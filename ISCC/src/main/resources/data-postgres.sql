@@ -132,6 +132,16 @@ values ('admin@gmail.com', 'nesto', 'Dwight', 'Schrute', '065000000', 'Schrute F
 
 insert into report(notes, diagnosis_id, doctor_id, record_id) values ('Random notes', 1, 1, 1);
 
+insert into clinic_types(clinic_id, type_id) values (1, 1);
+insert into clinic_types(clinic_id, type_id) values (1, 2);
+insert into clinic_types(clinic_id, type_id) values (1, 3);
+insert into clinic_types(clinic_id, type_id) values (2, 1);
+insert into clinic_types(clinic_id, type_id) values (2, 2);
+insert into clinic_types(clinic_id, type_id) values (2, 3);
+insert into clinic_types(clinic_id, type_id) values (3, 4);
+insert into clinic_types(clinic_id, type_id) values (3, 5);
+insert into clinic_types(clinic_id, type_id) values (3, 6);
+
 
 
 
