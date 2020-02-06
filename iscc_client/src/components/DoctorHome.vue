@@ -14,6 +14,7 @@
           <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 2}" v-on:click="tab = 2">Profile</a></li>
           <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 3}" v-on:click="tab = 3">Patients</a></li>
           <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Calendar</a></li>
+          <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 5}" v-on:click="tab = 5">Vacation request</a></li>
         </ul>
       <div class="tab-content">
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}" >
@@ -56,6 +57,9 @@
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 4}" v-if="doctor.medicalProcedures && doctor.attendingProcedures">
               <Calendar :doctor="doctor"/>
           </div>
+          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 5}" v-if="doctor">
+              <VacationRequest :doctor="doctor" :nurse="null" />
+          </div>
       </div>
   </div>
 </template>
@@ -64,8 +68,9 @@
 import ExaminationReports from "./ExaminationReports";
 import SearchPatients from "../views/SearchPatients.vue";
 import Calendar from "../components/Calendar";
+import VacationRequest from "./VacationRequest";
 export default {
-    components: {ExaminationReports, SearchPatients, Calendar},
+    components: {ExaminationReports, SearchPatients, Calendar, VacationRequest},
     data : function() {
         return {
             user : localStorage.getItem('user'),

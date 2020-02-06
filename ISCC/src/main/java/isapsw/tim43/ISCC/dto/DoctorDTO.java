@@ -25,7 +25,7 @@ public class DoctorDTO {
 	private String workingtimeEnd;
 	private ProcedureType specialized;
 	private ClinicDTO clinic;
-	private List<MedicalProcedure> medicalProcedures;
+	private List<MedicalProcedure> medicalProcedures = new ArrayList<>();
 	private List<MedicalProcedureDTO> attendingProcedures = new ArrayList<>();
 	
 	

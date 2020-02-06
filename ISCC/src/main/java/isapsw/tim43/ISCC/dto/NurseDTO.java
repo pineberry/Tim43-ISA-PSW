@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class NurseDTO {
 
+    private Long id;
     private String email;
     private String password;
     private String firstName;
@@ -13,13 +14,14 @@ public class NurseDTO {
     private String address;
     private String city;
     private String state;
-    private String clinicName;
+    private ClinicDTO clinic;
 
     public NurseDTO() {
     }
 
-    public NurseDTO(String email, String password, String firstName, String lastName, String phoneNumber, String address,
-                    String city, String state, String clinicName) {
+    public NurseDTO(Long id, String email, String password, String firstName, String lastName, String phoneNumber, String address,
+                    String city, String state, ClinicDTO clinicName) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -28,6 +30,6 @@ public class NurseDTO {
         this.address = address;
         this.city = city;
         this.state = state;
-        this.clinicName = clinicName;
+        this.clinic = clinicName;
     }
 }

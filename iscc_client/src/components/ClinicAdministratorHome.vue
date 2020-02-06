@@ -16,10 +16,14 @@
           <li class="nav-item">
               <router-link class="nav-link" :to="{path: '/businessReport'}">Report</router-link>
           </li>
+          <li class="nav-item">
+              <router-link class="nav-link" :to="{path: '/vacationRequests'}">Vacation requests</router-link>
+          </li>
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add</a>
                 <div class="dropdown-menu">
                     <router-link class="dropdown-item" to="/addDoctor">Doctor</router-link>
+                    <router-link class="dropdown-item" to="/addNurse">Nurse</router-link>
                     <router-link class="dropdown-item" to="/addProcedureType">Procedure type</router-link>
                     <router-link class="dropdown-item" to="/addMedicalRoom">Medical room</router-link>
                     <router-link class="dropdown-item" to="/addAppointment">Procedure</router-link>

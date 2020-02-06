@@ -29,8 +29,8 @@
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 4}" >
               <h2>To be implemented</h2>
           </div>
-          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 6}" >
-              <h2>To be implemented</h2>
+          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 6}" v-if="nurse">
+              <VacationRequest :nurse="nurse" :doctor="null"/>
           </div>
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 5}" >
               <form @submit.prevent="editNurse">
@@ -87,9 +87,10 @@
 import UncheckedPrescriptions from "../views/UncheckedPrescriptions";
 import Patients from "./Patients";
 import CheckedPrescriptions from "./CheckedPrescriptions";
+import VacationRequest from "./VacationRequest";
 export default {
     name : "NurseHome",
-    components: {Patients, UncheckedPrescriptions, CheckedPrescriptions},
+    components: {Patients, UncheckedPrescriptions, CheckedPrescriptions, VacationRequest},
     data : function() {
         return {
             user : localStorage.getItem('user'),

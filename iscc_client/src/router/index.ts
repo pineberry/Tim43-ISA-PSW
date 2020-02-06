@@ -325,6 +325,16 @@ const routes = [
     path: "/choseDoctors",
     name: "ChoseDoctors",
     component: ChoseDoctors
+  },
+  {
+    path: "/addNurse",
+    name: "AddNurse",
+    component: () => import("../views/AddNurse.vue")
+  },
+  {
+    path: "/vacationRequests",
+    name: "VacationRequests",
+    component: () => import("../components/VacationRequests.vue")
   }
 ];
 
