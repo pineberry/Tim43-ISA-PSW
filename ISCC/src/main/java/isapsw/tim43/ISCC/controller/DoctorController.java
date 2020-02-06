@@ -1,6 +1,7 @@
 package isapsw.tim43.ISCC.controller;
 
 import com.sun.mail.iap.Response;
+import isapsw.tim43.ISCC.dto.PatientDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Report;
@@ -133,6 +134,30 @@ public class DoctorController {
 	public ResponseEntity<Void> deleteDoctor(@PathVariable Long id){
 		if (doctorService.deleteDoctor(id)) {
 			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@GetMapping(value = "/clinic/doctors/{id}")
+	public ResponseEntity<List<DoctorDTO>> getClinicDoctors(@PathVariable Long id) {
+		List<DoctorDTO> doctorDTOList = doctorService.getClinicDoctors(id);
+
+		if (doctorDTOList != null) {
+			return new ResponseEntity<>(doctorDTOList, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@GetMapping(value = "/find/{name}/{lastName}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DoctorDTO>> searchByNameAndLastName(@PathVariable String name,
+																	@PathVariable String lastName,
+																   	@PathVariable Long id){
+		List<DoctorDTO> doctorDTOList = doctorService.searchByNameAndLastName(name, lastName, id);
+
+		if (doctorDTOList != null) {
+			return new ResponseEntity<>(doctorDTOList, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

@@ -1,6 +1,8 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.ProcedureTypeDTO;
+import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.ClinicAdministrator;
 import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
 import org.apache.tomcat.jni.Proc;
@@ -16,6 +18,9 @@ public class ProcedureTypeService {
 
         @Autowired
         private ProcedureTypeRepository procedureTypeRepository;
+
+        @Autowired
+        private ClinicAdministratorService clinicAdministratorService;
 
         public ProcedureTypeDTO save(ProcedureTypeDTO procedureTypeDTO){
 
@@ -63,11 +68,36 @@ public class ProcedureTypeService {
             return procedureTypeDTOList;
         }
 
+        public List<ProcedureTypeDTO> findByClinic(Long id) {
+            ClinicAdministrator clinicAdministrator = clinicAdministratorService.findOne(id);
+
+            if (clinicAdministrator == null) {
+                return null;
+            }
+
+            Clinic clinic = clinicAdministrator.getClinic();
+
+            List<ProcedureTypeDTO> procedureTypeDTOList = new ArrayList<ProcedureTypeDTO>();
+            List<ProcedureType> types = procedureTypeRepository.findAll();
+
+            for (ProcedureType type: types) {
+                if (type.getClinics().contains(clinic)) {
+                    procedureTypeDTOList.add(new ProcedureTypeDTO(type));
+                }
+            }
+
+            return procedureTypeDTOList;
+        }
+
         public boolean remove(long id){
             ProcedureType procedureType = findOne(id);
 
             if (procedureType == null || procedureType.getMedicalProcedures().size() != 0) {
                 return false;
+            }
+
+            for (Clinic clinic: procedureType.getClinics()) {
+                clinic.getTypes().remove(procedureType);
             }
 
             procedureTypeRepository.deleteById(id);

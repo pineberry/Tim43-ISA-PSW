@@ -1,10 +1,7 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.controller.DoctorController;
-import isapsw.tim43.ISCC.dto.DoctorDTO;
-import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
-import isapsw.tim43.ISCC.dto.ReportDTO;
-import isapsw.tim43.ISCC.dto.UserDTO;
+import isapsw.tim43.ISCC.dto.*;
 import isapsw.tim43.ISCC.model.*;
 import isapsw.tim43.ISCC.repository.ClinicRepository;
 import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
@@ -13,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import isapsw.tim43.ISCC.repository.DoctorRepository;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +32,9 @@ public class DoctorService {
 
 	@Autowired
 	private MedicalRoomService medicalRoomService;
+
+	@Autowired
+	private ClinicAdministratorService clinicAdministratorService;
 	
 	public DoctorDTO save(DoctorDTO doctorDTO) {
 		if(doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null
@@ -82,6 +83,37 @@ public class DoctorService {
 	public List<Doctor> findAllByClinic(Long id) {
 		Clinic clinic = clinicService.findOne(id);
 		return doctorRepository.findAllByClinic(clinic);
+	}
+
+	public List<DoctorDTO> searchByNameAndLastName(String name, String lastName, Long id){
+		if ((name == null || name.trim().isEmpty() || name.equals("empty")) &&
+				(lastName == null || lastName.trim().isEmpty() || lastName.equals("empty"))) {
+			return null;
+		}
+
+		ClinicAdministrator clinicAdministrator = clinicAdministratorService.findOne(id);
+		Clinic clinic = clinicAdministrator.getClinic();
+
+		if (clinic == null) {
+			return null;
+		}
+
+		List<DoctorDTO> doctorDTOList = new ArrayList<DoctorDTO>();
+		List<Doctor> doctors;
+
+		if (name.equals("empty")) {
+			doctors = doctorRepository.findDoctorByLastNameAndClinic(lastName, clinic);
+		} else if(lastName.equals("empty")) {
+			doctors = doctorRepository.findDoctorByFirstNameAndClinic(name, clinic);
+		} else {
+			doctors = doctorRepository.findByFirstNameAndLastNameAndClinic(name, lastName, clinic);
+		}
+
+		for (Doctor doctor: doctors) {
+			doctorDTOList.add(new DoctorDTO(doctor));
+		}
+
+		return doctorDTOList;
 	}
 
 	public List<DoctorDTO> getDoctorsByClinic(Long id) {
@@ -231,10 +263,10 @@ public class DoctorService {
 		return reportDTO;
 	}
 
-	public boolean deleteDoctor(Long id){
+	public boolean deleteDoctor(long id){
 		Doctor doctor = findOne(id);
 
-		if (doctor == null || !doctor.getMedicalProcedures().isEmpty()) {
+		if (doctor == null || !doctor.getMedicalProcedures().isEmpty() || !doctor.getProcedures().isEmpty()) {
 			return false;
 		}
 
@@ -274,6 +306,17 @@ public class DoctorService {
 		
 	}
 
+	public List<DoctorDTO> getClinicDoctors(Long id){
+		ClinicAdministrator clinicAdministrator = clinicAdministratorService.findOne(id);
+		Clinic clinic = clinicService.findOne(clinicAdministrator.getClinic().getId());
+		List<DoctorDTO> doctorDTOList = new ArrayList<DoctorDTO>();
+
+		for (Doctor doctor: clinic.getDoctors()) {
+			doctorDTOList.add(new DoctorDTO(doctor));
+		}
+
+		return doctorDTOList;
+	}
 
 
 }
