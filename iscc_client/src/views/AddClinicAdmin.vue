@@ -5,7 +5,7 @@
                 <div class="form-group">
                     <label for="selectClinic">Clinic</label>
                     <select class="form-control" v-model="clinicName" id="selectClinic">
-                        <option v-for="clinic in clinics" :key="clinic.id" :value="clinic.name">{{clinic.name}}</option>
+                        <option v-for="clinic in clinics" :key="clinic.id" :value="clinic">{{clinic.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -75,7 +75,7 @@
                     "password" : this.password,
                     "firstName" : this.firstName,
                     "lastName" : this.lastName,
-                    "clinicName" : this.clinicName,
+                    "clinic" : this.clinicName,
                     "phoneNumber" : this.phoneNumber,
                     "address" : this.address,
                     "city" : this.city,
@@ -96,7 +96,7 @@
                         alert(response.data.firstName + " admin uspjesno dodat!")
                     })
                     .catch(error => {
-                        alert(error.response.data)
+                        console.log(error);
                     })
             }
         }

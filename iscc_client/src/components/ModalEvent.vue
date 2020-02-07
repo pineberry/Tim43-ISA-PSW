@@ -1,12 +1,24 @@
 <template>
-  <div v-if="procedure.patient">
-    <fieldset>
-      <legend>Event details</legend>
-      <b>Title: </b>{{title}}<br />
-      <b>Start: </b>{{start}}<br />
-      <b>End: </b>{{end}}<br />
-      <b>Patient: </b>{{procedure.patient.firstName}} {{procedure.patient.lastName}} <br/>
-    </fieldset>
+  <div>
+    <div class="card">
+      <div class="card-header">
+        Event details
+      </div>
+      <div class="card-body">
+        <b>Title: </b>{{title}}<br />
+        <b>Start: </b>{{start}}<br />
+        <b>End: </b>{{end}}<br />
+        <div v-if="procedure.patient">
+          <b>Patient: </b>{{procedure.patient.firstName}} {{procedure.patient.lastName}} <br/>
+          <router-link v-if="procedure.medicalRoom" class="btn btn-primary btn-sm" :to="{path: '/report', query: {id: procedure.patient.id, proc: procedure.id}}">
+              Exam
+          </router-link>
+        </div>
+        <div v-else>
+          <p>Predefined exam not booket yet</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

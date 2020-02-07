@@ -9,6 +9,7 @@ public class PrescriptionDTO {
     private String medication;
     private String patientsName;
     private String patientsSurname;
+    private ReportDTO reportDTO;
     private String clinicName;
     private boolean checked;
     private String nurseEmail;

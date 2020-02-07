@@ -95,7 +95,7 @@ export default {
             end.setSeconds(0);
             this.calendarEvents.push({
               id: element.id,
-              title: "Pregled",
+              title: "Operation",
               start: start,
               end: end,
               allDay: false

@@ -41,7 +41,6 @@ import EditProcedureType from "../views/EditProcedureType.vue";
 import SearchProcedureType from "../views/SearchProcedureTypes.vue";
 import ClinicCenterAdministratorHome from '../components/ClinicCenterAdministratorHome.vue';
 import UncheckedPrescriptions from "../views/UncheckedPrescriptions.vue";
-import EditMedicalRecord from "../views/EditMeidcalRecord.vue";
 import EditMedicalRoom from "../views/EditMedicalRoom.vue";
 import ClinicAdminProfile from "../views/ClinicAdminProfile.vue";
 import EditClinicAdmin from "../views/EditClinicAdmin.vue";
@@ -71,11 +70,6 @@ const routes = [
     path: "/editReport/:id",
     name: "editReport",
     component: EditExamReport
-  },
-  {
-    path: "/editMedicalRecord/:id",
-    name: "editMedicalRecord",
-    component: EditMedicalRecord
   },
   {
     path: "/uncheckedPrescriptions",

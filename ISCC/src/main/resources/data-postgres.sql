@@ -37,8 +37,13 @@ values ('teodora.95mandic@gmail.com', 'pass', 'Teodora', 'Mandic', '12345', 'Adr
 insert into patient (email, password, first_name, last_name, phone_number, address, city, state, health_care_number, status)
 values ('pacijent@gmail.com', 'nesto', 'Marko', 'Markovic', '06000060', 'Centar', 'Novi Sad', 'Srbija', 's007', 'activated');
 
-insert into medical_record (height, weight, blood_type, patient_id) values (174, 72, 'AB-', 1);
+insert into medical_record (height, weight, blood_type, patient_id, date_of_birth) values (174, 72, 'AB-', 1, '2001-08-22');
 insert into medical_record (height, weight, blood_type, patient_id, date_of_birth) values (168, 59, 'O+', 2, '1995-05-27');
+insert into medical_record (height, weight, blood_type, patient_id, date_of_birth) values (185, 90, 'B+', 3, '1987-04-07');
+
+update patient set record_id = 1 where id = 1;
+update patient set record_id = 2 where id = 2;
+update patient set record_id = 3 where id = 3;
 
 insert into doctor (email, password, first_name, last_name, address, city, state, phone_number, average_rating, on_vacation, workingtime_start, workingtime_end, specialized_id, clinic_id, first_login)
 values ('dejan.radulovic@iscc.com', 'nestonesto', 'Dejan', 'Radulovic', 'Druga Tita 33', 'Kula', 'Srbija', '12345123', 3.2, 'false', '07:00', '16:00', 1, 1, true);
