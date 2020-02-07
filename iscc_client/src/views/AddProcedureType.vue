@@ -15,6 +15,7 @@
                     <div class="form-group">
                         <label for="inputPrice">Price:</label>
                         <input id="inputPrice" type="number" class="form-control" v-model="price">
+                        <span class="val">{{valPrice}}</span>
                     </div>
                 </div>
             </div>
@@ -42,9 +43,15 @@
                 else
                     return null;
             },
-            valDescription: function(){
+            valDescription: function() {
                 if(this.typeDescription === '')
                     return 'This field is required!';
+                else
+                    return null;
+            },
+            valPrice: function() {
+                if (this.price != undefined && this.price != '' && this.price < 0)
+                    return 'Price has to be positive number';
                 else
                     return null;
             }
@@ -57,8 +64,6 @@
                     "price": this.price
                 }
 
-                var valid = true;
-
                 if (this.typeName != undefined) 
                     this.typeName.trim();
 				else 
@@ -69,19 +74,29 @@
                 else
                     this.typeDescription = '';
 
-                if (this.typeName === undefined || this.typeName === '' 
-                        || this.typeDescription === undefined || this.typeDescription === ''
-                        || this.price === '' || this.price < 0){
-                    valid = false
+                if (this.typeName === '' || this.typeDescription === '' || this.price === ''){
+                   alert('All fields should be filled!');
+                   return;
                 }
 
-                if (valid){
-                    this.axios.post("http://localhost:8080/procedure/type/add", procedureType)
+                if (this.price != undefined && this.price < 0) {
+                    return;
                 }
+
+                this.axios.post("http://localhost:8080/procedure/type/add", procedureType)
+                    .then(response => {
+                        this.typeName = '';
+                        this.typeDescription = '';
+                        this.price = '';
+                        alert('Procedure type has been added!');
+                    })
             }
         }
     }
 </script>
 
 <style scoped>
+    .val {
+        color: darkred;
+    }
 </style>

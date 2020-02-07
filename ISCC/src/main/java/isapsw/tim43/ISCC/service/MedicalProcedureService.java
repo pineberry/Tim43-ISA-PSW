@@ -40,22 +40,46 @@ public class MedicalProcedureService {
     @Autowired
     private EmailService emailService;
 
-    public MedicalProcedureDTO save(MedicalProcedureDTO medicalProcedureDTO){
-        if(medicalProcedureDTO.getProcedureType() == null || medicalProcedureDTO.getDateOfProcedure() == null ||
+    public MedicalProcedureDTO save(MedicalProcedureDTO medicalProcedureDTO) {
+        if (medicalProcedureDTO.getProcedureType() == null || medicalProcedureDTO.getDateOfProcedure() == null ||
                 medicalProcedureDTO.getDoctor() == null) {
+            return null;
+        }
+
+        ProcedureType procedureType = procedureTypeService.findOne(medicalProcedureDTO.getProcedureType().getId());
+        Doctor doctor = doctorService.findOne(medicalProcedureDTO.getDoctor().getId());
+
+        if(procedureType == null || doctor == null
+                                 || procedureType.getTypeName() != doctor.getSpecialized().getTypeName()){
+            return null;
+        }
+
+        // Provera da li doktor ima zakazanih pregelda u trazeno vreme
+        List<String> times = medicalRoomService.getTimesForChosenDate(medicalProcedureDTO.getDateOfProcedure(),
+                doctor.getMedicalProcedures());
+        String requestedTimes = medicalProcedureDTO.getStartTime() + ":" + medicalProcedureDTO.getEndTime();
+
+        if (medicalRoomService.overlapingTimes(times, requestedTimes)) {
+            return null;
+        }
+
+        // Provera da li doktor mora biti prisutan nekoj operaciji u trazeno vreme
+        times = medicalRoomService.getTimesForChosenDate(medicalProcedureDTO.getDateOfProcedure(),
+                doctor.getProcedures());
+        if (medicalRoomService.overlapingTimes(times, requestedTimes)) {
             return null;
         }
 
         MedicalRoom medicalRoom = null;
 
-        if(medicalProcedureDTO.getMedicalRoom() != null)
+        if(medicalProcedureDTO.getMedicalRoom() != null) {
             medicalRoom = medicalRoomService.findOne(medicalProcedureDTO.getMedicalRoom().getId());
-
-        ProcedureType procedureType = procedureTypeService.findOne(medicalProcedureDTO.getProcedureType().getId());
-        Doctor doctor = doctorService.findOne(medicalProcedureDTO.getDoctor().getId());
-
-        if(procedureType == null || doctor == null){
-            return null;
+            // Provera da li je sala zauzeta u trazeno vreme
+            times = medicalRoomService.getTimesForChosenDate(medicalProcedureDTO.getDateOfProcedure(),
+                    medicalRoom.getMedicalProcedures());
+            if (medicalRoomService.overlapingTimes(times, requestedTimes)) {
+                return null;
+            }
         }
 
         MedicalProcedure medicalProcedure = new MedicalProcedure();

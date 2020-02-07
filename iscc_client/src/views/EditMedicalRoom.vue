@@ -56,24 +56,20 @@
                 this.room.roomNumber = this.roomNumber;
                 this.room.clinic = this.clinic;
 
-                var valid = true;
-
                 if (this.roomName != undefined)
                     this.roomName.trim();
                 else
                     this.roomName = '';
 
-                if (this.roomName === undefined || this.roomName === ''
-                            || this.roomNumber === undefined) {
-                    valid = false
+                if (this.roomName === '' || this.roomNumber === undefined) {
+                    alert('All fields should be filled!');
+                    return;
                 }
 
-                if (valid) {
-                    this.axios.put("http://localhost:8080/medical/room/update", this.room)
-                        .then(response => {
-                            this.$router.push('/searchRooms/0');
-                        })
-                }
+                this.axios.put("http://localhost:8080/medical/room/update", this.room)
+                    .then(response => {
+                        this.$router.go(-1);
+                    })
             }
         }
     }

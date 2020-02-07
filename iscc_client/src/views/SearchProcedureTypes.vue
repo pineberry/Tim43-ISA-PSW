@@ -5,10 +5,13 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
-                        <label for="inputName">Type name:</label>
-                        <input id="inputName" type="text" class="form-control" placeholder="Enter type name" v-model="typeName">
+                        <label for="inputNameType">Type name:</label>
+                        <input id="inputNameType" type="text" class="form-control" placeholder="Enter type name" v-model="typeName">
                     </div>
+                    <p>
                     <button type="submit" class="btn btn-primary">Search</button>
+                    <button class="btn btn-outline-primary" style="margin-left: 5px" v-on:click="reset()">Reset</button>
+                    </p>
                 </div>
             </div>
         </form>
@@ -49,7 +52,7 @@
             }
         },
         mounted: function(){
-            this.axios.get("http://localhost:8080/procedure/type/all")
+            this.axios.get("http://localhost:8080/procedure/type/search/clinic/" + localStorage.getItem("user_id"))
                 .then(response => {
                     this.procedureTypes = response.data;
                 })
@@ -58,12 +61,12 @@
             searchTypes: function(){
                 if (this.typeName != undefined) {
                     if (this.typeName.trim() != '') {
-                        this.axios.get("http://localhost:8080/procedure/type/search/" + this.typeName)
+                        this.axios.get("http://localhost:8080/procedure/type/search/" + this.typeName + '/' + localStorage.getItem("user_id"))
                             .then(response => {
                                 this.procedureTypes = response.data;
                             })
                     } else {
-                    this.axios.get("http://localhost:8080/procedure/type/all")
+                    this.axios.get("http://localhost:8080/procedure/type/search/clinic/" + localStorage.getItem("user_id"))
                         .then(response => {
                             this.procedureTypes = response.data;
                         })
@@ -77,6 +80,13 @@
                         this.procedureTypes.splice(index, 1)
                     })
             },
+
+            reset: function () {
+                this.axios.get("http://localhost:8080/procedure/type/search/clinic/" + localStorage.getItem("user_id"))
+                    .then(response => {
+                        this.procedureTypes = response.data;
+                    })
+            }
         }
     }
 </script>

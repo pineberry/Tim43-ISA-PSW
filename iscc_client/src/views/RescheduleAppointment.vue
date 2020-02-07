@@ -50,7 +50,7 @@
             }
         },
         mounted: function() {
-            this.axios.get("http://localhost:8080/procedure/type/all")
+            this.axios.get("http://localhost:8080/procedure/type/search/clinic/" + localStorage.getItem("user_id"))
                 .then(response => {
                     this.procedureTypes = response.data
                 })
@@ -76,23 +76,56 @@
                     "endTime": this.endTime
                 }
 
-                var valid = true;
-
                 if(this.procedureType === null || this.dateOfProcedure === undefined || this.doctor === null
                     || this.startTime === undefined || this.endTime === undefined){
-                    valid = false;
+                    alert('All fields should be filled!');
+                    return;
                 }
 
-                if (valid) {
-                    if (this.appointment === 'exam') {
-                        this.axios.post("http://localhost:8080/medical/procedure/exam", medicalProcedure)
-                            .then(response => {alert('Request has been sent.')})
+                if (!this.checkTime(this.startTime, this.endTime)) {
+                    alert('Times are in incorrect order or out of 7-23h boundaries!');
+                    return;
+                }
+
+                if (this.doctor.specialized.typeName != this.procedureType.typeName) {
+                    alert('You are not specialized for this type of procedure!');
+                    return;
+                }
+
+                let date = new Date();
+                let requestedDate = new Date(this.dateOfProcedure)
+                if (requestedDate < date) {
+                    alert('Date cannot be in the past!');
+                    return;
+                }
+
+                if (this.appointment === 'exam') {
+                    this.axios.post("http://localhost:8080/medical/procedure/exam", medicalProcedure)
+                        .then(response => {alert('Request has been sent.')})
+                } else {
+                    this.axios.post("http://localhost:8080/medical/procedure/surgery", medicalProcedure)
+                        .then(response => {alert('Request has been sent.')})
+                }
+            },
+            checkTime: function(tStart, tEnd) {
+                if (tStart != undefined && tEnd != undefined) {
+                    let start = tStart.split(':');
+                    let end = tEnd.split(':');
+
+                    let hStart = parseInt(start[0]);
+                    let mStart = parseInt(start[1]);
+                    let hEnd = parseInt(end[0]);
+                    let mEnd = parseInt(end[1]);
+                    if (hStart < 7 || hEnd >= 23) {
+                        return false;
+                    } else if (hEnd < hStart) {
+                        return false;
+                    } else if ((hEnd === hStart) && (mEnd <= mStart)) {
+                        return false;
                     } else {
-                        this.axios.post("http://localhost:8080/medical/procedure/surgery", medicalProcedure)
-                            .then(response => {alert('Request has been sent.')})
+                        return true;
                     }
                 }
-
             }
         }
     }

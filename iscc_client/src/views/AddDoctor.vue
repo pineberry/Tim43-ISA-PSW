@@ -7,10 +7,12 @@
                     <div class="form-group">
 						<label for="inputName">Name:</label>
 						<input id="inputName" type="text" class="form-control" placeholder="Enter name" v-model="firstName">
+						<span class="val">{{valName}}</span>
 					</div>
                     <div class="form-group">
 						<label for="inputSurname">Surname:</label>
 						<input id="inputSurname" type="text" class="form-control" placeholder="Enter surname" v-model="lastName">
+						<span class="val">{{valSurname}}</span>
 					</div>
                     <div class="form-group">
 						<label for="inputAddress">Address:</label>
@@ -19,10 +21,12 @@
                     <div class="form-group">
 						<label for="inputCity">City:</label>
 						<input id="inputCity" type="text" class="form-control" placeholder="Enter city" v-model="city">
+						<span class="val">{{valCity}}</span>
 					</div>
                     <div class="form-group">
 						<label for="inputState">State:</label>
 						<input id="inputState" type="text" class="form-control" placeholder="Enter state" v-model="state">
+						<span class="val">{{valState}}</span>
 					</div>
                 </div>
                 <div class="col-6">
@@ -92,170 +96,145 @@
 		},
         computed: {
             valName: function(){
-				if(this.firstName != undefined && this.firstName.length > 0){
-					let tempName = this.firstName.match('[A-Za-z ]*');
-		            if(tempName != this.firstName)
-						return 'Name must contain alphabates only!';
-		            else if(this.firstName[0].match('[A-Z]') === null)
+				if(this.firstName != undefined && this.firstName.length > 0){;
+		            if(this.firstName[0].match('[A-Z]') === null)
 						return 'First letter must be capital!'; 
 					else return null;
 				}
-		        else if(this.firstName === '') return 'This field is required!';
 		        else return null;
 			},
             valSurname: function(){
 				if(this.lastName != undefined && this.lastName.length > 0){
-					let tempSurname = this.lastName.match('[A-Za-z ]*');
-		            if(tempSurname != this.lastName)
-						return 'Surname must contain alphabates only!';
-		            else if(this.lastName[0].match('[A-Z]') === null)
+					if(this.lastName[0].match('[A-Z]') === null)
 						return 'First letter must be capital!';
 					else return null;
-				} 
-		        else if(this.lastName === '') return 'This field is required!';
+				}
 		        else return null;
 			},
             valCity: function(){
 				if(this.city != undefined && this.city.length > 0){
-					let tempCity = this.city.match('[A-Za-z ]*');
-		            if(tempCity != this.city) 
-						return 'City must contain alphabates only!';
-		            else if(this.city[0].match('[A-Z]') === null) 
+					if(this.city[0].match('[A-Z]') === null)
 						return 'First letter must be capital!';
 					else return null;
-				} 
-		        else if(this.city === '') return 'This field is required!';
+				}
 		        else return null;
 			},
             valState: function(){
 				if(this.state != undefined && this.state.length > 0){
-					let tempState = this.state.match('[A-Za-z ]*');
-		            if(tempState != this.state) 
-						return 'State must contain alphabates only!';
-		            else if(this.state[0].match('[A-Z]') === null) 
+					if(this.state[0].match('[A-Z]') === null)
 						return 'First letter must be capital!';
 					else return null;
 				}
-		        else if(this.state === '') return 'This field is required!';
 		        else return null;
-			},
-            valAddress: function(){
-				if(this.address === '')
-	                return 'This field is required!!';
-	            else 
-	                return null;
-			},
-            valEmail: function(){
-				if(this.email === '') 
-					return 'This field is required!';
-	            else
-					 return null;
-			},
-            valPhone: function(){
-				if(this.phoneNumber === '')
-	                return 'This field is required!';
-	            else 
-	                return null;
 			}
             
         },
 
         methods: {
-					addDoctor: function(){
-						var doctor = {
-								"email": this.email,
-								"firstName": this.firstName,
-								"lastName": this.lastName,
-								"address": this.address,
-								"city": this.city,
-								"state": this.state,
-								"phoneNumber": this.phoneNumber,
-								"workingtimeStart": this.workingtimeStart,
-								"workingtimeEnd": this.workingtimeEnd,
-								"specialized": this.specialized,
-								"clinic": this.clinic
-						}
+				addDoctor: function(){
+					var doctor = {
+						"email": this.email,
+						"firstName": this.firstName,
+						"lastName": this.lastName,
+						"address": this.address,
+						"city": this.city,
+						"state": this.state,
+						"phoneNumber": this.phoneNumber,
+						"workingtimeStart": this.workingtimeStart,
+						"workingtimeEnd": this.workingtimeEnd,
+						"specialized": this.specialized,
+						"clinic": this.clinic
+					};
 
-				var valid = true;
-				var tempName = '';
-				var tempSurname = '';
-				var tempCity = '';
-				var tempState = '';
-				if (this.firstName != undefined){
+				if (this.firstName != undefined) {
 					this.firstName.trim();
-					tempName = this.firstName.match('[A-Za-z]*');
-				}else {
+				} else {
 					this.firstName = '';
 				}
 				if (this.lastName != undefined){
 					this.lastName.trim();
-					tempSurname = this.lastName.match('[A-Za-z]*');
-				}else {
+				} else {
 					this.lastName = '';
 				}
-				if (this.city != undefined){
+
+				if (this.city != undefined) {
 					this.city.trim();
-					tempCity = this.city.match('[A-Za-z]*');
-				}else {
+				} else {
 					this.city = '';
 				}
-				if (this.state != undefined){
+
+				if (this.state != undefined) {
 					this.city.trim();
-					tempState = this.state.match('[A-Za-z]*');
-				}else {
+				} else {
 					this.state = '';
 				}
-				if (this.address != undefined)
+
+				if (this.address != undefined) {
 					this.address.trim();
-				else
+				} else {
 					this.address = '';
-				if (this.email != undefined)
+				}
+
+				if (this.email != undefined) {
 					this.email.trim();
-				else
+				} else {
 					this.email = '';
-				if (this.phoneNumber != undefined)
+				}
+
+				if (this.phoneNumber != undefined) {
 					this.phoneNumber.trim();
-				else
+				} else {
 					this.phoneNumber = '';
-				if (this.workingtimeStart != undefined)
+				}
+
+				if (this.workingtimeStart != undefined) {
 					this.workingtimeStart.trim();
-				else
+				} else {
 					this.workingtimeStart = '';
-				if (this.workingtimeEnd != undefined)
+				}
+
+				if (this.workingtimeEnd != undefined) {
 					this.workingtimeEnd.trim();
-				else
+				} else {
 					this.workingtimeEnd = '';
-
-				if (this.firstName === undefined || this.firstName === '' || this.lastName === undefined || this.lastName === ''
-						|| this.city === undefined || this.city === '' || this.state === undefined || this.state === ''
-						|| this.address === undefined || this.address === '' || this.email === undefined || this.email === ''
-						|| this.phoneNumber === undefined || this.phoneNumber === '' || this.workingtimeStart === undefined
-						|| this.workingtimeStart === '' || this.workingtimeEnd === undefined || this.workingtimeEnd === ''){
-
-					valid = false;
 				}
-				else if ((tempName != this.firstName) || (tempSurname != this.lastName) || (tempCity != this.city) || (tempCity != this.city)
-						|| (tempState != this.state) || (this.firstName[0].match('[A-Z]') === null) || (this.lastName[0].match('[A-Z]') === null)
-						|| (this.city[0].match('[A-Z]') === null) || (this.state[0].match('[A-Z]') === null)){
-					valid = false;
-				}
-				else {
-					valid = true;
+
+				if (this.firstName === '' || this.lastName === ''  ||  this.city === '' || this.state === ''
+						|| this.address === '' || this.email === '' || this.phoneNumber === ''
+						|| this.workingtimeStart === '' || this.workingtimeEnd === ''){
+
+					alert('All fields should be filled!');
+					return;
+				} else if (this.firstName[0].match('[A-Z]') === null || this.lastName[0].match('[A-Z]') === null
+						|| this.city[0].match('[A-Z]') === null || this.state[0].match('[A-Z]') === null) {
+					return;
 				}
 
 				if(!this.checkWorkingTime()){
-					valid = false
+					alert('Start of working time has to be before ending!');
+					return;
 				}
 
-				if (valid){
-					this.axios.post("http://localhost:8080/doctor/add", doctor)
+				this.axios.post("http://localhost:8080/doctor/add", doctor)
 						.then(response => {
-							alert(response.data.firstName);
+							this.firstName = undefined;
+							this.lastName =  undefined;
+							this.email = undefined;
+							this.phoneNumber = undefined;
+							this.address = undefined;
+							this.city = undefined;
+							this.state = undefined;
+							this.workingtimeStart = undefined;
+							this.workingtimeEnd = undefined;
+							this.clinic = null;
+							this.specialized = null;
+							alert('Doctor ' + response.data.firstName + ' ' + response.data.lastName + ' has been added.');
 						})
-						.catch(errorr => {
-							alert('Error');
+						.catch(erorr => {
+							alert('There was a problem in adding doctor, check if all date are filled and are in correct format');
+							alert('There was a problem in adding doctor, check if all date are filled and are in correct format');
 						})
-				}
+
 			},
 			checkWorkingTime: function(){
             	var retVal = true;
@@ -266,7 +245,10 @@
 				var endHour = parseInt(endTimeParts[0]);
 				var endMinute = parseInt(endTimeParts[1]);
 
-				if (startHour > endHour) {
+				if (startHour < 7 || endHour >= 23) {
+					retVal = false;
+				}
+				else if (startHour > endHour) {
 					retVal = false
 				} else if ((startHour == endHour) && (startMinute >= endMinute)){
 					retVal = false
@@ -280,5 +262,7 @@
 </script>
 
 <style scoped>
-
+	.val {
+		color: darkred;
+	}
 </style>
