@@ -18,7 +18,7 @@
       </ul>
       <div class="tab-content">
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}" >
-              <Patients/>
+              <Patients />
           </div>
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 2}" >
               <UncheckedPrescriptions/>
@@ -88,9 +88,10 @@ import UncheckedPrescriptions from "../views/UncheckedPrescriptions";
 import Patients from "./Patients";
 import CheckedPrescriptions from "./CheckedPrescriptions";
 import VacationRequest from "./VacationRequest";
+
 export default {
     name : "NurseHome",
-    components: {Patients, UncheckedPrescriptions, CheckedPrescriptions, VacationRequest},
+    components: { Patients, UncheckedPrescriptions, CheckedPrescriptions, VacationRequest},
     data : function() {
         return {
             user : localStorage.getItem('user'),

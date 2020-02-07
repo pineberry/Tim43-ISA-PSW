@@ -1,5 +1,6 @@
 package isapsw.tim43.ISCC.dto;
 
+import isapsw.tim43.ISCC.model.MedicalRecord;
 import isapsw.tim43.ISCC.model.Report;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class MedicalRecordDTO {
     private Date dateOfBirth;
     private String bloodType;
     private List<ReportDTO> reports;
+    private PatientDTO patientDTO;
     
     public MedicalRecordDTO() {
     }
@@ -33,6 +35,17 @@ public class MedicalRecordDTO {
         this.dateOfBirth = dateOfBirth;
         this.bloodType = bloodType;
         this.reports = reports;
+    }
+
+    public MedicalRecordDTO(MedicalRecord medicalRecord) {
+        this.id = medicalRecord.getId();
+        this.patientDTO = new PatientDTO(medicalRecord.getPatient());
+        this.height = medicalRecord.getHeight();
+        this.weight = medicalRecord.getWeight();
+        this.dateOfBirth = medicalRecord.getDateOfBirth();
+        this.bloodType = medicalRecord.getBloodType();
+        this.reports = null;
+        this.patientDTO = new PatientDTO(medicalRecord.getPatient());
     }
 }
 

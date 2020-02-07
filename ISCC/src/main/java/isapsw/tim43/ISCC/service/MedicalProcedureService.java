@@ -333,5 +333,17 @@ public class MedicalProcedureService {
 		return getPatientsProcedures(patientID);
 	}
 
+    public MedicalProcedureDTO finishExam(Long id) {
+        MedicalProcedure medicalProcedure = findOne(id);
 
+        if(medicalProcedure == null ) {
+            return null;
+        }
+
+        medicalProcedure.setMedicalRoom(null);
+        medicalProcedure.setBooked(false);
+        medicalProcedureRepository.save(medicalProcedure);
+
+        return new MedicalProcedureDTO(medicalProcedure);
+    }
 }

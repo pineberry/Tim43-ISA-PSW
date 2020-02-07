@@ -9,8 +9,9 @@
                 <div class="form-group">
                     <label for="selectDiagnosis">Diagnosis</label>
                     <select class="form-control" v-model="diagnosis" id="selectDiagnosis">
-                        <option v-for="diagnosis in diagnoses" :key="diagnosis.id" :value="diagnosis.code"
-                                v-bin:selected="{selected: diagnosis.name === report.diagnosis}">{{diagnosis.name}}</option>
+                        <option v-for="diag in diagnoses" :key="diag.id" :value="diag.code">
+                            {{diag.name}}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -63,7 +64,7 @@
                 }
 
                 this.axios.post("http://localhost:8080/doctor/edit/report", report)
-                    .then(response => { alert(response.data.notes); })
+                    .then(response => { this.$router.push("/")})
                     .catch(error => { alert(error); })
             }
         }

@@ -38,6 +38,7 @@ public class RegistrationController {
 				Patient patient = new Patient(user.getEmail(), user.getPassword(), user.getFirstName(),
 						user.getLastName(), user.getAddress(), user.getCity(), user.getState(),
 						user.getPhoneNumber(), user.getHealthCareNumber(), "pending", new MedicalRecord());
+				patient.getRecord().setPatient(patient);
 				Patient p = patientService.save(patient);
 				try {
 					String emailContent = "User " + p.getFirstName() + " " + p.getLastName() + " has requested to register on ISCC!\n\n" +

@@ -1,6 +1,6 @@
 <template>
 
-<div class="container row justify-content-center m-0">
+<div class="container row justify-content-center m-0" v-if="user">
 	<div v-if="editDataF == false" class="col-10 card m-5 p-5">
 		<div class="row justify-content-center">
 			<p><small>Name: </small>{{user.firstName}} {{user.lastName}}</p>

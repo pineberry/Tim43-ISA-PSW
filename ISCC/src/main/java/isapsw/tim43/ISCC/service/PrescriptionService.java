@@ -1,6 +1,7 @@
 package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.PrescriptionDTO;
+import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.model.*;
 import isapsw.tim43.ISCC.repository.PrescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class PrescriptionService {
         /*Patient patient = prescription.getReport().getRecord().getPatient();
         prescriptionDTO.setPatientsName(patient.getFirstName());
         prescriptionDTO.setPatientsSurname(patient.getLastName());*/
+        prescriptionDTO.setReportDTO(new ReportDTO(prescription.getReport()));
         prescriptionDTO.setClinicName(prescription.getClinic().getName());
         if(prescription.getNurse() != null) {
             prescriptionDTO.setNurseEmail(prescription.getNurse().getEmail());
