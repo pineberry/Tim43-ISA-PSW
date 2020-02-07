@@ -22,10 +22,11 @@ public class ProcedureTypeService {
         @Autowired
         private ClinicAdministratorService clinicAdministratorService;
 
-        public ProcedureTypeDTO save(ProcedureTypeDTO procedureTypeDTO){
+        public ProcedureTypeDTO save(ProcedureTypeDTO procedureTypeDTO) {
 
             if (procedureTypeDTO.getTypeName() == null || procedureTypeDTO.getTypeName().isEmpty()
-                    || procedureTypeDTO.getTypeDescription() == null || procedureTypeDTO.getTypeDescription().isEmpty())
+                    || procedureTypeDTO.getTypeDescription() == null || procedureTypeDTO.getTypeDescription().isEmpty()
+                    || procedureTypeDTO.getPrice() < 0)
             {
                 return null;
             }
@@ -44,19 +45,22 @@ public class ProcedureTypeService {
             return procedureTypeRepository.findById(id).orElseGet(null);
         }
 
-        public List<ProcedureTypeDTO> searchTypeByBame(String name){
+        public List<ProcedureTypeDTO> searchTypeByName(String name, Long id) {
+            ClinicAdministrator clinicAdministrator = clinicAdministratorService.findOne(id);
             List<ProcedureTypeDTO> procedureTypeDTOList = new ArrayList<ProcedureTypeDTO>();
             List<ProcedureType> procedureTypes = procedureTypeRepository.findProcedureTypeByTypeName(name);
-            if (procedureTypes != null || !procedureTypes.isEmpty()) {
-                for (ProcedureType procedureType : procedureTypes) {
+
+            for (ProcedureType procedureType : procedureTypes) {
+                if (procedureType.getClinics().contains(clinicAdministrator.getClinic())) {
                     ProcedureTypeDTO procedureTypeDTO = new ProcedureTypeDTO(procedureType);
                     procedureTypeDTOList.add(procedureTypeDTO);
                 }
             }
+
             return  procedureTypeDTOList;
         }
 
-        public List<ProcedureTypeDTO> findAll(){
+        public List<ProcedureTypeDTO> findAll() {
             List<ProcedureType> procedureTypes = procedureTypeRepository.findAll();
             List<ProcedureTypeDTO> procedureTypeDTOList = new ArrayList<ProcedureTypeDTO>();
 
@@ -89,7 +93,7 @@ public class ProcedureTypeService {
             return procedureTypeDTOList;
         }
 
-        public boolean remove(long id){
+        public boolean remove(long id) {
             ProcedureType procedureType = findOne(id);
 
             if (procedureType == null || procedureType.getMedicalProcedures().size() != 0) {

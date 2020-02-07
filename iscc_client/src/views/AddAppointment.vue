@@ -9,7 +9,6 @@
                         <select id="selectType" class="form-control" v-model="procedureType">
                             <option v-for="pType in procedureTypes" :key="pType.id" :value="pType">{{pType.typeName}}</option>
                         </select>
-                        <span class="entryValidation">{{valType}}</span>
                      </div>
                      <div class="form-group">
                         <label for="selectRoom">Medical room</label>
@@ -63,25 +62,17 @@
             }
         },
         mounted: function(){
-            this.axios.get("http://localhost:8080/procedure/type/all")
+            this.axios.get("http://localhost:8080/procedure/type/search/clinic/" + localStorage.getItem("user_id"))
                 .then(response => {this.procedureTypes = response.data})
                 .catch(error => {alert(error.response.data)})
             
-            this.axios.get("http://localhost:8080/doctor/all")
+            this.axios.get("http://localhost:8080/doctor/clinic/" + localStorage.getItem("user_id"))
                 .then(response => {this.doctors = response.data})
                 .catch(error => {alert(error.response.data)})
             
-            this.axios.get("http://localhost:8080/medical/room/all")
+            this.axios.get("http://localhost:8080/medical/room/clinic/" + localStorage.getItem("user_id"))
                 .then(response => {this.medicalRooms = response.data})
                 .catch(error => {alert(error.response.data)})
-        },
-        computed: {
-          valType: function () {
-                if (this.procedureType === undefined)
-                    return 'This is mandatory field!';
-                else
-                    return '';
-          }
         },
         methods: {
             addMedicalProcedure: function(){
@@ -94,22 +85,64 @@
                     "endTime": this.endTime
                 }
 
-                var valid = true;
-
-                if(this.procedureType === undefined || this.dateOfProcedure === undefined 
+                if(this.procedureType === undefined || this.dateOfProcedure === undefined || this.dateOfProcedure === ''
                         || this.medicalRoom === undefined || this.doctor === undefined
-                        || this.startTime === undefined || this.endTime === undefined){
-                    valid = false;
+                        || this.startTime === undefined || this.startTime === ''
+                        || this.endTime === undefined || this.endTime === ''){
+                    alert('All fields should be filled!');
+                    return;
                 }
 
-                if(valid){
+                if (this.doctor.specialized.typeName != this.procedureType.typeName) {
+                    alert('Chosen doctor is not specialized for chosen procedure type!');
+                    return;
+                }
+
+                if (!this.checkTime(this.startTime, this.endTime)) {
+                    alert('Times are in incorrect order or out of 7-23h boundaries!');
+                    return;
+                }
+
+                let date = new Date();
+                let requestedDate = new Date(this.dateOfProcedure)
+                if (requestedDate < date) {
+                    alert('Date cannot be in the past!');
+                    return;
+                }
+
                     this.axios.post("http://localhost:8080/medical/procedure/add", medicalProcedure)
                         .then(response => {
+                            this.dateOfProcedure= undefined;
+                            this.procedureType = undefined;
+                            this.medicalRoom = undefined;
+                            this.doctor = undefined;
+                            this.startTime = undefined;
+                            this.endTime = undefined;
 							alert("Medical procedure has been added")
 						})
 						.catch(error => {
 							alert(error.response.data)
 						})
+            },
+
+            checkTime: function(tStart, tEnd) {
+                if (tStart != undefined && tEnd != undefined) {
+                    let start = tStart.split(':');
+                    let end = tEnd.split(':');
+
+                    let hStart = parseInt(start[0]);
+                    let mStart = parseInt(start[1]);
+                    let hEnd = parseInt(end[0]);
+                    let mEnd = parseInt(end[1]);
+                    if (hStart < 7 || hEnd >= 23) {
+                        return false;
+                    } else if (hEnd < hStart) {
+                        return false;
+                    } else if ((hEnd === hStart) && (mEnd <= mStart)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
                 }
             }
         }

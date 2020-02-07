@@ -13,6 +13,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     List<Doctor> findAllBySpecialized(ProcedureType procedureType);
 
+    List<Doctor> findAllBySpecializedAndClinic(ProcedureType procedureType, Clinic clinic);
+
     public List<Doctor> findAllByClinic(Clinic clinic);
 
     List<Doctor> findDoctorByFirstNameAndClinic(String name, Clinic clinic);

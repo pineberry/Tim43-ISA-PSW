@@ -15,6 +15,7 @@
                     <div class="form-group">
                         <label for="inputPrice">Price:</label>
                         <input id="inputPrice" type="number" class="form-control" v-model="price">
+                        <span class="val">{{valPrice}}</span>
                     </div>
                 </div>
             </div>
@@ -26,7 +27,7 @@
 <script>
     export default {
         name: "editProcedureType",
-        data: function() {
+        data: function () {
             return {
                 typeName: undefined,
                 typeDescription: undefined,
@@ -34,7 +35,7 @@
                 procedureType: null
             }
         },
-        mounted: function(){
+        mounted: function () {
             this.axios.get("http://localhost:8080/procedure/type/" + this.$route.query.typeId)
                 .then(response => {
                     this.procedureType = response.data;
@@ -44,48 +45,53 @@
                 })
         },
         computed: {
-            valName: function() {
+            valName: function () {
                 if (this.typeName === '')
                     return 'This field is required!';
                 else
                     return null;
             },
-            valDescription: function() {
+            valDescription: function () {
                 if (this.typeDescription === '')
                     return 'This field is required!';
                 else
                     return null;
-            }
-        },
-        methods: {
-            editProcedureType: function() {
-
-                this.procedureType.typeName = this.typeName;
-                this.procedureType.typeDescription = this.typeDescription;
-                this.procedureType.price = this.price;
-
-                var valid = true;
-
-                if (this.typeName != undefined)
-                    this.typeName.trim();
+            },
+            valPrice: function () {
+                if (this.price != undefined && this.price != '' && this.price < 0)
+                    return 'Price has to be positive number';
                 else
-                    this.typeName = '';
+                    return null;
+            },
+            methods: {
+                editProcedureType: function () {
 
-                if (this.typeDescription != undefined)
-                    this.typeDescription.trim();
-                else
-                    this.typeDescription = '';
+                    this.procedureType.typeName = this.typeName;
+                    this.procedureType.typeDescription = this.typeDescription;
+                    this.procedureType.price = this.price;
 
-                if (this.typeName === undefined || this.typeName === ''
-                    || this.typeDescription === undefined || this.typeDescription === ''
-                    || this.price === '' || this.price < 0) {
-                    valid = false
-                }
+                    if (this.typeName != undefined)
+                        this.typeName.trim();
+                    else
+                        this.typeName = '';
 
-                if (valid) {
+                    if (this.typeDescription != undefined)
+                        this.typeDescription.trim();
+                    else
+                        this.typeDescription = '';
+
+                    if (this.typeName === '' || this.typeDescription === '' || this.price === '') {
+                        alert('All fields should be filled!');
+                        return;
+                    }
+
+                    if (this.price != undefined && this.price < 0) {
+                        return;
+                    }
+
                     this.axios.put("http://localhost:8080/procedure/type/update", this.procedureType)
                         .then(response => {
-                            this.$router.push('/searchTypes');
+                            this.$router.go(-1);
                         })
                 }
             }
@@ -94,5 +100,7 @@
 </script>
 
 <style scoped>
-
+    .val {
+        color: darkred;
+    }
 </style>

@@ -64,8 +64,6 @@
                 this.clinic.address = this.clinicAddress;
                 this.clinic.types = this.clinicTypes;
 
-                var valid = true;
-
                 if (this.clinicName != undefined)
                     this.clinicName.trim();
                 else
@@ -82,15 +80,14 @@
                     this.clinicAddress = '';
 
                 if (this.clinicName === '' || this.clinicAddress === '' || this.clinicDescription === '') {
-                    valid = false
+                    alert('All fields should be filled!');
+                    return;
                 }
 
-                if (valid) {
-                    this.axios.put("http://localhost:8080/clinic/edit", this.clinic)
-                        .then(response => {
-                            this.$router.go(-1);
-                        })
-                }
+                this.axios.put("http://localhost:8080/clinic/edit", this.clinic)
+                    .then(response => {
+                        this.$router.go(-1);
+                    })
             }
         }
     }

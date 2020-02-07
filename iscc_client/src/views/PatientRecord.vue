@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="medicalRecord">
         <div class="row">
             <div class="col-4">
                 <h4>Medical record</h4>
@@ -40,7 +40,13 @@
         },
         mounted: function() {
             this.axios.get("http://localhost:8080/record/patient/" + this.$route.query.id)
-                .then(response => {this.medicalRecord = response.data;})
+                .then(response => {
+                    this.medicalRecord = response.data;
+                })
+                .catch(error => {
+                    alert('This patient does not have medical record!');
+                    this.$router.go(-1);
+                })
         }
     }
 </script>

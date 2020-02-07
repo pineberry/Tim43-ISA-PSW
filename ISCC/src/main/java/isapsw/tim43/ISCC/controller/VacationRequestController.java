@@ -95,4 +95,25 @@ public class VacationRequestController {
         }
     }
 
+    @PutMapping(value = "/accept", consumes = "application/json")
+    public ResponseEntity<VacationRequestDTO> accept(@RequestBody VacationRequestDTO vacationRequestDTO) throws InterruptedException {
+        vacationRequestDTO = vacationRequestService.accept(vacationRequestDTO);
+        if (vacationRequestDTO != null) {
+            return new ResponseEntity<>(vacationRequestDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "/deny", consumes = "application/json")
+    public ResponseEntity<VacationRequestDTO> accept(@RequestBody VacationRequestDTO vacationRequestDTO,
+                                                        @RequestParam(name = "comment") String comment) throws InterruptedException {
+        vacationRequestDTO = vacationRequestService.deny(vacationRequestDTO, comment);
+        if (vacationRequestDTO != null) {
+            return new ResponseEntity<>(vacationRequestDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
