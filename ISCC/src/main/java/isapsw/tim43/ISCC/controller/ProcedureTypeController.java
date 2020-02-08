@@ -56,9 +56,10 @@ public class ProcedureTypeController {
             }
         }
 
-        @GetMapping(value = "/search/{typeName}", produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<List<ProcedureTypeDTO>> searchTypes(@PathVariable String typeName){
-            List<ProcedureTypeDTO> procedureTypeDTOList = procedureTypeService.searchTypeByBame(typeName);
+        @GetMapping(value = "/search/{typeName}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<List<ProcedureTypeDTO>> searchTypes(@PathVariable String typeName,
+                                                                    @PathVariable Long id){
+            List<ProcedureTypeDTO> procedureTypeDTOList = procedureTypeService.searchTypeByName(typeName, id);
             return new ResponseEntity<>(procedureTypeDTOList, HttpStatus.OK);
         }
 

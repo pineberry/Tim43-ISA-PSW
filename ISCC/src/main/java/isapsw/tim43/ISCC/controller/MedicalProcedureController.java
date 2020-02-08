@@ -188,4 +188,13 @@ public class MedicalProcedureController {
         }
     }
 
+    @PutMapping(value = "/finish/exam/{id}")
+    public ResponseEntity<Void> finishExam(@PathVariable("id") Long id) {
+        if(medicalProcedureService.finishExam(id) != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

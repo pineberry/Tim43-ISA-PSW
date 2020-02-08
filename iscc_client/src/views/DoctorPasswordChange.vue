@@ -34,6 +34,17 @@
                     "passwordF" : this.passwordF
                 }
 
+                if (this.password != undefined || this.password.trim() === ''
+                            || this.passwordF === undefined || this.passwordF.trim() === '') {
+                    alert('All fields should be filled!');
+                    return;
+                }
+
+                if (this.password != this.passwordF) {
+                    alert('Confirmation password is not valid!');
+                    return;
+                }
+
                 if (localStorage.getItem('typeOfUser') === 'doctor') {
                     this.axios.put("http://localhost:8080/doctor/change/password", User)
                         .then(response => {

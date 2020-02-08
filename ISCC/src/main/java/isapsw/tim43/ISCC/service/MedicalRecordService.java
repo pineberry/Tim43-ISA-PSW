@@ -70,7 +70,6 @@ public class MedicalRecordService {
             ReportDTO reportDTO = reportService.modelToDto(report);
             reportDTO.setDoctorFirstName(report.getDoctor().getFirstName());
             reportDTO.setDoctorLastName(report.getDoctor().getLastName());
-            medicalRecordDTO.getReports().add(reportDTO);
         }
 
         return medicalRecordDTO;

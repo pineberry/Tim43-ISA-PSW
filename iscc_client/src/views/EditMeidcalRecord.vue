@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form class="col-6" v-on:submit.prevent="editData">
+        <form v-on:submit.prevent="editData">
             <div class="form-group">
                 <label for="inputHeight">Height</label>
                 <input type="number" v-model="height" class="form-control" id="inputHeight">
@@ -26,13 +26,16 @@
                 <label for="inpuDateOfBirth">Birth day</label>
                 <input type="date" v-model="dateOfBirth" id="inpuDateOfBirth" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </template>
 <script>
     export default {
         name : "EditMedicalRecord",
+        props: {
+            medicalRecord : Object
+        },
         data : function () {
             return {
                 height : null,
@@ -43,22 +46,15 @@
             }
         },
         mounted : function () {
-            this.axios.get("http://localhost:8080/record/" + this.$route.params.id)
-                .then(response => {
-                    this.height = response.data.height;
-                    this.weight = response.data.weight;
-                    this.bloodType = response.data.bloodType;
-                    this.dateOfBirth = new Date(response.data.dateOfBirth);
-
-                })
-                .catch(error => {
-                    alert(error.respoonse.data);
-                })
+            this.height = this.medicalRecord.height;
+            this.weight = this.medicalRecord.weight;
+            this.bloodType = this.medicalRecord.bloodType;
+            this.dateOfBirth = formatDate(this.medicalRecord.dateOfBirth);
         },
         methods : {
             editData : function () {
                 var record = {
-                    "id" : this.$route.params.id,
+                    "id" : this.medicalRecord.id,
                     "height" : this.height,
                     "weight" : this.weight,
                     "dateOfBirth" : new Date(this.dateOfBirth),
@@ -67,11 +63,22 @@
 
                 this.axios.put("http://localhost:8080/record/edit", record)
                     .then(response => {
-                        alert(response.data.patientsEmail);
+                        this.$router.go();
                     })
-                    .catch(error => {alert(error.resopnse)})
+                    .catch(error => {console.log(error);})
             }
         }
 
+    }
+
+    
+    function formatDate(dat) {
+        if (dat != null) {
+            let date = new Date(dat);
+            var options = { year: "numeric", month: "2-digit", day: "2-digit" };
+            let string = date.toLocaleDateString("sv-SE", options);
+            return string;
+        }
+        return "";
     }
 </script>

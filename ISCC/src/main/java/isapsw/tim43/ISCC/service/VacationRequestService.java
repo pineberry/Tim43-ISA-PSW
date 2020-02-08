@@ -22,6 +22,9 @@ public class VacationRequestService {
     @Autowired
     NurseService nurseService;
 
+    @Autowired
+    EmailService emailService;
+
     public VacationRequest save(VacationRequest vacationRequest) { return vacationRequestRepository.save(vacationRequest); }
     public VacationRequest findById(Long id) { return vacationRequestRepository.findById(id).orElse(null); }
     public List<VacationRequest> findAll() {return vacationRequestRepository.findAll(); }
@@ -82,6 +85,70 @@ public class VacationRequestService {
         vacationRequest.setStatus(vacationRequestDTO.getStatus());
 
         return modelToDto(save(vacationRequest));
+    }
+
+    public VacationRequestDTO accept(VacationRequestDTO vacationRequestDTO) throws InterruptedException {
+        VacationRequest vacationRequest = findById(vacationRequestDTO.getId());
+
+        if (vacationRequest.getStatus() != 0) {
+            return null;
+        }
+
+        // Status 1 -> zahtev prihvacen
+        vacationRequest.setStatus(1);
+
+        String emailContent;
+
+        if (vacationRequest.getDoctor() != null) {
+            emailContent = "Dear " + vacationRequest.getDoctor().getFirstName()
+                                + " " + vacationRequest.getDoctor().getLastName()
+                                + ", your vacation request has been accepted!\n\n"
+                                + "Vacation starts on " + vacationRequest.getStartingDate() + " and ends on "
+                                + vacationRequest.getEndingDate();
+        } else {
+            emailContent = "Dear " + vacationRequest.getNurse().getFirstName()
+                    + " " + vacationRequest.getNurse().getLastName()
+                    + ", your vacation request has been accepted!\n\n"
+                    + "Vacation starts on " + vacationRequest.getStartingDate() + " and ends on "
+                    + vacationRequest.getEndingDate();
+        }
+
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+        vacationRequestRepository.save(vacationRequest);
+        return new VacationRequestDTO(vacationRequest);
+    }
+
+    public VacationRequestDTO deny(VacationRequestDTO vacationRequestDTO, String comment) throws InterruptedException {
+        VacationRequest vacationRequest = findById(vacationRequestDTO.getId());
+
+        if (vacationRequest == null || comment == null || comment.isEmpty()){
+            return null;
+        }
+
+        if (vacationRequest.getStatus() != 0) {
+            return null;
+        }
+
+        // Status 2 -> zahtev odbijen
+        vacationRequest.setStatus(2);
+
+        String emailContent;
+
+        if (vacationRequest.getDoctor() != null) {
+            emailContent = "Dear " + vacationRequest.getDoctor().getFirstName()
+                    + " " + vacationRequest.getDoctor().getLastName()
+                    + ", Your vacation request has been denied!\n\n"
+                    + "Reason for such decision: \n\n" + comment;
+        } else {
+            emailContent = "Dear " + vacationRequest.getNurse().getFirstName()
+                    + " " + vacationRequest.getNurse().getLastName()
+                    + ", Your vacation request has been denied!\n\n"
+                    + "Reason for such decision: \n\n" + comment;
+        }
+
+        emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+        vacationRequestRepository.save(vacationRequest);
+        return new VacationRequestDTO(vacationRequest);
     }
 
     public VacationRequestDTO modelToDto(VacationRequest vacationRequest) {

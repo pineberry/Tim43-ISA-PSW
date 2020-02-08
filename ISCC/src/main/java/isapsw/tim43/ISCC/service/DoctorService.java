@@ -37,7 +37,7 @@ public class DoctorService {
 	private ClinicAdministratorService clinicAdministratorService;
 	
 	public DoctorDTO save(DoctorDTO doctorDTO) {
-		if(doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null
+		if (doctorDTO.getEmail() == null || doctorDTO.getEmail().isEmpty() || doctorDTO.getFirstName() == null
 				|| doctorDTO.getFirstName().isEmpty() || doctorDTO.getLastName() == null
 				|| doctorDTO.getLastName().isEmpty() ||  doctorDTO.getState() == null
 				|| doctorDTO.getState().isEmpty() || doctorDTO.getCity() == null
@@ -50,7 +50,7 @@ public class DoctorService {
 		ProcedureType procedureType = procedureTypeService.findOne(doctorDTO.getSpecialized().getId());
 		Clinic clinic = clinicService.findOne(doctorDTO.getClinic().getId());
 
-		if(!checkWorkingTime(doctorDTO.getWorkingtimeStart(), doctorDTO.getWorkingtimeEnd())){
+		if (!checkWorkingTime(doctorDTO.getWorkingtimeStart(), doctorDTO.getWorkingtimeEnd())) {
 			return null;
 		}
 
@@ -85,7 +85,7 @@ public class DoctorService {
 		return doctorRepository.findAllByClinic(clinic);
 	}
 
-	public List<DoctorDTO> searchByNameAndLastName(String name, String lastName, Long id){
+	public List<DoctorDTO> searchByNameAndLastName(String name, String lastName, Long id) {
 		if ((name == null || name.trim().isEmpty() || name.equals("empty")) &&
 				(lastName == null || lastName.trim().isEmpty() || lastName.equals("empty"))) {
 			return null;
@@ -130,6 +130,15 @@ public class DoctorService {
 		}
 
 		return doctorDTOS;
+	}
+
+	public List<DoctorDTO> findByClinic(Long id) {
+		ClinicAdministrator clinicAdministrator = clinicAdministratorService.findOne(id);
+
+		if (clinicAdministrator == null) {
+			return null;
+		}
+		return getDoctorsByClinic(clinicAdministrator.getClinic().getId());
 	}
 
 	public DoctorDTO update(DoctorDTO doctorDTO){
@@ -277,19 +286,24 @@ public class DoctorService {
 
 	/*
 	 * Provera da li je za slobodan termin sale slobodan i doktor koji je zatrazen u pregledu, ukoliko nije, trazi se
-	 * prvi sledeci doktor koji je slobodan, a ima istu specijalizaciju.
+	 * prvi sledeci doktor koji je slobodan, a ima istu specijalizaciju i radi na istoj klinici.
 	 */
 	public Doctor getAvailableDoctor(MedicalProcedure medicalProcedure, String requestedTimes) {
 		Doctor doctor = medicalProcedure.getDoctor();
 
+		// Vremena pregleda za odabrani datum, gde je doktor glavni za pregled
 		List<String> times = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
 																				doctor.getMedicalProcedures());
+		// Vremena pregleda za odabrani datum, gde je doktor prisutan operaciji
+		times.addAll(medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+																				doctor.getProcedures()));
 		if (!medicalRoomService.overlapingTimes(times, requestedTimes)) {
 			return doctor;
 		} else {
-			for (Doctor doc: doctorRepository.findAllBySpecialized(doctor.getSpecialized())) {
-				List<String> timesForChosenDate = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
-						doc.getMedicalProcedures());
+			for (Doctor doc: doctorRepository.findAllBySpecializedAndClinic(doctor.getSpecialized(),
+																								doctor.getClinic())) {
+				List<String> timesForChosenDate = medicalRoomService
+						.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(), doc.getMedicalProcedures());
 				if (!medicalRoomService.overlapingTimes(timesForChosenDate, requestedTimes)) {
 					return doctor;
 				}

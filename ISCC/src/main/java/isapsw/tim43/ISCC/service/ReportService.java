@@ -2,10 +2,7 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
-import isapsw.tim43.ISCC.model.Doctor;
-import isapsw.tim43.ISCC.model.Medicine;
-import isapsw.tim43.ISCC.model.Prescription;
-import isapsw.tim43.ISCC.model.Report;
+import isapsw.tim43.ISCC.model.*;
 import isapsw.tim43.ISCC.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +28,9 @@ public class ReportService {
     private PrescriptionService prescriptionService;
 
     @Autowired
+    private MedicalRecordService medicalRecordService;
+
+    @Autowired
     private ClinicService clinicService;
 
     public Report save(Report report) {
@@ -43,10 +43,11 @@ public class ReportService {
 
     public Report mapDTO(ReportDTO reportDTO) {
         Report report = new Report();
-
+        save(report);
         report.setNotes(reportDTO.getNotes());
         report.setDiagnosis(diagnosisService.findByCode(reportDTO.getDiagnosis()));
         report.setDoctor(doctorService.findOne(reportDTO.getDoctor().getId()));
+        report.setRecord(medicalRecordService.findById(reportDTO.getMedicalRecord().getId()));
         for (String code: reportDTO.getMedicines()) {
             Prescription prescription = new Prescription();
             Medicine medicine = medicineService.findByCode(code);

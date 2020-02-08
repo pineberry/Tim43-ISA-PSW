@@ -150,6 +150,17 @@ public class DoctorController {
 		}
 	}
 
+	@GetMapping(value = "/clinic/{id}")
+	public ResponseEntity<List<DoctorDTO>> findByClinic(@PathVariable Long id) {
+		List<DoctorDTO> doctorDTOList = doctorService.getClinicDoctors(id);
+
+		if (doctorDTOList != null) {
+			return new ResponseEntity<>(doctorDTOList, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@GetMapping(value = "/find/{name}/{lastName}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DoctorDTO>> searchByNameAndLastName(@PathVariable String name,
 																	@PathVariable String lastName,

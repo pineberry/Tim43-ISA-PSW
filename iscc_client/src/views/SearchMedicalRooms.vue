@@ -12,8 +12,8 @@
                         </select>
                     </div>
                     <div v-if="searchBy === 'name'" class="form-group">
-						<label for="inputName">Room name:</label>
-						<input id="inputName" type="text" class="form-control" placeholder="Enter room name" v-model="roomName">
+						<label for="inputRoomName">Room name:</label>
+						<input id="inputRoomName" type="text" class="form-control" placeholder="Enter room name" v-model="roomName">
 					</div>
                     <div v-else class="form-group">
 						<label for="inputNumber">Room number:</label>
@@ -59,7 +59,7 @@
                             <td><router-link class="btn btn-primary" :to="{path: '/editRoom',query: {roomId: room.id}}">Edit</router-link></td>
                             <td><button class="btn btn-warning" v-on:click="deleteRoom(room)">Delete</button></td>
                             <td v-show="procedureId != 0"><button class="btn btn-warning" v-on:click="bookRoom(room.id)">Book</button></td>
-                            <td><router-link class="btn-primary" :to="{path: '/roomCalendar', query: {id: room.id}}">Details</router-link></td>
+                            <td><router-link class="btn btn-outline-primary" :to="{path: '/roomCalendar', query: {id: room.id}}">Details</router-link></td>
                         </tr>
                     </tbody>
                 </table>
@@ -89,7 +89,7 @@
             }
         },
         mounted: function(){
-            this.axios.get("http://localhost:8080/medical/room/all")
+            this.axios.get("http://localhost:8080/medical/room/clinic/" + localStorage.getItem("user_id"))
                 .then(response => {
                     this.unfilteredRooms = response.data;
                     this.medicalRooms = this.unfilteredRooms.slice();
@@ -121,9 +121,11 @@
                         searchName = 'all';
                     }
 
-                    this.axios.get("http://localhost:8080/medical/room/name/" + searchName + "/" + this.searchDate)
+                    this.axios.get("http://localhost:8080/medical/room/name/" + searchName + "/" + this.searchDate
+                                                                    + '/' + localStorage.getItem("user_id"))
                         .then(response => {
                             this.medicalRooms = response.data;
+                            this.unfilteredRooms = this.medicalRooms.slice();
                         })
                     
                 } else {
@@ -133,9 +135,11 @@
                         searchNumber = -1;
                     }
                     
-                    this.axios.get("http://localhost:8080/medical/room/number/" + searchNumber + "/" + this.searchDate)
+                    this.axios.get("http://localhost:8080/medical/room/number/" + searchNumber + "/"
+                                                    + this.searchDate + '/' + localStorage.getItem("user_id"))
                         .then(response => {
                             this.medicalRooms = response.data;
+                            this.unfilteredRooms = this.medicalRooms.slice();
                         })
                     
                 }
@@ -156,8 +160,7 @@
                             if(confirm('Would you like automatically to book room?')) {
                                 this.axios.put("http://localhost:8080/medical/procedure/auto/book/" + this.procedureId)
                                     .then(response => {
-                                        var procedure = response.data;
-                                        alert('Brao');
+                                        this.$router.push("/adminHome")
                                     })
                             }
                         })
@@ -188,6 +191,7 @@
             },
 
             filterName: function() {
+                /*
                 if (this.filterName != undefined && this.filterName.trim() != '') {
                     this.medicalRooms.length = 0;
                     this.filterName = this.filterName.toLowerCase();
@@ -195,10 +199,23 @@
                                                                 room.roomName.toLowerCase().includes(this.filterName));
                 } else {
                     this.medicalRooms = this.unfilteredRooms.slice();
+                } */
+                let name = this.filterName.trim().toLowerCase();
+
+                if (this.filterNumber === undefined || this.filterNumber.trim() === '') {
+                    this.medicalRooms = this.unfilteredRooms.filter((room) =>
+                                                                            room.roomName.toLowerCase().includes(name));
+                } else {
+                    let roomNumber = this.filterNumber;
+                    this.medicalRooms = this.unfilteredRooms.filter((room) =>
+                                                                        room.roomNumber.toString().includes(roomNumber));
+                    this.medicalRooms = this.medicalRooms.filter((room) =>
+                                                                        room.roomName.toLowerCase().includes(name));
                 }
             },
 
             filterNumber: function() {
+                /*
                 if (this.filterNumber != undefined && this.filterNumber != '') {
                     this.medicalRooms.length = 0;
                     this.filterNumber = this.filterNumber.toString();
@@ -206,6 +223,19 @@
                                                                 room.roomNumber.toString().includes(this.filterNumber));
                 } else {
                     this.medicalRooms = this.unfilteredRooms.slice();
+                } */
+
+                let roomNumber = this.filterNumber.trim();
+
+                if (this.filterName === undefined || this.filterName.trim() === '') {
+                    this.medicalRooms = this.unfilteredRooms.filter((room) =>
+                                                                 room.roomNumber.toString().includes(roomNumber));
+                } else {
+                    let name = this.filterName.trim().toLowerCase();
+                    this.medicalRooms = this.unfilteredRooms.filter((room) =>
+                                                                    room.roomName.toLowerCase().includes(name));
+                    this.medicalRooms = this.medicalRooms.filter((room) =>
+                                                                    room.roomNumber.toString().includes(roomNumber));
                 }
             }
         }
