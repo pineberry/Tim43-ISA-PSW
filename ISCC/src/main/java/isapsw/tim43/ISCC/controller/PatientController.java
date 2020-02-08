@@ -52,9 +52,17 @@ public class PatientController {
 
         Doctor doctor = doctorService.findOne(Long.parseLong(doctor_id));
         
-        return new ResponseEntity<MedicalProcedureDTO>(patientService.scheduleAppointment(
-        		doctor, new MedicalProcedure(doctor.getSpecialized(), new SimpleDateFormat("yyyy-MM-dd").parse(date), 
-        		medicalRoomService.findOne(1), doctor, patientService.findById(Long.parseLong(patient_id)), 0, false), hour), HttpStatus.OK);
+        if(doctor!=null) 
+        {
+	        
+	        MedicalProcedureDTO medProcDTO = patientService.scheduleAppointment(
+	        		doctor, new MedicalProcedure(doctor.getSpecialized(), new SimpleDateFormat("yyyy-MM-dd").parse(date), 
+	        		medicalRoomService.findOne(1), doctor, patientService.findById(Long.parseLong(patient_id)), 0, false), hour);
+	        
+			return new ResponseEntity<MedicalProcedureDTO>(medProcDTO , HttpStatus.OK);
+        } else {
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "/patients")

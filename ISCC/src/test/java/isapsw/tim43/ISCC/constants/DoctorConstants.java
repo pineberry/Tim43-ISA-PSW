@@ -1,6 +1,14 @@
 package isapsw.tim43.ISCC.constants;
 
-import isapsw.tim43.ISCC.model.Doctor;
+import static isapsw.tim43.ISCC.constants.ClinicConstants.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+import isapsw.tim43.ISCC.model.Clinic;
+import isapsw.tim43.ISCC.model.MedicalProcedure;
+import isapsw.tim43.ISCC.model.ProcedureType;
 
 public class DoctorConstants {
 
@@ -17,5 +25,11 @@ public class DoctorConstants {
 	public static final String DOCTOR_WORKING_TIME_START = "09:00";
 	public static final String DOCTOR_WORKING_TIME_END = "16:00";
 	public static final boolean DOCTOR_ON_VACATION = false;
-	
+	public static final Clinic DOCTOR_CLINIC = new Clinic
+			(CLINIC_ID, CLINIC_NAME, CLINIC_ADDRESS, CLINIC_DESCRIPTION,
+					CLINIC_AVERAGE_RATING, new ArrayList<Date>(), CLINIC_DOCTORS,
+					CLINIC_MEDICAL_ROOMS, new HashMap<Double, MedicalProcedure>(), 
+					CLINIC_ADMINISTRATORS, CLINIC_NURSES, CLINIC_PERSCRIPTIONS);
+	public static final ProcedureType DOCTOR_SPECIALIZED = new ProcedureType("Tip procedure", "Opis procedure", 100);
+	public static final ArrayList<MedicalProcedure> DOCTOR_PROCEDURES = new ArrayList<MedicalProcedure>();
 }
