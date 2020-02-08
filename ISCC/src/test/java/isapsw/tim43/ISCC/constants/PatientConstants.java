@@ -1,5 +1,7 @@
 package isapsw.tim43.ISCC.constants;
 
+import isapsw.tim43.ISCC.model.MedicalRecord;
+
 public class PatientConstants {
     public static final Long PATIENT_ID = 1L;
     public static final String PATIENT_EMAIL = "patient@mail.com";
@@ -13,4 +15,5 @@ public class PatientConstants {
     public static final String PATIENT_HEALTH_CARE_NUMBER = "12gc86swA";
     public static final String PATIENT_STATUS = "activated";
     public static final String PATIENT_ROLE = "ROLE_PATIENT";
+    public static final MedicalRecord PATIENT_MEDICAL_RECORD = new MedicalRecord();
 }

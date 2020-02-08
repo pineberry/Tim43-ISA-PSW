@@ -1,11 +1,15 @@
 package isapsw.tim43.ISCC.controller;
 
 import static isapsw.tim43.ISCC.constants.DoctorConstants.*;
+import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,10 +27,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.model.Doctor;
+import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.repository.ClinicAdministratorRepository;
 import isapsw.tim43.ISCC.repository.DoctorRepository;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 import isapsw.tim43.ISCC.repository.MedicalRoomRepository;
+import isapsw.tim43.ISCC.repository.PatientRepository;
 import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
 import isapsw.tim43.ISCC.service.ClinicAdministratorService;
 import isapsw.tim43.ISCC.service.DoctorService;
@@ -45,6 +51,9 @@ class PatientControllerTest {
 
 	@Mock
 	PatientService patientService;
+	
+	@Mock
+	PatientRepository patientRepository;
 
 	@Mock
 	DoctorService doctorService;
@@ -92,12 +101,24 @@ class PatientControllerTest {
 				DOCTOR_PROCEDURES, DOCTOR_CLINIC);
 
 		when(doctorService.findOne(1L)).thenReturn(doctor);
+		
+		MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, MEDICAL_PROCEDURE_ROOM,
+				MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		
+		MedicalProcedureDTO medProcDTO = new MedicalProcedureDTO(medicalProcedure);
+		
+		when(patientService.scheduleAppointment(doctor, new MedicalProcedure(DOCTOR_SPECIALIZED, 
+				new SimpleDateFormat("yyyy-MM-dd").parse("2020-03-15"), medicalRoomService.findOne(1), doctor, 
+				patientService.findById(Long.parseLong("1")), 0, false), "10")).thenReturn(medProcDTO);
 
 		ResponseEntity<MedicalProcedureDTO> responseEntity = 
-				patientControllerMock.scheduleAppointment("2020-03-15", "10", "2", "1");
+				patientControllerMock.scheduleAppointment("2020-03-15", "10", "1", "1");
 
 		
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertEquals(responseEntity.getBody().getDateOfProcedure(), new Date(120, 2, 15, 10, 0));
+		assertEquals(responseEntity.getBody().getDoctor().getFirstName(), "Marko");
+		assertEquals(responseEntity.getBody().getPatient().getId(), Long.valueOf(1));
 		
 
 	}
@@ -114,8 +135,6 @@ class PatientControllerTest {
 
 		
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-		
-
 	}
 
 }
