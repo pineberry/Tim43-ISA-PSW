@@ -227,7 +227,7 @@ export default {
             }
     },
     mounted : function() {
-		this.axios.get("http://localhost:8080/record/" + localStorage.getItem('user_id'))
+		this.axios.get("http://localhost:8080/record/patient/" + localStorage.getItem('user_id'))
 		.then(response => {
             this.reports = response.data.reports;
         });
