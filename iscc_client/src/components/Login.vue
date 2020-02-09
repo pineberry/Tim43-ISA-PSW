@@ -3,12 +3,12 @@
 		<div class="m-5">
 			<form class="col-5" v-on:submit.prevent="submit" method="post">
 				<div class="form-group">
-					<label for="emailAddress">Email address</label>
-					<input type="text" class="form-control" id="emailAddress" v-model="emailAddress" />
+					<label for="login-emailAddress">Email address</label>
+					<input type="text" class="form-control" id="login-emailAddress" v-model="emailAddress" />
 				</div>
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" class="form-control" id="password" v-model="password" />
+					<label for="login-password">Password</label>
+					<input type="password" class="form-control" id="login-password" v-model="password" />
 				</div>
 				<div class="row justify-content-between m-1">
 					<small class>
@@ -17,7 +17,7 @@
 							<router-link to="/register">here</router-link>
 						</span>.
 					</small>
-					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" id="login-btn" class="btn btn-primary">Login</button>
 				</div>
 			</form>
 		</div>
