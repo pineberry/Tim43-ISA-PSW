@@ -8,8 +8,6 @@ import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.util.List;
 
 @Entity
@@ -48,6 +46,13 @@ public class ProcedureType {
 	
 	public ProcedureType(String typeName, String typeDescription, float price) {
 		super();
+		this.typeName = typeName;
+		this.typeDescription = typeDescription;
+		this.price = price;
+	}
+	public ProcedureType(long id, String typeName, String typeDescription, float price) {
+		super();
+		this.id=id;
 		this.typeName = typeName;
 		this.typeDescription = typeDescription;
 		this.price = price;

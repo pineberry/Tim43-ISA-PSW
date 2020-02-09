@@ -1,10 +1,8 @@
 package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.ClinicAdministratorDTO;
-import isapsw.tim43.ISCC.dto.ClinicCenterAdministratorDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.service.ClinicAdministratorService;
-import isapsw.tim43.ISCC.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

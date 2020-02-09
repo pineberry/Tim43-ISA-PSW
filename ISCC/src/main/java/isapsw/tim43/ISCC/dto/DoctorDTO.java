@@ -2,7 +2,6 @@ package isapsw.tim43.ISCC.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.model.ProcedureType;

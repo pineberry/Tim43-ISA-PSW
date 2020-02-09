@@ -2,7 +2,6 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.MedicalRecordDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
-import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalRecord;
 import isapsw.tim43.ISCC.model.Patient;
 import isapsw.tim43.ISCC.model.Report;

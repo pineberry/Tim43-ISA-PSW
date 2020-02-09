@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.service.MedicalRoomService;
 
-import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 

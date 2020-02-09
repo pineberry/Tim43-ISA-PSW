@@ -1,13 +1,10 @@
 package isapsw.tim43.ISCC.dto;
 
 import isapsw.tim43.ISCC.model.MedicalRecord;
-import isapsw.tim43.ISCC.model.Report;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
 @Data

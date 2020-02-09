@@ -34,7 +34,7 @@ public class MedicalProcedureConstants {
 			PATIENT_HEALTH_CARE_NUMBER, PATIENT_STATUS, PATIENT_MEDICAL_RECORD);
 	public static final float MEDICAL_PROCEDURE_DISCOUNT = 0;
 	public static final String MEDICAL_PROCEDURE_START_TIME = "10:00";
-	public static final String MEDICAL_PROCEDURE_END_TIME = "10:30";
+	public static final String MEDICAL_PROCEDURE_END_TIME = "11:00";
 	public static final boolean MEDICAL_PROCEDURE_BOOKED = false;
 	public static final boolean MEDICAL_PROCEDURE_CLINIC_RATED = false;
 	public static final boolean MEDICAL_PROCEDURE_DOCTOR_RATED = false;

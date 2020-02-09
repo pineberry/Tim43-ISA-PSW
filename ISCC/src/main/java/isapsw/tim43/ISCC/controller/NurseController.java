@@ -3,7 +3,6 @@ package isapsw.tim43.ISCC.controller;
 import isapsw.tim43.ISCC.dto.NurseDTO;
 import isapsw.tim43.ISCC.dto.PrescriptionDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
-import isapsw.tim43.ISCC.model.MedicalRecord;
 import isapsw.tim43.ISCC.service.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.Media;
 import java.util.List;
 
 @RestController

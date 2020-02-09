@@ -1,7 +1,5 @@
 package isapsw.tim43.ISCC.dto;
 
-import isapsw.tim43.ISCC.model.MedicalRecord;
-import isapsw.tim43.ISCC.model.Medicine;
 import isapsw.tim43.ISCC.model.Prescription;
 import isapsw.tim43.ISCC.model.Report;
 import lombok.Data;

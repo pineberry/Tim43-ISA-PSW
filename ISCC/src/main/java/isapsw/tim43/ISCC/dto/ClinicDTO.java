@@ -6,11 +6,8 @@ import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.ProcedureType;
 import lombok.Data;
-import org.apache.tomcat.jni.Proc;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Data

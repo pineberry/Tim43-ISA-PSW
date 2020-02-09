@@ -14,7 +14,6 @@ import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROC
 import static isapsw.tim43.ISCC.constants.MedicalRoomConstants.ROOM_CLINIC;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -34,19 +33,7 @@ import org.springframework.mail.MailException;
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.model.MedicalRoom;
-import isapsw.tim43.ISCC.repository.ClinicAdministratorRepository;
-import isapsw.tim43.ISCC.repository.DoctorRepository;
-import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
-import isapsw.tim43.ISCC.repository.MedicalRoomRepository;
-import isapsw.tim43.ISCC.repository.PatientRepository;
-import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
-import isapsw.tim43.ISCC.service.ClinicAdministratorService;
-import isapsw.tim43.ISCC.service.DoctorService;
-import isapsw.tim43.ISCC.service.EmailService;
 import isapsw.tim43.ISCC.service.MedicalProcedureService;
-import isapsw.tim43.ISCC.service.MedicalRoomService;
-import isapsw.tim43.ISCC.service.PatientService;
-import isapsw.tim43.ISCC.service.ProcedureTypeService;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(JUnitPlatform.class)

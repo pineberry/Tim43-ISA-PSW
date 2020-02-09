@@ -28,19 +28,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
-import isapsw.tim43.ISCC.repository.ClinicAdministratorRepository;
-import isapsw.tim43.ISCC.repository.DoctorRepository;
-import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
-import isapsw.tim43.ISCC.repository.MedicalRoomRepository;
-import isapsw.tim43.ISCC.repository.PatientRepository;
-import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
-import isapsw.tim43.ISCC.service.ClinicAdministratorService;
 import isapsw.tim43.ISCC.service.DoctorService;
-import isapsw.tim43.ISCC.service.EmailService;
-import isapsw.tim43.ISCC.service.MedicalProcedureService;
 import isapsw.tim43.ISCC.service.MedicalRoomService;
 import isapsw.tim43.ISCC.service.PatientService;
-import isapsw.tim43.ISCC.service.ProcedureTypeService;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(JUnitPlatform.class)
@@ -51,44 +41,13 @@ class PatientControllerTest {
 
 	@Mock
 	PatientService patientService;
-//	
-//	@Mock
-//	PatientRepository patientRepository;
-//
+
 	@Mock
 	DoctorService doctorService;
-//	
-//	@Mock
-//	DoctorRepository doctorRepository;
-//
+
 	@Mock
 	MedicalRoomService medicalRoomService;
-//	
-//	@Mock
-//	MedicalRoomRepository medicalRoomRepository;
-//	
-//	@Mock
-//	MedicalProcedureRepository medicalProcedureRepository;
-//
-//	@Mock
-//    MedicalProcedureService medicalProcedureService;
-//	
-//	@Mock
-//	EmailService emailService;
-//	
-//	@Mock
-//	ProcedureTypeService procedureTypeService;
-//	
-//	@Mock
-//	ProcedureTypeRepository procedureTypeRepository;
-//	
-//	@Mock
-//    ClinicAdministratorService clinicAdministratorService;
-//	
-//	@Mock
-//    ClinicAdministratorRepository clinicAdministratorRepository;
 
-	
 
 	@Test
 	void testScheduleAppointment_successful() throws MailException, ParseException, InterruptedException{

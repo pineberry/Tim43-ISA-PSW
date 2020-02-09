@@ -4,15 +4,11 @@ import isapsw.tim43.ISCC.dto.ClinicDTO;
 import isapsw.tim43.ISCC.dto.NurseDTO;
 import isapsw.tim43.ISCC.dto.PrescriptionDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
-import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.Nurse;
 import isapsw.tim43.ISCC.model.Prescription;
 import isapsw.tim43.ISCC.repository.NurseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

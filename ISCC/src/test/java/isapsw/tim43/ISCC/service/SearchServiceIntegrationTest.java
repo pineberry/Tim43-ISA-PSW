@@ -7,11 +7,8 @@ import static isapsw.tim43.ISCC.constants.SearchConstants.SEARCH_LOCATION;
 import static isapsw.tim43.ISCC.constants.SearchConstants.SEARCH_PROCEDURE;
 import static isapsw.tim43.ISCC.constants.SearchConstants.SEARCH_RATING;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
 import java.text.ParseException;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

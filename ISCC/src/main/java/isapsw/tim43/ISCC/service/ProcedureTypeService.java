@@ -5,13 +5,12 @@ import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.ClinicAdministrator;
 import isapsw.tim43.ISCC.model.ProcedureType;
 import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
-import org.apache.tomcat.jni.Proc;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProcedureTypeService {
@@ -42,7 +41,12 @@ public class ProcedureTypeService {
         }
 
         public ProcedureType findOne(long id){
-            return procedureTypeRepository.findById(id).orElseGet(null);
+        	Optional<ProcedureType> procedureType = procedureTypeRepository.findById(id);
+        	if(procedureType.isPresent())
+        	{
+        		return procedureType.get();
+        	} else
+        		return null;
         }
 
         public List<ProcedureTypeDTO> searchTypeByName(String name, Long id) {

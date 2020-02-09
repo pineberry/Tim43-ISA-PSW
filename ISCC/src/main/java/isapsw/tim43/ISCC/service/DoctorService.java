@@ -1,16 +1,12 @@
 package isapsw.tim43.ISCC.service;
 
-import isapsw.tim43.ISCC.controller.DoctorController;
 import isapsw.tim43.ISCC.dto.*;
 import isapsw.tim43.ISCC.model.*;
-import isapsw.tim43.ISCC.repository.ClinicRepository;
-import isapsw.tim43.ISCC.repository.ProcedureTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import isapsw.tim43.ISCC.repository.DoctorRepository;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

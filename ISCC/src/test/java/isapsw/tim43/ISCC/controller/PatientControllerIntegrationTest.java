@@ -4,7 +4,6 @@ import static isapsw.tim43.ISCC.constants.PatientConstants.*;
 import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.*;
 import static isapsw.tim43.ISCC.constants.DoctorConstants.*;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

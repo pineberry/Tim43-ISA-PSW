@@ -2,15 +2,10 @@ package isapsw.tim43.ISCC.service;
 
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.model.*;
-import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import isapsw.tim43.ISCC.repository.MedicalRoomRepository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.print.Doc;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

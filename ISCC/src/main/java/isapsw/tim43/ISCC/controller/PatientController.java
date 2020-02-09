@@ -2,10 +2,8 @@ package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.dto.PatientDTO;
-import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
-import isapsw.tim43.ISCC.model.Patient;
 import isapsw.tim43.ISCC.service.DoctorService;
 import isapsw.tim43.ISCC.service.MedicalRoomService;
 import isapsw.tim43.ISCC.service.PatientService;

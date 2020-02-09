@@ -12,4 +12,4 @@ insert into patient (email, password, first_name, last_name, phone_number, addre
 values ('patient@mail.com', 'password', 'Petar', 'Petrovic', '111222333', 'Bulevar Kralja Petra 88', 'Novi Sad', 'Srbija', '12gc86swA', 'activated');
 
 insert into medical_procedure (procedure_type_id, date_of_procedure, medical_room_id, doctor_id, patient_id, start_time, end_time, discount, booked, doctor_rated, clinic_rated)
-values (1, '2020-05-05 10:00:00', 1, 1, 1, '10:00', '10:00', 0.0, true, false, false);
+values (1, '2020-05-05 10:00:00', 1, 1, 1, '10:00', '11:00', 0.0, true, false, false);

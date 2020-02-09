@@ -5,7 +5,6 @@ import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.dto.MedicalRoomDTO;
 import isapsw.tim43.ISCC.model.Clinic;
-import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.service.ClinicService;
 import isapsw.tim43.ISCC.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

@@ -1,7 +1,5 @@
 package isapsw.tim43.ISCC.controller;
 
-import com.sun.mail.iap.Response;
-import isapsw.tim43.ISCC.dto.PatientDTO;
 import isapsw.tim43.ISCC.dto.ReportDTO;
 import isapsw.tim43.ISCC.dto.UserDTO;
 import isapsw.tim43.ISCC.model.Report;
@@ -16,7 +14,6 @@ import isapsw.tim43.ISCC.dto.DoctorDTO;
 import isapsw.tim43.ISCC.service.AvailableAppointmentsService;
 import isapsw.tim43.ISCC.service.DoctorService;
 
-import javax.print.attribute.standard.Media;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

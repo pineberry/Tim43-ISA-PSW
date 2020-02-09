@@ -1,6 +1,5 @@
 package isapsw.tim43.ISCC.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import isapsw.tim43.ISCC.model.Clinic;
 import isapsw.tim43.ISCC.model.MedicalRoom;
 import lombok.Data;

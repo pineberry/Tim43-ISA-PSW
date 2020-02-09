@@ -2,7 +2,6 @@ package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.BookOperationDTO;
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
-import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.service.MedicalProcedureService;
 
 import java.util.List;
@@ -12,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/medical/procedure")

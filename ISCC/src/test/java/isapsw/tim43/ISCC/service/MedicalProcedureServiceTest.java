@@ -1,18 +1,15 @@
 package isapsw.tim43.ISCC.service;
 
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_BOOKED;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_CLINIC_RATED;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_DATE;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_DISCOUNT;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_DOCTOR;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_DOCTOR_RATED;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_ID;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_PATIENT;
-import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_TYPE;
+import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.*;
 import static isapsw.tim43.ISCC.constants.MedicalRoomConstants.ROOM_CLINIC;
 import static isapsw.tim43.ISCC.constants.MedicalRoomConstants.ROOM_NAME;
 import static isapsw.tim43.ISCC.constants.MedicalRoomConstants.ROOM_NUMBER;
+import static isapsw.tim43.ISCC.constants.PatientConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -20,13 +17,16 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.mail.MailException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
+import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
@@ -39,11 +39,19 @@ public class MedicalProcedureServiceTest {
 	private MedicalProcedureService medicalProcedureService;
 	
 	@MockBean
+	MedicalProcedureService medicalProcedureServiceMock;
+	
+	@MockBean
 	private MedicalRoomService medicalRoomService;
 	
 	@MockBean
 	private MedicalProcedureRepository medicalProcedureRepository;
 	
+	@MockBean
+	PatientService patientService;
+	
+	@MockBean
+	EmailService emailService;
 	
 	@Test
 	public void bookRoomSuccess() throws InterruptedException {
@@ -90,6 +98,31 @@ public class MedicalProcedureServiceTest {
 	    MedicalProcedureDTO medicalProcedureDTO = medicalProcedureService.bookRoom(Long.valueOf(1), Long.valueOf(2));
 		
 		assertThat(medicalProcedureDTO).isNull();
+	}
+	
+	@Test
+	void testConfirmPredefinedAppointment() throws MailException, InterruptedException {
+		
+		MedicalProcedure mp = new MedicalProcedure(MEDICAL_PROCEDURE_ID,
+				MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, MEDICAL_PROCEDURE_ROOM, MEDICAL_PROCEDURE_DOCTOR,
+				MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_START_TIME,
+				MEDICAL_PROCEDURE_END_TIME, new ArrayList<Doctor>(), MEDICAL_PROCEDURE_BOOKED,
+				MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		
+		when(medicalProcedureServiceMock.findOne(MEDICAL_PROCEDURE_ID)).thenReturn(mp);
+		
+		String emailContent = "Dear " + PATIENT_FIRST_NAME + " "
+        		+ PATIENT_LAST_NAME + ",\nYour appointment has been scheduled for "
+        		+ MEDICAL_PROCEDURE_DATE.toString() + ".";
+		doNothing().when(emailService).sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+		
+		List<MedicalProcedureDTO> result = medicalProcedureService.confirmPredefinedAppointment(new MedicalProcedureDTO(new MedicalProcedure(MEDICAL_PROCEDURE_ID,
+				MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, MEDICAL_PROCEDURE_ROOM, MEDICAL_PROCEDURE_DOCTOR,
+				MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_START_TIME,
+				MEDICAL_PROCEDURE_END_TIME, new ArrayList<Doctor>(), MEDICAL_PROCEDURE_BOOKED,
+				MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED)), PATIENT_ID);
+		
+		assertNotNull(result);
 	}
 	
 

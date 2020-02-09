@@ -1,9 +1,7 @@
 package isapsw.tim43.ISCC.controller;
 
 import isapsw.tim43.ISCC.dto.VacationRequestDTO;
-import isapsw.tim43.ISCC.model.VacationRequest;
 import isapsw.tim43.ISCC.service.VacationRequestService;
-import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

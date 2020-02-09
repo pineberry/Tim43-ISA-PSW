@@ -3,7 +3,6 @@ package isapsw.tim43.ISCC.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import java.util.Date;
@@ -105,5 +104,23 @@ public class MedicalProcedure {
 
 	public MedicalProcedure() {
 		super();
+	}
+	public MedicalProcedure(long id, ProcedureType procedureType, Date dateOfProcedure, MedicalRoom medicalRoom,
+			Doctor doctor, Patient patient, float discount, String startTime, String endTime, List<Doctor> doctors,
+			boolean booked, boolean doctorRated, boolean clinicRated) {
+		super();
+		this.id = id;
+		this.procedureType = procedureType;
+		this.dateOfProcedure = dateOfProcedure;
+		this.medicalRoom = medicalRoom;
+		this.doctor = doctor;
+		this.patient = patient;
+		this.discount = discount;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.doctors = doctors;
+		this.booked = booked;
+		this.doctorRated = doctorRated;
+		this.clinicRated = clinicRated;
 	} 
 }

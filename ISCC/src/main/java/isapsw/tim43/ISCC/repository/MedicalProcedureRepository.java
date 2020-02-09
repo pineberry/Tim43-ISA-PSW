@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-import java.util.List;
-
 public interface MedicalProcedureRepository extends JpaRepository<MedicalProcedure, Long> {
 
     @Query("select mp from MedicalProcedure mp where mp.medicalRoom is null")

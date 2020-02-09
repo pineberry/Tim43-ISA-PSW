@@ -30,6 +30,6 @@ public class DoctorConstants {
 					CLINIC_AVERAGE_RATING, new ArrayList<Date>(), CLINIC_DOCTORS,
 					CLINIC_MEDICAL_ROOMS, new HashMap<Double, MedicalProcedure>(), 
 					CLINIC_ADMINISTRATORS, CLINIC_NURSES, CLINIC_PERSCRIPTIONS);
-	public static final ProcedureType DOCTOR_SPECIALIZED = new ProcedureType("Tip procedure", "Opis procedure", 100);
+	public static final ProcedureType DOCTOR_SPECIALIZED = new ProcedureType(1, "Tip procedure", "Opis procedure", 100);
 	public static final ArrayList<MedicalProcedure> DOCTOR_PROCEDURES = new ArrayList<MedicalProcedure>();
 }
