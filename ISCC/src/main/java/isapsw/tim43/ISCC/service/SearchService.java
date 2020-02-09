@@ -31,6 +31,9 @@ public class SearchService {
 		ArrayList<Clinic> clinics = new ArrayList<Clinic>();
 		ArrayList<Doctor> doctors = new ArrayList<Doctor>();
 		
+		if(date.before(new Date())) {
+			return new SearchResultClinicsDoctorsDTO(clinics, doctors);
+		}
 		
 		for (Clinic clinic : clinicService.findAll()) 
 		{

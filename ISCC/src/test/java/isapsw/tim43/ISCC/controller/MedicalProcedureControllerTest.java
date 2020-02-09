@@ -10,6 +10,9 @@ import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROC
 import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_PATIENT;
 import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_ROOM;
 import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.MEDICAL_PROCEDURE_TYPE;
+
+import static isapsw.tim43.ISCC.constants.MedicalRoomConstants.ROOM_CLINIC;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -30,6 +33,7 @@ import org.springframework.mail.MailException;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
+import isapsw.tim43.ISCC.model.MedicalRoom;
 import isapsw.tim43.ISCC.repository.ClinicAdministratorRepository;
 import isapsw.tim43.ISCC.repository.DoctorRepository;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
@@ -123,6 +127,53 @@ class MedicalProcedureControllerTest {
 		ResponseEntity<List<MedicalProcedureDTO>> responseEntity = medicalProcedureController.confirmPredefinedAppointment(procedure, Long.valueOf(1));
 		
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+	}
+	
+	@Test
+	void testBookRoomSuccess() throws InterruptedException {
+		MedicalRoom medicalRoom = new MedicalRoom(Long.valueOf(2), "Room", 2, ROOM_CLINIC);
+		MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, MEDICAL_PROCEDURE_ROOM,
+				MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		
+		MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO(medicalProcedure);
+		when(medicalProcedureService.bookRoom(Long.valueOf(1), Long.valueOf(2))).thenReturn(medicalProcedureDTO);
+		
+		ResponseEntity<Void> responseEntity = medicalProcedureController.bookRoom(Long.valueOf(1), Long.valueOf(2));
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
+	
+	@Test
+	void testBookRoomFail() throws InterruptedException {
+		MedicalRoom medicalRoom = new MedicalRoom(Long.valueOf(2), "Room", 2, ROOM_CLINIC);
+		MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, MEDICAL_PROCEDURE_ROOM,
+				MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO(medicalProcedure);
+		when(medicalProcedureService.bookRoom(Long.valueOf(1), Long.valueOf(2))).thenReturn(null);
+		
+		ResponseEntity<Void> responseEntity = medicalProcedureController.bookRoom(Long.valueOf(1), Long.valueOf(2));
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+	}
+	
+	@Test
+	void testAutomaticallyBookRoomSuccess() throws InterruptedException {
+		MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, MEDICAL_PROCEDURE_ROOM,
+				MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO(medicalProcedure);
+		when(medicalProcedureService.autoBookRoom(Long.valueOf(1))).thenReturn(medicalProcedureDTO);
+		
+		ResponseEntity<MedicalProcedureDTO> responseEntity = medicalProcedureController.automaticallyBookRoom(Long.valueOf(1));
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
+	
+	@Test
+	void testAutomaticallyBookRoomFail() throws InterruptedException {
+		// MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, MEDICAL_PROCEDURE_ROOM,
+		//		MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		// MedicalProcedureDTO medicalProcedureDTO = new MedicalProcedureDTO(medicalProcedure);
+		when(medicalProcedureService.autoBookRoom(Long.valueOf(1))).thenReturn(null);
+		
+		ResponseEntity<MedicalProcedureDTO> responseEntity = medicalProcedureController.automaticallyBookRoom(Long.valueOf(1));
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 	}
 
 }

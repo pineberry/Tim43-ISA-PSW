@@ -69,6 +69,7 @@ public class Clinic {
 				  List<Doctor> doctors, List<MedicalRoom> medicalRooms, Map<Double, MedicalProcedure> pricelist,
 				  List<ClinicAdministrator> administrators, List<Nurse> nurses, List<Prescription> prescriptions) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.description = description;

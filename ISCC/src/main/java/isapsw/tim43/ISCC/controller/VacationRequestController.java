@@ -106,7 +106,7 @@ public class VacationRequestController {
     }
 
     @PutMapping(value = "/deny", consumes = "application/json")
-    public ResponseEntity<VacationRequestDTO> accept(@RequestBody VacationRequestDTO vacationRequestDTO,
+    public ResponseEntity<VacationRequestDTO> deny(@RequestBody VacationRequestDTO vacationRequestDTO,
                                                         @RequestParam(name = "comment") String comment) throws InterruptedException {
         vacationRequestDTO = vacationRequestService.deny(vacationRequestDTO, comment);
         if (vacationRequestDTO != null) {

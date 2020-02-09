@@ -86,7 +86,7 @@ public class PatientService {
 							month + "/" +
 							year + " at " + hour +":00 o'clock.\n\n" +
 				"To accept click on the link below:\n"+
-				"http://localhost:8081/searchRooms/" + retVal.getId();
+				"http://localhost:8081/searchRooms?proc=" + retVal.getId() + "&type=exam";
 		emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
 		return retVal;
 		

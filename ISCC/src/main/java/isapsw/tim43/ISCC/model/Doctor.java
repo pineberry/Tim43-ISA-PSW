@@ -65,7 +65,7 @@ public class Doctor {
 //	@JsonManagedReference(value="doctor-type")
 	private ProcedureType specialized;
 
-	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@JsonBackReference(value="doctor-procedure")
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.NO_ACTION)
