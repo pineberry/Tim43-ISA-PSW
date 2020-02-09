@@ -125,5 +125,17 @@ public class MedicalProcedureServiceTest {
 		assertNotNull(result);
 	}
 	
+	public void autoBookRoomSuccess() {
+		MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, null,
+				MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		Mockito.doReturn(medicalProcedure).when(medicalProcedureService).findOne(MEDICAL_PROCEDURE_ID);
+		when(medicalRoomService.findAvailableAppoinment(medicalProcedure)).thenReturn(medicalProcedure);
+		when(medicalProcedureRepository.save(medicalProcedure)).thenReturn(medicalProcedure);
+		
+		MedicalProcedureDTO medicalProcedureDTO = medicalProcedureService.autoBookRoom(MEDICAL_PROCEDURE_ID);
+		
+		assertThat(medicalProcedureDTO).isNotNull();
+	}
+	
 
 }
