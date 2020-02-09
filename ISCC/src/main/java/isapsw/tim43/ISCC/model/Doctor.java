@@ -61,7 +61,7 @@ public class Doctor {
 //	@JsonManagedReference(value="doctor-type")
 	private ProcedureType specialized;
 
-	@OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@JsonBackReference(value="doctor-procedure")
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -71,7 +71,7 @@ public class Doctor {
 //	@JsonManagedReference(value="doctor-clinic")
 	private Clinic clinic;
 
-	@ManyToMany(mappedBy = "doctors")
+	@ManyToMany(mappedBy = "doctors", cascade = CascadeType.PERSIST)
 	@JsonIgnore
 	private List<MedicalProcedure> procedures;
 
