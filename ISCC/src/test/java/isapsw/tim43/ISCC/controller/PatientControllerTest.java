@@ -131,7 +131,7 @@ class PatientControllerTest {
 		when(doctorService.findOne(1L)).thenReturn(null);
 
 		ResponseEntity<MedicalProcedureDTO> responseEntity = 
-				patientControllerMock.scheduleAppointment("2020-03-15", "10", "2", "1");
+				patientControllerMock.scheduleAppointment("2020-03-15", "10", "1", "1");
 
 		
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
