@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,6 +33,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
@@ -43,14 +46,13 @@ import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 @SpringBootTest
 public class MedicalProcedureServiceTest {
 	
-	
-	@Mock
+	@SpyBean
 	private MedicalProcedureService medicalProcedureService;
 	
-	@Mock
+	@MockBean
 	private MedicalRoomService medicalRoomService;
 	
-	@Mock
+	@MockBean
 	private MedicalProcedureRepository medicalProcedureRepository;
 	
 	
@@ -66,7 +68,8 @@ public class MedicalProcedureServiceTest {
 		when(medicalRoomService.findOne(Long.valueOf(2))).thenReturn(medicalRoom);
 //		when(mpsSpy.findOne(Long.valueOf(1))).thenReturn(medicalProcedure);
 //		Mockito.doReturn(medicalRoom).when(medicalRoomService.findOne(Long.valueOf(2)));
-		when(medicalProcedureService.findOne(Long.valueOf(1))).thenReturn(medicalProcedure);
+//		when(medicalProcedureService.findOne(Long.valueOf(1))).thenReturn(medicalProcedure);
+		Mockito.doReturn(medicalProcedure).when(medicalProcedureService).findOne(Long.valueOf(1));
 		List<String> times = new ArrayList<String>();
 		when(medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
                 medicalRoom.getMedicalProcedures())).thenReturn(times);

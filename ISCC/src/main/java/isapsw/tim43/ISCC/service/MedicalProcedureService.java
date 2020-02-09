@@ -105,7 +105,17 @@ public class MedicalProcedureService {
     	return medicalProcedureRepository.findAll();
     }
 
-    public MedicalProcedure findOne(Long id) {return medicalProcedureRepository.findById(id).orElseGet(null);}
+    public MedicalProcedure findOne(Long id) {
+    	
+    	Optional<MedicalProcedure> procedure = medicalProcedureRepository.findById(id);
+    	
+    	if(procedure.isPresent()) {
+    		return procedure.get();
+    	} else {
+    		return null;
+    	}
+    	
+    }
 
     public List<MedicalProcedure> findByDoctor(Long id) {
         Doctor doctor = doctorService.findOne(id);
