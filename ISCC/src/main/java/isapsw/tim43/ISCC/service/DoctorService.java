@@ -188,7 +188,12 @@ public class DoctorService {
 	}
 
 	public Doctor findOne(long id){
-		return doctorRepository.findById(id).orElseGet(null);
+		Optional<Doctor> doctor = doctorRepository.findById(id);
+		if(doctor.isPresent())
+		{
+			return doctor.get();
+		} else
+			return null;
 	}
 	
 	public DoctorDTO findOne_(Long id){

@@ -19,6 +19,7 @@ public class PatientConstants {
     public static final String PATIENT_DATE_SCHEDULE = "2020-03-15";
     public static final String PATIENT_HOUR_SCHEDULE = "10";
     public static final String PATIENT_DOCTOR_SCHEDULE = "1";
+    public static final String PATIENT_DOCTOR_SCHEDULE_NONEXISTENT = "0";
     public static final String PATIENT_ID_SCHEDULE = "1";
     
     

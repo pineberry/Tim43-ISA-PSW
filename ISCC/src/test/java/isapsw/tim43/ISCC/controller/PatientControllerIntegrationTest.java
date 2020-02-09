@@ -2,6 +2,7 @@ package isapsw.tim43.ISCC.controller;
 
 import static isapsw.tim43.ISCC.constants.PatientConstants.*;
 import static isapsw.tim43.ISCC.constants.MedicalProcedureConstants.*;
+import static isapsw.tim43.ISCC.constants.DoctorConstants.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,9 +38,8 @@ class PatientControllerIntegrationTest {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(patientController).build();
 	}
 
-//	@Transactional
 	@Test
-	void testScheduleAppointment() throws Exception {
+	void testScheduleAppointment_successful() throws Exception {
 		mockMvc.perform(get("/patient/schedule-appointment")
 				.contentType(MediaType.APPLICATION_JSON)
 				.param("date", PATIENT_DATE_SCHEDULE)
@@ -48,8 +48,23 @@ class PatientControllerIntegrationTest {
 				.param("doctor", PATIENT_DOCTOR_SCHEDULE)
 				)
 		.andDo(print())
-		.andExpect(status().is2xxSuccessful())
-		.andExpect(jsonPath("$.id", is(MEDICAL_PROCEDURE_ID.intValue())));
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.doctor.id", is(DOCTOR_ID.intValue())))
+		.andExpect(jsonPath("$.patient.id", is(PATIENT_ID.intValue())))
+		.andExpect(jsonPath("$.dateOfProcedure", is(MEDICAL_PROCEDURE_DATE.getTime())));
+	}
+	
+	@Test
+	void testScheduleAppointment_fail() throws Exception {
+		mockMvc.perform(get("/patient/schedule-appointment")
+				.contentType(MediaType.APPLICATION_JSON)
+				.param("date", PATIENT_DATE_SCHEDULE)
+				.param("hour", PATIENT_HOUR_SCHEDULE)
+				.param("patient", PATIENT_ID_SCHEDULE)
+				.param("doctor", PATIENT_DOCTOR_SCHEDULE_NONEXISTENT)
+				)
+		.andDo(print())
+		.andExpect(status().isNotFound());
 	}
 
 }
