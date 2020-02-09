@@ -111,7 +111,12 @@ public class SearchControllerTest {
 				)
 			.andDo(print())
 			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.clinics[*]", hasSize(1)))
+			.andExpect(jsonPath("$.clinics[0].id", is(CLINIC_ID.intValue())))
 			.andExpect(jsonPath("$.clinics[0].name", is(CLINIC_NAME)))
+			.andExpect(jsonPath("$.clinics[0].address", is(CLINIC_ADDRESS)))
+			.andExpect(jsonPath("$.doctors[*]", hasSize(1)))
+			.andExpect(jsonPath("$.doctors[0].id", is(DOCTOR_ID.intValue())))
 			.andExpect(jsonPath("$.doctors[0].email", is(DOCTOR_EMAIL)));
 	}
 	

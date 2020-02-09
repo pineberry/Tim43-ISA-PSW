@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,12 +67,11 @@ public class SearchServiceTest {
 	@MockBean
 	private DoctorService doctorService;
 	
-	@Test
-	public void searchClinics() throws NumberFormatException, ParseException {
+	private List<Clinic> clinics = new ArrayList<>();
+	private List<Doctor> doctors = new ArrayList<>();
 	
-		List<Clinic> clinics = new ArrayList<>();
-		List<Doctor> doctors = new ArrayList<>();
-		
+	@Before
+	public void setup() {
 		clinics.add(new Clinic(CLINIC_ID, CLINIC_NAME, CLINIC_ADDRESS, CLINIC_DESCRIPTION,
 				CLINIC_AVERAGE_RATING, new ArrayList<Date>(), CLINIC_DOCTORS,
 				CLINIC_MEDICAL_ROOMS, new HashMap<Double, MedicalProcedure>(), 
@@ -80,7 +80,11 @@ public class SearchServiceTest {
 		doctors.add(new Doctor(DOCTOR_ID, DOCTOR_EMAIL, DOCTOR_PASSWORD, DOCTOR_FIRST_NAME, DOCTOR_LAST_NAME, 
 				DOCTOR_ADDRESS, DOCTOR_CITY, DOCTOR_STATE, DOCTOR_PHONE_NUMBER, DOCTOR_AVERAGE_RATING, DOCTOR_WORKING_TIME_START,
 				DOCTOR_WORKING_TIME_END, DOCTOR_ON_VACATION, DOCTOR_SPECIALIZED, DOCTOR_PROCEDURES, DOCTOR_CLINIC));
-		
+	}
+	
+	@Test
+	public void searchClinics_successful() throws NumberFormatException, ParseException {
+	
 		when(clinicService.findAll()).thenReturn(clinics);
 		when(doctorService.findAll_()).thenReturn(doctors);
 		
@@ -97,5 +101,40 @@ public class SearchServiceTest {
 			.isNotEmpty()
 			.allMatch(p -> p.getEmail().equals(DOCTOR_EMAIL));
 	
+	}
+	
+	@Test
+	public void searchClinics_no_procedure() throws NumberFormatException, ParseException {
+		
+		when(clinicService.findAll()).thenReturn(clinics);
+		when(doctorService.findAll_()).thenReturn(doctors);
+		
+		SearchResultClinicsDoctorsDTO results = searchService.searchClinics(
+				new SearchClinicParametersDTO(SEARCH_DATE, "procedura", SEARCH_LOCATION, Integer.parseInt(SEARCH_RATING)));
+	
+		assertThat(results).isNotNull();
+		assertThat(results.getClinics())
+			.isNotNull()
+			.isEmpty();
+		assertThat(results.getDoctors())
+			.isNotNull()
+			.isEmpty();
+	}
+	
+	@Test
+	public void searchClinics_date_in_past() throws NumberFormatException, ParseException {
+		when(clinicService.findAll()).thenReturn(clinics);
+		when(doctorService.findAll_()).thenReturn(doctors);
+		
+		SearchResultClinicsDoctorsDTO results = searchService.searchClinics(
+				new SearchClinicParametersDTO("2019-04-07", SEARCH_PROCEDURE, SEARCH_LOCATION, Integer.parseInt(SEARCH_RATING)));
+	
+		assertThat(results).isNotNull();
+		assertThat(results.getClinics())
+			.isNotNull()
+			.isEmpty();
+		assertThat(results.getDoctors())
+			.isNotNull()
+			.isEmpty();
 	}
 }
