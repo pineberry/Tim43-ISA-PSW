@@ -12,7 +12,7 @@
         <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 1}" v-on:click="tab = 1">Patients</a></li>
         <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 2}" v-on:click="tab = 2">Unchecked Prescriptions</a></li>
         <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 3}" v-on:click="tab = 3">Checked Prescriptions</a></li>
-        <li class="nav-item"><a class="nav-link tabic" v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Calendar</a></li>
+        <li class="nav-item" v-show="false"><a class="nav-link tabic" v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Calendar</a></li>
         <li class="nav-item"><a class="nav-link tabic" v-bind:class="{active: tab === 5}" v-on:click="tab = 5">User Details</a></li>
         <li class="nav-item"><a class="nav-link tabic" v-bind:class="{active: tab === 6}" v-on:click="tab = 6">Vacation request</a></li>
       </ul>
@@ -26,7 +26,7 @@
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 3}" >
               <CheckedPrescriptions/>
           </div>
-          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 4}" >
+          <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 4}" v-show="false">
               <h2>To be implemented</h2>
           </div>
           <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 6}" v-if="nurse">
