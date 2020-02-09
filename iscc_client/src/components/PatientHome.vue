@@ -2,10 +2,10 @@
 	<div class="container p-0">
         <ul class="nav nav-tabs swatch-cyan justify-content-between">
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle" v-bind:class="{active: tab === 1}" v-on:click="tab = 1" data-toggle="dropdown" href="http://localhost:8081/patientHome" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
+                <a class="nav-link dropdown-toggle" id="patient-profile-dropdown"  data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
                 <div class="dropdown-menu">
-					<router-link class="dropdown-item" to="patientProfile">Profile</router-link>
-					<a class="dropdown-item bg-danger text-white" v-on:click="logout" href="http://localhost:8081">
+					<a class="dropdown-item btn-light" v-bind:class="{active: tab === 1}" v-on:click="tab = 1" >Profile</a>
+					<a class="dropdown-item bg-danger text-white" v-on:click="logout" id="patient-profile-logout" href="http://localhost:8081">
                         Logout
                     </a>
                 </div>
@@ -15,7 +15,7 @@
             <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Procedure history</a></li>
             <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 5}" v-on:click="tab = 5">Clinics</a></li>
             <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 6}" v-on:click="tab = 6">Doctors</a></li>
-            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 7}" v-on:click="tab = 7"><img class="size" src="../images/search.svg"><span class="pl-2">Available</span></a></li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 7}" v-on:click="tab = 7" id="patient-profile-available"><img class="size" src="../images/search.svg"><span class="pl-2">Available</span></a></li>
 <!-- 
             <li class="nav-item">
                 <router-link class="nav-link pl-4 pr-4" to="patientAppointments">Appointments</router-link>

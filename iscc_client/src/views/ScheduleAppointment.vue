@@ -28,7 +28,7 @@
                     <button class="btn btn-outline-primary w-100 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Choose time
                     </button>
-                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton" id="dropDownMenu">
                         <div v-for="hour in workingtimeEnd" :key="hour" >
                             <a class="dropdown-item" href="#" v-if="hour >= workingtimeStart  && hour < workingtimeEnd" v-on:click="requestAppointment(hour)">
                                 {{hour}}:00 - {{hour + 1}}:00
