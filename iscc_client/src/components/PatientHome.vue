@@ -10,7 +10,7 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 2}" v-on:click="tab = 2">Appointments</a></li>
+            <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 2}" v-on:click="tab = 2" id="patient-profile-appointments">Appointments</a></li>
             <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 3}" v-on:click="tab = 3">Medical record</a></li>
             <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Procedure history</a></li>
             <li class="nav-item" ><a class="nav-link " v-bind:class="{active: tab === 5}" v-on:click="tab = 5">Clinics</a></li>

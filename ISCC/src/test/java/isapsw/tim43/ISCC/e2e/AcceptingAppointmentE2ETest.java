@@ -14,13 +14,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class SearchAvailableClinicE2ETest {
-
-	private static final String baseUrl = "http://localhost:8081/";
+public class AcceptingAppointmentE2ETest {
+	
+private static final String baseUrl = "http://localhost:8081/";
 	
 	private WebDriver driver;
 	private LoginPage loginPage;
 	private AvailableClinicsDoctorsPage availablePage;
+	private AppointmentsPage appointmentPage;
 	
 	@Before
 	public void setup() {
@@ -32,12 +33,11 @@ public class SearchAvailableClinicE2ETest {
 		
 		loginPage = PageFactory.initElements(driver, LoginPage.class);
 		availablePage = PageFactory.initElements(driver, AvailableClinicsDoctorsPage.class);
-		
+		appointmentPage = PageFactory.initElements(driver, AppointmentsPage.class);
 	}
 	
-	
 	@Test
-	public void TestSearchForAvailableClinic() throws InterruptedException {
+	public void acceptAppointmentTest() throws InterruptedException {
 		driver.navigate().to(baseUrl);
 		
 		loginPage.ensureIsDisplayedEmailInput();
@@ -52,63 +52,25 @@ public class SearchAvailableClinicE2ETest {
 		
 		loginPage.getLoginBtn().click();
 		
-		availablePage.ensureAvailableBtnIsVisible();
+		appointmentPage.ensureAppointmentsBtnIsVisible();
 		
-		availablePage.getAvailableTab().click();
+		appointmentPage.getBtnAppointments().click();
 		
-		availablePage.ensureIsDisplayedDateInput();
+		appointmentPage.ensureAppointmentsRevBtnIsVisible();
 		
-		availablePage.getDateInputField().sendKeys("02/15/2020");
-		
-		availablePage.ensureIsDisplayedProcedureInput();
-		
-		availablePage.getProcedureInputField().click();
-		
-		List<WebElement> options = availablePage.getProcedureInputField().findElements(By.tagName("option"));
-		
-		options.get(1).click();
-		
-		availablePage.ensureSearchBtnIsVisible();
-		
-		availablePage.getSearchBtn().click();
-		
-		availablePage.ensureClinicCardsIsVisible();
-	
-		List<WebElement> title = availablePage.getClinicsCard().findElements(By.tagName("h3"));
-		
-		assertThat(title)
-			.isNotNull()
-			.isNotEmpty();
-		
-		List<WebElement> anchor = title.get(0).findElements(By.tagName("a"));
-		
-		anchor.get(0).click();
+		appointmentPage.getBtnAppRev().click();
 		
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		
-		List<WebElement> divs = availablePage.getClinicsCard().findElements(By.tagName("div"));
+		appointmentPage.ensureIsDisplayedTabReview();
 		
-		List<WebElement> link = divs.get(4).findElements(By.tagName("a"));
+		List<WebElement> btns = appointmentPage.getTabReview().findElements(By.className("btn-outline-primary"));
 		
-		link.get(0).click();
-		
-		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-		
-		availablePage.ensureDropdownTimesIsVisible();
-		
-		availablePage.getDropdownTimes().click();
-		
-		availablePage.ensureDropdownMenuIsVisible();
-		
-		availablePage.ensureIsDisplayedDropDownMenu();
-		
-		List<WebElement> times = availablePage.getDropDownMenu().findElements(By.tagName("a"));
-		
-		assertThat(times)
+		assertThat(btns)
 			.isNotNull()
 			.isNotEmpty();
 		
-		times.get(0).click();
+		btns.get(1).click();
 		
 		availablePage.ensureDropdownBtnIsVisible();
 		
@@ -119,9 +81,10 @@ public class SearchAvailableClinicE2ETest {
 		availablePage.getLogoutBtn().click();
 	}
 	
+	
 	@After
 	public void teardown() {
 		driver.close();
 	}
-	
+
 }

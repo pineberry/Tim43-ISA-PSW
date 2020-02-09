@@ -3,7 +3,7 @@
         <div class="col mt-1 accordion" id="appointments">
             <div class="row justify-content-between m-1">
                 <a class="btn btn-outline-custom btn-sm mr-1 w-05" data-toggle="collapse" href="#booked" aria-expanded="true" aria-controls="booked">Booked</a>
-                <a class="btn btn-outline-custom btn-sm ml-1 w-05" data-toggle="collapse" href="#review" aria-expanded="false" aria-controls="review">Review</a>
+                <a class="btn btn-outline-custom btn-sm ml-1 w-05" id="patient-appointments-review" data-toggle="collapse" href="#review" aria-expanded="false" aria-controls="review">Review</a>
             </div>
             <div class="collapse show" id="booked" data-parent="#appointments">
                 <div class="row m-0" v-for="appoint in appointments" :key="appoint.id">

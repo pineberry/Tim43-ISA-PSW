@@ -39,7 +39,7 @@
 
         <div v-if="medicalRooms" class="container marginTop">
 
-                <table class="table">
+                <table class="table" id="room-search-table">
                     <thead class="thead-dark">
                         <th scope="col">#</th>
                         <th scope="col">Room name</th>
