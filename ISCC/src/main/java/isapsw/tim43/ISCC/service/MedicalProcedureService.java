@@ -158,7 +158,7 @@ public class MedicalProcedureService {
         return medicalProcedureDTOS;
     }
 
-    public MedicalProcedure bookRoom(Long procedureId, Long roomId) throws InterruptedException {
+    public MedicalProcedureDTO bookRoom(Long procedureId, Long roomId) throws InterruptedException {
         MedicalRoom medicalRoom = medicalRoomService.findOne(roomId);
         MedicalProcedure medicalProcedure = findOne(procedureId);
 
@@ -166,14 +166,23 @@ public class MedicalProcedureService {
            return null;
         }
 
-        medicalProcedure.setMedicalRoom(medicalRoom);
+        List<String> timesOfProcedures = medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+                medicalRoom.getMedicalProcedures());
+        String timeOfNewProcedure = medicalProcedure.getStartTime() + ":" + medicalProcedure.getEndTime();
+
+        if (!medicalRoomService.overlapingTimes(timesOfProcedures, timeOfNewProcedure))
+        		medicalProcedure.setMedicalRoom(medicalRoom);
+        else
+        	return null;		
 
         String emailContent = "Dear " + medicalProcedure.getPatient().getFirstName() + " "
         		+ medicalProcedure.getPatient().getLastName() + ",\nYour appointment has been scheduled for "
         		+ medicalProcedure.getDateOfProcedure().toString() + ".";
         emailService.sendNotificationAsync("isa.pws43@gmail.com", emailContent);
+        
+        medicalProcedure = medicalProcedureRepository.save(medicalProcedure);
 
-        return medicalProcedureRepository.save(medicalProcedure);
+        return new MedicalProcedureDTO(medicalProcedure);
     }
 
     public MedicalProcedureDTO bookOperationRoom(Long procedureId, Long roomId, List<Long> doctorsId) throws InterruptedException {
