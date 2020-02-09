@@ -73,5 +73,24 @@ public class MedicalProcedureServiceTest {
 					.matches(p -> p.getRoomName().equals(ROOM_NAME));
 	}
 	
+	@Test
+	public void bookRoomFail() throws InterruptedException {
+		MedicalRoom medicalRoom = new MedicalRoom(Long.valueOf(2), ROOM_NAME, ROOM_NUMBER, ROOM_CLINIC);
+		MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, null,
+				MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
+		
+		when(medicalRoomService.findOne(Long.valueOf(2))).thenReturn(medicalRoom);
+		Mockito.doReturn(medicalProcedure).when(medicalProcedureService).findOne(Long.valueOf(1));
+		List<String> times = new ArrayList<String>();
+		when(medicalRoomService.getTimesForChosenDate(medicalProcedure.getDateOfProcedure(),
+                medicalRoom.getMedicalProcedures())).thenReturn(times);
+		String timeOfNewProcedure = medicalProcedure.getStartTime() + ":" + medicalProcedure.getEndTime();
+		when(medicalRoomService.overlapingTimes(times, timeOfNewProcedure)).thenReturn(true); // Vraca null kontroleru
+		when(medicalProcedureRepository.save(medicalProcedure)).thenReturn(medicalProcedure);
+	    MedicalProcedureDTO medicalProcedureDTO = medicalProcedureService.bookRoom(Long.valueOf(1), Long.valueOf(2));
+		
+		assertThat(medicalProcedureDTO).isNull();
+	}
+	
 
 }
