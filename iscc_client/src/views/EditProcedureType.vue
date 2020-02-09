@@ -66,6 +66,11 @@
             methods: {
                 editProcedureType: function () {
 
+                    if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                        alert('Only clinic admin has permission for this action!');
+                        return;
+                    }
+
                     this.procedureType.typeName = this.typeName;
                     this.procedureType.typeDescription = this.typeDescription;
                     this.procedureType.price = this.price;

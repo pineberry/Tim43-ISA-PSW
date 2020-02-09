@@ -132,6 +132,12 @@
 
         methods: {
 				addDoctor: function(){
+
+					if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    	alert('Only clinic admin has permission for this action!');
+                    	return;
+                	}
+
 					var doctor = {
 						"email": this.email,
 						"firstName": this.firstName,

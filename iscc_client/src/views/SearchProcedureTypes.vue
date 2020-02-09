@@ -74,10 +74,19 @@
                 }
             },
             deleteType: function(type){
+                
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
+
                 this.axios.delete("http://localhost:8080/procedure/type/" + type.id)
                     .then(response => {
                         var index = this.procedureTypes.indexOf(type)
                         this.procedureTypes.splice(index, 1)
+                    })
+                    .catch(error=>{
+                        alert('Cannot delete this type due to scheduled appointments of such type');
                     })
             },
 

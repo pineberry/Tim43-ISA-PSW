@@ -76,6 +76,12 @@
         },
         methods: {
             addMedicalProcedure: function(){
+
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
+
                 var medicalProcedure = {
                     "procedureType": this.procedureType,
                     "dateOfProcedure": this.dateOfProcedure,

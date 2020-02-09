@@ -102,6 +102,11 @@
         methods: {
             editAdmin: function() {
 
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
+
                 this.admin.firstName = this.firstName;
                 this.admin.lastName = this.lastName;
                 this.admin.email = this.email;

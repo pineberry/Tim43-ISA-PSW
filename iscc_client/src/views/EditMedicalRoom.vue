@@ -52,6 +52,11 @@
         methods: {
             editRoom: function () {
 
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
+
                 this.room.roomName = this.roomName;
                 this.room.roomNumber = this.roomNumber;
                 this.room.clinic = this.clinic;

@@ -58,6 +58,12 @@
         },
         methods: {
             addProcedureType: function(){
+
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
+
                 var procedureType = {
                     "typeName": this.typeName,
                     "typeDescription": this.typeDescription,

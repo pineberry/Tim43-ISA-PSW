@@ -100,9 +100,18 @@ public class MedicalRoomService {
 
 	public boolean remove(long id) {
 		MedicalRoom medicalRoom = findOne(id);
-		if (medicalRoom == null || medicalRoom.getMedicalProcedures().size() != 0) {
+		if (medicalRoom == null) {
 			return false;
 		}
+		
+		Date date = new Date();
+		
+		for (MedicalProcedure medicalProcedure: medicalRoom.getMedicalProcedures()) {
+			if (medicalProcedure.getDateOfProcedure().compareTo(date) >= 0) {
+				return false;
+			}
+		}
+		
 		medicalRoomRepository.deleteById(id);
 		return true;
 	}

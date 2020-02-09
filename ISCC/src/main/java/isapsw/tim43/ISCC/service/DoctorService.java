@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import isapsw.tim43.ISCC.repository.DoctorRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -279,6 +280,23 @@ public class DoctorService {
 		if (doctor == null || !doctor.getMedicalProcedures().isEmpty() || !doctor.getProcedures().isEmpty()) {
 			return false;
 		}
+		
+		/*
+		Date date = new Date();
+		
+		
+		for (MedicalProcedure medicalProcedure: doctor.getMedicalProcedures()) {
+			if (medicalProcedure.getDateOfProcedure().compareTo(date) >= 0) {
+				return false;
+			}
+		}
+		
+		for (MedicalProcedure medicalProcedure: doctor.getProcedures()) {
+			if (medicalProcedure.getDateOfProcedure().compareTo(date) >= 0) {
+				return false;
+			}
+		}
+		*/
 
 		remove(id);
 

@@ -41,7 +41,7 @@ public class MedicalProcedureIntegrationTest {
     @Transactional
     @Rollback(true)
 	public void bookRoomSuccess() throws Exception {
-		mockMvc.perform(put("/medical/procedure/1/1")
+		mockMvc.perform(put("/medical/procedure/3/1")
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}

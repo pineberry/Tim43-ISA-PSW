@@ -4,7 +4,7 @@
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" id="admin-profile-dropdown-profile" data-toggle="dropdown" href="http://localhost:8081/clinicAdministratorHome" role="button" aria-haspopup="true" aria-expanded="false">{{user}}</a>
                 <div class="dropdown-menu">
-					<router-link class="dropdown-item" to="/patientHome">Profile</router-link>
+					<router-link class="dropdown-item" to="/adminProfile">Profile</router-link>
 					<a class="dropdown-item bg-danger text-white" id="admin-profile-logut" v-on:click="logout" href="http://localhost:8081">
                         Logout
                     </a>

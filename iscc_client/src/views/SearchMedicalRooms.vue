@@ -145,10 +145,18 @@
                 }
             },
             deleteRoom: function(room){
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
+                
                 this.axios.delete("http://localhost:8080/medical/room/" + room.id)
                     .then(response => {
                         var index = this.medicalRooms.indexOf(room)
                         this.medicalRooms.splice(index, 1)
+                    })
+                    .catch(error=>{
+                        alert('Cannot delete room due to scheduled appoinments!');
                     })
             },
             bookRoom: function (id) {
@@ -160,7 +168,7 @@
                             if(confirm('Would you like automatically to book room?')) {
                                 this.axios.put("http://localhost:8080/medical/procedure/auto/book/" + this.procedureId)
                                     .then(response => {
-                                        this.$router.push("/adminHome")
+                                        this.$router.push("/clinicAdministratorHome")
                                     })
                             }
                         })

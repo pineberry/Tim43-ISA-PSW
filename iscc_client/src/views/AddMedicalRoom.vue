@@ -32,6 +32,12 @@
         },
         methods: {
             addMedicalRoom: function(){
+
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
+
                 var medicalRoom = {
                     "roomName": this.roomName,
                     "roomNumber": this.roomNumber,

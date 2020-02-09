@@ -2,6 +2,8 @@ package isapsw.tim43.ISCC.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 

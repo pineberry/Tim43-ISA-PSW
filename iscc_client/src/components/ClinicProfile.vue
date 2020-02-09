@@ -5,7 +5,6 @@
             <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 2}" v-on:click="tab = 2">Medical Rooms</a></li>
             <li class="nav-item" ><a class="nav-link tabic" v-bind:class="{active: tab === 3}" v-on:click="tab = 3">Doctors</a></li>
             <li class="nav-item"><a class="nav-link tabic" v-bind:class="{active: tab === 4}" v-on:click="tab = 4">Pricelist</a></li>
-            <li class="nav-item"><a class="nav-link tabic" v-bind:class="{active: tab === 5}" v-on:click="tab = 5">Free appointments</a></li>
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 1}">
@@ -62,8 +61,6 @@
             <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 4}">
                 <SearchProcedureTypes/>
             </div>
-            <div role="tabpanel" class="tab-pane" v-bind:class="{active: tab === 5}">
-            </div>
         </div>
     </div>
 </template>
@@ -118,6 +115,10 @@
         },
         methods: {
             remove: function(doc) {
+                if(localStorage.getItem("typeOfUser") != "clinicAdministrator") {
+                    alert('Only clinic admin has permission for this action!');
+                    return;
+                }
                 this.axios.delete("http://localhost:8080/doctor/" + doc.id)
                     .then(response => {
                         let index = this.doctors.indexOf(doc);
