@@ -29,6 +29,7 @@ import isapsw.tim43.ISCC.dto.MedicalProcedureDTO;
 import isapsw.tim43.ISCC.model.Doctor;
 import isapsw.tim43.ISCC.model.MedicalProcedure;
 import isapsw.tim43.ISCC.model.MedicalRoom;
+import isapsw.tim43.ISCC.model.Patient;
 import isapsw.tim43.ISCC.repository.MedicalProcedureRepository;
 
 @RunWith(SpringRunner.class)
@@ -38,8 +39,6 @@ public class MedicalProcedureServiceTest {
 	@SpyBean
 	private MedicalProcedureService medicalProcedureService;
 	
-	@MockBean
-	MedicalProcedureService medicalProcedureServiceMock;
 	
 	@MockBean
 	private MedicalRoomService medicalRoomService;
@@ -109,7 +108,13 @@ public class MedicalProcedureServiceTest {
 				MEDICAL_PROCEDURE_END_TIME, new ArrayList<Doctor>(), MEDICAL_PROCEDURE_BOOKED,
 				MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
 		
-		when(medicalProcedureServiceMock.findOne(MEDICAL_PROCEDURE_ID)).thenReturn(mp);
+		
+		Patient patient = new Patient(PATIENT_ID, PATIENT_EMAIL, PATIENT_PASSWORD, PATIENT_FIRST_NAME, PATIENT_LAST_NAME, PATIENT_ADDRESS, 
+					PATIENT_CITY, PATIENT_STATE, PATIENT_PHONE_NUMBER, PATIENT_HEALTH_CARE_NUMBER, PATIENT_STATUS, PATIENT_MEDICAL_RECORD);
+		
+		Mockito.doReturn(mp).when(medicalProcedureService).findOne(MEDICAL_PROCEDURE_ID);
+		when(patientService.findById(PATIENT_ID)).thenReturn(patient);
+		when(medicalProcedureRepository.save(mp)).thenReturn(mp);
 		
 		String emailContent = "Dear " + PATIENT_FIRST_NAME + " "
         		+ PATIENT_LAST_NAME + ",\nYour appointment has been scheduled for "
@@ -125,6 +130,7 @@ public class MedicalProcedureServiceTest {
 		assertNotNull(result);
 	}
 	
+	@Test
 	public void autoBookRoomSuccess() {
 		MedicalProcedure medicalProcedure = new MedicalProcedure(MEDICAL_PROCEDURE_ID, MEDICAL_PROCEDURE_TYPE, MEDICAL_PROCEDURE_DATE, null,
 				MEDICAL_PROCEDURE_DOCTOR, MEDICAL_PROCEDURE_PATIENT, MEDICAL_PROCEDURE_DISCOUNT, MEDICAL_PROCEDURE_BOOKED, MEDICAL_PROCEDURE_DOCTOR_RATED, MEDICAL_PROCEDURE_CLINIC_RATED);
