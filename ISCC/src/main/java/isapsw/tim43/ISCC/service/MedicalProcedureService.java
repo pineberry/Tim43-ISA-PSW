@@ -268,6 +268,7 @@ public class MedicalProcedureService {
 		return getPatientsProcedures(procedure.getPatient().getId());
 	}
 
+	@Transactional
 	public List<MedicalProcedureDTO> denyAppointment(Long procedureID, Long patientID) {
 		medicalProcedureRepository.deleteById(procedureID);
 		return getPatientsProcedures(patientID);
