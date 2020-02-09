@@ -5,18 +5,18 @@
 				<div class="row">
 					<div class="col-6">
 						<div class="form-group m-0">
-							<label class="m-0" for="date"><small>Date</small></label>
-							<input type="date" :min="today" class="form-control" id="date" v-model="date">
+							<label class="m-0" for="search-clinic-doctor-date"><small>Date</small></label>
+							<input type="date" :min="today" class="form-control" id="search-clinic-doctor-date" v-model="date">
 						</div>
 						<div v-if="searchAdvancedF == true" class="form-group m-0">
 							<label class="m-0" for="location"><small>Location</small></label>
-							<input type="text" class="form-control" id="location" v-model="location">
+							<input type="text" class="form-control" id="search-clinic-doctor-location" v-model="location">
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="form-group m-0">
 							<label class="m-0" for="typeOfProcedure"><small>Specialization</small></label>
-							<select id="typeOfProcedure" class="form-control" v-model="typeOfProcedure">
+							<select id="search-clinic-doctor-typeOfProcedure" class="form-control" v-model="typeOfProcedure">
 								<option v-for="procedure in procedureTypes" :key="procedure.id" :value="procedure">{{procedure.typeName}}</option>
 							</select>
 						</div>
@@ -33,7 +33,7 @@
 					<div v-if="searchAdvancedF == false">
 						<a class="ml-2 m-1" v-on:click="showSearch" href="#"><img class="small_img" src="../images/down-button.svg" alt="Advanced"></a>
 					</div>
-					<button type="submit" class="btn btn-primary mb-2">Search</button>
+					<button type="submit" class="btn btn-primary mb-2" id="search-clinic-doctor-btn-search">Search</button>
 				</div>
 			</form>
 		</div>
@@ -46,7 +46,7 @@
 					<hr class="my-1">
 					<div class="collapse" :id="'show'+clinic.id" data-parent="#clinics">
 						<p>Available doctors:</p>
-						<div class="row m-1">
+						<div class="row m-1" id="search-clinic-doctor-available-doctors">
 							<div class="card border-primary p-2 w-025 mr-1 " v-for="doctor in filteredDoctors(clinic.id)" :key="doctor.id">
 								<div class="row justify-content-center">
 									<div class="col-6">
