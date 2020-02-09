@@ -51,44 +51,44 @@ class MedicalProcedureControllerTest {
 	@InjectMocks
 	MedicalProcedureController medicalProcedureController;
 	
-	@Mock
-	PatientService patientService;
-	
-	@Mock
-	PatientRepository patientRepository;
-
-	@Mock
-	DoctorService doctorService;
-	
-	@Mock
-	DoctorRepository doctorRepository;
-
-	@Mock
-	MedicalRoomService medicalRoomService;
-	
-	@Mock
-	MedicalRoomRepository medicalRoomRepository;
-	
-	@Mock
-	MedicalProcedureRepository medicalProcedureRepository;
-
+//	@Mock
+//	PatientService patientService;
+//	
+//	@Mock
+//	PatientRepository patientRepository;
+//
+//	@Mock
+//	DoctorService doctorService;
+//	
+//	@Mock
+//	DoctorRepository doctorRepository;
+//
+//	@Mock
+//	MedicalRoomService medicalRoomService;
+//	
+//	@Mock
+//	MedicalRoomRepository medicalRoomRepository;
+//	
+//	@Mock
+//	MedicalProcedureRepository medicalProcedureRepository;
+//
 	@Mock
     MedicalProcedureService medicalProcedureService;
-	
-	@Mock
-	EmailService emailService;
-	
-	@Mock
-	ProcedureTypeService procedureTypeService;
-	
-	@Mock
-	ProcedureTypeRepository procedureTypeRepository;
-	
-	@Mock
-    ClinicAdministratorService clinicAdministratorService;
-	
-	@Mock
-    ClinicAdministratorRepository clinicAdministratorRepository;
+//	
+//	@Mock
+//	EmailService emailService;
+//	
+//	@Mock
+//	ProcedureTypeService procedureTypeService;
+//	
+//	@Mock
+//	ProcedureTypeRepository procedureTypeRepository;
+//	
+//	@Mock
+//    ClinicAdministratorService clinicAdministratorService;
+//	
+//	@Mock
+//    ClinicAdministratorRepository clinicAdministratorRepository;
 	
 	@Test
 	void testConfirmPredefinedAppointment_successful() throws MailException, InterruptedException {

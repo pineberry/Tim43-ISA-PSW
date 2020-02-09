@@ -51,42 +51,42 @@ class PatientControllerTest {
 
 	@Mock
 	PatientService patientService;
-	
-	@Mock
-	PatientRepository patientRepository;
-
+//	
+//	@Mock
+//	PatientRepository patientRepository;
+//
 	@Mock
 	DoctorService doctorService;
-	
-	@Mock
-	DoctorRepository doctorRepository;
-
+//	
+//	@Mock
+//	DoctorRepository doctorRepository;
+//
 	@Mock
 	MedicalRoomService medicalRoomService;
-	
-	@Mock
-	MedicalRoomRepository medicalRoomRepository;
-	
-	@Mock
-	MedicalProcedureRepository medicalProcedureRepository;
-
-	@Mock
-    MedicalProcedureService medicalProcedureService;
-	
-	@Mock
-	EmailService emailService;
-	
-	@Mock
-	ProcedureTypeService procedureTypeService;
-	
-	@Mock
-	ProcedureTypeRepository procedureTypeRepository;
-	
-	@Mock
-    ClinicAdministratorService clinicAdministratorService;
-	
-	@Mock
-    ClinicAdministratorRepository clinicAdministratorRepository;
+//	
+//	@Mock
+//	MedicalRoomRepository medicalRoomRepository;
+//	
+//	@Mock
+//	MedicalProcedureRepository medicalProcedureRepository;
+//
+//	@Mock
+//    MedicalProcedureService medicalProcedureService;
+//	
+//	@Mock
+//	EmailService emailService;
+//	
+//	@Mock
+//	ProcedureTypeService procedureTypeService;
+//	
+//	@Mock
+//	ProcedureTypeRepository procedureTypeRepository;
+//	
+//	@Mock
+//    ClinicAdministratorService clinicAdministratorService;
+//	
+//	@Mock
+//    ClinicAdministratorRepository clinicAdministratorRepository;
 
 	
 
